@@ -1,0 +1,229 @@
+openapi: 3.0.1
+info:
+  title: Shwoop Adventure App
+  description: "This is the backend for the Shwoop University of Auckland Adventure App"
+  version: 1.0.0
+paths:
+  # /maps:
+  #   get:
+  #     summary: "Gets all available maps"
+  #     operationId: get_maps
+  #     responses:
+  #       200:
+  #         description: "successful operation"
+  #         content:
+  #           application/json:
+  #             schema:
+  #               type: array
+  #               items:
+  #                 $ref: '#/components/schemas/Map'
+  /maps/{map}:
+    get:
+      summary: "Gets information about a particular map"
+      operationId: get_map
+      parameters:
+      - name: map
+        in: path
+        description: "Name of map to get"
+        schema:
+          type: string
+        required: true
+      responses:
+        200:
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Map'
+        404:
+          description: "map not found"
+          content: {}
+  /maps/{map}/beacons:
+    get:
+      summary: "Gets all beacons for the given map"
+      operationId: get_beacons
+      parameters:
+      - name: map
+        in: path
+        description: "Name of map to get"
+        schema:
+          type: string
+        required: true
+      responses:
+        200:
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Beacon'
+  # Puzzle endpoints here are up for change, i.e. could be under user instead
+  /puzzles:
+    post:
+      summary: "Create a new puzzle"
+      operationId: create_puzzle
+      parameters:
+      - name: beacon
+        in: query
+        description: "Beacon that the puzzle was created from"
+        schema:
+          type: string
+      responses:
+        201:
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Puzzle'
+        404:
+          description: "beacon not found"
+          content: {}
+  /puzzles/{puzzle_id}:
+    post:
+      summary: "Attempt to solve a puzzle"
+      operationId: solve_puzzle
+      parameters:
+      - name: puzzle_id
+        in: path
+        description: "The puzzle id of the puzzle being solved"
+        schema:
+          type: string
+        required: true
+      requestBody:
+        description: "Contains the beacon of the guessed solution"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                beacon_id:
+                  type: string
+      responses:
+        201:
+          description: "Successfully solved puzzle"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  prize:
+                    $ref: '#/components/schemas/Reward'
+        # Should this be a 200 code or a 400 code?
+        204:
+          description: "Did not solve puzzle"
+          content: {}
+  /users/{user}/prizes:
+    get:
+      summary: "Get previously claimed prizes"
+      operationId: get_prizes
+      parameters:
+      - name: user
+        in: path
+        description: "The user requesting prizes"
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Prize'
+    post:
+      summary: "Claim a prize"
+      operationId: claim_prize
+      parameters:
+      - name: user
+        in: path
+        description: "The user requesting prizes"
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: "The prize that the user wants"
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Prize'
+        required: false
+      responses:
+        201:
+          description: "A prize was created"
+          content: {}
+        402:
+          description: "Not enough points to claim the prize"
+          content: {}
+        403:
+          description: "User is unable to claim given prize at this time"
+          content: {}
+        404:
+          description: "Prize was not found"
+          content: {}
+components:
+  schemas:
+    Map:
+      type: object
+      properties:
+        url:
+          type: string
+          description: "Url of the map image"
+        top_left:
+          $ref: '#/components/schemas/Coordinate'
+        bottom_right:
+          $ref: '#/components/schemas/Coordinate'
+    Puzzle:
+      type: object
+      properties:
+        id:
+          type: object
+          description: "The id of the puzzle"
+        text:
+          type: string
+          description: "Text of the puzzle"
+        image_url:
+          type: string
+          description: "Url of an image related to the puzzle"
+    Beacon:
+      type: object
+      properties:
+        id:
+          type: object
+          description: Unique id
+        location:
+          $ref: '#/components/schemas/Coordinate'
+        name:
+          type: string
+          description: "Name for debug purposes"
+    Reward:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - 'points'
+        points:
+          description: "Number of points recieved. Only present if type is 'points'"
+          type: integer
+          nullable: true
+    Prize:
+      type: object
+      properties:
+        type:
+          type: string
+    Coordinate:
+      type: object
+      properties:
+        latitude:
+          type: number
+          format: double
+          maximum: 180
+          minimum: -180
+        longitude:
+          type: number
+          format: double
+          maximum: 180
+          minimum: -180

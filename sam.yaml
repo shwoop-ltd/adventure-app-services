@@ -1,0 +1,58 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Resources:
+  Api:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: alpha
+      Name: Adventure-App
+      DefinitionUri: ./api-gateway/openapi.yaml
+  Table:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      TableName: Adventure-App
+      PrimaryKey:
+        Name: id
+        Type: String
+      ProvisionedThroughput:
+        WriteCapacityUnits: 5
+        ReadCapacityUnits: 5
+      Tags:
+        AppType: Serverless
+  GetMap:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.handler
+      Runtime: nodejs10.x
+      CodeUri: ./lambda/get-map/
+      # TODO: Environment table-name spec
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /maps/{map}
+            Method: get
+  GetBeacons:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.handler
+      Runtime: nodejs10.x
+      CodeUri: ./lambda/get-beacons/
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /maps/{map}/beacons
+            Method: get
+  CreatePuzzle:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.handler
+      Runtime: nodejs10.x
+      CodeUri: ./lambda/create-puzzle/
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /puzzles
+            Method: post

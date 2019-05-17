@@ -1,0 +1,126 @@
+[
+  {
+    "id": "B-university_of_auckland",
+    "last-update": 0,
+    "beacons": [
+      {
+        "id": "0",
+        "name": "symonds st. entrance",
+        "location": {
+          "latitude": -36.851614,
+          "longitude": 174.77037
+        }
+      },
+      {
+        "id": "1",
+        "name": "arts forum stairs",
+        "location": {
+          "latitude": -36.851783,
+          "longitude": 174.770869
+        }
+      },
+      {
+        "id": "2",
+        "name": "oggb lawn",
+        "location": {
+          "latitude": -36.852794,
+          "longitude": 174.771457
+        }
+      },
+      {
+        "id": "3",
+        "name": "music patio",
+        "location": {
+          "latitude": -36.851016,
+          "longitude": 174.771965
+        }
+      }
+    ]
+  },
+  {
+    "id": "B-victory_convention",
+    "last-update": 0,
+    "beacons": [
+      {
+        "id": "1000",
+        "name": "The roll up/down curtain at end of expo room",
+        "location": {
+          "latitude": -36.845020,
+          "longitude": 174.751100
+        }
+      },
+      {
+        "id": "1001",
+        "name": "Hand Rail When Entering Theatre",
+        "location": {
+          "latitude": -36.845000,
+          "longitude": 174.751200
+        }
+      },
+      {
+        "id": "1002",
+        "name": "Rubbish Bin Main Foyer",
+        "location": {
+          "latitude": -36.845020,
+          "longitude": 174.751100
+        }
+      },
+      {
+        "id": "1003",
+        "name": "Underneath information desk",
+        "location": {
+          "latitude": -36.845980,
+          "longitude": 174.751150
+        }
+      },
+      {
+        "id": "1004",
+        "name": "Information desk laminated sign",
+        "location": {
+          "latitude": -36.845020,
+          "longitude": 174.751100
+        }
+      },
+      {
+        "id": "1005",
+        "name": "The laminated map sign",
+        "location": {
+          "latitude": -36.845020,
+          "longitude": 174.751100
+        }
+      },
+      {
+        "id": "1006",
+        "name": "Water cooler",
+        "location": {
+          "latitude": -36.845020,
+          "longitude": 174.751100
+        }
+      },
+      {
+        "id": "1007",
+        "name": "Table",
+        "location": {
+          "latitude": -36.845020,
+          "longitude": 174.751100
+        }
+      },
+      {
+        "id": "1008",
+        "name": "Speakers",
+        "location": {
+          "latitude": -36.845020,
+          "longitude": 174.751100
+        }
+      },
+      {
+        "id": "1009",
+        "name": "Piano",
+        "location": {
+          "latitude": -36.845020,
+          "longitude": 174.751100
+        }
+      }
+    ]
+  }
+]

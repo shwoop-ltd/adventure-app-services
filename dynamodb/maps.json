@@ -1,0 +1,26 @@
+[
+  {
+    "id": "victory_convention",
+    "top_left": {
+      "latitude": -36.844584,
+      "longitude": 174.75058
+    },
+    "bottom_right": {
+      "latitude": -36.845419,
+      "longitude": 174.751308
+    },
+    "image_url": "https://s3-ap-southeast-2.amazonaws.com/uoa-bs-maps/VicMap.png"
+  },
+  {
+    "id": "university_of_auckland",
+    "top_left": {
+      "latitude": -36.850247,
+      "longitude": 174.769726
+    },
+    "bottom_right": {
+      "latitude": -36.853451,
+      "longitude": 174.772401
+    },
+    "image_url": "https://s3-ap-southeast-2.amazonaws.com/uoa-bs-maps/UniversityOfAuckland.png"
+  }
+]
