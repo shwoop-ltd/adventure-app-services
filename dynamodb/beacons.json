@@ -45,80 +45,80 @@
         "id": "1000",
         "name": "The roll up/down curtain at end of expo room",
         "location": {
-          "latitude": -36.845020,
-          "longitude": 174.751100
+          "latitude": -36.844672,
+          "longitude": 174.751030
         }
       },
       {
         "id": "1001",
         "name": "Hand Rail When Entering Theatre",
         "location": {
-          "latitude": -36.845000,
-          "longitude": 174.751200
+          "latitude": -36.845020,
+          "longitude": 174.751100
         }
       },
       {
         "id": "1002",
         "name": "Rubbish Bin Main Foyer",
         "location": {
-          "latitude": -36.845020,
-          "longitude": 174.751100
+          "latitude": -36.844930,
+          "longitude": 174.751240
         }
       },
       {
         "id": "1003",
         "name": "Underneath information desk",
         "location": {
-          "latitude": -36.845980,
-          "longitude": 174.751150
+          "latitude": -36.845020,
+          "longitude": 174.751180
         }
       },
       {
         "id": "1004",
         "name": "Information desk laminated sign",
         "location": {
-          "latitude": -36.845020,
-          "longitude": 174.751100
+          "latitude": -36.844950,
+          "longitude": 174.751155
         }
       },
       {
         "id": "1005",
         "name": "The laminated map sign",
         "location": {
-          "latitude": -36.845020,
-          "longitude": 174.751100
+          "latitude": -36.8450000,
+          "longitude": 174.751235
         }
       },
       {
         "id": "1006",
         "name": "Water cooler",
         "location": {
-          "latitude": -36.845020,
-          "longitude": 174.751100
+          "latitude": -36.844900,
+          "longitude": 174.751175
         }
       },
       {
         "id": "1007",
         "name": "Table",
         "location": {
-          "latitude": -36.845020,
-          "longitude": 174.751100
+          "latitude": -36.844787,
+          "longitude": 174.751145
         }
       },
       {
         "id": "1008",
         "name": "Speakers",
         "location": {
-          "latitude": -36.845020,
-          "longitude": 174.751100
+          "latitude": -36.845054,
+          "longitude": 174.750715
         }
       },
       {
         "id": "1009",
         "name": "Piano",
         "location": {
-          "latitude": -36.845020,
-          "longitude": 174.751100
+          "latitude": -36.844750,
+          "longitude": 174.750900
         }
       }
     ]

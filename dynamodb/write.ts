@@ -19,8 +19,8 @@ async function run() {
     await doc_client.put({ TableName: 'AdventureApp', Item: beacon }).promise();
   for(const map of maps)
     await doc_client.put({ TableName: 'AdventureApp', Item: map }).promise();
-  for(const puzzle of puzzles)
-    await doc_client.put({ TableName: 'AdventureApp', Item: puzzle }).promise();
+  // for(const puzzle of puzzles)
+  //   await doc_client.put({ TableName: 'AdventureApp', Item: puzzle }).promise();
 }
 
 run().then(() => console.log("Finished")).catch(e => console.error(e));
