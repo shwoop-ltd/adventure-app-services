@@ -1,0 +1,177 @@
+{
+  "type": "array",
+  "items": {
+    "type": "object",
+    "oneOf": [
+      {
+        "description": "General information about maps",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^maps$"
+          },
+          "maps": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "top_left": {
+                  "$ref": "#/definitions/location"
+                },
+                "bottom_right": {
+                  "$ref": "#/definitions/location"
+                },
+                "image_url": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              },
+              "required": ["name", "top_left", "bottom_right", "image_url"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": ["id", "maps"],
+        "additionalProperties": false
+      },
+      {
+        "description": "Detailed information about the map",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^map-(.*)$"
+          },
+          "last-update": {
+            "description": "The time at which this array was last updated",
+            "type": "integer"
+          },
+          "markers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "description": "Textual about the marker position, for debug usage",
+                  "type": "string",
+                  "default": ""
+                },
+                "location": {
+                  "$ref": "#/definitions/location"
+                }
+              },
+              "required": ["id", "location"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": ["id", "last-update", "markers"],
+        "additionalProperties": false
+      },
+      {
+        "description": "A puzzle for a given beacon",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^puzzle-(.*)$"
+          },
+          "solution": {
+            "description": "The id of the beacon that is the solution to this puzzle",
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "image_url": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "required": ["id", "solution"],
+        "anyOf": [{ "required": ["text"] }, { "required": ["image_url"] }],
+        "additionalProperties": false
+      },
+      {
+        "description": "Information about a beacon",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^beacon-(.*)$"
+          },
+          "location": {
+            "$ref": "#/definitions/location"
+          }
+        },
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "beacon_type": {
+                "type": "string",
+                "enum": ["marker"]
+              },
+              "marker": {
+                "type": "integer"
+              }
+            },
+            "required": ["beacon_type", "marker"]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "beacon_type": {
+                "type": "string",
+                "enum": ["treasure"]
+              },
+              "treasure_information": {
+                "description": "TODO: THIS",
+                "type": "string"
+              }
+            },
+            "required": ["beacon_type"]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "beacon_type": {
+                "type": "string",
+                "enum": ["hidden"]
+              }
+            },
+            "required": ["beacon_type"]
+          }
+        ],
+        "required": ["id", "beacon_type"]
+      }
+    ]
+  },
+  "definitions": {
+    "location": {
+      "type": "object",
+      "properties": {
+        "latitude": {
+          "type": "number",
+          "format": "double",
+          "minimum": -180,
+          "maximum": 180
+        },
+        "longitude": {
+          "type": "number",
+          "format": "double",
+          "minimum": -180,
+          "maximum": 180
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

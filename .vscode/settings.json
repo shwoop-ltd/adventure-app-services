@@ -1,0 +1,17 @@
+{
+  "json.schemas": [
+    {
+      "fileMatch": [
+        "dynamodb/beacons.json",
+        "dynamodb/maps.json",
+        "dynamodb/puzzles.json",
+        "dynamodb/map-info.json"
+      ],
+      "url": "./dynamodb/db.schema.json"
+    }
+  ],
+  "files.exclude": {
+    "**/lambda/.pack": true,
+    "**/lambda/.build": true,
+  }
+}

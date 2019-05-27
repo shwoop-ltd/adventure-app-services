@@ -4,48 +4,27 @@ info:
   description: "This is the backend for the Shwoop University of Auckland Adventure App"
   version: 1.0.0
 paths:
-  # /maps:
-  #   get:
-  #     summary: "Gets all available maps"
-  #     operationId: get_maps
-  #     responses:
-  #       200:
-  #         description: "successful operation"
-  #         content:
-  #           application/json:
-  #             schema:
-  #               type: array
-  #               items:
-  #                 $ref: '#/components/schemas/Map'
-  /maps/{map}:
+  /maps:
     get:
-      summary: "Gets information about a particular map"
-      operationId: get_map
-      parameters:
-      - name: map
-        in: path
-        description: "Name of map to get"
-        schema:
-          type: string
-        required: true
+      summary: "Gets all available maps"
+      operationId: get_maps
       responses:
         200:
           description: "successful operation"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Map'
-        404:
-          description: "map not found"
-          content: {}
-  /maps/{map}/beacons:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Map'
+  /maps/{map}:
     get:
-      summary: "Gets all beacons for the given map"
-      operationId: get_beacons
+      summary: "Gets all markers for the given map"
+      operationId: get_map
       parameters:
       - name: map
         in: path
-        description: "Name of map to get"
+        description: "Name of map"
         schema:
           type: string
         required: true
@@ -57,18 +36,57 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Beacon'
-  # Puzzle endpoints here are up for change, i.e. could be under user instead
-  /puzzles:
-    post:
-      summary: "Create a new puzzle"
-      operationId: create_puzzle
+                  $ref: '#/components/schemas/Marker'
+        404:
+          description: "map not found"
+  /maps/{map}/beacons/{beacon}:
+    get:
+      summary: "Attempts to get information about the given beacon"
+      operationId: get_beacon
       parameters:
-      - name: beacon
-        in: query
-        description: "Beacon that the puzzle was created from"
+      - name: map
+        in: path
+        description: "Name of map"
         schema:
           type: string
+        required: true
+      - name: beacon
+        in: path
+        description: "ID of the beacon"
+        schema:
+          type: string
+        required: true
+      responses:
+        200:
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Beacon'
+        404:
+          description: "map or beacon not found"
+
+  # TODO: Decide whether to put this under {user} or under {map}, whether to make a new resource under an endpoint, etc.
+  /maps/{map}/challenge:
+    post:
+      summary: "Start a new challenge"
+      operationId: start_challenge
+      parameters:
+      - name: map
+        in: query
+        description: "The current map"
+        schema:
+          type: string
+        required: true
+      - name: beacon
+        in: query
+        description: "Beacon that the challenge was started from"
+        schema:
+          type: string
+        required: true
+      # TODO: Require user credentials via this?
+      # security:
+      #   - User: []
       responses:
         201:
           description: "successful operation"
@@ -77,16 +95,47 @@ paths:
               schema:
                 $ref: '#/components/schemas/Puzzle'
         404:
-          description: "beacon not found"
+          description: "map or beacon not found"
           content: {}
-  /puzzles/{puzzle_id}:
-    post:
-      summary: "Attempt to solve a puzzle"
-      operationId: solve_puzzle
+    delete:
+      summary: "Stop a challenge"
+      operationId: stop_challenge
       parameters:
-      - name: puzzle_id
-        in: path
-        description: "The puzzle id of the puzzle being solved"
+      - name: map
+        in: query
+        description: "The current map"
+        schema:
+          type: string
+        required: true
+      - name: challenge
+        in: query
+        description: "The id of the challenge being completed"
+        schema:
+          type: string
+        required: true
+      # TODO: Require user credentials via this?
+      # security:
+      #   - User: []
+      responses:
+        204:
+          description: "successful operation"
+        404:
+          description: "map or beacon not found, or challenge not started"
+          content: {}
+  /maps/{map}/challenge/finish:
+    post:
+      summary: "Attempt to complete a challenge"
+      operationId: finish_challenge
+      parameters:
+      - name: map
+        in: query
+        description: "The current map"
+        schema:
+          type: string
+        required: true
+      - name: challenge
+        in: query
+        description: "The id of the challenge being completed"
         schema:
           type: string
         required: true
@@ -100,7 +149,7 @@ paths:
                 beacon_id:
                   type: string
       responses:
-        201:
+        200:
           description: "Successfully solved puzzle"
           content:
             application/json:
@@ -109,10 +158,17 @@ paths:
                 properties:
                   prize:
                     $ref: '#/components/schemas/Reward'
-        # Should this be a 200 code or a 400 code?
-        204:
+        204: # This or a 400 code?
           description: "Did not solve puzzle"
           content: {}
+        400:
+          description: "Input body incorrect. Need a valid beacon_id"
+          content: {}
+        404:
+          description: "map not found, or challenge not started"
+          content: {}
+
+  # User stuff
   /users/{user}/prizes:
     get:
       summary: "Get previously claimed prizes"
@@ -164,6 +220,13 @@ paths:
           description: "Prize was not found"
           content: {}
 components:
+  securitySchemes:
+    User:
+      type: http
+      scheme: basic
+    Admin:
+      type: http
+      scheme: basic
   schemas:
     Map:
       type: object
@@ -187,17 +250,49 @@ components:
         image_url:
           type: string
           description: "Url of an image related to the puzzle"
-    Beacon:
+    Marker:
       type: object
       properties:
         id:
-          type: object
+          type: integer
           description: Unique id
         location:
           $ref: '#/components/schemas/Coordinate'
         name:
           type: string
           description: "Name for debug purposes"
+          nullable: true
+    Beacon:
+      type: object
+      properties:
+        location:
+          $ref: '#/components/schemas/Coordinate'
+      oneOf:
+      - type: object
+        properties:
+          beacon_type:
+            type: string
+            enum:
+              - marker
+          marker:
+            type: integer
+      - type: object
+        properties:
+          beacon_type:
+            type: string
+            enum:
+              - treasure
+          request_code:
+            description: 'NOTE: This code is used to acquire a redemption code,
+            and is not itself a redemption code. Thus this code could go unused,
+            or be handed out to multiple users'
+            type: string
+      - type: object
+        properties:
+          beacon_type:
+            type: string
+            enum:
+              - hidden
     Reward:
       type: object
       properties:

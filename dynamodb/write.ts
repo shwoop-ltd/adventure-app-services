@@ -5,22 +5,27 @@
 import * as AWS from 'aws-sdk';
 
 import beacons from './beacons.json';
+import marker_sets from './map-info.json';
 import maps from './maps.json';
 import puzzles from './puzzles.json';
 
 // Setup creds
 AWS.config.credentials = new AWS.SharedIniFileCredentials({ profile: 'shwoop' });
-const doc_client = new AWS.DynamoDB.DocumentClient({region: 'ap-southeast-2'});
+const doc_client = new AWS.DynamoDB.DocumentClient({ region: 'ap-southeast-2' });
 
 async function run() {
   // TODO: Clear db first
 
-  for(const beacon of beacons)
-    await doc_client.put({ TableName: 'AdventureApp', Item: beacon }).promise();
+  // TODO: Group into one call
+
+  for(const marker_set of marker_sets)
+    await doc_client.put({ TableName: 'AdventureApp', Item: marker_set }).promise();
   for(const map of maps)
     await doc_client.put({ TableName: 'AdventureApp', Item: map }).promise();
-  // for(const puzzle of puzzles)
-  //   await doc_client.put({ TableName: 'AdventureApp', Item: puzzle }).promise();
+  for(const puzzle of puzzles)
+     await doc_client.put({ TableName: 'AdventureApp', Item: puzzle }).promise();
+  for(const beacon of beacons)
+    await doc_client.put({ TableName: 'AdventureApp', Item: beacon }).promise();
 }
 
 run().then(() => console.log("Finished")).catch(e => console.error(e));
