@@ -65,6 +65,11 @@
                 },
                 "location": {
                   "$ref": "#/definitions/location"
+                },
+                "open": {
+                  "description": "Whether a beacon is required to use this marker",
+                  "type": "boolean",
+                  "default": "true"
                 }
               },
               "required": ["id", "location"],

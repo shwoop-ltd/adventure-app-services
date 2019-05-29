@@ -16,7 +16,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Map'
+                  $ref: '#/components/schemas/MapSummary'
   /maps/{map}:
     get:
       summary: "Gets all markers for the given map"
@@ -34,9 +34,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Marker'
+                $ref: '#/components/schemas/Map'
         404:
           description: "map not found"
   /maps/{map}/beacons/{beacon}:
@@ -83,7 +81,13 @@ paths:
         description: "Beacon that the challenge was started from"
         schema:
           type: string
-        required: true
+        required: false
+      - name: marker
+        in: query
+        description: "Marker the challenge was started from"
+        schema:
+          type: number
+        required: false
       # TODO: Require user credentials via this?
       # security:
       #   - User: []
@@ -228,7 +232,7 @@ components:
       type: http
       scheme: basic
   schemas:
-    Map:
+    MapSummary:
       type: object
       properties:
         url:
@@ -238,6 +242,13 @@ components:
           $ref: '#/components/schemas/Coordinate'
         bottom_right:
           $ref: '#/components/schemas/Coordinate'
+    Map:
+      type: object
+      properties:
+        markers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Marker'
     Puzzle:
       type: object
       properties:
@@ -258,6 +269,9 @@ components:
           description: Unique id
         location:
           $ref: '#/components/schemas/Coordinate'
+        requires_bluetooth:
+          type: bool
+          description: Whether the marker requires a connection to bluetooth
         name:
           type: string
           description: "Name for debug purposes"

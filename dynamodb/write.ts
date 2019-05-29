@@ -14,18 +14,22 @@ AWS.config.credentials = new AWS.SharedIniFileCredentials({ profile: 'shwoop' })
 const doc_client = new AWS.DynamoDB.DocumentClient({ region: 'ap-southeast-2' });
 
 async function run() {
-  // TODO: Clear db first
+  if(process.argv.includes('--clear')) {} // TODO:
 
   // TODO: Group into one call
+  const items = [
+    ...marker_sets,
+    ...maps,
+    ...puzzles,
+    ...beacons,
+  ];
 
-  for(const marker_set of marker_sets)
-    await doc_client.put({ TableName: 'AdventureApp', Item: marker_set }).promise();
-  for(const map of maps)
-    await doc_client.put({ TableName: 'AdventureApp', Item: map }).promise();
-  for(const puzzle of puzzles)
-     await doc_client.put({ TableName: 'AdventureApp', Item: puzzle }).promise();
-  for(const beacon of beacons)
-    await doc_client.put({ TableName: 'AdventureApp', Item: beacon }).promise();
+  const result = await doc_client.batchWrite({
+    RequestItems: {
+      AdventureApp: items.map(item => ({ PutRequest: { Item: item } })),
+    },
+  }).promise();
+  console.log(result);
 }
 
-run().then(() => console.log("Finished")).catch(e => console.error(e));
+run().catch(e => console.error(e));

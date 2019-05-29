@@ -1,0 +1,99 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Resources:
+  AdventureApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: alpha
+      Name: Adventure-App
+      DefinitionUri: ./api-gateway/openapi.yaml
+  AdventureTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      TableName: Adventure-App
+      PrimaryKey:
+        Name: id
+        Type: String
+      ProvisionedThroughput:
+        WriteCapacityUnits: 5
+        ReadCapacityUnits: 5
+      Tags:
+        AppType: Serverless
+  GetMaps:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: get-maps.handler
+      Runtime: nodejs10.x
+      CodeUri: ./lambda/functions/
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            RestApiId: !Ref AdventureApi
+            Path: /maps
+            Method: get
+  GetMap:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: get-map.handler
+      Runtime: nodejs10.x
+      CodeUri: ./lambda/functions/
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            RestApiId: !Ref AdventureApi
+            Path: /maps/{map}
+            Method: get
+  GetBeacon:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: get-beacon.handler
+      Runtime: nodejs10.x
+      CodeUri: ./lambda/functions/
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            RestApiId: !Ref AdventureApi
+            Path: /maps/{map}/beacon/{beacon}
+            Method: get
+  StartChallenge:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: start-challenge.handler
+      Runtime: nodejs10.x
+      CodeUri: ./lambda/functions/
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            RestApiId: !Ref AdventureApi
+            Path: /maps/{map}/challenge
+            Method: post
+  StopChallenge:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: stop-challenge.handler
+      Runtime: nodejs10.x
+      CodeUri: ./lambda/functions/
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            RestApiId: !Ref AdventureApi
+            Path: /maps/{map}/challenge
+            Method: delete
+  FinishChallenge:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: finish-challenge.handler
+      Runtime: nodejs10.x
+      CodeUri: ./lambda/functions/
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            RestApiId: !Ref AdventureApi
+            Path: /maps/{map}/beacon/finish
+            Method: post

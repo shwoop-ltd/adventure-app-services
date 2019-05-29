@@ -3,7 +3,7 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from 'aws-lambda
 
 const doc_client = new DynamoDB.DocumentClient({ region: 'ap-southeast-2' });
 
-export default async (event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult> => {
+export async function handler(event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult> {
   if(!event.pathParameters)
     return { statusCode: 400, body: "No path parameters" };
 
@@ -15,5 +15,5 @@ export default async (event: APIGatewayProxyEvent, context: Context): Promise<AP
   if(result.Item)
     return { statusCode: 200, body: JSON.stringify(result.Item) };
   else
-    return { statusCode: 404, body: "", };
-};
+    return { statusCode: 404, body: `Map ${map_name} was not found`, };
+}

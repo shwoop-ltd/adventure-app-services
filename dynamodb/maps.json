@@ -2,18 +2,6 @@
   { "id": "maps",
     "maps": [
       {
-        "name": "victory",
-        "top_left": {
-          "latitude": -36.844619,
-          "longitude": 174.750525
-        },
-        "bottom_right": {
-          "latitude": -36.845427,
-          "longitude": 174.751405
-        },
-        "image_url": "https://s3-ap-southeast-2.amazonaws.com/uoa-bs-maps/VictoryConvention.png"
-      },
-      {
         "name": "uoa",
         "top_left": {
           "latitude": -36.850247,
@@ -24,6 +12,18 @@
           "longitude": 174.772401
         },
         "image_url": "https://s3-ap-southeast-2.amazonaws.com/uoa-bs-maps/UniversityOfAuckland.png"
+      },
+      {
+        "name": "victory",
+        "top_left": {
+          "latitude": -36.844619,
+          "longitude": 174.750525
+        },
+        "bottom_right": {
+          "latitude": -36.845427,
+          "longitude": 174.751405
+        },
+        "image_url": "https://s3-ap-southeast-2.amazonaws.com/uoa-bs-maps/VictoryConvention.png"
       }
     ]
   }
