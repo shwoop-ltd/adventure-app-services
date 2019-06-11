@@ -1,6 +1,4 @@
 - Make package commands
-  - Compile ts through SAM
-  - Test
   - Package
-- Get SAM working
+  - Upload database info
 - Create tests for local SAM
