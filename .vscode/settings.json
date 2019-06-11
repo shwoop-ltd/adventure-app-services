@@ -11,7 +11,5 @@
     }
   ],
   "files.exclude": {
-    "**/lambda/.pack": true,
-    "**/lambda/.build": true,
   }
 }
