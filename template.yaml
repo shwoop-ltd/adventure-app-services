@@ -24,7 +24,7 @@ Resources:
     Properties:
       Handler: get-maps.handler
       Runtime: nodejs10.x
-      CodeUri: ./lambda/functions/
+      CodeUri: ./lambda/.build
       Events:
         Api:
           Type: Api
@@ -37,7 +37,7 @@ Resources:
     Properties:
       Handler: get-map.handler
       Runtime: nodejs10.x
-      CodeUri: ./lambda/functions/
+      CodeUri: ./lambda/.build
       Events:
         Api:
           Type: Api
@@ -50,7 +50,7 @@ Resources:
     Properties:
       Handler: get-beacon.handler
       Runtime: nodejs10.x
-      CodeUri: ./lambda/functions/
+      CodeUri: ./lambda/.build/
       Events:
         Api:
           Type: Api
@@ -63,7 +63,7 @@ Resources:
     Properties:
       Handler: start-challenge.handler
       Runtime: nodejs10.x
-      CodeUri: ./lambda/functions/
+      CodeUri: ./lambda/.build/
       Events:
         Api:
           Type: Api
@@ -76,7 +76,7 @@ Resources:
     Properties:
       Handler: stop-challenge.handler
       Runtime: nodejs10.x
-      CodeUri: ./lambda/functions/
+      CodeUri: ./lambda/.build/
       Events:
         Api:
           Type: Api
@@ -89,7 +89,7 @@ Resources:
     Properties:
       Handler: finish-challenge.handler
       Runtime: nodejs10.x
-      CodeUri: ./lambda/functions/
+      CodeUri: ./lambda/.build/
       Events:
         Api:
           Type: Api

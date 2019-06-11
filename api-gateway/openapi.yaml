@@ -235,7 +235,7 @@ components:
     MapSummary:
       type: object
       properties:
-        url:
+        image_url:
           type: string
           description: "Url of the map image"
         top_left:
@@ -269,13 +269,11 @@ components:
           description: Unique id
         location:
           $ref: '#/components/schemas/Coordinate'
-        requires_bluetooth:
+        open:
           type: bool
-          description: Whether the marker requires a connection to bluetooth
-        name:
-          type: string
-          description: "Name for debug purposes"
-          nullable: true
+          default: false
+          description: Whether the marker requires a connection to bluetooth (if it is open, no connection required)
+          required: false
     Beacon:
       type: object
       properties:
