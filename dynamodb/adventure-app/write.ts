@@ -13,10 +13,20 @@ import puzzles from './puzzles.json';
 AWS.config.credentials = new AWS.SharedIniFileCredentials({ profile: 'shwoop' });
 const doc_client = new AWS.DynamoDB.DocumentClient({ region: 'ap-southeast-2' });
 
+let filter = "";
+const mapIndex = process.argv.indexOf("--map");
+if(mapIndex > 0) {
+  if(process.argv.length <= mapIndex + 1) {
+    console.log("When passing --map, must specify map name after");
+    process.exit(-1);
+  }
+
+  filter = process.argv[mapIndex + 1];
+}
+
 async function run() {
   if(process.argv.includes('--clear')) {} // TODO:
 
-  // TODO: Group into one call
   const items = [
     ...marker_sets,
     ...maps,
@@ -26,9 +36,10 @@ async function run() {
 
   const result = await doc_client.batchWrite({
     RequestItems: {
-      AdventureApp: items.map(item => ({ PutRequest: { Item: item } })),
+      AdventureApp: items.filter(item => item.id.includes(filter)).map(item => ({ PutRequest: { Item: item } })),
     },
   }).promise();
+
   console.log(result);
 }
 

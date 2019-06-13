@@ -16,5 +16,10 @@
   {
     "id": "beacon-uoa-C6:69:D4:6E:B0:03",
     "beacon_type": "hidden"
+  },
+
+  {
+    "id": "beacon-unleash-E8:0B:72:C3:38:D3",
+    "beacon_type": "hidden"
   }
 ]

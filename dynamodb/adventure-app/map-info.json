@@ -40,6 +40,36 @@
     ]
   },
   {
+    "id": "map-unleash",
+    "last-update": 0,
+    "markers": [
+      {
+        "id": 0,
+        "location": {
+          "latitude": -36.852606,
+          "longitude": 174.770000
+        },
+        "open": true
+      },
+      {
+        "id": 1,
+        "location": {
+          "latitude": -36.852680,
+          "longitude": 174.770100
+        },
+        "open": true
+      },
+      {
+        "id": 2,
+        "location": {
+          "latitude": -36.852506,
+          "longitude": 174.770200
+        },
+        "open": true
+      }
+    ]
+  },
+  {
     "id": "map-victory",
     "last-update": 0,
     "markers": [
