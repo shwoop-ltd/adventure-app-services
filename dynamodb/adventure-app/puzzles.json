@@ -1,45 +1,47 @@
 [
   {
-    "id": "puzzle-uoa-beacon-FE:BF:B5:5C:05:CD",
+    "id": "puzzle-uoa-beacon-0000_0000",
     "text": "What do you call the security outside of a Samsung Store?",
     "image_url": "http://www.todayifoundout.com/wp-content/uploads/2017/11/rick-astley-340x252.png",
-    "solution": "Guardians of the Galaxy."
+    "solution_name": "Guardians of the Galaxy."
   },
   {
-    "id": "puzzle-uoa-beacon-E8:0B:72:C3:38:D3",
+    "id": "puzzle-uoa-beacon-0000_0001",
     "text": "Why was the stadium so cold?",
     "image_url": "http://www.todayifoundout.com/wp-content/uploads/2017/11/rick-astley-340x252.png",
-    "solution": "C6:69:D4:6E:B0:03",
-    "punchline": "Because there were a lot of fans."
+    "solution": "0000_0002",
+    "solution_name": "Because there were a lot of fans."
   },
   {
     "id": "puzzle-uoa-marker-2",
     "text": "Why do the French eat snails?",
     "image_url": "http://www.todayifoundout.com/wp-content/uploads/2017/11/rick-astley-340x252.png",
-    "solution": "They don't like fast food."
+    "solution_name": "They don't like fast food."
   },
   {
     "id": "puzzle-uoa-marker-3",
     "text": "What are the strongest days of the week?",
     "image_url": "http://www.todayifoundout.com/wp-content/uploads/2017/11/rick-astley-340x252.png",
-    "solution": "Saturday and Sunday the rest are week days."
+    "solution_name": "Saturday and Sunday the rest are week days."
   },
 
   {
     "id": "puzzle-unleash-marker-0",
     "text": "I give a new meaning to the colour of orange\nAccessing this little duo requires a door hinge\nYou can tell me your ideas if you've hit a wall\nLike knights at a table, ideas are on call\nBut silence sounds, outside my bounds\nMake noise around, inside my grounds",
-    "solution": "E8:0B:72:C3:38:D3",
+    "solution": "0000_0000",
     "solution_name": "PWC Room"
   },
   {
     "id": "puzzle-unleash-marker-1",
     "text": "Build me up and make me snap\nI've got many layers, that's a fact\nAdding to that, is what I do\nPiecing together is free from glue\nI give all the dimensions\nFor creators inventions\nI'm easy to learn, so no complaining\nGo to our website, and book a training",
-    "solution": "3D Printer"
+    "solution": "0000_0001",
+    "solution_name": "3D Printer"
   },
   {
     "id": "puzzle-unleash-marker-2",
     "text": "So you only think I'm just for repairing?\nSo I've got something now worth showing\nSo let's begin with a string of ideating\nSo you can start your canvas of creating\nSo now materialize dreams you've been fabricating\nSo that you can go off for some demonstrating",
-    "solution": "Sewing machine"
+    "solution": "0000_0002",
+    "solution_name": "Sewing machine"
   },
 
   {

@@ -1,25 +1,29 @@
 [
   {
-    "id": "beacon-uoa-FE:BF:B5:5C:05:CD",
+    "id": "beacon-uoa-0000_0000",
     "beacon_type": "marker",
     "marker": 0
   },
   {
-    "id": "beacon-uoa-E8:0B:72:C3:38:D3",
+    "id": "beacon-uoa-0000_0001",
     "beacon_type": "marker",
     "marker": 1
   },
   {
-    "id": "beacon-uoa-CA:85:76:4D:06:0A",
-    "beacon_type": "treasure"
-  },
-  {
-    "id": "beacon-uoa-C6:69:D4:6E:B0:03",
+    "id": "beacon-uoa-0000_0002",
     "beacon_type": "hidden"
   },
 
   {
-    "id": "beacon-unleash-E8:0B:72:C3:38:D3",
+    "id": "beacon-unleash-0000_0000",
+    "beacon_type": "hidden"
+  },
+  {
+    "id": "beacon-unleash-0000_0001",
+    "beacon_type": "hidden"
+  },
+  {
+    "id": "beacon-unleash-0000_0002",
     "beacon_type": "hidden"
   }
 ]
