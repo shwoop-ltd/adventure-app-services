@@ -23,8 +23,16 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
 
   const result = await doc_client.get({ TableName: 'AdventureApp', Key: { id: key } }).promise();
 
-  if(result.Item)
-    return { statusCode: 200, body: JSON.stringify(result.Item) };
+  if(result.Item) {
+    // Ensure we dont pass any solution information in the request (which is stored in the db)
+    const output = {
+      id: result.Item.id,
+      text: result.Item.text,
+      image_url: result.Item.image_url,
+    };
+
+    return { statusCode: 200, body: JSON.stringify(output) };
+  }
   else
     return { statusCode: 404, body: `Puzzle for ${key} was not found` };
 }

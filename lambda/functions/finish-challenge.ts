@@ -26,7 +26,7 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
     const body = JSON.parse(event.body);
 
     if(result.Item.solution === body.beacon_id) // Correct, they get a prize. TODO: Actual prize stuff
-      return { statusCode: 200, body: JSON.stringify({ prize: { type: 'points', points: 1 } }) };
+      return { statusCode: 200, body: JSON.stringify({ type: 'red-bull' }) };
     else // Not correct, so no prize
       return { statusCode: 204, body: `Beacon ${body.beacon_id} is not the correct answer for this challenge!` };
   }
