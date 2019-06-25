@@ -53,13 +53,13 @@ function filter(item: Item) {
   if(filter_params.map && (item.id !== "maps" && item.id.split('-')[1] !== filter_params.map))
     return false;
 
-  if(item.id.startsWith('beacon') && !filter_params.beacons)
+  if(item.id.startsWith('beacon-') && !filter_params.beacons)
     return false;
-  else if(item.id.startsWith('map') && !filter_params.map_info)
+  else if(item.id.startsWith('map-') && !filter_params.map_info)
     return false;
-  else if(item.id.startsWith('puzzle') && !filter_params.puzzles)
+  else if(item.id.startsWith('puzzle-') && !filter_params.puzzles)
     return false;
-  else if(item.id === "maps" && !filter_params.maps) // If it doesnt start with anything, it must be the map itself. TODO: Should we not??
+  else if(item.id === "maps" && !filter_params.maps)
     return false;
 
   return true;
