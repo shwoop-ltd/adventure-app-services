@@ -71,7 +71,7 @@ paths:
       operationId: start_challenge
       parameters:
       - name: map
-        in: query
+        in: path
         description: "The current map"
         schema:
           type: string
@@ -88,9 +88,8 @@ paths:
         schema:
           type: number
         required: false
-      # TODO: Require user credentials via this?
-      # security:
-      #   - User: []
+      security:
+        - User: []
       responses:
         201:
           description: "successful operation"
@@ -106,7 +105,7 @@ paths:
       operationId: stop_challenge
       parameters:
       - name: map
-        in: query
+        in: path
         description: "The current map"
         schema:
           type: string
@@ -117,9 +116,8 @@ paths:
         schema:
           type: string
         required: true
-      # TODO: Require user credentials via this?
-      # security:
-      #   - User: []
+      security:
+        - User: []
       responses:
         204:
           description: "successful operation"
@@ -132,7 +130,7 @@ paths:
       operationId: finish_challenge
       parameters:
       - name: map
-        in: query
+        in: path
         description: "The current map"
         schema:
           type: string
@@ -143,6 +141,8 @@ paths:
         schema:
           type: string
         required: true
+      security:
+      - User: []
       requestBody:
         description: "Contains the beacon of the guessed solution"
         content:
@@ -184,6 +184,8 @@ paths:
         required: true
         schema:
           type: string
+      security:
+      - User: []
       responses:
         200:
           description: "successful operation"
@@ -193,36 +195,40 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Prize'
-    post:
-      summary: "Claim a prize"
-      operationId: claim_prize
+  /users/{user}/prizes/{prize_type}/{date_recieved}:
+    put:
+      summary: "Redeem prize"
+      operationId: redeem_prize
       parameters:
       - name: user
         in: path
-        description: "The user requesting prizes"
+        description: "The user who has this prize"
         required: true
         schema:
           type: string
-      requestBody:
-        description: "The prize that the user wants"
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Prize'
-        required: false
+      - name: prize_type
+        in: path
+        description: "The type of prize being redeemed"
+        required: true
+        schema:
+          type: string
+      - name: date_recieved
+        in: path
+        description: "The time at which this prize was awarded to the user"
+        required: true
+        schema:
+          type: string
+      security:
+      - User: []
       responses:
-        201:
-          description: "A prize was created"
-          content: {}
-        402:
-          description: "Not enough points to claim the prize"
-          content: {}
-        403:
-          description: "User is unable to claim given prize at this time"
-          content: {}
+        200:
+          description: "Successful operation - prize is or was redeemed"
+          content:
+            application/json:
+              schema:
+                type: string
         404:
-          description: "Prize was not found"
-          content: {}
+          description: "No prize of this type at this date for this user"
 components:
   securitySchemes:
     User:
@@ -270,10 +276,10 @@ components:
         location:
           $ref: '#/components/schemas/Coordinate'
         open:
-          type: bool
+          type: boolean
           default: false
           description: Whether the marker requires a connection to bluetooth (if it is open, no connection required)
-          required: false
+      required: [id, location]
     Beacon:
       type: object
       properties:
@@ -312,6 +318,7 @@ components:
           type: string
           enum:
           - 'points'
+          - 'red-bull'
         points:
           description: "Number of points recieved. Only present if type is 'points'"
           type: integer
