@@ -2,7 +2,7 @@ import { } from 'mocha';
 import { expect } from 'chai';
 import fetch from 'node-fetch';
 
-const base = process.argv[0] || "http://127.0.0.1:3000";
+const base = "http://127.0.0.1:3000";
 
 describe('Maps', () => {
   it("Should GET /maps", async () => {
