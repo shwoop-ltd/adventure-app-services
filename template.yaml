@@ -5,12 +5,12 @@ Resources:
     Type: AWS::Serverless::Api
     Properties:
       StageName: alpha
-      Name: Adventure-App
+      Name: AdventureApp
       DefinitionUri: ./api-gateway/openapi.yaml
   AdventureTable:
     Type: AWS::Serverless::SimpleTable
     Properties:
-      TableName: Adventure-App
+      TableName: AdventureApp
       PrimaryKey:
         Name: id
         Type: String
