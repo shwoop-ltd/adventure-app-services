@@ -1,16 +1,23 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: 'AWS::Serverless-2016-10-31'
+Globals:
+  Function:
+    Environment:
+      Variables:
+        REGION: ap-southeast-2
+        TABLE_NAME: !Ref AdventureTable
+        ENDPOINT_OVERRIDE: ""
 Resources:
   AdventureApi:
     Type: AWS::Serverless::Api
     Properties:
       StageName: alpha
-      Name: Adventure-App
+      Name: AdventureApp
       DefinitionUri: ./api-gateway/openapi.yaml
   AdventureTable:
     Type: AWS::Serverless::SimpleTable
     Properties:
-      TableName: Adventure-App
+      TableName: AdventureApp
       PrimaryKey:
         Name: id
         Type: String
