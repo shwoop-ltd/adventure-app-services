@@ -72,8 +72,13 @@ async function run() {
   // TODO: Currently no method to remove items in the database, only overwrite or add
 
   // Setup creds
+  let endpoint;
+  const pc_index = process.argv.indexOf('--db');
+  if(pc_index >= 0)
+    endpoint = process.argv[pc_index + 1];
+
   AWS.config.credentials = new AWS.SharedIniFileCredentials({ profile: 'shwoop' });
-  const doc_client = new AWS.DynamoDB.DocumentClient({ region: 'ap-southeast-2' });
+  const doc_client = new AWS.DynamoDB.DocumentClient({ region: 'ap-southeast-2', endpoint });
 
   const items = [
     ...marker_sets,
@@ -86,13 +91,16 @@ async function run() {
 
   console.log("Modifying " + items_to_change.length + " items");
 
-  const result = await doc_client.batchWrite({
-    RequestItems: {
-      AdventureApp: items_to_change.map(item => ({ PutRequest: { Item: item } })),
-    },
-  }).promise();
-
-  console.log(result);
+  // DynamoDB imposes a limit of writing at most 25 items at a time
+  for(let i = 0; (i * 25) < items_to_change.length; i += 1) {
+    const mini_batch = items_to_change.slice(i * 25, (i + 1) * 25);
+    const result = await doc_client.batchWrite({
+      RequestItems: {
+        AdventureApp: mini_batch.map(item => ({ PutRequest: { Item: item } })),
+      },
+    }).promise();
+    console.log(result);
+  }
 }
 
 run().catch(e => console.error(e));
