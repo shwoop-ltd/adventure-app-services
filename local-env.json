@@ -1,0 +1,6 @@
+{
+  "Parameters": {
+    "ENDPOINT_OVERRIDE": "http://dynamodb:8000",
+    "TABLE_NAME": "AdventureApp"
+  }
+}

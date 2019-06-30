@@ -1,10 +1,11 @@
 import { DynamoDB } from 'aws-sdk';
 import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from 'aws-lambda';
 
-const doc_client = new DynamoDB.DocumentClient({ region: 'ap-southeast-2' });
+const table_name = process.env.TABLE_NAME!;
+const doc_client = new DynamoDB.DocumentClient({ region: process.env.REGION, endpoint: process.env.ENDPOINT_OVERRIDE });
 
 export async function handler(event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult> {
-  const result = await doc_client.get({ TableName: 'AdventureApp', Key: { id: "maps" } }).promise();
+  const result = await doc_client.get({ TableName: table_name, Key: { id: "maps" } }).promise();
 
   if(result.Item)
     return {
