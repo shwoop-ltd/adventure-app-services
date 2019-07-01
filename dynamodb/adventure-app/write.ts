@@ -8,8 +8,9 @@ import beacons from './beacons.json';
 import marker_sets from './map-info.json';
 import maps from './maps.json';
 import puzzles from './puzzles.json';
+import treasures from './treasures.json';
 
-type Item = (typeof beacons | typeof marker_sets | typeof maps | typeof puzzles)[0];
+type Item = (typeof beacons | typeof marker_sets | typeof maps | typeof puzzles | typeof treasures)[0];
 
 const filter_params = {
   map: undefined as string | undefined,
@@ -17,6 +18,7 @@ const filter_params = {
   map_info: false,
   maps: false,
   puzzles: false,
+  treasures: false,
 };
 
 function verify_params() {
@@ -38,12 +40,15 @@ function verify_params() {
     filter_params.maps = true;
   if(process.argv.includes('--puzzles'))
     filter_params.puzzles = true;
+  if(process.argv.includes('--treasures'))
+    filter_params.treasures = true;
 
-  if(!filter_params.beacons && !filter_params.map_info && !filter_params.maps && !filter_params.puzzles) {
+  if(!filter_params.beacons && !filter_params.map_info && !filter_params.maps && !filter_params.puzzles && !filter_params.treasures) {
     filter_params.beacons = true;
     filter_params.map_info = true;
     filter_params.maps = true;
     filter_params.puzzles = true;
+    filter_params.treasures = true;
   }
 
   return true;
@@ -58,6 +63,8 @@ function filter(item: Item) {
   else if(item.id.startsWith('map-') && !filter_params.map_info)
     return false;
   else if(item.id.startsWith('puzzle-') && !filter_params.puzzles)
+    return false;
+  else if(item.id.startsWith('treasure-') && !filter_params.puzzles)
     return false;
   else if(item.id === "maps" && !filter_params.maps)
     return false;
@@ -77,13 +84,14 @@ async function run() {
   if(pc_index >= 0)
     endpoint = process.argv[pc_index + 1];
 
-  AWS.config.credentials = new AWS.SharedIniFileCredentials({ profile: 'shwoop' });
+  //AWS.config.credentials = new AWS.SharedIniFileCredentials({ profile: 'shwoop' });
   const doc_client = new AWS.DynamoDB.DocumentClient({ region: 'ap-southeast-2', endpoint });
 
   const items = [
     ...marker_sets,
     ...maps,
     ...puzzles,
+    ...treasures,
     ...beacons,
   ];
 

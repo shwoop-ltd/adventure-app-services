@@ -129,20 +129,24 @@ paths:
       summary: "Attempt to complete a challenge"
       operationId: finish_challenge
       parameters:
-      - name: map
-        in: path
+      - in: path
+        name: map
         description: "The current map"
         schema:
           type: string
         required: true
-      - name: challenge
-        in: query
+      - in: query
+        name: challenge
         description: "The id of the challenge being completed"
         schema:
           type: string
         required: true
-      security:
-      - User: []
+      - in: query
+        name: beacon
+        description: "The id of the beacon being used"
+        schema:
+          type: string
+        required: true
       requestBody:
         description: "Contains the beacon of the guessed solution"
         content:
@@ -171,6 +175,38 @@ paths:
         404:
           description: "map not found, or challenge not started"
           content: {}
+  /treasure:
+    get:
+      summary: "Gets a prize for a treasure beacon"
+      operationId: get_treasure
+      parameters:
+      - in: query
+        name: beacon
+        description: "The treasure beacon"
+        schema:
+          type: string
+        required: true
+      - in: query
+        name: longitude
+        description: "The GPS Longitude"
+        schema:
+          type: number
+        required: true
+      - in: query
+        name: latitude
+        description: "The GPS latitude"
+        schema:
+          type: number
+        required: true
+      responses:
+        200:
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/treasure'
 
   # User stuff
   /users/{user}/prizes:
@@ -328,6 +364,15 @@ components:
       properties:
         type:
           type: string
+    Treasure:
+      type: object
+      properties:
+        id:
+          type: string
+        prizes:
+          type: array
+        claimed:
+          type: number
     Coordinate:
       type: object
       properties:
