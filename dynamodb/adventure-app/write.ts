@@ -64,7 +64,7 @@ function filter(item: Item) {
     return false;
   else if(item.id.startsWith('puzzle-') && !filter_params.puzzles)
     return false;
-  else if(item.id.startsWith('treasure-') && !filter_params.puzzles)
+  else if(item.id.startsWith('treasure-') && !filter_params.treasures)
     return false;
   else if(item.id === "maps" && !filter_params.maps)
     return false;
@@ -84,7 +84,7 @@ async function run() {
   if(pc_index >= 0)
     endpoint = process.argv[pc_index + 1];
 
-  //AWS.config.credentials = new AWS.SharedIniFileCredentials({ profile: 'shwoop' });
+  AWS.config.credentials = new AWS.SharedIniFileCredentials({ profile: 'shwoop' });
   const doc_client = new AWS.DynamoDB.DocumentClient({ region: 'ap-southeast-2', endpoint });
 
   const items = [
