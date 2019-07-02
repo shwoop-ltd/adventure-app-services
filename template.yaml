@@ -6,6 +6,7 @@ Globals:
       Variables:
         REGION: ap-southeast-2
         TABLE_NAME: !Ref AdventureTable
+        PRIZES_TABLE_NAME: !Ref PrizesTable
         ENDPOINT_OVERRIDE: ""
 Resources:
   AdventureApi:
@@ -18,6 +19,18 @@ Resources:
     Type: AWS::Serverless::SimpleTable
     Properties:
       TableName: AdventureApp
+      PrimaryKey:
+        Name: id
+        Type: String
+      ProvisionedThroughput:
+        WriteCapacityUnits: 5
+        ReadCapacityUnits: 5
+      Tags:
+        AppType: Serverless
+  PrizesTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      TableName: Prizes
       PrimaryKey:
         Name: id
         Type: String
@@ -102,5 +115,44 @@ Resources:
           Type: Api
           Properties:
             RestApiId: !Ref AdventureApi
-            Path: /maps/{map}/beacon/finish
+            Path: /maps/{map}/challenge/finish
             Method: post
+  GetTreasure:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: get-treasure.handler
+      Runtime: nodejs10.x
+      CodeUri: ./lambda/.build/
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            RestApiId: !Ref AdventureApi
+            Path: /treasure
+            Method: get
+  GetPrize:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: get-prize.handler
+      Runtime: nodejs10.x
+      CodeUri: ./lambda/.build/
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            RestApiId: !Ref AdventureApi
+            Path: /redemption/{code}/
+            Method: post
+  DeletePrize:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: delete-prize.handler
+      Runtime: nodejs10.x
+      CodeUri: ./lambda/.build/
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            RestApiId: !Ref AdventureApi
+            Path: /redemption/{code}/
+            Method: delete

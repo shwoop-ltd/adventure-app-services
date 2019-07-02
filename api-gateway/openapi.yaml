@@ -129,20 +129,24 @@ paths:
       summary: "Attempt to complete a challenge"
       operationId: finish_challenge
       parameters:
-      - name: map
-        in: path
+      - in: path
+        name: map
         description: "The current map"
         schema:
           type: string
         required: true
-      - name: challenge
-        in: query
+      - in: query
+        name: challenge
         description: "The id of the challenge being completed"
         schema:
           type: string
         required: true
-      security:
-      - User: []
+      - in: query
+        name: beacon
+        description: "The id of the beacon being used"
+        schema:
+          type: string
+        required: true
       requestBody:
         description: "Contains the beacon of the guessed solution"
         content:
@@ -161,7 +165,7 @@ paths:
                 type: object
                 properties:
                   prize:
-                    $ref: '#/components/schemas/Reward'
+                    $ref: '#/components/schemas/Prize'
         204: # This or a 400 code?
           description: "Did not solve puzzle"
           content: {}
@@ -171,6 +175,69 @@ paths:
         404:
           description: "map not found, or challenge not started"
           content: {}
+  /treasure:
+    post:
+      summary: "Gets a prize for a treasure beacon"
+      operationId: get_treasure
+      parameters:
+      - in: query
+        name: beacon
+        description: "The treasure beacon"
+        schema:
+          type: string
+        required: true
+      - in: query
+        name: longitude
+        description: "The GPS Longitude"
+        schema:
+          type: number
+        required: true
+      - in: query
+        name: latitude
+        description: "The GPS latitude"
+        schema:
+          type: number
+        required: true
+      responses:
+        200:
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/Prize'
+  /redemption/{code}/:
+    post:
+      summary: "Gets a prize object for a redemption code"
+      operationId: get_prize
+      parameters:
+      - in: path
+        name: code
+        description: "The redeemable code"
+        schema:
+          type: string
+        required: true
+      responses:
+        200:
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Prize'
+    delete:
+      summary: "Removes a prize from the table"
+      operationId: delete_prize
+      parameters:
+      - in: path
+        name: code
+        description: "The redeemable code"
+        schema:
+          type: string
+        required: true
+      responses:
+        204:
+          description: "successful operation"
 
   # User stuff
   /users/{user}/prizes:
@@ -311,23 +378,27 @@ components:
             type: string
             enum:
               - hidden
-    Reward:
+    Prize:
       type: object
       properties:
+        id:
+          type: string
         type:
           type: string
           enum:
           - 'points'
           - 'red-bull'
         points:
+          type: number
           description: "Number of points recieved. Only present if type is 'points'"
-          type: integer
           nullable: true
-    Prize:
-      type: object
-      properties:
-        type:
+        received:
           type: string
+        received_from:
+          type: string
+          enum: ['challenge', 'treasure']
+        claimed:
+          type: boolean
     Coordinate:
       type: object
       properties:

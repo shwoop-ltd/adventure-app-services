@@ -1,6 +1,7 @@
 {
   "Parameters": {
     "ENDPOINT_OVERRIDE": "http://dynamodb:8000",
-    "TABLE_NAME": "AdventureApp"
+    "TABLE_NAME": "AdventureApp",
+    "PRIZES_TABLE_NAME": "Prizes"
   }
 }

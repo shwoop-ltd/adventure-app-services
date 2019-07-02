@@ -1,0 +1,12 @@
+[
+    {
+        "id": "treasure-beacon-0000_0000",
+        "prizes": [
+            { "prize": "red-bull", "available": 20 },
+            { "prize": "Points", "available": 10, "points": 3 }
+        ],
+        "claimed": 19,
+        "longitude": -36.852794,
+        "latitude": 170.852794
+    }
+]
