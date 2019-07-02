@@ -2,7 +2,7 @@
     {
         "id": "treasure-beacon-0000_0000",
         "prizes": [
-            { "prize": "Red Ball", "available": 20 },
+            { "prize": "red-bull", "available": 20 },
             { "prize": "Points", "available": 10, "points": 3 }
         ],
         "claimed": 19,

@@ -165,7 +165,7 @@ paths:
                 type: object
                 properties:
                   prize:
-                    $ref: '#/components/schemas/Reward'
+                    $ref: '#/components/schemas/Prize'
         204: # This or a 400 code?
           description: "Did not solve puzzle"
           content: {}
@@ -176,7 +176,7 @@ paths:
           description: "map not found, or challenge not started"
           content: {}
   /treasure:
-    get:
+    post:
       summary: "Gets a prize for a treasure beacon"
       operationId: get_treasure
       parameters:
@@ -206,7 +206,7 @@ paths:
               schema:
                 type: object
                 items:
-                  $ref: '#/components/schemas/treasure'
+                  $ref: '#/components/schemas/prize'
 
   # User stuff
   /users/{user}/prizes:
@@ -347,23 +347,27 @@ components:
             type: string
             enum:
               - hidden
-    Reward:
+#Prize replaces reward. Not much reason to distinguish rewards from prizes.
+    Prize:
       type: object
       properties:
+        id:
+          type: string
         type:
           type: string
           enum:
           - 'points'
           - 'red-bull'
         points:
+          type: number
           description: "Number of points recieved. Only present if type is 'points'"
-          type: integer
           nullable: true
-    Prize:
-      type: object
-      properties:
-        type:
+        received:
           type: string
+        received_from:
+          type: string
+        claimed:
+          type: boolean
     Treasure:
       type: object
       properties:

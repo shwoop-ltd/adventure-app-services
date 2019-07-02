@@ -18,36 +18,26 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
 
   if (!event.pathParameters)
     return { statusCode: 400, body: "No path parameters" };
-  if (!event.queryStringParameters || (!event.queryStringParameters.challenge && !event.queryStringParameters.beacon))
+  if (!event.queryStringParameters || !event.queryStringParameters.challenge)
     return { statusCode: 400, body: "Challenge ID was not present" };
   if (!event.body) {
     return { statusCode: 400, body: "Solution beacon not present" }
   }
 
-  const challenge_id = event.queryStringParameters.challenge;
-  const beacon_id = event.queryStringParameters.beacon;
   const solution = JSON.parse(event.body).beacon_id;
-  const map = event.pathParameters.map;
-  var key = "puzzle-" + map + "-";
-
-  if (challenge_id) {
-    key = key + "marker-" + challenge_id;
-  } else {
-    key = key + "beacon-" + beacon_id;
-  }
+  const key = event.queryStringParameters.challenge;
 
   const result = await doc_client.get({ TableName: table_name, Key: { id: key } }).promise();
 
   if (!result.Item) {
-    return { statusCode: 404, body: `There is no challenge with an id of ${challenge_id}` };
+    return { statusCode: 404, body: `There is no challenge with an id of ${key}` };
   }
 
-  if (result.Item.solution === solution) {// Correct, they get a prize. TODO: Actual prize stuff
+  if (result.Item.solution === solution) {// Correct, they get a prize. TODO: Actually get prizes from the puzzle
     var d = new Date();
     let prize = {
       id: generateRandomString(8),
       type: "Red Bull",
-      points: "2",
       received: d.toISOString(),
       received_from: "Challenge",
       claimed: false

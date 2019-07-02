@@ -40,23 +40,23 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
     var prize = {
         "id": generateRandomString(8),
         type: "Red Bull",
-        points: 0,
         received: d.toISOString(),
         received_from: "Treasure",
-        claimed: false
+        claimed: false,
+        points: undefined
     };
 
     let prizes = result.Item.prizes;
     let total = 0;
     let claimed = result.Item.claimed;
+
+    //Would have used foreach but no early break
     for (let i = 0; i < prizes.length; i++) {
         let element = prizes[i];
         total += element.available;
         if (claimed < total) {
             prize.type = element.prize;
-            if (element.prize === "Points") {
-                prize.points = element.points;
-            }
+            prize.points = element.points;
             break;
         }
     };
