@@ -207,6 +207,39 @@ paths:
                 type: object
                 items:
                   $ref: '#/components/schemas/prize'
+  /redemption/{code}/:
+    post:
+      summary: "Gets a prize for a treasure beacon"
+      operationId: get_prize
+      parameters:
+      - in: path
+        name: code
+        description: "The redeemable code"
+        schema:
+          type: string
+        required: true
+      responses:
+        200:
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/prize'
+    delete:
+      summary: "Removes a prize from the table"
+      operationId: delete_prize
+      parameters:
+      - in: path
+        name: code
+        description: "The redeemable code"
+        schema:
+          type: string
+        required: true
+      responses:
+        204:
+          description: "successful operation"
 
   # User stuff
   /users/{user}/prizes:

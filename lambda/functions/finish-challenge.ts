@@ -1,7 +1,7 @@
 import { DynamoDB } from 'aws-sdk';
 import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from 'aws-lambda';
 
-const table_name = process.env.PRIZES_TABLE_NAME!;
+const prizes_table_name = process.env.PRIZES_TABLE_NAME!;
 const doc_client = new DynamoDB.DocumentClient({ region: process.env.REGION, endpoint: process.env.ENDPOINT_OVERRIDE });
 
 function generateRandomString(length: number) {
@@ -27,7 +27,7 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
   const solution = JSON.parse(event.body).beacon_id;
   const key = event.queryStringParameters.challenge;
 
-  const result = await doc_client.get({ TableName: table_name, Key: { id: key } }).promise();
+  const result = await doc_client.get({ TableName: prizes_table_name, Key: { id: key } }).promise();
 
   if (!result.Item) {
     return { statusCode: 404, body: `There is no challenge with an id of ${key}` };
@@ -42,7 +42,7 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
       received_from: "Challenge",
       claimed: false
     };
-    doc_client.put({ TableName: table_name, Item: prize }, function (err, data) { });
+    doc_client.put({ TableName: prizes_table_name, Item: prize }, function (err, data) { });
     //The callback is neccesary for this function to work.
 
     return { statusCode: 200, body: JSON.stringify(prize) };
