@@ -37,7 +37,7 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
     var d = new Date();
     let prize = {
       id: generateRandomString(8),
-      type: "Red Bull",
+      type: "red-bull",
       received: d.toISOString(),
       received_from: "Challenge",
       claimed: false

@@ -206,10 +206,10 @@ paths:
               schema:
                 type: object
                 items:
-                  $ref: '#/components/schemas/prize'
+                  $ref: '#/components/schemas/Prize'
   /redemption/{code}/:
     post:
-      summary: "Gets a prize for a treasure beacon"
+      summary: "Gets a prize object for a redemption code"
       operationId: get_prize
       parameters:
       - in: path
@@ -224,9 +224,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                items:
-                  $ref: '#/components/schemas/prize'
+                $ref: '#/components/schemas/Prize'
     delete:
       summary: "Removes a prize from the table"
       operationId: delete_prize
@@ -380,7 +378,6 @@ components:
             type: string
             enum:
               - hidden
-#Prize replaces reward. Not much reason to distinguish rewards from prizes.
     Prize:
       type: object
       properties:
@@ -399,17 +396,9 @@ components:
           type: string
         received_from:
           type: string
+          enum: ['challenge', 'treasure']
         claimed:
           type: boolean
-    Treasure:
-      type: object
-      properties:
-        id:
-          type: string
-        prizes:
-          type: array
-        claimed:
-          type: number
     Coordinate:
       type: object
       properties:
