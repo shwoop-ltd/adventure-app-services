@@ -204,9 +204,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                items:
-                  $ref: '#/components/schemas/Prize'
+                $ref: '#/components/schemas/Prize'
   /redemption/{code}/:
     post:
       summary: "Gets a prize object for a redemption code"
@@ -238,64 +236,29 @@ paths:
       responses:
         204:
           description: "successful operation"
-
-  # User stuff
-  /users/{user}/prizes:
-    get:
-      summary: "Get previously claimed prizes"
-      operationId: get_prizes
-      parameters:
-      - name: user
-        in: path
-        description: "The user requesting prizes"
-        required: true
-        schema:
-          type: string
-      security:
-      - User: []
-      responses:
-        200:
-          description: "successful operation"
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Prize'
-  /users/{user}/prizes/{prize_type}/{date_recieved}:
-    put:
-      summary: "Redeem prize"
-      operationId: redeem_prize
-      parameters:
-      - name: user
-        in: path
-        description: "The user who has this prize"
-        required: true
-        schema:
-          type: string
-      - name: prize_type
-        in: path
-        description: "The type of prize being redeemed"
-        required: true
-        schema:
-          type: string
-      - name: date_recieved
-        in: path
-        description: "The time at which this prize was awarded to the user"
-        required: true
-        schema:
-          type: string
-      security:
-      - User: []
-      responses:
-        200:
-          description: "Successful operation - prize is or was redeemed"
-          content:
-            application/json:
-              schema:
-                type: string
-        404:
-          description: "No prize of this type at this date for this user"
+  # # User stuff
+  # /users/{user}/prizes:
+  #   get:
+  #     summary: "Get previously claimed prizes"
+  #     operationId: get_prizes
+  #     parameters:
+  #     - name: user
+  #       in: path
+  #       description: "The user requesting prizes"
+  #       required: true
+  #       schema:
+  #         type: string
+  #     security:
+  #     - User: []
+  #     responses:
+  #       200:
+  #         description: "successful operation"
+  #         content:
+  #           application/json:
+  #             schema:
+  #               type: array
+  #               items:
+  #                 $ref: '#/components/schemas/Prize'
 components:
   securitySchemes:
     User:
@@ -367,11 +330,6 @@ components:
             type: string
             enum:
               - treasure
-          request_code:
-            description: 'NOTE: This code is used to acquire a redemption code,
-            and is not itself a redemption code. Thus this code could go unused,
-            or be handed out to multiple users'
-            type: string
       - type: object
         properties:
           beacon_type:
