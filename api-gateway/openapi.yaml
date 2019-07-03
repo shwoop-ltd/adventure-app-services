@@ -17,6 +17,12 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/MapSummary'
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetMaps.Arn}/invocations"
+        responses: {}
+        httpMethod: POST
+        type: aws_proxy
   /maps/{map}:
     get:
       summary: "Gets all markers for the given map"
@@ -37,6 +43,12 @@ paths:
                 $ref: '#/components/schemas/Map'
         404:
           description: "map not found"
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetMap.Arn}/invocations"
+        responses: {}
+        httpMethod: POST
+        type: aws_proxy
   /maps/{map}/beacons/{beacon}:
     get:
       summary: "Attempts to get information about the given beacon"
@@ -63,8 +75,12 @@ paths:
                 $ref: '#/components/schemas/Beacon'
         404:
           description: "map or beacon not found"
-
-  # TODO: Decide whether to put this under {user} or under {map}, whether to make a new resource under an endpoint, etc.
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetBeacon.Arn}/invocations"
+        responses: {}
+        httpMethod: POST
+        type: aws_proxy
   /maps/{map}/challenge:
     post:
       summary: "Start a new challenge"
@@ -100,6 +116,12 @@ paths:
         404:
           description: "map or beacon not found"
           content: {}
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${StartChallenge.Arn}/invocations"
+        responses: {}
+        httpMethod: POST
+        type: aws_proxy
     delete:
       summary: "Stop a challenge"
       operationId: stop_challenge
@@ -124,6 +146,12 @@ paths:
         404:
           description: "map or beacon not found, or challenge not started"
           content: {}
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${StopChallenge.Arn}/invocations"
+        responses: {}
+        httpMethod: POST
+        type: aws_proxy
   /maps/{map}/challenge/finish:
     post:
       summary: "Attempt to complete a challenge"
@@ -175,6 +203,12 @@ paths:
         404:
           description: "map not found, or challenge not started"
           content: {}
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${FinishChallenge.Arn}/invocations"
+        responses: {}
+        httpMethod: POST
+        type: aws_proxy
   /treasure:
     post:
       summary: "Gets a prize for a treasure beacon"
@@ -205,6 +239,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Prize'
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetTreasure.Arn}/invocations"
+        responses: {}
+        httpMethod: POST
+        type: aws_proxy
   /redemption/{code}/:
     post:
       summary: "Gets a prize object for a redemption code"
@@ -223,6 +263,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Prize'
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetPrize.Arn}/invocations"
+        responses: {}
+        httpMethod: POST
+        type: aws_proxy
     delete:
       summary: "Removes a prize from the table"
       operationId: delete_prize
@@ -236,6 +282,12 @@ paths:
       responses:
         204:
           description: "successful operation"
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DeletePrize.Arn}/invocations"
+        responses: {}
+        httpMethod: POST
+        type: aws_proxy
   # # User stuff
   # /users/{user}/prizes:
   #   get:
