@@ -30,14 +30,15 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
     if (!result.Item) {
         return { statusCode: 404, body: `There is no treasure with beacon id ${treasure_id}` };
     }
-    if (longitude > result.Item.longitude + accuracy || longitude < result.Item.longitude - accuracy ||
-        latitude > result.Item.latitude + accuracy || latitude < result.Item.latitude - accuracy) {
-        return { statusCode: 403, body: "Client not at beacon, GPS coordinates wrong." }
-    }
+    // Checking whether user's given coordinates are within the vicinity of the beacon.
+    // if (longitude > result.Item.longitude + accuracy || longitude < result.Item.longitude - accuracy ||
+    //     latitude > result.Item.latitude + accuracy || latitude < result.Item.latitude - accuracy) {
+    //     return { statusCode: 403, body: "Client not at beacon, GPS coordinates wrong." }
+    // }
 
     //Establish prize object with default data. TODO: Abstract this to its own class or something
-    let d = new Date();
-    var prize = {
+    const d = new Date();
+    const prize = {
         "id": generateRandomString(8),
         type: "Red Bull",
         received: d.toISOString(),
@@ -46,13 +47,13 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
         points: undefined
     };
 
-    let prizes = result.Item.prizes;
+    const prizes = result.Item.prizes;
     let total = 0;
-    let claimed = result.Item.claimed;
+    const claimed = result.Item.claimed;
 
     //Would have used foreach but no early break
     for (let i = 0; i < prizes.length; i++) {
-        let element = prizes[i];
+        const element = prizes[i];
         total += element.available;
         if (claimed < total) {
             prize.type = element.prize;
@@ -65,7 +66,7 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
 
 
     //Increment "claimed"
-    var params = {
+    const params = {
         TableName: table_name,
         Key: {
             id: key,
