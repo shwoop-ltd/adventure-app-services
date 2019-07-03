@@ -14,7 +14,11 @@ Resources:
     Properties:
       StageName: alpha
       Name: AdventureApp
-      DefinitionUri: ./api-gateway/openapi.yaml
+      DefinitionBody:
+        'Fn::Transform':
+          Name: 'AWS::Include'
+          Parameters:
+            Location: s3://adventure-app-cloudformation/openapi.yaml
   AdventureTable:
     Type: AWS::Serverless::SimpleTable
     Properties:
