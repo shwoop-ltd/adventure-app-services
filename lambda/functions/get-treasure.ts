@@ -4,7 +4,7 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from 'aws-lambda
 const table_name = process.env.TABLE_NAME!;
 const accuracy = 0.00005 //TODO: Move this to environment variables
 const prizes_table_name = process.env.PRIZES_TABLE_NAME!;
-const doc_client = new DynamoDB.DocumentClient({ region: process.env.REGION, endpoint: process.env.ENDPOINT_OVERRIDE });
+const doc_client = new DynamoDB.DocumentClient({ region: process.env.REGION, endpoint: process.env.ENDPOINT_OVERRIDE || undefined });
 
 function generateRandomString(length: number) { //TODO: Put this in its own class.
     let returnString = ""
@@ -42,7 +42,7 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
         "id": generateRandomString(8),
         type: "Red Bull",
         received: d.toISOString(),
-        received_from: "Treasure",
+        received_from: "treasure",
         claimed: false,
         points: undefined
     };

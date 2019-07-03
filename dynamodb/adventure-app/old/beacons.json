@@ -16,5 +16,18 @@
   {
     "id": "beacon-uoa-0000_0005",
     "beacon_type": "treasure"
+  },
+
+  {
+    "id": "beacon-unleash-0000_0000",
+    "beacon_type": "hidden"
+  },
+  {
+    "id": "beacon-unleash-0000_0001",
+    "beacon_type": "hidden"
+  },
+  {
+    "id": "beacon-unleash-0000_0002",
+    "beacon_type": "hidden"
   }
 ]
