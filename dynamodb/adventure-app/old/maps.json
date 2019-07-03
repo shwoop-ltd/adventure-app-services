@@ -1,0 +1,30 @@
+[
+  { "id": "maps",
+    "maps": [
+      {
+        "name": "unleash",
+        "top_left": {
+          "latitude": -36.852357,
+          "longitude": 174.769939
+        },
+        "bottom_right": {
+          "latitude": -36.852822,
+          "longitude": 174.770392
+        },
+        "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/UnleashSpace.png"
+      },
+      {
+        "name": "victory",
+        "top_left": {
+          "latitude": -36.844619,
+          "longitude": 174.750525
+        },
+        "bottom_right": {
+          "latitude": -36.845427,
+          "longitude": 174.751405
+        },
+        "image_url": "https://s3-ap-southeast-2.amazonaws.com/uoa-bs-maps/VictoryConvention.png"
+      }
+    ]
+  }
+]

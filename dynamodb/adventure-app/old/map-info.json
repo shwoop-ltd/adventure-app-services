@@ -1,0 +1,128 @@
+[
+  {
+    "id": "map-unleash",
+    "last-update": 0,
+    "markers": [
+      {
+        "id": 0,
+        "location": {
+          "latitude": -36.852606,
+          "longitude": 174.770000
+        },
+        "open": true
+      },
+      {
+        "id": 1,
+        "location": {
+          "latitude": -36.852680,
+          "longitude": 174.770100
+        },
+        "open": true
+      },
+      {
+        "id": 2,
+        "location": {
+          "latitude": -36.852506,
+          "longitude": 174.770200
+        },
+        "open": true
+      }
+    ]
+  },
+  {
+    "id": "map-victory",
+    "last-update": 0,
+    "markers": [
+      {
+        "id": 0,
+        "name": "The roll up/down curtain at end of expo room",
+        "location": {
+          "latitude": -36.844672,
+          "longitude": 174.751030
+        },
+        "open": true
+      },
+      {
+        "id": 1,
+        "name": "Hand Rail When Entering Theatre",
+        "location": {
+          "latitude": -36.845020,
+          "longitude": 174.751100
+        },
+        "open": true
+      },
+      {
+        "id": 2,
+        "name": "Rubbish Bin Main Foyer",
+        "location": {
+          "latitude": -36.844930,
+          "longitude": 174.751240
+        },
+        "open": true
+      },
+      {
+        "id": 3,
+        "name": "Underneath information desk",
+        "location": {
+          "latitude": -36.845020,
+          "longitude": 174.751180
+        },
+        "open": true
+      },
+      {
+        "id": 4,
+        "name": "Information desk laminated sign",
+        "location": {
+          "latitude": -36.844950,
+          "longitude": 174.751155
+        },
+        "open": true
+      },
+      {
+        "id": 5,
+        "name": "The laminated map sign",
+        "location": {
+          "latitude": -36.8450000,
+          "longitude": 174.751235
+        },
+        "open": true
+      },
+      {
+        "id": 6,
+        "name": "Water cooler",
+        "location": {
+          "latitude": -36.844900,
+          "longitude": 174.751175
+        },
+        "open": true
+      },
+      {
+        "id": 7,
+        "name": "Table",
+        "location": {
+          "latitude": -36.844787,
+          "longitude": 174.751145
+        },
+        "open": true
+      },
+      {
+        "id": 8,
+        "name": "Speakers",
+        "location": {
+          "latitude": -36.845054,
+          "longitude": 174.750715
+        },
+        "open": true
+      },
+      {
+        "id": 9,
+        "name": "Piano",
+        "location": {
+          "latitude": -36.844750,
+          "longitude": 174.750900
+        },
+        "open": true
+      }
+    ]
+  }
+]
