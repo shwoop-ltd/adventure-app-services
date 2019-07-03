@@ -158,7 +158,7 @@ Resources:
           Properties:
             RestApiId: !Ref AdventureApi
             Path: /treasure
-            Method: get
+            Method: post
   GetPrize:
     Type: AWS::Serverless::Function
     Properties:

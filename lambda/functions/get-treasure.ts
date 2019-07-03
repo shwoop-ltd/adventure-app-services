@@ -42,7 +42,7 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
         "id": generateRandomString(8),
         type: "Red Bull",
         received: d.toISOString(),
-        received_from: "Treasure",
+        received_from: "treasure",
         claimed: false,
         points: undefined
     };
