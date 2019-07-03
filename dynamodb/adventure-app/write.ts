@@ -84,7 +84,11 @@ async function run() {
   if(pc_index >= 0)
     endpoint = process.argv[pc_index + 1];
 
-  AWS.config.credentials = new AWS.SharedIniFileCredentials({ profile: 'shwoop' });
+  const profile_index = process.argv.indexOf('--profile');
+  if(profile_index >= 0) {
+    const profile = process.argv[profile_index + 1];
+    AWS.config.credentials = new AWS.SharedIniFileCredentials({ profile });
+  }
   const doc_client = new AWS.DynamoDB.DocumentClient({ region: 'ap-southeast-2', endpoint });
 
   const items = [
