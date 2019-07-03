@@ -1,6 +1,6 @@
 [
     {
-        "id": "treasure-beacon-0000_0000",
+        "id": "treasure-beacon-0000_0005",
         "prizes": [
             { "prize": "red-bull", "available": 20 },
             { "prize": "Points", "available": 10, "points": 3 }
