@@ -34,7 +34,7 @@ Resources:
   PrizesTable:
     Type: AWS::Serverless::SimpleTable
     Properties:
-      TableName: Prizes
+      TableName: AdventureAppPrizes
       PrimaryKey:
         Name: id
         Type: String
@@ -49,6 +49,9 @@ Resources:
       Handler: get-maps.handler
       Runtime: nodejs10.x
       CodeUri: ./lambda/.build
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName: !Ref AdventureTable
       Events:
         Api:
           Type: Api
@@ -62,6 +65,9 @@ Resources:
       Handler: get-map.handler
       Runtime: nodejs10.x
       CodeUri: ./lambda/.build
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName: !Ref AdventureTable
       Events:
         Api:
           Type: Api
@@ -75,6 +81,9 @@ Resources:
       Handler: get-beacon.handler
       Runtime: nodejs10.x
       CodeUri: ./lambda/.build/
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName: !Ref AdventureTable
       Events:
         Api:
           Type: Api
@@ -88,6 +97,9 @@ Resources:
       Handler: start-challenge.handler
       Runtime: nodejs10.x
       CodeUri: ./lambda/.build/
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName: !Ref AdventureTable
       Events:
         Api:
           Type: Api
@@ -101,6 +113,9 @@ Resources:
       Handler: stop-challenge.handler
       Runtime: nodejs10.x
       CodeUri: ./lambda/.build/
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName: !Ref AdventureTable
       Events:
         Api:
           Type: Api
@@ -114,6 +129,11 @@ Resources:
       Handler: finish-challenge.handler
       Runtime: nodejs10.x
       CodeUri: ./lambda/.build/
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName: !Ref AdventureTable
+      - DynamoDBCrudPolicy:
+          TableName: !Ref PrizesTable
       Events:
         Api:
           Type: Api
@@ -127,6 +147,11 @@ Resources:
       Handler: get-treasure.handler
       Runtime: nodejs10.x
       CodeUri: ./lambda/.build/
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName: !Ref AdventureTable
+      - DynamoDBCrudPolicy:
+          TableName: !Ref PrizesTable
       Events:
         Api:
           Type: Api
@@ -140,6 +165,9 @@ Resources:
       Handler: get-prize.handler
       Runtime: nodejs10.x
       CodeUri: ./lambda/.build/
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName: !Ref PrizesTable
       Events:
         Api:
           Type: Api
@@ -153,6 +181,9 @@ Resources:
       Handler: delete-prize.handler
       Runtime: nodejs10.x
       CodeUri: ./lambda/.build/
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName: !Ref PrizesTable
       Events:
         Api:
           Type: Api
