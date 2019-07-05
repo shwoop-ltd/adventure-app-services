@@ -290,13 +290,13 @@ paths:
         type: aws_proxy
   
   #Users
-  /user:
+  /users/{userid}/:
     get:
       summary: "Gets the user object for an id"
       operationId: get_user
       parameters:
-      - in: query
-        name: id
+      - in: path
+        name: userid
         description: "The user ID"
         schema:
           type: string
@@ -310,17 +310,16 @@ paths:
                 $ref: '#/components/schemas/User'
       x-amazon-apigateway-integration:
         uri:
-          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetPrize.Arn}/invocations"
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetUser.Arn}/invocations"
         responses: {}
         httpMethod: POST
         type: aws_proxy
-  /user/register:
-    post:
-      summary: "Registers a user with the given ID"
-      operationId: get_user
+    put:
+      summary: "Creates a user"
+      operationId: register_user
       parameters:
-      - in: body
-        name: id
+      - in: path
+        name: userid
         description: "The user ID"
         schema:
           type: string
@@ -332,14 +331,14 @@ paths:
           description: "Conflict. Account already exists."
       x-amazon-apigateway-integration:
         uri:
-          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetPrize.Arn}/invocations"
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${RegisterUser.Arn}/invocations"
         responses: {}
         httpMethod: POST
         type: aws_proxy
-  /user/prizes:
+  /users/prizes:
     get:
       summary: "Gets the prizes and points of a given user"
-      operationId: get_user
+      operationId: get_user_prizes
       parameters:
       - in: query
         name: id
