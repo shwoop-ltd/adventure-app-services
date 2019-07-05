@@ -7,6 +7,7 @@ Globals:
         REGION: ap-southeast-2
         TABLE_NAME: !Ref AdventureTable
         PRIZES_TABLE_NAME: !Ref PrizesTable
+        USERS_TABLE_NAME: !Ref UsersTable
         ENDPOINT_OVERRIDE: ""
 Resources:
   AdventureApi:
@@ -18,7 +19,8 @@ Resources:
         'Fn::Transform':
           Name: 'AWS::Include'
           Parameters:
-            Location: s3://adventure-app-cloudformation/openapi.yaml
+            #Location: s3://adventure-app-cloudformation/openapi.yaml
+            Location: ./api-gateway/openapi.yaml
   AdventureTable:
     Type: AWS::Serverless::SimpleTable
     Properties:
@@ -35,6 +37,18 @@ Resources:
     Type: AWS::Serverless::SimpleTable
     Properties:
       TableName: AdventureAppPrizes
+      PrimaryKey:
+        Name: id
+        Type: String
+      ProvisionedThroughput:
+        WriteCapacityUnits: 5
+        ReadCapacityUnits: 5
+      Tags:
+        AppType: Serverless
+  UsersTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      TableName: AdventureAppUsers
       PrimaryKey:
         Name: id
         Type: String
@@ -191,3 +205,51 @@ Resources:
             RestApiId: !Ref AdventureApi
             Path: /redemption/{code}/
             Method: delete
+  GetUser:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: get-user.handler
+      Runtime: nodejs10.x
+      CodeUri: ./lambda/.build/
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName: !Ref UserTable
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            RestApiId: !Ref AdventureApi
+            Path: /user
+            Method: get
+  GetUserPrizes:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: get-user-prizes.handler
+      Runtime: nodejs10.x
+      CodeUri: ./lambda/.build/
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName: !Ref UserTable
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            RestApiId: !Ref AdventureApi
+            Path: /user/prizes
+            Method: get
+  RegisterUser:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: register-user.handler
+      Runtime: nodejs10.x
+      CodeUri: ./lambda/.build/
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName: !Ref UserTable
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            RestApiId: !Ref AdventureApi
+            Path: /user/register
+            Method: post
