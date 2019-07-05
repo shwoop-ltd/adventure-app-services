@@ -119,24 +119,8 @@ Resources:
           Type: Api
           Properties:
             RestApiId: !Ref AdventureApi
-            Path: /maps/{map}/challenge
+            Path: /users/challenge
             Method: post
-  StopChallenge:
-    Type: AWS::Serverless::Function
-    Properties:
-      Handler: stop-challenge.handler
-      Runtime: nodejs10.x
-      CodeUri: ./lambda/.build/
-      Policies:
-      - DynamoDBCrudPolicy:
-          TableName: !Ref AdventureTable
-      Events:
-        Api:
-          Type: Api
-          Properties:
-            RestApiId: !Ref AdventureApi
-            Path: /maps/{map}/challenge
-            Method: delete
   FinishChallenge:
     Type: AWS::Serverless::Function
     Properties:
@@ -153,7 +137,7 @@ Resources:
           Type: Api
           Properties:
             RestApiId: !Ref AdventureApi
-            Path: /maps/{map}/challenge/finish
+            Path: /users/challenge/finish
             Method: post
   GetTreasure:
     Type: AWS::Serverless::Function

@@ -81,25 +81,19 @@ paths:
         responses: {}
         httpMethod: POST
         type: aws_proxy
-  /maps/{map}/challenge:
+  /users/challenge:
     post:
       summary: "Start a new challenge"
       operationId: start_challenge
       parameters:
-      - name: map
-        in: path
-        description: "The current map"
-        schema:
-          type: string
-        required: true
       - name: beacon
-        in: query
+        in: body
         description: "Beacon that the challenge was started from"
         schema:
           type: string
         required: false
       - name: marker
-        in: query
+        in: body
         description: "Marker the challenge was started from"
         schema:
           type: number
@@ -339,13 +333,6 @@ paths:
     get:
       summary: "Gets the prizes and points of a given user"
       operationId: get_user_prizes
-      parameters:
-      - in: query
-        name: id
-        description: "The user ID"
-        schema:
-          type: string
-        required: true
       responses:
         200:
           description: "Account created."
