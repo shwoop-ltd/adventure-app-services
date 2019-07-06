@@ -51,10 +51,32 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
     return { statusCode: 400, body: "Wrong solution." }
   };
 
+  //Get Marker
+  const marker_key = "beacon-" + map + "-" + challenge_id;
+  const marker_result = await doc_client.get({TableName: table_name, Key: { "id": marker_key}}).promise();
+  if (!marker_result.Item) {
+    return {statusCode: 404, body: "No marker found for that challenge ID"}
+  }
+  const marker_id = marker_result.Item.marker;
+
+  //Time Check
+  const map_info_key = 'map-' + map;
+  const map_info_result = await doc_client.get({ TableName: table_name, Key: { "id": map_info_key } }).promise();
+  const map_info = map_info_result.Item;
+
+  if (!map_info) {
+    return { statusCode: 404, body: 'Map not found' }
+  }
+  
+  const d = new Date();
+  const marker = map_info.markers.filter((element: { id: number; }) => element.id == marker_id);
+  if (marker.release + marker.duration < d.getTime()/1000) {
+    return {statusCode: 403, body: "Challenge closed."}
+  }
+
   //Everything is good, lets get this man (or woman) a prize.
 
   //Establish prize object
-  const d = new Date();
   const prize = {
     id: generateRandomString(8),
     type: "red-bull",
