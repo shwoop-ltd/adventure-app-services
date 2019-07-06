@@ -7,33 +7,32 @@ const doc_client = new DynamoDB.DocumentClient({ region: process.env.REGION, end
 export async function handler(event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult> {
   // TODO: Get info about user
 
-  if(!event.pathParameters)
+  if (!event.pathParameters)
     return { statusCode: 400, body: "Recieved no path parameters?" };
+  if (!event.queryStringParameters || (!event.queryStringParameters.beacon_id && !event.queryStringParameters.marker_id)) {
+    return { statusCode: 400, body: "Need a marker or beacon ID." };
+  }
 
   const map_name = event.pathParameters.map;
   const beacon_id = event.queryStringParameters && event.queryStringParameters.beacon;
   const marker_id = event.queryStringParameters && event.queryStringParameters.marker;
 
   let key = 'puzzle-' + map_name + '-';
-  if(beacon_id)
+  if (beacon_id)
     key += 'beacon-' + beacon_id;
-  else if(marker_id)
+  else if (marker_id)
     key += 'marker-' + marker_id;
-  else
-    return { statusCode: 400, body: "Cannot get challenge without beacon or marker" };
 
-  const result = await doc_client.get({ TableName: table_name, Key: { id: key } }).promise();
+  const puzzle_result = await doc_client.get({ TableName: table_name, Key: { id: key } }).promise();
+  const puzzle = puzzle_result.Item;
 
-  if(result.Item) {
-    // Ensure we dont pass any solution information in the request (which is stored in the db)
-    const output = {
-      id: result.Item.id,
-      text: result.Item.text,
-      image_url: result.Item.image_url,
-    };
+  if (!puzzle) {
+    return { statusCode: 404, body: "No puzzle with that ID." }
+  };
 
-    return { statusCode: 200, body: JSON.stringify(output) };
-  }
-  else
-    return { statusCode: 404, body: `Puzzle for ${key} was not found` };
+  // Ensure we dont pass any solution information in the request (which is stored in the db)
+  puzzle.solution = undefined;
+  puzzle.solution_name = undefined;
+
+  return { statusCode: 200, body: JSON.stringify(puzzle)};
 }
