@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: Shwoop Adventure App
-  description: "This is the backend for the Shwoop University of Auckland Adventure App"
+  description: "This is the backend for the Shwoop Adventure App"
   version: 1.0.0
 paths:
   /maps:
@@ -81,31 +81,170 @@ paths:
         responses: {}
         httpMethod: POST
         type: aws_proxy
-  /maps/{map}/challenge:
+  /treasure:
+    post:
+      summary: "Gets a prize for a treasure beacon"
+      operationId: get_treasure
+      security:
+        - User: []
+      parameters:
+      - in: query
+        name: beacon
+        description: "The treasure beacon"
+        schema:
+          type: string
+        required: true
+      - in: query
+        name: longitude
+        description: "The GPS Longitude"
+        schema:
+          type: number
+        required: true
+      - in: query
+        name: latitude
+        description: "The GPS latitude"
+        schema:
+          type: number
+        required: true
+      responses:
+        200:
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Prize'
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetTreasure.Arn}/invocations"
+        responses: {}
+        httpMethod: POST
+        type: aws_proxy
+  /redemption-codes/{code}/:
+    post:
+      summary: "Gets a prize object for a redemption code"
+      operationId: get_prize
+      parameters:
+      - in: path
+        name: code
+        description: "The redeemable code"
+        schema:
+          type: string
+        required: true
+      responses:
+        200:
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Prize'
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetPrize.Arn}/invocations"
+        responses: {}
+        httpMethod: POST
+        type: aws_proxy
+    delete:
+      summary: "Removes a prize from the table"
+      operationId: delete_prize
+      security:
+        - User: []
+      parameters:
+      - in: path
+        name: code
+        description: "The redeemable code"
+        schema:
+          type: string
+        required: true
+      responses:
+        204:
+          description: "successful operation"
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DeletePrize.Arn}/invocations"
+        responses: {}
+        httpMethod: POST
+        type: aws_proxy
+  
+  #Users
+  /users/{userid}/:
+    get:
+      summary: "Gets the user object for an id"
+      operationId: get_user
+      parameters:
+      - in: path
+        name: userid
+        description: "The user ID"
+        schema:
+          type: string
+        required: true
+      responses:
+        200:
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetUser.Arn}/invocations"
+        responses: {}
+        httpMethod: POST
+        type: aws_proxy
+    put:
+      summary: "Creates a user"
+      operationId: register_user
+      parameters:
+      - in: path
+        name: userid
+        description: "The user ID"
+        schema:
+          type: string
+        required: true
+      responses:
+        201:
+          description: "Account created."
+        409:
+          description: "Conflict. Account already exists."
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${RegisterUser.Arn}/invocations"
+        responses: {}
+        httpMethod: POST
+        type: aws_proxy
+  /users/{userid}/prizes:
+    get:
+      summary: "Gets the prizes and points of a given user"
+      operationId: get_user_prizes
+      responses:
+        200:
+          description: "Account created."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserPrizes'
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetPrize.Arn}/invocations"
+        responses: {}
+        httpMethod: POST
+        type: aws_proxy
+ /users/challenge:
     post:
       summary: "Start a new challenge"
       operationId: start_challenge
       parameters:
-      - name: map
-        in: path
-        description: "The current map"
-        schema:
-          type: string
-        required: true
       - name: beacon
-        in: query
+        in: body
         description: "Beacon that the challenge was started from"
         schema:
           type: string
         required: false
       - name: marker
-        in: query
+        in: body
         description: "Marker the challenge was started from"
         schema:
           type: number
         required: false
-      security:
-        - User: []
       responses:
         201:
           description: "successful operation"
@@ -138,8 +277,6 @@ paths:
         schema:
           type: string
         required: true
-      security:
-        - User: []
       responses:
         204:
           description: "successful operation"
@@ -152,7 +289,7 @@ paths:
         responses: {}
         httpMethod: POST
         type: aws_proxy
-  /maps/{map}/challenge/finish:
+  /users/{userid}/challenge/finish:
     post:
       summary: "Attempt to complete a challenge"
       operationId: finish_challenge
@@ -209,116 +346,12 @@ paths:
         responses: {}
         httpMethod: POST
         type: aws_proxy
-  /treasure:
-    post:
-      summary: "Gets a prize for a treasure beacon"
-      operationId: get_treasure
-      parameters:
-      - in: query
-        name: beacon
-        description: "The treasure beacon"
-        schema:
-          type: string
-        required: true
-      - in: query
-        name: longitude
-        description: "The GPS Longitude"
-        schema:
-          type: number
-        required: true
-      - in: query
-        name: latitude
-        description: "The GPS latitude"
-        schema:
-          type: number
-        required: true
-      responses:
-        200:
-          description: "successful operation"
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Prize'
-      x-amazon-apigateway-integration:
-        uri:
-          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetTreasure.Arn}/invocations"
-        responses: {}
-        httpMethod: POST
-        type: aws_proxy
-  /redemption/{code}/:
-    post:
-      summary: "Gets a prize object for a redemption code"
-      operationId: get_prize
-      parameters:
-      - in: path
-        name: code
-        description: "The redeemable code"
-        schema:
-          type: string
-        required: true
-      responses:
-        200:
-          description: "successful operation"
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Prize'
-      x-amazon-apigateway-integration:
-        uri:
-          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetPrize.Arn}/invocations"
-        responses: {}
-        httpMethod: POST
-        type: aws_proxy
-    delete:
-      summary: "Removes a prize from the table"
-      operationId: delete_prize
-      parameters:
-      - in: path
-        name: code
-        description: "The redeemable code"
-        schema:
-          type: string
-        required: true
-      responses:
-        204:
-          description: "successful operation"
-      x-amazon-apigateway-integration:
-        uri:
-          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DeletePrize.Arn}/invocations"
-        responses: {}
-        httpMethod: POST
-        type: aws_proxy
-  # # User stuff
-  # /users/{user}/prizes:
-  #   get:
-  #     summary: "Get previously claimed prizes"
-  #     operationId: get_prizes
-  #     parameters:
-  #     - name: user
-  #       in: path
-  #       description: "The user requesting prizes"
-  #       required: true
-  #       schema:
-  #         type: string
-  #     security:
-  #     - User: []
-  #     responses:
-  #       200:
-  #         description: "successful operation"
-  #         content:
-  #           application/json:
-  #             schema:
-  #               type: array
-  #               items:
-  #                 $ref: '#/components/schemas/Prize'
+    
 components:
   securitySchemes:
     User:
       type: http
-      scheme: basic
-    Admin:
-      type: http
-      scheme: basic
+      scheme: bearer
   schemas:
     MapSummary:
       type: object
@@ -409,6 +442,26 @@ components:
           enum: ['challenge', 'treasure']
         claimed:
           type: boolean
+    UserPrizes:
+      type: object
+      properties:
+        points:
+          type: number
+        prizes:
+          type: array
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        points:
+          type: number
+        surveys:
+          type: array
+        prizes:
+          type: array
+        treasure:
+          type: array
     Coordinate:
       type: object
       properties:

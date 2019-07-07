@@ -9,7 +9,9 @@
         "location": {
           "latitude": -36.851614,
           "longitude": 174.77037
-        }
+        },
+        "release": "unixtime",
+        "duration": "time in seconds"
       },
       {
         "id": 1,

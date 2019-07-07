@@ -7,6 +7,7 @@ Globals:
         REGION: ap-southeast-2
         TABLE_NAME: !Ref AdventureTable
         PRIZES_TABLE_NAME: !Ref PrizesTable
+        USERS_TABLE_NAME: !Ref UsersTable
         ENDPOINT_OVERRIDE: ""
 Resources:
   AdventureApi:
@@ -18,7 +19,8 @@ Resources:
         'Fn::Transform':
           Name: 'AWS::Include'
           Parameters:
-            Location: s3://adventure-app-cloudformation/openapi.yaml
+            #Location: s3://adventure-app-cloudformation/openapi.yaml
+            Location: ./api-gateway/openapi.yaml
   AdventureTable:
     Type: AWS::Serverless::SimpleTable
     Properties:
@@ -35,6 +37,18 @@ Resources:
     Type: AWS::Serverless::SimpleTable
     Properties:
       TableName: AdventureAppPrizes
+      PrimaryKey:
+        Name: id
+        Type: String
+      ProvisionedThroughput:
+        WriteCapacityUnits: 5
+        ReadCapacityUnits: 5
+      Tags:
+        AppType: Serverless
+  UsersTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      TableName: AdventureAppUsers
       PrimaryKey:
         Name: id
         Type: String
@@ -105,24 +119,8 @@ Resources:
           Type: Api
           Properties:
             RestApiId: !Ref AdventureApi
-            Path: /maps/{map}/challenge
+            Path: /users/challenge
             Method: post
-  StopChallenge:
-    Type: AWS::Serverless::Function
-    Properties:
-      Handler: stop-challenge.handler
-      Runtime: nodejs10.x
-      CodeUri: ./lambda/.build/
-      Policies:
-      - DynamoDBCrudPolicy:
-          TableName: !Ref AdventureTable
-      Events:
-        Api:
-          Type: Api
-          Properties:
-            RestApiId: !Ref AdventureApi
-            Path: /maps/{map}/challenge
-            Method: delete
   FinishChallenge:
     Type: AWS::Serverless::Function
     Properties:
@@ -139,7 +137,7 @@ Resources:
           Type: Api
           Properties:
             RestApiId: !Ref AdventureApi
-            Path: /maps/{map}/challenge/finish
+            Path: /users/{userid}/challenge/finish
             Method: post
   GetTreasure:
     Type: AWS::Serverless::Function
@@ -173,7 +171,7 @@ Resources:
           Type: Api
           Properties:
             RestApiId: !Ref AdventureApi
-            Path: /redemption/{code}/
+            Path: /redemption-codes/{code}/
             Method: post
   DeletePrize:
     Type: AWS::Serverless::Function
@@ -189,5 +187,53 @@ Resources:
           Type: Api
           Properties:
             RestApiId: !Ref AdventureApi
-            Path: /redemption/{code}/
+            Path: /redemption-codes/{code}/
             Method: delete
+  GetUsers:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: get-user.handler
+      Runtime: nodejs10.x
+      CodeUri: ./lambda/.build/
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName: !Ref UsersTable
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            RestApiId: !Ref AdventureApi
+            Path: /users/{userid}/
+            Method: get
+  GetUserPrizes:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: get-user-prizes.handler
+      Runtime: nodejs10.x
+      CodeUri: ./lambda/.build/
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName: !Ref UsersTable
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            RestApiId: !Ref AdventureApi
+            Path: /users/{userid}/prizes
+            Method: get
+  RegisterUsers:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: register-user.handler
+      Runtime: nodejs10.x
+      CodeUri: ./lambda/.build/
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName: !Ref UsersTable
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            RestApiId: !Ref AdventureApi
+            Path: /users/{userid}/
+            Method: put
