@@ -224,7 +224,7 @@ paths:
                 $ref: '#/components/schemas/UserPrizes'
       x-amazon-apigateway-integration:
         uri:
-          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetPrize.Arn}/invocations"
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetUserPrizes.Arn}/invocations"
         responses: {}
         httpMethod: POST
         type: aws_proxy
