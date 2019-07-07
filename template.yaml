@@ -137,7 +137,7 @@ Resources:
           Type: Api
           Properties:
             RestApiId: !Ref AdventureApi
-            Path: /users/challenge/finish
+            Path: /users/{userid}/challenge/finish
             Method: post
   GetTreasure:
     Type: AWS::Serverless::Function
@@ -171,7 +171,7 @@ Resources:
           Type: Api
           Properties:
             RestApiId: !Ref AdventureApi
-            Path: /redemption/{code}/
+            Path: /redemption-codes/{code}/
             Method: post
   DeletePrize:
     Type: AWS::Serverless::Function
@@ -187,7 +187,7 @@ Resources:
           Type: Api
           Properties:
             RestApiId: !Ref AdventureApi
-            Path: /redemption/{code}/
+            Path: /redemption-codes/{code}/
             Method: delete
   GetUsers:
     Type: AWS::Serverless::Function
@@ -203,7 +203,7 @@ Resources:
           Type: Api
           Properties:
             RestApiId: !Ref AdventureApi
-            Path: /users
+            Path: /users/{userid}/
             Method: get
   GetUserPrizes:
     Type: AWS::Serverless::Function
@@ -219,7 +219,7 @@ Resources:
           Type: Api
           Properties:
             RestApiId: !Ref AdventureApi
-            Path: /users/prizes
+            Path: /users/{userid}/prizes
             Method: get
   RegisterUsers:
     Type: AWS::Serverless::Function

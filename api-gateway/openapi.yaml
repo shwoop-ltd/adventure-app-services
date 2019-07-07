@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: Shwoop Adventure App
-  description: "This is the backend for the Shwoop University of Auckland Adventure App"
+  description: "This is the backend for the Shwoop Adventure App"
   version: 1.0.0
 paths:
   /maps:
@@ -81,132 +81,12 @@ paths:
         responses: {}
         httpMethod: POST
         type: aws_proxy
-  /users/challenge:
-    post:
-      summary: "Start a new challenge"
-      operationId: start_challenge
-      parameters:
-      - name: beacon
-        in: body
-        description: "Beacon that the challenge was started from"
-        schema:
-          type: string
-        required: false
-      - name: marker
-        in: body
-        description: "Marker the challenge was started from"
-        schema:
-          type: number
-        required: false
-      security:
-        - User: []
-      responses:
-        201:
-          description: "successful operation"
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Puzzle'
-        404:
-          description: "map or beacon not found"
-          content: {}
-      x-amazon-apigateway-integration:
-        uri:
-          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${StartChallenge.Arn}/invocations"
-        responses: {}
-        httpMethod: POST
-        type: aws_proxy
-    delete:
-      summary: "Stop a challenge"
-      operationId: stop_challenge
-      parameters:
-      - name: map
-        in: path
-        description: "The current map"
-        schema:
-          type: string
-        required: true
-      - name: challenge
-        in: query
-        description: "The id of the challenge being completed"
-        schema:
-          type: string
-        required: true
-      security:
-        - User: []
-      responses:
-        204:
-          description: "successful operation"
-        404:
-          description: "map or beacon not found, or challenge not started"
-          content: {}
-      x-amazon-apigateway-integration:
-        uri:
-          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${StopChallenge.Arn}/invocations"
-        responses: {}
-        httpMethod: POST
-        type: aws_proxy
-  /maps/{map}/challenge/finish:
-    post:
-      summary: "Attempt to complete a challenge"
-      operationId: finish_challenge
-      parameters:
-      - in: path
-        name: map
-        description: "The current map"
-        schema:
-          type: string
-        required: true
-      - in: query
-        name: challenge
-        description: "The id of the challenge being completed"
-        schema:
-          type: string
-        required: true
-      - in: query
-        name: beacon
-        description: "The id of the beacon being used"
-        schema:
-          type: string
-        required: true
-      requestBody:
-        description: "Contains the beacon of the guessed solution"
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                beacon_id:
-                  type: string
-      responses:
-        200:
-          description: "Successfully solved puzzle"
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  prize:
-                    $ref: '#/components/schemas/Prize'
-        204: # This or a 400 code?
-          description: "Did not solve puzzle"
-          content: {}
-        400:
-          description: "Input body incorrect. Need a valid beacon_id"
-          content: {}
-        404:
-          description: "map not found, or challenge not started"
-          content: {}
-      x-amazon-apigateway-integration:
-        uri:
-          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${FinishChallenge.Arn}/invocations"
-        responses: {}
-        httpMethod: POST
-        type: aws_proxy
   /treasure:
     post:
       summary: "Gets a prize for a treasure beacon"
       operationId: get_treasure
+      security:
+        - User: []
       parameters:
       - in: query
         name: beacon
@@ -239,7 +119,7 @@ paths:
         responses: {}
         httpMethod: POST
         type: aws_proxy
-  /redemption/{code}/:
+  /redemption-codes/{code}/:
     post:
       summary: "Gets a prize object for a redemption code"
       operationId: get_prize
@@ -266,6 +146,8 @@ paths:
     delete:
       summary: "Removes a prize from the table"
       operationId: delete_prize
+      security:
+        - User: []
       parameters:
       - in: path
         name: code
@@ -329,7 +211,7 @@ paths:
         responses: {}
         httpMethod: POST
         type: aws_proxy
-  /users/prizes:
+  /users/{userid}/prizes:
     get:
       summary: "Gets the prizes and points of a given user"
       operationId: get_user_prizes
@@ -346,15 +228,130 @@ paths:
         responses: {}
         httpMethod: POST
         type: aws_proxy
+ /users/challenge:
+    post:
+      summary: "Start a new challenge"
+      operationId: start_challenge
+      parameters:
+      - name: beacon
+        in: body
+        description: "Beacon that the challenge was started from"
+        schema:
+          type: string
+        required: false
+      - name: marker
+        in: body
+        description: "Marker the challenge was started from"
+        schema:
+          type: number
+        required: false
+      responses:
+        201:
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Puzzle'
+        404:
+          description: "map or beacon not found"
+          content: {}
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${StartChallenge.Arn}/invocations"
+        responses: {}
+        httpMethod: POST
+        type: aws_proxy
+    delete:
+      summary: "Stop a challenge"
+      operationId: stop_challenge
+      parameters:
+      - name: map
+        in: path
+        description: "The current map"
+        schema:
+          type: string
+        required: true
+      - name: challenge
+        in: query
+        description: "The id of the challenge being completed"
+        schema:
+          type: string
+        required: true
+      responses:
+        204:
+          description: "successful operation"
+        404:
+          description: "map or beacon not found, or challenge not started"
+          content: {}
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${StopChallenge.Arn}/invocations"
+        responses: {}
+        httpMethod: POST
+        type: aws_proxy
+  /users/{userid}/challenge/finish:
+    post:
+      summary: "Attempt to complete a challenge"
+      operationId: finish_challenge
+      parameters:
+      - in: path
+        name: map
+        description: "The current map"
+        schema:
+          type: string
+        required: true
+      - in: query
+        name: challenge
+        description: "The id of the challenge being completed"
+        schema:
+          type: string
+        required: true
+      - in: query
+        name: beacon
+        description: "The id of the beacon being used"
+        schema:
+          type: string
+        required: true
+      requestBody:
+        description: "Contains the beacon of the guessed solution"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                beacon_id:
+                  type: string
+      responses:
+        200:
+          description: "Successfully solved puzzle"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  prize:
+                    $ref: '#/components/schemas/Prize'
+        204: # This or a 400 code?
+          description: "Did not solve puzzle"
+          content: {}
+        400:
+          description: "Input body incorrect. Need a valid beacon_id"
+          content: {}
+        404:
+          description: "map not found, or challenge not started"
+          content: {}
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${FinishChallenge.Arn}/invocations"
+        responses: {}
+        httpMethod: POST
+        type: aws_proxy
     
 components:
   securitySchemes:
     User:
       type: http
-      scheme: basic
-    Admin:
-      type: http
-      scheme: basic
+      scheme: bearer
   schemas:
     MapSummary:
       type: object

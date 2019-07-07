@@ -25,20 +25,16 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
     return { statusCode: 400, body: "Incorrect body." }
   }
 
+  if (!event.pathParameters || !event.pathParameters.userid) {
+    return { statusCode: 400, body: "No userid" }
+}
+
   //Core variable assignment
   const solution = body.beacon_id;
   const challenge_id = body.challenge_id;
   const map = body.map;
 
-  //User Check
-  const user_id = event.headers.Authorization.substring(7);
-  const user_result = await doc_client.get({ TableName: users_table_name, Key: { "id": user_id } }).promise();
-  const user = user_result.Item;
-  if (!user) {
-    return { statusCode: 401, body: "User does not exist." }
-  }
-
-  //Prize Check
+  //Puzzle Check
   const puzzle_key = "puzzle-" + map + "-beacon-" + challenge_id;
   const puzzle_result = await doc_client.get({ TableName: table_name, Key: { "id": puzzle_key } }).promise();
   if (!puzzle_result.Item) {
@@ -51,8 +47,16 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
     return { statusCode: 400, body: "Wrong solution." }
   };
 
+  //Does this user exist?
+  const user_id = event.pathParameters.userid;
+  const user_result = await doc_client.get({ TableName: users_table_name, Key: { "id": user_id } }).promise();
+  const user = user_result.Item;
+  if (!user) {
+      return { statusCode: 401, body: "User does not exist." }
+  }
+
   //Get Marker
-  const marker_key = "beacon-" + map + "-" + challenge_id;
+  const marker_key = challenge_id;
   const marker_result = await doc_client.get({TableName: table_name, Key: { "id": marker_key}}).promise();
   if (!marker_result.Item) {
     return {statusCode: 404, body: "No marker found for that challenge ID"}
@@ -69,7 +73,7 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
   }
   
   const d = new Date();
-  const marker = map_info.markers.filter((element: { id: number; }) => element.id == marker_id);
+  const marker = map_info.markers.find((element: { id: number; }) => element.id == marker_id);
   if (marker.release + marker.duration < d.getTime()/1000) {
     return {statusCode: 403, body: "Challenge closed."}
   }
@@ -81,9 +85,8 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
     id: generateRandomString(8),
     type: "red-bull",
     received: d.toISOString(),
-    received_from: "Challenge",
-    claimed: false,
-    points: undefined
+    received_from: "challenge",
+    claimed: false
   };
 
   //Identify the prize that should be awarded.
