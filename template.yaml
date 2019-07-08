@@ -9,7 +9,7 @@ Globals:
         PRIZES_TABLE_NAME: !Ref PrizesTable
         USERS_TABLE_NAME: !Ref UsersTable
         ENDPOINT_OVERRIDE: ""
-        ADMIN_TOKEN: "nW0xj7iN7bMAS1L7cyRB32sKDtNi2qmBi2sHed8qOPPAgkPI2qhjnt5VYTDPLt0z"
+        ADMIN_KEY: "nW0xj7iN7bMAS1L7cyRB32sKDtNi2qmBi2sHed8qOPPAgkPI2qhjnt5VYTDPLt0z"
 Resources:
   AdventureApi:
     Type: AWS::Serverless::Api

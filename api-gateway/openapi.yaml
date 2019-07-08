@@ -194,8 +194,6 @@ paths:
     post:
       summary: "Gets a prize for a treasure beacon"
       operationId: redeem_treasure
-      security:
-        - User: []
       parameters:
       - in: path
         name: userid
