@@ -70,13 +70,13 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
     };    
 
     //Params - Add treasure beacon id to user
-    user_result.treasure.push(treasure_id);
+    user.treasure.push(treasure_id);
     var treasure_params = {
         TableName: users_table_name,
         Key: { "id": user_id },
         UpdateExpression: 'SET treasure = :x',
         ExpressionAttributeValues: {
-            ':x': user_result.treasure
+            ':x': user.treasure
         }
     };
 
@@ -100,7 +100,7 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
 
     //Update number of treasures claimed
     doc_client.update(counter_params);
-    return { statusCode: 200, body: JSON.stringify(prize) };
+    return { statusCode: 201, body: JSON.stringify(prize) };
 }
 
 
