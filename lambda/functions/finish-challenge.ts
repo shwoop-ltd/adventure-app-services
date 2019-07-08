@@ -98,7 +98,8 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
     type: "red-bull",
     received: d.toISOString(),
     received_from: "challenge",
-    claimed: false
+    claimed: false,
+    user: user_id
   };
 
   //Identify the prize that should be awarded.

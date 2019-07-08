@@ -9,7 +9,8 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
     return { statusCode: 400, body: "No path parameters" };
 
   const result = await doc_client.get({ TableName: prizes_table_name, Key: { id: event.pathParameters.code } }).promise();
-
+  if (result.Item)
+    result.Item.user = undefined;
   if (result.Item)
     return { statusCode: 200, body: JSON.stringify(result.Item) };
   else

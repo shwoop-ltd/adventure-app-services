@@ -64,7 +64,8 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
         received: d.toISOString(),
         received_from: "treasure",
         claimed: false,
-        points: undefined
+        points: undefined,
+        user: user_id
     };
 
     const prizes = treasure_result.Item.prizes;
