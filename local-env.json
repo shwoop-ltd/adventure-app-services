@@ -3,6 +3,7 @@
     "ENDPOINT_OVERRIDE": "http://dynamodb:8000",
     "TABLE_NAME": "AdventureApp",
     "PRIZES_TABLE_NAME": "AdventureAppPrizes",
-    "USERS_TABLE_NAME": "AdventureAppUsers"
+    "USERS_TABLE_NAME": "AdventureAppUsers",
+    "TELEMETRY_TABLE_NAME": "AdventureAppTelemetry"
   }
 }

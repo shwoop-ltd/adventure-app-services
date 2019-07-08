@@ -17,6 +17,7 @@ function generateRandomString(length: number) {
 
 export async function handler(event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult> {
   //Request contents check
+
   if (!event.body) {
     return { statusCode: 400, body: "Body not present" }
   }
@@ -27,7 +28,19 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
 
   if (!event.pathParameters || !event.pathParameters.userid) {
     return { statusCode: 400, body: "No userid" }
-}
+  }
+
+  const user_id = event.pathParameters.userid;
+
+  const telemetry_table_name = process.env.TELEMETRY_TABLE_NAME!;
+  const telemetry_data = {
+    id: user_id + "-finishchallenge-" + generateRandomString(10),
+    pathParameters: event.pathParameters,
+    body: event.body,
+    queryStringParameters: event.queryStringParameters,
+    headers: event.headers
+  }
+  doc_client.put({ TableName: telemetry_table_name, Item: telemetry_data });
 
   //Core variable assignment
   const solution = body.beacon_id;
@@ -48,18 +61,17 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
   };
 
   //Does this user exist?
-  const user_id = event.pathParameters.userid;
   const user_result = await doc_client.get({ TableName: users_table_name, Key: { "id": user_id } }).promise();
   const user = user_result.Item;
   if (!user) {
-      return { statusCode: 401, body: "User does not exist." }
+    return { statusCode: 401, body: "User does not exist." }
   }
 
   //Get Marker
   const marker_key = challenge_id;
-  const marker_result = await doc_client.get({TableName: table_name, Key: { "id": marker_key}}).promise();
+  const marker_result = await doc_client.get({ TableName: table_name, Key: { "id": marker_key } }).promise();
   if (!marker_result.Item) {
-    return {statusCode: 404, body: "No marker found for that challenge ID"}
+    return { statusCode: 404, body: "No marker found for that challenge ID" }
   }
   const marker_id = marker_result.Item.marker;
 
@@ -71,11 +83,11 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
   if (!map_info) {
     return { statusCode: 404, body: 'Map not found' }
   }
-  
+
   const d = new Date();
   const marker = map_info.markers.find((element: { id: number; }) => element.id == marker_id);
-  if (marker.release + marker.duration < d.getTime()/1000) {
-    return {statusCode: 403, body: "Challenge closed."}
+  if (marker.release + marker.duration < d.getTime() / 1000) {
+    return { statusCode: 403, body: "Challenge closed." }
   }
 
   //Everything is good, lets get this man (or woman) a prize.

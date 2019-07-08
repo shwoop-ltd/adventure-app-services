@@ -6,15 +6,35 @@ const users_table_name = process.env.USERS_TABLE_NAME!;
 const prizes_table_name = process.env.PRIZES_TABLE_NAME!;
 const doc_client = new DynamoDB.DocumentClient({ region: process.env.REGION, endpoint: process.env.ENDPOINT_OVERRIDE });
 
+function generateRandomString(length: number) {
+  let returnString = ""
+  var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+  for (let i = 0; i < length; i++) {
+    returnString += characters.charAt(Math.floor(Math.random() * characters.length))
+  }
+  return returnString;
+}
+
 export async function handler(event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult> {
+  const user_id = event.headers.Authorization.substring(7);
+
   if (!event.pathParameters)
     return { statusCode: 400, body: "No path parameters" };
 
   const code = event.pathParameters.code;
 
+  const telemetry_table_name = process.env.TELEMETRY_TABLE_NAME!;
+  const telemetry_data = {
+    id: user_id + "-deleteprize-" + generateRandomString(10),
+    pathParameters: event.pathParameters,
+    body: event.body,
+    queryStringParameters: event.queryStringParameters,
+    headers: event.headers
+  }
+  doc_client.put({TableName: telemetry_table_name, Item: telemetry_data});
+
   //Does this user exist?
   var user;
-  const user_id = event.headers.Authorization.substring(7);
   if (user_id != admin_key) {
     const user_result = await doc_client.get({ TableName: users_table_name, Key: { "id": user_id } }).promise();
     user = user_result.Item;

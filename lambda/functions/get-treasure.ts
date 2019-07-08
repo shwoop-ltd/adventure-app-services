@@ -24,8 +24,19 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
         return { statusCode: 400, body: "Missing path parameters."}
     }
 
-    //Does this user exist?
     const user_id = event.pathParameters.userid;
+
+    const telemetry_table_name = process.env.TELEMETRY_TABLE_NAME!;
+    const telemetry_data = {
+      id: user_id + "-gettreasure-" + generateRandomString(10),
+      pathParameters: event.pathParameters,
+      body: event.body,
+      queryStringParameters: event.queryStringParameters,
+      headers: event.headers
+    }
+    doc_client.put({TableName: telemetry_table_name, Item: telemetry_data});
+
+    //Does this user exist?
     const user_result = await doc_client.get({ TableName: users_table_name, Key: { "id": user_id } }).promise();
     const user = user_result.Item;
     if (!user) {
