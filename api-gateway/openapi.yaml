@@ -81,44 +81,6 @@ paths:
         responses: {}
         httpMethod: POST
         type: aws_proxy
-  /treasure:
-    post:
-      summary: "Gets a prize for a treasure beacon"
-      operationId: get_treasure
-      security:
-        - User: []
-      parameters:
-      - in: query
-        name: beacon
-        description: "The treasure beacon"
-        schema:
-          type: string
-        required: true
-      - in: query
-        name: longitude
-        description: "The GPS Longitude"
-        schema:
-          type: number
-        required: true
-      - in: query
-        name: latitude
-        description: "The GPS latitude"
-        schema:
-          type: number
-        required: true
-      responses:
-        200:
-          description: "successful operation"
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Prize'
-      x-amazon-apigateway-integration:
-        uri:
-          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetTreasure.Arn}/invocations"
-        responses: {}
-        httpMethod: POST
-        type: aws_proxy
   /redemption-codes/{code}/:
     post:
       summary: "Gets a prize object for a redemption code"
@@ -224,11 +186,40 @@ paths:
                 $ref: '#/components/schemas/UserPrizes'
       x-amazon-apigateway-integration:
         uri:
-          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetPrize.Arn}/invocations"
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetUserPrizes.Arn}/invocations"
         responses: {}
         httpMethod: POST
         type: aws_proxy
- /users/challenge:
+  /user/{userid}/redeem-treasure:
+    post:
+      summary: "Gets a prize for a treasure beacon"
+      operationId: redeem_treasure
+      parameters:
+      - in: path
+        name: userid
+        description: "The User ID"
+        schema:
+          type: string
+      - in: query
+        name: beacon
+        description: "The treasure beacon"
+        schema:
+          type: string
+        required: true
+      responses:
+        200:
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Prize'
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetTreasure.Arn}/invocations"
+        responses: {}
+        httpMethod: POST
+        type: aws_proxy
+  /users/challenge:
     post:
       summary: "Start a new challenge"
       operationId: start_challenge

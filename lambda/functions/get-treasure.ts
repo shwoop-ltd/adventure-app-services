@@ -20,18 +20,33 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
     //TODO: Appropriate null checks for malformed data in the DB (E.g. treasures without prizes)
     if (!event.queryStringParameters || !event.queryStringParameters.beacon)
         return { statusCode: 400, body: "Query Parameter missing. Expected beacon." };
+    if (!event.pathParameters || !event.pathParameters.userid) {
+        return { statusCode: 400, body: "Missing path parameters."}
+    }
+
+    const user_id = event.pathParameters.userid;
+
+    const telemetry_table_name = process.env.TELEMETRY_TABLE_NAME!;
+    const telemetry_date = new Date()
+    const telemetry_data = {
+      id: user_id + "-gettreasure-" + telemetry_date.toISOString(),
+      pathParameters: event.pathParameters,
+      body: event.body,
+      queryStringParameters: event.queryStringParameters,
+      headers: event.headers
+    }
+    doc_client.put({TableName: telemetry_table_name, Item: telemetry_data});
 
     //Does this user exist?
-    const user_id = event.headers.Authorization.substring(7);
-    const user_result_promise = await doc_client.get({ TableName: users_table_name, Key: { "id": user_id } }).promise();
-    const user_result = user_result_promise.Item;
-    if (!user_result) {
+    const user_result = await doc_client.get({ TableName: users_table_name, Key: { "id": user_id } }).promise();
+    const user = user_result.Item;
+    if (!user) {
         return { statusCode: 401, body: "User does not exist." }
     }
 
     //Is it a new treasure?
     const treasure_id = event.queryStringParameters.beacon;
-    if (user_result.treasure.includes(treasure_id)) {
+    if (user.treasure.includes(treasure_id)) {
         return { statusCode: 403, body: "Treasure already claimed" }
     }
 
@@ -50,7 +65,8 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
         received: d.toISOString(),
         received_from: "treasure",
         claimed: false,
-        points: undefined
+        points: undefined,
+        user: user_id
     };
 
     const prizes = treasure_result.Item.prizes;
@@ -67,13 +83,13 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
     };    
 
     //Params - Add treasure beacon id to user
-    user_result.treasure.push(treasure_id);
+    user.treasure.push(treasure_id);
     var treasure_params = {
         TableName: users_table_name,
         Key: { "id": user_id },
         UpdateExpression: 'SET treasure = :x',
         ExpressionAttributeValues: {
-            ':x': user_result.treasure
+            ':x': user.treasure
         }
     };
 
@@ -97,7 +113,7 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
 
     //Update number of treasures claimed
     doc_client.update(counter_params);
-    return { statusCode: 200, body: JSON.stringify(prize) };
+    return { statusCode: 201, body: JSON.stringify(prize) };
 }
 
 

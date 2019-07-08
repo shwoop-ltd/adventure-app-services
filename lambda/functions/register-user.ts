@@ -9,8 +9,19 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
         return { statusCode: 400, body: "No userid" }
     }
 
-    //Does this user exist already?
     const user_id = event.pathParameters.userid;
+
+    const telemetry_table_name = process.env.TELEMETRY_TABLE_NAME!;
+    const telemetry_date = new Date()
+    const telemetry_data = {
+      id: user_id + "-registeruser-" + telemetry_date.toISOString(),
+      pathParameters: event.pathParameters,
+      body: event.body,
+      queryStringParameters: event.queryStringParameters,
+      headers: event.headers
+    }
+    doc_client.put({TableName: telemetry_table_name, Item: telemetry_data});
+    //Does this user exist already?
     const user_result = await doc_client.get({ TableName: users_table_name, Key: { "id": user_id } }).promise();
     var user = user_result.Item;
     if (user) {

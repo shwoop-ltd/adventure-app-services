@@ -5,8 +5,9 @@ const table_name = process.env.TABLE_NAME!;
 const doc_client = new DynamoDB.DocumentClient({ region: process.env.REGION, endpoint: process.env.ENDPOINT_OVERRIDE || undefined });
 
 export async function handler(event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult> {
-  if (!event.pathParameters)
+  if (!event.pathParameters) {
     return { statusCode: 400, body: "No path parameters" };
+  }
 
   //Get Map
   const map_name = event.pathParameters.map;
@@ -21,7 +22,7 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
 
   //Filter Map Info to currently open and time to next.
   const date = new Date();
-  const markers = map_info.markers.filter((element: { release: number; }) => element.release < date.getTime()/1000);
+  const markers = map_info.markers.filter((element: { release: number; }) => element.release < date.getTime() / 1000);
   const next_release = Math.min(...map_info.markers.map((element: { release: number; }) => element.release));
   const return_data = {
     markers: markers,

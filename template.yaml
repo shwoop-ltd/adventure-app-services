@@ -8,7 +8,9 @@ Globals:
         TABLE_NAME: !Ref AdventureTable
         PRIZES_TABLE_NAME: !Ref PrizesTable
         USERS_TABLE_NAME: !Ref UsersTable
+        TELEMETRY_TABLE_NAME: !Ref TelemetryTable
         ENDPOINT_OVERRIDE: ""
+        ADMIN_KEY: "nW0xj7iN7bMAS1L7cyRB32sKDtNi2qmBi2sHed8qOPPAgkPI2qhjnt5VYTDPLt0z"
 Resources:
   AdventureApi:
     Type: AWS::Serverless::Api
@@ -55,6 +57,18 @@ Resources:
       ProvisionedThroughput:
         WriteCapacityUnits: 5
         ReadCapacityUnits: 5
+      Tags:
+        AppType: Serverless
+  TelemetryTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      TableName: AdventureAppTelemetry
+      PrimaryKey:
+        Name: id
+        Type: String
+      ProvisionedThroughput:
+        WriteCapacityUnits: 10
+        ReadCapacityUnits: 1
       Tags:
         AppType: Serverless
   GetMaps:
@@ -155,7 +169,7 @@ Resources:
           Type: Api
           Properties:
             RestApiId: !Ref AdventureApi
-            Path: /treasure
+            Path: /users/{userid}/redeem-treasure
             Method: post
   GetPrize:
     Type: AWS::Serverless::Function
