@@ -169,7 +169,7 @@ Resources:
           Type: Api
           Properties:
             RestApiId: !Ref AdventureApi
-            Path: /users/{userid}treasure
+            Path: /users/{userid}/redeem-treasure
             Method: post
   GetPrize:
     Type: AWS::Serverless::Function

@@ -6,15 +6,6 @@ const users_table_name = process.env.USERS_TABLE_NAME!;
 const prizes_table_name = process.env.PRIZES_TABLE_NAME!;
 const doc_client = new DynamoDB.DocumentClient({ region: process.env.REGION, endpoint: process.env.ENDPOINT_OVERRIDE });
 
-function generateRandomString(length: number) {
-  let returnString = ""
-  var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
-  for (let i = 0; i < length; i++) {
-    returnString += characters.charAt(Math.floor(Math.random() * characters.length))
-  }
-  return returnString;
-}
-
 export async function handler(event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult> {
   const user_id = event.headers.Authorization.substring(7);
 
@@ -24,8 +15,9 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
   const code = event.pathParameters.code;
 
   const telemetry_table_name = process.env.TELEMETRY_TABLE_NAME!;
+  const telemetry_date = new Date()
   const telemetry_data = {
-    id: user_id + "-deleteprize-" + generateRandomString(10),
+    id: user_id + "-deleteprize-" + telemetry_date.toISOString(),
     pathParameters: event.pathParameters,
     body: event.body,
     queryStringParameters: event.queryStringParameters,

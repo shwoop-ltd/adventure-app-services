@@ -4,15 +4,6 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from 'aws-lambda
 const users_table_name = process.env.USERS_TABLE_NAME!;
 const doc_client = new DynamoDB.DocumentClient({ region: process.env.REGION, endpoint: process.env.ENDPOINT_OVERRIDE || undefined });
 
-function generateRandomString(length: number) {
-    let returnString = ""
-    var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
-    for (let i = 0; i < length; i++) {
-      returnString += characters.charAt(Math.floor(Math.random() * characters.length))
-    }
-    return returnString;
-  }
-
 export async function handler(event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult> {
     if (!event.pathParameters || !event.pathParameters.userid) {
         return { statusCode: 400, body: "No userid" }
@@ -21,8 +12,9 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
     const user_id = event.pathParameters.userid;
 
     const telemetry_table_name = process.env.TELEMETRY_TABLE_NAME!;
+    const telemetry_date = new Date()
     const telemetry_data = {
-      id: user_id + "-registeruser-" + generateRandomString(10),
+      id: user_id + "-registeruser-" + telemetry_date.toISOString(),
       pathParameters: event.pathParameters,
       body: event.body,
       queryStringParameters: event.queryStringParameters,

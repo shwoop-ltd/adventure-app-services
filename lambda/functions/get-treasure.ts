@@ -27,8 +27,9 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
     const user_id = event.pathParameters.userid;
 
     const telemetry_table_name = process.env.TELEMETRY_TABLE_NAME!;
+    const telemetry_date = new Date()
     const telemetry_data = {
-      id: user_id + "-gettreasure-" + generateRandomString(10),
+      id: user_id + "-gettreasure-" + telemetry_date.toISOString(),
       pathParameters: event.pathParameters,
       body: event.body,
       queryStringParameters: event.queryStringParameters,
