@@ -190,7 +190,7 @@ paths:
         responses: {}
         httpMethod: POST
         type: aws_proxy
-  /user/{userid}/redeem-treasure:
+  /users/{userid}/redeem-treasure:
     post:
       summary: "Gets a prize for a treasure beacon"
       operationId: redeem_treasure
