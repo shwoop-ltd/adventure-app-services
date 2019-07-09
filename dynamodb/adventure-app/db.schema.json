@@ -70,6 +70,16 @@
                   "description": "Whether a beacon is required to use this marker",
                   "type": "boolean",
                   "default": "true"
+                },
+                "release": {
+                  "description": "Time in epoch seconds at which the marker becomes available to users. If not present, assumed always available",
+                  "type": "number",
+                  "format": "int64"
+                },
+                "duration": {
+                  "description": "Number of seconds the marker is available for after release. If not present, assumed always available (after release if present)",
+                  "type": "number",
+                  "format": "int64"
                 }
               },
               "required": ["id", "location"],

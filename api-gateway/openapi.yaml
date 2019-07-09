@@ -377,6 +377,14 @@ components:
           type: boolean
           default: false
           description: Whether the marker requires a connection to bluetooth (if it is open, no connection required)
+        release:
+          type: integer
+          format: int64
+          description: Time at which the marker became available (in epoch seconds)
+        duration:
+          type: integer
+          format: int64
+          description: Number of seconds after release the marker is available for
       required: [id, location]
     Beacon:
       type: object

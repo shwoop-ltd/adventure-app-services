@@ -10,8 +10,8 @@
           "latitude": -36.851614,
           "longitude": 174.77037
         },
-        "release": "1562560538",
-        "duration": "604800"
+        "release": 1562560538,
+        "duration": 604800
       },
       {
         "id": 1,
@@ -20,8 +20,8 @@
           "latitude": -36.851783,
           "longitude": 174.770869
         },
-        "release": "1562570538",
-        "duration": "604,800"
+        "release": 1562570538,
+        "duration": 604800
       },
       {
         "id": 2,
