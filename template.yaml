@@ -211,7 +211,7 @@ Resources:
             RestApiId: !Ref AdventureApi
             Path: /redemption-codes/{code}/
             Method: delete
-  GetUsers:
+  GetUser:
     Type: AWS::Serverless::Function
     Properties:
       Handler: get-user.handler
@@ -243,7 +243,7 @@ Resources:
             RestApiId: !Ref AdventureApi
             Path: /users/{userid}/prizes
             Method: get
-  RegisterUsers:
+  RegisterUser:
     Type: AWS::Serverless::Function
     Properties:
       Handler: register-user.handler
