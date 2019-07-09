@@ -26,7 +26,7 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
     const user_result = await doc_client.get({ TableName: users_table_name, Key: { "id": user_id } }).promise();
     const user = user_result.Item;
     if (!user) {
-        return { statusCode: 401, body: "User does not exist." }
+        return { statusCode: 404, body: "User does not exist." }
     }
     return { statusCode: 200, body: JSON.stringify({ "points": user.points, "prizes": user.prizes }) };
 }
