@@ -4,7 +4,7 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from 'aws-lambda
 const admin_key = process.env.ADMIN_KEY!;
 const users_table_name = process.env.USERS_TABLE_NAME!;
 const prizes_table_name = process.env.PRIZES_TABLE_NAME!;
-const doc_client = new DynamoDB.DocumentClient({ region: process.env.REGION, endpoint: process.env.ENDPOINT_OVERRIDE });
+const doc_client = new DynamoDB.DocumentClient({ region: process.env.REGION, endpoint: process.env.ENDPOINT_OVERRIDE || undefined });
 
 export async function handler(event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult> {
   const user_id = event.headers.Authorization.substring(7);
