@@ -224,14 +224,20 @@ paths:
       summary: "Start a new challenge"
       operationId: start_challenge
       parameters:
+      - name: map
+        in: query
+        description: Map containing the beacon or marker
+        schema:
+          type: string
+        required: true
       - name: beacon
-        in: body
+        in: query
         description: "Beacon that the challenge was started from"
         schema:
           type: string
         required: false
       - name: marker
-        in: body
+        in: query
         description: "Marker the challenge was started from"
         schema:
           type: number
