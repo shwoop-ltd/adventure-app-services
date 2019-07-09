@@ -56,14 +56,15 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
   const map = body.map;
 
   //Puzzle Check
+  console.log(body);
   const puzzle_result = await doc_client.get({ TableName: table_name, Key: { "id": challenge_id } }).promise();
   if (!puzzle_result.Item) {
-    return { statusCode: 502, body: "Test" }
+    return { statusCode: 404, body: "Puzzle not found" }
   }
   const puzzle = puzzle_result.Item;
 
   //Solution Check
-  if (!puzzle.solution === solution) {
+  if (puzzle.solution !== solution) {
     return { statusCode: 400, body: "Wrong solution." }
   };
 
@@ -85,7 +86,7 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
   }
 
   const d = new Date();
-  const marker = map_info.markers.find((element: { id: string; }) => element.id == marker_id);
+  const marker = map_info.markers.find((element: { id: string; }) => element.id === marker_id);
   if (parseInt(marker.release) + parseInt(marker.duration) < d.getTime() / 1000) {
     return { statusCode: 403, body: "Challenge closed." }
   }
