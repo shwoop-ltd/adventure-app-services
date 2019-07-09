@@ -291,18 +291,6 @@ paths:
         schema:
           type: string
         required: true
-      - in: query
-        name: challenge
-        description: "The id of the challenge being completed"
-        schema:
-          type: string
-        required: true
-      - in: query
-        name: beacon
-        description: "The id of the beacon being used"
-        schema:
-          type: string
-        required: true
       requestBody:
         description: "Contains the beacon of the guessed solution"
         content:
@@ -311,6 +299,10 @@ paths:
               type: object
               properties:
                 beacon_id:
+                  type: string
+                challenge_id:
+                  type: string
+                map:
                   type: string
       responses:
         200:

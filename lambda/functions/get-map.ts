@@ -22,8 +22,10 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
 
   //Filter Map Info to currently open and time to next.
   const date = new Date();
-  const markers = map_info.markers.filter((element: { release: number; }) => element.release < date.getTime() / 1000);
-  const next_release = Math.min(...map_info.markers.map((element: { release: number; }) => element.release));
+  const markers = map_info.markers.filter((element: { release: string; }) => parseInt(element.release) < date.getTime()/1000);
+  const next_release = Math.min(...map_info.markers.filter((x: { release: string; }) => parseInt(x.release) > date.getTime()/1000) //Filters to future objects
+                                                   .map((element: { release: string; }) => parseInt(element.release)) //Converts objects into just release time
+                                                   .filter((x: any) => x)); //Removes null
   const return_data = {
     markers: markers,
     next_release: next_release

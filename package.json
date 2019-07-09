@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "concurrently --kill-others \"tsc --watch --p lambda\" \"sam local start-api\"",
-    "test": "mocha -r ts-node/register **/*.spec.ts --timeout 7000",
+    "test": "mocha -r ts-node/register **/*.spec.ts --timeout 15000",
     "upload-db": "ts-node ./dynamodb/adventure-app/write.ts"
   },
   "dependencies": {

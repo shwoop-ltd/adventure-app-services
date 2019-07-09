@@ -61,12 +61,12 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
     const d = new Date();
     const prize = {
         "id": generateRandomString(8),
-        type: "Red Bull",
+        type: "red-bull",
         received: d.toISOString(),
         received_from: "treasure",
         claimed: false,
         points: undefined,
-        user: user_id
+        user_id: user_id
     };
 
     const prizes = treasure_result.Item.prizes;
