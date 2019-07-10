@@ -108,9 +108,36 @@
           "image_url": {
             "type": "string",
             "format": "uri"
+          },
+          "prizes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "prize": {
+                  "type": "string",
+                  "description": "The type of the prize"
+                },
+                "available": {
+                  "type": "number",
+                  "description": "The number of this prize available to users"
+                },
+                "points": {
+                  "type": "number",
+                  "description": "If type is points, then the number of points awarded"
+                }
+              },
+              "required": ["prize", "available"],
+              "additionalProperties": false
+            }
+          },
+          "claimed": {
+            "type": "number",
+            "description": "The number of prizes already claimed for this challenge",
+            "default": 0
           }
         },
-        "required": ["id", "solution"],
+        "required": ["id", "solution", "prizes", "claimed"],
         "anyOf": [{ "required": ["text"] }, { "required": ["image_url"] }],
         "additionalProperties": false
       },
