@@ -119,6 +119,22 @@ Resources:
             RestApiId: !Ref AdventureApi
             Path: /maps/{map}/beacon/{beacon}
             Method: get
+  GetPrizeTypes:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: get-prize-types.handler
+      Runtime: nodejs10.x
+      CodeUri: ./lambda/.build/
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName: !Ref UsersTable
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            RestApiId: !Ref AdventureApi
+            Path: /prizes
+            Method: fet
   StartChallenge:
     Type: AWS::Serverless::Function
     Properties:
@@ -251,3 +267,35 @@ Resources:
             RestApiId: !Ref AdventureApi
             Path: /users/{userid}/
             Method: put
+  GetSurvey:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: get-survey.handler
+      Runtime: nodejs10.x
+      CodeUri: ./lambda/.build/
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName: !Ref AdventureTable
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            RestApiId: !Ref AdventureApi
+            Path: /users/{userid}/survey
+            Method: GET
+  FinishSurvey:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: finish-survey.handler
+      Runtime: nodejs10.x
+      CodeUri: ./lambda/.build/
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName: !Ref AdventureTable
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            RestApiId: !Ref AdventureApi
+            Path: /users/{userid}/survey/finish
+            Method: post

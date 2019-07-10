@@ -32,7 +32,8 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
         points: 0,
         surveys: [],
         prizes: [],
-        treasure: []
+        treasure: [],
+        challenges: []
     };
     await doc_client.put({ TableName: users_table_name, Item: user }, function (err, data) { if (err) { return { statusCode: 502, body: "Internal server error." } } });
     return { statusCode: 201, body: "Account created." };

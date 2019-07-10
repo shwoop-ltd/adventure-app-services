@@ -80,7 +80,7 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
             prize.points = element.points;
             break;
         }
-    };    
+    };
 
     //Params - Add treasure beacon id to user
     user.treasure.push(treasure_id);
