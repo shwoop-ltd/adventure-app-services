@@ -7,15 +7,14 @@ const doc_client = new DynamoDB.DocumentClient({ region: process.env.REGION, end
 export async function handler(event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult> {
   // TODO: Get info about user
 
-  if (!event.pathParameters)
-    return { statusCode: 400, body: "Recieved no path parameters?" };
-  if (!event.queryStringParameters || (!event.queryStringParameters.beacon_id && !event.queryStringParameters.marker_id)) {
-    return { statusCode: 400, body: "Need a marker or beacon ID." };
+  if (!event.queryStringParameters || (!event.queryStringParameters.beacon
+    && !event.queryStringParameters.marker && !event.queryStringParameters.map)) {
+    return { statusCode: 400, body: "Need a 'map', plus a 'marker' or 'beacon' ID." };
   }
 
-  const map_name = event.pathParameters.map;
-  const beacon_id = event.queryStringParameters && event.queryStringParameters.beacon;
-  const marker_id = event.queryStringParameters && event.queryStringParameters.marker;
+  const map_name = event.queryStringParameters.map;
+  const beacon_id = event.queryStringParameters.beacon;
+  const marker_id = event.queryStringParameters.marker;
 
   let key = 'puzzle-' + map_name + '-';
   if (beacon_id)

@@ -162,6 +162,10 @@ Resources:
           TableName: !Ref AdventureTable
       - DynamoDBCrudPolicy:
           TableName: !Ref PrizesTable
+      - DynamoDBCrudPolicy:
+          TableName: !Ref UsersTable
+      - DynamoDBCrudPolicy:
+          TableName: !Ref TelemetryTable
       Events:
         Api:
           Type: Api
@@ -180,6 +184,10 @@ Resources:
           TableName: !Ref AdventureTable
       - DynamoDBCrudPolicy:
           TableName: !Ref PrizesTable
+      - DynamoDBCrudPolicy:
+          TableName: !Ref UsersTable
+      - DynamoDBCrudPolicy:
+          TableName: !Ref TelemetryTable
       Events:
         Api:
           Type: Api
@@ -219,7 +227,7 @@ Resources:
             RestApiId: !Ref AdventureApi
             Path: /redemption-codes/{code}/
             Method: delete
-  GetUsers:
+  GetUser:
     Type: AWS::Serverless::Function
     Properties:
       Handler: get-user.handler
@@ -251,7 +259,7 @@ Resources:
             RestApiId: !Ref AdventureApi
             Path: /users/{userid}/prizes
             Method: get
-  RegisterUsers:
+  RegisterUser:
     Type: AWS::Serverless::Function
     Properties:
       Handler: register-user.handler
