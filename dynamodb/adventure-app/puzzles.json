@@ -3,7 +3,6 @@
     "id": "puzzle-uoa-beacon-0000_0000",
     "text": "The solution for this puzzle is beacon 0000_0001",
     "solution": "0000_0001",
-    "solution_name": "Guardians of the Galaxy.",
     "prizes": [
       { "prize": "red-bull", "available": 20 },
       { "prize": "points", "available": 10, "points": 3 }
@@ -14,7 +13,6 @@
     "id": "puzzle-uoa-beacon-0000_0001",
     "text": "The solution for this puzzle is beacon 0000_0002",
     "solution": "0000_0002",
-    "solution_name": "Because there were a lot of fans.",
     "prizes": [
       { "prize": "red-bull", "available": 20 },
       { "prize": "points", "available": 10, "points": 3 }
