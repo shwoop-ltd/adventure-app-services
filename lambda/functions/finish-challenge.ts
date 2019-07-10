@@ -87,7 +87,7 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
 
   const d = new Date();
   const marker = map_info.markers.find((element: { id: string; }) => element.id === marker_id);
-  if (parseInt(marker.release) + parseInt(marker.duration) < d.getTime() / 1000) {
+  if (marker.release + marker.duration < d.getTime() / 1000) {
     return { statusCode: 403, body: "Challenge closed." }
   }
 
