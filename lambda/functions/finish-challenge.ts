@@ -69,7 +69,7 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
   };
 
   //Get Marker
-  const marker_key = "beacon-" + map + "-" + challenge_id.substring(challenge_id.length-9);
+  const marker_key = "beacon-" + map + "-" + challenge_id.substring(challenge_id.length - 9);
   const marker_result = await doc_client.get({ TableName: table_name, Key: { "id": marker_key } }).promise();
   if (!marker_result.Item) {
     return { statusCode: 404, body: "No marker found for that challenge ID" }
@@ -89,6 +89,10 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
   const marker = map_info.markers.find((element: { id: string; }) => element.id === marker_id);
   if (parseInt(marker.release) + parseInt(marker.duration) < d.getTime() / 1000) {
     return { statusCode: 403, body: "Challenge closed." }
+  }
+
+  if (user.challenges.includes(challenge_id)) {
+    return { statusCode: 403, body: "Challenge already completed." }
   }
 
   //Everything is good, lets get this man (or woman) a prize.
@@ -124,8 +128,21 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
     }
   };
 
+  //Set up updating user's challenges
+  user.challenges.push(challenge_id);
+  var challenges_params = {
+    TableName: users_table_name,
+    Key: { "id": user_id },
+    UpdateExpression: 'SET challenges = :x',
+    ExpressionAttributeValues: {
+      ':x': user.challenges
+    }
+  };
+
+  doc_client.update(challenges_params, err => { });
+
   //Update awarded prizes
-  doc_client.update(prizes_params, function (err, data) { if (err) return { statusCode: 418, body: err } });
+  doc_client.update(prizes_params, err => { });
 
   //Store prize in prize table
   doc_client.put({ TableName: prizes_table_name, Item: prize }, function (err, data) { });
