@@ -351,7 +351,7 @@ paths:
         httpMethod: POST
         type: aws_proxy
   /users/{userid}/survey:
-    post:
+    get:
       summary: "Gets a survey"
       operationId: get_survey
       parameters:
@@ -362,7 +362,7 @@ paths:
           type: string
         required: true
       responses:
-        201:
+        200:
           description: "successful operation"
           content:
             application/json:
@@ -374,7 +374,6 @@ paths:
         responses: {}
         httpMethod: POST
         type: aws_proxy
-  /users/{userid}/survey/finish:
     post:
       summary: "Finish a survey"
       operationId: finish_survey
@@ -385,6 +384,20 @@ paths:
         schema:
           type: string
         required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                question:
+                  type: string
+                  description: The question given by the survey
+                answer:
+                  type: string
+                  description: An answer from the list of given answers
+              required: [question, answer]
+              additionalProperties: false
       responses:
         201:
           description: "successful operation"
@@ -528,6 +541,17 @@ components:
           items:
             type: string
             description: The ID of the prize owned by the user
+    Survey:
+      type: object
+      properties:
+        question:
+          type: string
+          description: The question asked to the user
+        answers:
+          type: string
+          description: The possible answers to the question
+      required: [question, answers]
+      additionalProperties: false
     User:
       type: object
       properties:
@@ -537,10 +561,18 @@ components:
           type: number
         surveys:
           type: array
+          items:
+            $ref: '#/components/schemas/Survey'
         prizes:
           type: array
+          items:
+            type: string
+            description: The id of each unused prize the user owns
         treasure:
           type: array
+          items:
+            type: string
+            description: Beacon ids of visited treasures
     Coordinate:
       type: object
       properties:

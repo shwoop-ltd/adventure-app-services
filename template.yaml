@@ -289,7 +289,7 @@ Resources:
           Type: Api
           Properties:
             RestApiId: !Ref AdventureApi
-            Path: /users/{userid}/survey
+            Path: /users/{userid}/surveys
             Method: GET
   FinishSurvey:
     Type: AWS::Serverless::Function
@@ -305,5 +305,5 @@ Resources:
           Type: Api
           Properties:
             RestApiId: !Ref AdventureApi
-            Path: /users/{userid}/survey/finish
+            Path: /users/{userid}/surveys
             Method: post
