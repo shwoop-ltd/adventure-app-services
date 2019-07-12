@@ -1,106 +1,102 @@
 import { DynamoDB } from 'aws-sdk';
 import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from 'aws-lambda';
 
+interface Survey {
+  question: string;
+  answers: string;
+}
+interface CompletedSurvey {
+  question: string;
+  answer: string;
+}
+
 const table_name = process.env.TABLE_NAME!;
 const users_table_name = process.env.USERS_TABLE_NAME!;
 const prizes_table_name = process.env.PRIZES_TABLE_NAME!;
 const doc_client = new DynamoDB.DocumentClient({ region: process.env.REGION, endpoint: process.env.ENDPOINT_OVERRIDE || undefined });
 
 function generateRandomString(length: number) {
-  let returnString = ""
-  var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+  let returnString = "";
+  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   for (let i = 0; i < length; i++) {
-    returnString += characters.charAt(Math.floor(Math.random() * characters.length))
+    returnString += characters.charAt(Math.floor(Math.random() * characters.length));
   }
   return returnString;
 }
 
-export async function handler(event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult> {
-  if (!event.pathParameters || !event.pathParameters.userid) {
-    return { statusCode: 400, body: "Missing path parameters." }
-  }
-  if (!event.body) {
-    return { statusCode: 400, body: "Body not present" }
-  }
-
-  const body = JSON.parse(event.body);
-
-  const user_id = event.pathParameters.userid;
-  //Does this user exist?
-  const user_result = await doc_client.get({ TableName: users_table_name, Key: { "id": user_id } }).promise();
-  const user = user_result.Item;
-  if (!user) {
-    return { statusCode: 401, body: "User does not exist." }
-  }
-
+function add_telemetry(user_id: string, function_name: string, event: APIGatewayProxyEvent) {
   const telemetry_table_name = process.env.TELEMETRY_TABLE_NAME!;
-  const telemetry_date = new Date()
+  const telemetry_date = new Date();
+
   const telemetry_data = {
-    id: user_id + "-finishsurvey-" + telemetry_date.toISOString(),
+    id: user_id + "-" + function_name + "-" + telemetry_date.toISOString(),
     pathParameters: event.pathParameters,
     body: event.body,
     queryStringParameters: event.queryStringParameters,
-    headers: event.headers
-  }
+    headers: event.headers,
+  };
+
   doc_client.put({ TableName: telemetry_table_name, Item: telemetry_data });
-  const survey_questions_result = await doc_client.get({ TableName: table_name, Key: { "id": "survey-questions" } }).promise();
-  const survey_questions = survey_questions_result.Item;
-  if (!survey_questions) {
+}
+
+export async function handler(event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult> {
+  if (!event.pathParameters || !event.pathParameters.userid) {
+    return { statusCode: 400, body: "Missing path parameters." };
+  }
+  if (!event.body) {
+    return { statusCode: 400, body: "Body not present" };
+  }
+
+  const body = JSON.parse(event.body) as CompletedSurvey;
+
+  const user_id = event.pathParameters.userid;
+  // Does this user exist?
+  const user_result = await doc_client.get({ TableName: users_table_name, Key: { id: user_id } }).promise();
+  const user = user_result.Item;
+  if (!user) {
+    return { statusCode: 401, body: "User does not exist." };
+  }
+  const user_surveys = user.surveys as CompletedSurvey[];
+  const answered_questions = user_surveys.map(({ question }) => question);
+
+  add_telemetry(user_id, "finish-survey", event);
+
+  const survey_result = await doc_client.get({ TableName: table_name, Key: { id: "survey-questions" } }).promise();
+  if (!survey_result.Item) {
     return { statusCode: 502, body: "Could not find survey" };
   }
-  const user_answered_questions = user.surveys.map(((x: { question: string; }) => x.question ));
-  const question_objects = survey_questions.questions.filter((element: { question: string; }) => !user_answered_questions.includes(element.question));
-  const question_questions = question_objects.map((x: { question: string; }) => x.question);
+  const surveys = survey_result.Item.surveys as Survey[];
+  const answered_survey = surveys.find(({ question }) => question === body.question);
+  if(!answered_survey)
+    return { statusCode: 404, body: "Survey does not exist" };
 
-  if (!question_questions.includes(body.question)) {
-    return { statusCode: 404, body: "Question already completed or no question found." }
-  }
+  if(answered_questions.includes(answered_survey.question))
+    return { statusCode: 409, body: "Question already completed or no question found." };
 
-  const survey = {
-    question: body.question,
-    answers: body.answers,
-    answer: body.answer
-  };
+  if(!answered_survey.answers.includes(body.answer))
+    return { statusCode: 400, body: "Answer must be from one of the given options in the survey" };
 
-  user.surveys.push(survey)
-  var surveys_params = {
-    TableName: users_table_name,
-    Key: { "id": user_id },
-    UpdateExpression: 'SET surveys = :x',
-    ExpressionAttributeValues: {
-      ':x': user.surveys
-    }
-  };
+  user_surveys.push({ question: body.question, answer: body.answer });
 
-  doc_client.update(surveys_params, err => {});
-
+  // Create a prize to give to the user.
+  // TODO: Prize should be determined by survey
   const d = new Date();
   const prize = {
     id: generateRandomString(8),
     type: "red-bull",
     received: d.toISOString(),
-    received_from: "challenge",
+    received_from: "survey",
     claimed: false,
-    user_id: user_id
+    user_id,
   };
-
-  //Set up updating user's prizes
+  // Set up updating user's prizes
   user.prizes.push(prize.id);
-  var prizes_params = {
-    TableName: users_table_name,
-    Key: { "id": user_id },
-    UpdateExpression: 'SET prizes = :x',
-    ExpressionAttributeValues: {
-      ':x': user.prizes
-    }
-  };
 
-  doc_client.update(prizes_params, function (err, data) { if (err) return { statusCode: 418, body: err } });
+  // Update user info with the previously inserted survey and prize
+  doc_client.put({ TableName: users_table_name, Item: user });
 
-  //Store prize in prize table
-  doc_client.put({ TableName: prizes_table_name, Item: prize }, function (err, data) { });
+  // Store prize in prize table
+  doc_client.put({ TableName: prizes_table_name, Item: prize }, () => {});
 
-  return { statusCode: 200, body: JSON.stringify(prize) };
+  return { statusCode: 201, body: JSON.stringify(prize) };
 }
-
-
