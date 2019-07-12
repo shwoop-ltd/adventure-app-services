@@ -61,7 +61,7 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
 
   add_telemetry(user_id, "finish-survey", event);
 
-  const survey_result = await doc_client.get({ TableName: table_name, Key: { id: "survey-questions" } }).promise();
+  const survey_result = await doc_client.get({ TableName: table_name, Key: { id: "surveys" } }).promise();
   if (!survey_result.Item) {
     return { statusCode: 502, body: "Could not find survey" };
   }
@@ -93,10 +93,10 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
   user.prizes.push(prize.id);
 
   // Update user info with the previously inserted survey and prize
-  doc_client.put({ TableName: users_table_name, Item: user });
+  await doc_client.put({ TableName: users_table_name, Item: user }).promise();
 
   // Store prize in prize table
-  doc_client.put({ TableName: prizes_table_name, Item: prize }, () => {});
+  await doc_client.put({ TableName: prizes_table_name, Item: prize }, () => {}).promise();
 
   return { statusCode: 201, body: JSON.stringify(prize) };
 }

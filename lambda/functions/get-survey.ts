@@ -27,7 +27,7 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
   }
   const answered_questions = (user_result.Item.surveys as CompletedSurvey[]).map(({ question }) => question);
 
-  const survey_result = await doc_client.get({ TableName: table_name, Key: { id: "survey-questions" } }).promise();
+  const survey_result = await doc_client.get({ TableName: table_name, Key: { id: "surveys" } }).promise();
   if (!survey_result.Item) {
     return { statusCode: 502, body: "Could not find survey" };
   }
