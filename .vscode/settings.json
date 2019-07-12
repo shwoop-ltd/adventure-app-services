@@ -2,12 +2,12 @@
   "json.schemas": [
     {
       "fileMatch": [
-        "dynamodb/beacons.json",
-        "dynamodb/maps.json",
-        "dynamodb/puzzles.json",
-        "dynamodb/map-info.json"
+        "dynamodb/adventure-app/beacons.json",
+        "dynamodb/adventure-app/maps.json",
+        "dynamodb/adventure-app/puzzles.json",
+        "dynamodb/adventure-app/map-info.json"
       ],
-      "url": "./dynamodb/db.schema.json"
+      "url": "./dynamodb/adventure-app/db.schema.json"
     }
   ],
   "files.exclude": {

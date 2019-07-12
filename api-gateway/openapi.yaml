@@ -434,6 +434,22 @@ components:
         image_url:
           type: string
           description: "Url of an image related to the puzzle"
+        prizes:
+          type: array
+          items:
+            type: object
+            properties:
+              prize:
+                type: string
+                description: The type of the prize
+              available:
+                type: number
+                description: The number of this prize that may be given out by this challenge
+        claimed:
+          type: number
+          description: The number of prizes already given by this challenge
+      required: [id, prizes, claimed]
+      additionalProperties: false
     Marker:
       type: object
       properties:
