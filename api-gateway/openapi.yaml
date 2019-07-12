@@ -350,7 +350,7 @@ paths:
         responses: {}
         httpMethod: POST
         type: aws_proxy
-  /users/{userid}/survey:
+  /users/{userid}/surveys/new:
     get:
       summary: "Gets a survey"
       operationId: get_survey
@@ -374,6 +374,7 @@ paths:
         responses: {}
         httpMethod: POST
         type: aws_proxy
+  /users/{userid}/surveys:
     post:
       summary: "Finish a survey"
       operationId: finish_survey
