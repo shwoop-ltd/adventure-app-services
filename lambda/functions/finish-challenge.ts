@@ -65,7 +65,7 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
 
   //Solution Check
   if (puzzle.solution !== solution) {
-    return { statusCode: 400, body: "Wrong solution." }
+    return { statusCode: 204, body: "Wrong solution." }
   };
 
   //Get Marker
