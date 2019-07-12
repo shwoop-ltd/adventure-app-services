@@ -9,8 +9,18 @@ import marker_sets from './map-info.json';
 import maps from './maps.json';
 import puzzles from './puzzles.json';
 import treasures from './treasures.json';
+import surveys from './surveys.json';
 
-type Item = (typeof beacons | typeof marker_sets | typeof maps | typeof puzzles | typeof treasures)[0];
+const items = [
+  ...marker_sets,
+  ...maps,
+  ...puzzles,
+  ...treasures,
+  ...beacons,
+  ...surveys,
+];
+
+type Item = (typeof items)[0];
 
 const filter_params = {
   map: undefined as string | undefined,
@@ -19,6 +29,7 @@ const filter_params = {
   maps: false,
   puzzles: false,
   treasures: false,
+  surveys: false,
 };
 
 function verify_params() {
@@ -42,13 +53,11 @@ function verify_params() {
     filter_params.puzzles = true;
   if(process.argv.includes('--treasures'))
     filter_params.treasures = true;
+  if(process.argv.includes('--surveys'))
+    filter_params.surveys = true;
 
-  if(!filter_params.beacons && !filter_params.map_info && !filter_params.maps && !filter_params.puzzles && !filter_params.treasures) {
-    filter_params.beacons = true;
-    filter_params.map_info = true;
-    filter_params.maps = true;
-    filter_params.puzzles = true;
-    filter_params.treasures = true;
+  if(!Object.values(filter_params).includes(true)) {
+    Object.keys(filter_params).filter(key => key !== "map").forEach(key => (filter_params as any)[key] = true);
   }
 
   return true;
@@ -67,6 +76,8 @@ function filter(item: Item) {
   else if(item.id.startsWith('treasure-') && !filter_params.treasures)
     return false;
   else if(item.id === "maps" && !filter_params.maps)
+    return false;
+  else if(item.id === "surveys" && !filter_params.surveys)
     return false;
 
   return true;
@@ -90,14 +101,6 @@ async function run() {
     AWS.config.credentials = new AWS.SharedIniFileCredentials({ profile });
   }
   const doc_client = new AWS.DynamoDB.DocumentClient({ region: 'ap-southeast-2', endpoint });
-
-  const items = [
-    ...marker_sets,
-    ...maps,
-    ...puzzles,
-    ...treasures,
-    ...beacons,
-  ];
 
   const items_to_change = items.filter(filter);
 
