@@ -391,16 +391,7 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                question:
-                  type: string
-                  description: The question given by the survey
-                answer:
-                  type: string
-                  description: An answer from the list of given answers
-              required: [question, answer]
-              additionalProperties: false
+              $ref: '#/components/schemas/SurveyResponse'
       responses:
         201:
           description: "successful operation"
@@ -551,9 +542,22 @@ components:
           type: string
           description: The question asked to the user
         answers:
-          type: string
+          type: array
           description: The possible answers to the question
+          items:
+            type: string
       required: [question, answers]
+      additionalProperties: false
+    SurveyResponse:
+      type: object
+      properties:
+        question:
+          type: string
+          description: The question asked to the user
+        answer:
+          type: string
+          description: The given answer
+      required: [question, answer]
       additionalProperties: false
     User:
       type: object
@@ -565,7 +569,7 @@ components:
         surveys:
           type: array
           items:
-            $ref: '#/components/schemas/Survey'
+            $ref: '#/components/schemas/SurveyResponse'
         prizes:
           type: array
           items:
