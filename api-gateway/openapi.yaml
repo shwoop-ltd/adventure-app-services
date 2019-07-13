@@ -368,6 +368,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Survey'
+        204:
+          description: "No more surveys to complete"
       x-amazon-apigateway-integration:
         uri:
           Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetSurvey.Arn}/invocations"

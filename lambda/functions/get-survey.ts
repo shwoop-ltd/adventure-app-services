@@ -36,5 +36,8 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
   // Remove surveys that the user has answered
   surveys = surveys.filter(({ question }) => !answered_questions.includes(question));
 
-  return { statusCode: 200, body: JSON.stringify(surveys[0]) };
+  if(surveys.length === 0)
+    return { statusCode: 204, body: "" };
+  else
+    return { statusCode: 200, body: JSON.stringify(surveys[0]) };
 }
