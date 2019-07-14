@@ -133,8 +133,8 @@ Resources:
           Type: Api
           Properties:
             RestApiId: !Ref AdventureApi
-            Path: /prizes
-            Method: fet
+            Path: /prize-types
+            Method: get
   StartChallenge:
     Type: AWS::Serverless::Function
     Properties:
