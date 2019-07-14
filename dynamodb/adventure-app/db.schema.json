@@ -193,6 +193,46 @@
           }
         ],
         "required": ["id", "beacon_type"]
+      },
+      {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "const": "prize-types"
+          },
+          "prizes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "The programmatic name"
+                },
+                "image_url": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "URL for image of the item"
+                },
+                "display_name": {
+                  "type": "string",
+                  "description": "Name of item intended for users",
+                  "examples": ["Red Bull", "Burger"]
+                },
+                "instance_name": {
+                  "type": "string",
+                  "description": "Name of a single instance of the item",
+                  "examples": ["a can of Red Bull", "a burger"]
+                }
+              },
+              "required": ["name", "image_url", "display_name", "instance_name"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": ["id", "prizes"],
+        "additionalProperties": false
       }
     ]
   },

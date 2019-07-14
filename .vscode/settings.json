@@ -5,7 +5,8 @@
         "dynamodb/adventure-app/beacons.json",
         "dynamodb/adventure-app/maps.json",
         "dynamodb/adventure-app/puzzles.json",
-        "dynamodb/adventure-app/map-info.json"
+        "dynamodb/adventure-app/map-info.json",
+        "dynamodb/adventure-app/prize-types.json"
       ],
       "url": "./dynamodb/adventure-app/db.schema.json"
     }
