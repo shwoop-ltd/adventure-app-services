@@ -30,6 +30,7 @@ const filter_params = {
   puzzles: false,
   treasures: false,
   surveys: false,
+  prize_types: false,
 };
 
 function verify_params() {
@@ -55,6 +56,8 @@ function verify_params() {
     filter_params.treasures = true;
   if(process.argv.includes('--surveys'))
     filter_params.surveys = true;
+  if(process.argv.includes('--prizes'))
+    filter_params.prize_types = true;
 
   if(!Object.values(filter_params).includes(true)) {
     Object.keys(filter_params).filter(key => key !== "map").forEach(key => (filter_params as any)[key] = true);
@@ -78,6 +81,8 @@ function filter(item: Item) {
   else if(item.id === "maps" && !filter_params.maps)
     return false;
   else if(item.id === "surveys" && !filter_params.surveys)
+    return false;
+  else if(item.id === "prizes" && !filter_params.prize_types)
     return false;
 
   return true;
