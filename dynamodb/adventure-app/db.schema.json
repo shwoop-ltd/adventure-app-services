@@ -199,6 +199,36 @@
         "properties": {
           "id": {
             "type": "string",
+            "const": "surveys"
+          },
+          "surveys": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "question": {
+                  "type": "string"
+                },
+                "answers": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "required": ["question", "answers"],
+            "additionalProperties": false
+          }
+        },
+        "required": ["id", "surveys"],
+        "additionalProperties": false
+      },
+      {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
             "const": "prize-types"
           },
           "prizes": {
@@ -228,13 +258,12 @@
               },
               "required": ["name", "image_url", "display_name", "instance_name"],
               "additionalProperties": false
-            }
           }
-        },
-        "required": ["id", "prizes"],
-        "additionalProperties": false
-      }
-    ]
+        }
+      },
+      "required": ["id", "prizes"],
+      "additionalProperties": false
+    }]
   },
   "definitions": {
     "location": {

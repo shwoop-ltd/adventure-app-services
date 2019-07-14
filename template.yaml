@@ -300,13 +300,15 @@ Resources:
       Policies:
       - DynamoDBCrudPolicy:
           TableName: !Ref AdventureTable
+      - DynamoDBCrudPolicy:
+          TableName: !Ref UsersTable
       Events:
         Api:
           Type: Api
           Properties:
             RestApiId: !Ref AdventureApi
-            Path: /users/{userid}/survey
-            Method: GET
+            Path: /users/{userid}/surveys/new
+            Method: get
   FinishSurvey:
     Type: AWS::Serverless::Function
     Properties:
@@ -316,10 +318,16 @@ Resources:
       Policies:
       - DynamoDBCrudPolicy:
           TableName: !Ref AdventureTable
+      - DynamoDBCrudPolicy:
+          TableName: !Ref PrizesTable
+      - DynamoDBCrudPolicy:
+          TableName: !Ref UsersTable
+      - DynamoDBCrudPolicy:
+          TableName: !Ref TelemetryTable
       Events:
         Api:
           Type: Api
           Properties:
             RestApiId: !Ref AdventureApi
-            Path: /users/{userid}/survey/finish
+            Path: /users/{userid}/surveys
             Method: post
