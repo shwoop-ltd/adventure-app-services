@@ -10,7 +10,7 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
   if(result.Item)
     return {
       statusCode: 200,
-      body: JSON.stringify(result.Item),
+      body: JSON.stringify(result.Item.prizes),
     };
   else
     return {

@@ -127,7 +127,7 @@ Resources:
       CodeUri: ./lambda/.build/
       Policies:
       - DynamoDBCrudPolicy:
-          TableName: !Ref UsersTable
+          TableName: !Ref AdventureTable
       Events:
         Api:
           Type: Api

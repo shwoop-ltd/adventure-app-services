@@ -10,6 +10,7 @@ import maps from './maps.json';
 import puzzles from './puzzles.json';
 import treasures from './treasures.json';
 import surveys from './surveys.json';
+import prize_types from './prize-types.json';
 
 const items = [
   ...marker_sets,
@@ -18,6 +19,7 @@ const items = [
   ...treasures,
   ...beacons,
   ...surveys,
+  ...prize_types,
 ];
 
 type Item = (typeof items)[0];
