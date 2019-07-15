@@ -8,10 +8,10 @@ const prizes_table_name = process.env.PRIZES_TABLE_NAME!;
 const doc_client = new DynamoDB.DocumentClient({ region: process.env.REGION, endpoint: process.env.ENDPOINT_OVERRIDE || undefined });
 
 function generateRandomString(length: number) {
-  let returnString = ""
-  var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
-  for (let i = 0; i < length; i++) {
-    returnString += characters.charAt(Math.floor(Math.random() * characters.length))
+  let returnString = "";
+  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  for (let i = 0; i < length; i += 1) {
+    returnString += characters.charAt(Math.floor(Math.random() * characters.length));
   }
   return returnString;
 }
