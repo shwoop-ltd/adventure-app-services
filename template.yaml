@@ -167,7 +167,7 @@ Resources:
           Type: Api
           Properties:
             RestApiId: !Ref AdventureApi
-            Path: /users/challenge
+            Path: /users/{userid}/challenge/{challengeid}
             Method: post
   StopChallenge:
     Type: AWS::Serverless::Function
@@ -183,7 +183,7 @@ Resources:
           Type: Api
           Properties:
             RestApiId: !Ref AdventureApi
-            Path: /users/challenge
+            Path: /users/{userid}/challenge
             Method: delete
   FinishChallenge:
     Type: AWS::Serverless::Function
@@ -205,7 +205,7 @@ Resources:
           Type: Api
           Properties:
             RestApiId: !Ref AdventureApi
-            Path: /users/{userid}/challenge/finish
+            Path: /users/{userid}/challenge
             Method: post
   GetTreasure:
     Type: AWS::Serverless::Function

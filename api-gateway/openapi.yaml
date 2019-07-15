@@ -82,7 +82,7 @@ paths:
         httpMethod: POST
         type: aws_proxy
   /maps/{map}/challenges/{type}/{type_id}:
-    post:
+    get:
       summary: "Gets information about a challenge"
       operationId: get_challenge
       parameters:
@@ -99,7 +99,7 @@ paths:
           type: string
           enum: [beacon, marker]
         required: true
-      - name: type-id
+      - name: type_id
         in: path
         description: "Id of respective beacon or marker"
         schema:
@@ -117,7 +117,7 @@ paths:
           content: {}
       x-amazon-apigateway-integration:
         uri:
-          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${StartChallenge.Arn}/invocations"
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetChallenge.Arn}/invocations"
         responses: {}
         httpMethod: POST
         type: aws_proxy
@@ -321,20 +321,13 @@ paths:
         httpMethod: POST
         type: aws_proxy
   /users/{userid}/challenge:
-    parameters:
-    - in: path
-      name: userid
-      description: "The User ID"
-      schema:
-        type: string
-      required: true
     post:
       summary: "Attempt to complete a challenge"
       operationId: finish_challenge
       parameters:
       - in: path
-        name: map
-        description: "The current map"
+        name: userid
+        description: "The User ID"
         schema:
           type: string
         required: true
@@ -380,9 +373,9 @@ paths:
       summary: "Stop a challenge"
       operationId: stop_challenge
       parameters:
-      - name: userid
-        in: query
-        description: "The user stopping the challenge"
+      - in: path
+        name: userid
+        description: "The User ID"
         schema:
           type: string
         required: true
