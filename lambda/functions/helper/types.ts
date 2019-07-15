@@ -65,8 +65,18 @@ export interface DBUser {
   id: string;
 
   surveys: { question: string; answer: string; }[];
-  puzzles: string[];
+  prizes: string[];
   treasure: string[];
+  challenges: string[];
 
   prerequisite_challenges_completed: number;
+}
+
+export interface DBPrize {
+  id: string;
+  type: string;
+  received: string; // ISO date
+  received_from: 'challenge' | 'treasure' | 'survey';
+  claimed: false;
+  user_id: string;
 }

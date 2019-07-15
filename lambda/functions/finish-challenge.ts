@@ -1,5 +1,6 @@
 import { DynamoDB } from 'aws-sdk';
 import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from 'aws-lambda';
+import { DBUser, DBChallenge, DBPrize } from 'helper/types';
 
 const table_name = process.env.TABLE_NAME!;
 const users_table_name = process.env.USERS_TABLE_NAME!;
@@ -15,138 +16,121 @@ function generateRandomString(length: number) {
   return returnString;
 }
 
-export async function handler(event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult> {
-  //Request contents check
+async function add_telemetry(user_id: string, function_name: string, event: APIGatewayProxyEvent) {
+  const telemetry_table_name = process.env.TELEMETRY_TABLE_NAME!;
+  const telemetry_date = new Date();
 
+  const telemetry_data = {
+    id: user_id + "-" + function_name + "-" + telemetry_date.toISOString(),
+    pathParameters: event.pathParameters,
+    body: event.body,
+    queryStringParameters: event.queryStringParameters,
+    headers: event.headers,
+  };
+
+  await doc_client.put({ TableName: telemetry_table_name, Item: telemetry_data }).promise();
+}
+
+export async function handler(event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult> {
   if (!event.body) {
-    return { statusCode: 400, body: "Body not present" }
+    return { statusCode: 400, body: "Body not present" };
   }
   const body = JSON.parse(event.body);
   if (!body.challenge_id || !body.beacon_id || !body.map) {
-    return { statusCode: 400, body: "Incorrect body." }
+    return { statusCode: 400, body: "Incorrect body." };
   }
 
   if (!event.pathParameters || !event.pathParameters.userid) {
-    return { statusCode: 400, body: "No userid" }
+    return { statusCode: 400, body: "No userid" };
   }
 
   const user_id = event.pathParameters.userid;
 
-  //Done first to ensure our telemetry is about a given user.
-  const user_result = await doc_client.get({ TableName: users_table_name, Key: { "id": user_id } }).promise();
-  const user = user_result.Item;
-  if (!user) {
-    return { statusCode: 404, body: "User does not exist." }
-  }
+  // Done first to ensure our telemetry is about a given user.
+  const user_result = await doc_client.get({ TableName: users_table_name, Key: { id: user_id } }).promise();
+  const user = user_result.Item as DBUser | undefined;
+  if (!user)
+    return { statusCode: 404, body: "User does not exist." };
 
-  const telemetry_table_name = process.env.TELEMETRY_TABLE_NAME!;
-  const telemetry_date = new Date()
-  const telemetry_data = {
-    id: user_id + "-finishchallenge-" + telemetry_date.toISOString(),
-    pathParameters: event.pathParameters,
-    body: event.body,
-    queryStringParameters: event.queryStringParameters,
-    headers: event.headers
-  }
-  doc_client.put({ TableName: telemetry_table_name, Item: telemetry_data });
+  await add_telemetry(user_id, "finishchallenge", event);
 
-  //Core variable assignment
-  const solution = body.beacon_id;
-  const challenge_id = body.challenge_id;
-  const map = body.map;
+  // Core variable assignment
+  const solution = body.beacon_id as string;
+  const challenge_id = body.challenge_id as string;
+  const map = body.map as string;
 
-  //Puzzle Check
-  console.log(body);
-  const puzzle_result = await doc_client.get({ TableName: table_name, Key: { "id": challenge_id } }).promise();
-  if (!puzzle_result.Item) {
-    return { statusCode: 404, body: "Puzzle not found" }
-  }
-  const puzzle = puzzle_result.Item;
+  // Puzzle Check
+  const challenge_result = await doc_client.get({ TableName: table_name, Key: { id: challenge_id } }).promise();
+  if (!challenge_result.Item)
+    return { statusCode: 404, body: "Puzzle not found" };
+  const challenge = challenge_result.Item as DBChallenge;
 
-  //Solution Check
-  if (puzzle.solution !== solution) {
-    return { statusCode: 204, body: "Wrong solution." }
-  };
+  // Check the user hasn't already completed it
+  if (user.challenges.includes(challenge_id))
+    return { statusCode: 403, body: "Challenge already completed." };
 
-  //Get Marker
-  const marker_key = "beacon-" + map + "-" + challenge_id.substring(challenge_id.length - 9);
-  const marker_result = await doc_client.get({ TableName: table_name, Key: { "id": marker_key } }).promise();
-  if (!marker_result.Item) {
-    return { statusCode: 404, body: "No marker found for that challenge ID" }
-  }
-  const marker_id = marker_result.Item.marker;
+  // Solution Check
+  if (challenge.solution !== solution)
+    return { statusCode: 204, body: "Wrong solution." };
 
-  //Time Check
-  const map_info_key = 'map-' + map;
-  const map_info_result = await doc_client.get({ TableName: table_name, Key: { "id": map_info_key } }).promise();
-  const map_info = map_info_result.Item;
+  // NOTE: This does't work if the challenge is a marker-type challenge. TODO: Redo later.
+  // //Get Marker
+  // const marker_key = "beacon-" + map + "-" + challenge_id.substring(challenge_id.length - 9);
+  // const marker_result = await doc_client.get({ TableName: table_name, Key: { "id": marker_key } }).promise();
+  // if (!marker_result.Item) {
+  //   return { statusCode: 404, body: "No marker found for that challenge ID" }
+  // }
+  // const marker_id = marker_result.Item.marker;
 
-  if (!map_info) {
-    return { statusCode: 404, body: 'Map not found' }
-  }
+  // //Time Check
+  // const map_info_key = 'map-' + map;
+  // const map_info_result = await doc_client.get({ TableName: table_name, Key: { "id": map_info_key } }).promise();
+  // const map_info = map_info_result.Item;
 
-  const d = new Date();
-  const marker = map_info.markers.find((element: { id: string; }) => element.id === marker_id);
-  if (marker.release + marker.duration < d.getTime() / 1000) {
-    return { statusCode: 403, body: "Challenge closed." }
-  }
+  // if (!map_info) {
+  //   return { statusCode: 404, body: 'Map not found' }
+  // }
 
-  if (user.challenges.includes(challenge_id)) {
-    return { statusCode: 403, body: "Challenge already completed." }
-  }
+  // const d = new Date();
+  // const marker = map_info.markers.find((element: { id: string; }) => element.id === marker_id);
+  // if (marker.release + marker.duration < d.getTime() / 1000) {
+  //   return { statusCode: 403, body: "Challenge closed." }
+  // }
 
-  //Everything is good, lets get this man (or woman) a prize.
+  // Everything is good, lets get this man (or woman) a prize.
 
-  //Establish prize object
+  // Establish prize object
   const prize = {
     id: generateRandomString(8),
     type: "red-bull",
-    received: d.toISOString(),
+    received: (new Date()).toISOString(),
     received_from: "challenge",
     claimed: false,
-    user_id: user_id
-  };
+    user_id,
+  } as DBPrize;
 
-  //Identify the prize that should be awarded.
+  // Identify the prize that should be awarded.
   let total = 0;
-  for (let i = 0; i < puzzle.prizes.length; i++) {
-    total += puzzle.prizes[i].available;
-    if (puzzle.claimed < total) {
-      prize.type = puzzle.prizes[i].prize;
+  for(const potential_prize of challenge.prizes) {
+    total += potential_prize.available;
+
+    if(challenge.claimed < total) {
+      prize.type = potential_prize.prize;
       break;
     }
-  };
+  }
 
-  //Set up updating user's prizes
+  // Store prize in prize table
+  await doc_client.put({ TableName: prizes_table_name, Item: prize }).promise();
+
+  // Update user with prize info, challenge info, and prerequisites
   user.prizes.push(prize.id);
-  var prizes_params = {
-    TableName: users_table_name,
-    Key: { "id": user_id },
-    UpdateExpression: 'SET prizes = :x',
-    ExpressionAttributeValues: {
-      ':x': user.prizes
-    }
-  };
-
-  //Set up updating user's challenges
   user.challenges.push(challenge_id);
-  var challenges_params = {
-    TableName: users_table_name,
-    Key: { "id": user_id },
-    UpdateExpression: 'SET challenges = :x',
-    ExpressionAttributeValues: {
-      ':x': user.challenges
-    }
-  };
+  if(challenge.is_prerequisite)
+    user.prerequisite_challenges_completed += 1;
 
-  doc_client.update(challenges_params, err => { });
+  await doc_client.put({ TableName: users_table_name, Item: user }).promise();
 
-  //Update awarded prizes
-  doc_client.update(prizes_params, err => { });
-
-  //Store prize in prize table
-  doc_client.put({ TableName: prizes_table_name, Item: prize }, function (err, data) { });
-
-  //Return the prize
+  // Return the prize
   return { statusCode: 200, body: JSON.stringify(prize) };
 }
