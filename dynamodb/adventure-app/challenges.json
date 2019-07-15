@@ -1,6 +1,6 @@
 [
   {
-    "id": "puzzle-uoa-beacon-0000_0000",
+    "id": "challenge-uoa-beacon-0000_0000",
     "text": "The solution for this puzzle is beacon 0000_0001",
     "solution": "0000_0001",
     "prizes": [
@@ -10,7 +10,7 @@
     "claimed": 0
   },
   {
-    "id": "puzzle-uoa-beacon-0000_0001",
+    "id": "challenge-uoa-beacon-0000_0001",
     "text": "The solution for this puzzle is beacon 0000_0002",
     "solution": "0000_0002",
     "prizes": [
