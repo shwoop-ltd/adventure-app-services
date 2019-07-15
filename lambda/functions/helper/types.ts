@@ -56,3 +56,13 @@ export interface DBSurveyCollection {
     answers: string[];
   }[];
 }
+
+export interface DBUser {
+  id: string;
+
+  surveys: { question: string; answer: string; }[];
+  puzzles: string[];
+  treasure: string[];
+
+  prerequisite_challenges_completed: number;
+}
