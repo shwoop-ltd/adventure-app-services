@@ -166,6 +166,23 @@ paths:
         responses: {}
         httpMethod: POST
         type: aws_proxy
+  /prize-types:
+    get:
+      summary: "Gets information about types of prizes that can be awarded"
+      operationId: get_prize_types
+      responses:
+        200:
+          description: "Successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrizeTypes'
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetPrizeTypes.Arn}/invocations"
+        responses: {}
+        httpMethod: POST
+        type: aws_proxy
 
   #Users
   /users/{userid}/:
@@ -540,6 +557,20 @@ components:
             type: string
             enum:
               - hidden
+    PrizeTypes:
+      type: array
+      items:
+        type: object
+        properties:
+          name:
+            type: string
+          image_url:
+            type: string
+            format: uri
+          display_name:
+            type: string
+          instance_name:
+            type: string
     Prize:
       type: object
       properties:
