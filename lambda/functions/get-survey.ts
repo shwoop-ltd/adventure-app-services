@@ -1,43 +1,43 @@
 import { DynamoDB } from 'aws-sdk';
 import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from 'aws-lambda';
 
+interface Survey {
+  question: string;
+  answers: string;
+}
+interface CompletedSurvey {
+  question: string;
+  answer: string;
+}
+
 const table_name = process.env.TABLE_NAME!;
 const users_table_name = process.env.USERS_TABLE_NAME!;
 const doc_client = new DynamoDB.DocumentClient({ region: process.env.REGION, endpoint: process.env.ENDPOINT_OVERRIDE || undefined });
 
 export async function handler(event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult> {
   if (!event.pathParameters || !event.pathParameters.userid) {
-    return { statusCode: 400, body: "Missing path parameters." }
+    return { statusCode: 400, body: "Missing path parameters." };
   }
 
+  // Get the user, as we need to find a survey the user has yet to answer
   const user_id = event.pathParameters.userid;
-  //Does this user exist?
-  const user_result = await doc_client.get({ TableName: users_table_name, Key: { "id": user_id } }).promise();
-  const user = user_result.Item;
-  if (!user) {
-    return { statusCode: 401, body: "User does not exist." }
+  const user_result = await doc_client.get({ TableName: users_table_name, Key: { id: user_id } }).promise();
+  if (!user_result.Item) {
+    return { statusCode: 401, body: "User does not exist." };
   }
+  const answered_questions = (user_result.Item.surveys as CompletedSurvey[]).map(({ question }) => question);
 
-  const telemetry_table_name = process.env.TELEMETRY_TABLE_NAME!;
-  const telemetry_date = new Date()
-  const telemetry_data = {
-    id: user_id + "-gettreasure-" + telemetry_date.toISOString(),
-    pathParameters: event.pathParameters,
-    body: event.body,
-    queryStringParameters: event.queryStringParameters,
-    headers: event.headers
-  }
-  const survey_questions_result = await doc_client.get({ TableName: table_name, Key: { "id": "survey-questions" } }).promise();
-  const survey_questions = survey_questions_result.Item;
-  if (!survey_questions) {
+  const survey_result = await doc_client.get({ TableName: table_name, Key: { id: "surveys" } }).promise();
+  if (!survey_result.Item) {
     return { statusCode: 502, body: "Could not find survey" };
   }
+  let surveys = survey_result.Item.surveys as Survey[];
 
-  const questions = survey_questions.questions.filter((element: { question: string; }) => !(user.surveys.map((x: { question: string; }) => x.question).includes(element.question)));
+  // Remove surveys that the user has answered
+  surveys = surveys.filter(({ question }) => !answered_questions.includes(question));
 
-  const question = questions[0];
-
-  return { statusCode: 200, body: JSON.stringify(question) }
+  if(surveys.length === 0)
+    return { statusCode: 204, body: "" };
+  else
+    return { statusCode: 200, body: JSON.stringify(surveys[0]) };
 }
-
-

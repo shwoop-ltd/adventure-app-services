@@ -193,6 +193,36 @@
           }
         ],
         "required": ["id", "beacon_type"]
+      },
+      {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "const": "surveys"
+          },
+          "surveys": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "question": {
+                  "type": "string"
+                },
+                "answers": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "required": ["question", "answers"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": ["id", "surveys"],
+        "additionalProperties": false
       }
     ]
   },
