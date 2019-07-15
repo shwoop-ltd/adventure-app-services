@@ -1,0 +1,13 @@
+[
+  {
+    "id": "prize-types",
+    "prizes": [
+      {
+        "name": "red-bull",
+        "image_url": "https://energydrink.redbull.com/sites/default/files/image-server/products/packshots/global/Red-Bull-Energy-Drink-Can-NZ-closed.png",
+        "display_name": "Red Bull",
+        "instance_name": "a can of Red Bull"
+      }
+    ]
+  }
+]
