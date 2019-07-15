@@ -1,6 +1,11 @@
 import { DynamoDB } from 'aws-sdk';
 import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from 'aws-lambda';
 
+interface User {
+    prizes: string[];
+    treasure: string[];
+}
+
 const table_name = process.env.TABLE_NAME!;
 const users_table_name = process.env.USERS_TABLE_NAME!;
 const prizes_table_name = process.env.PRIZES_TABLE_NAME!;
@@ -39,7 +44,7 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
 
     //Does this user exist?
     const user_result = await doc_client.get({ TableName: users_table_name, Key: { "id": user_id } }).promise();
-    const user = user_result.Item;
+    const user = user_result.Item as User | undefined;
     if (!user) {
         return { statusCode: 401, body: "User does not exist." }
     }
@@ -82,17 +87,6 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
         }
     };
 
-    //Params - Add treasure beacon id to user
-    user.treasure.push(treasure_id);
-    var treasure_params = {
-        TableName: users_table_name,
-        Key: { "id": user_id },
-        UpdateExpression: 'SET treasure = :x',
-        ExpressionAttributeValues: {
-            ':x': user.treasure
-        }
-    };
-
     //Params - Increment "claimed" counter
     const counter_params = {
         TableName: table_name,
@@ -108,12 +102,12 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
     //Store Prize
     doc_client.put({ TableName: prizes_table_name, Item: prize }, function (err, data) { });
 
-    //Update claimed treasures
-    doc_client.update(treasure_params, function(err, data) {if (err) return{statusCode: 418, body: err}});
+    //Params - Add treasure and prize to user
+    user.treasure.push(treasure_id);
+    user.prizes.push(prize.id);
+    await doc_client.put({ TableName: users_table_name, Item: user }, () => {}).promise();
 
     //Update number of treasures claimed
     doc_client.update(counter_params);
     return { statusCode: 201, body: JSON.stringify(prize) };
 }
-
-
