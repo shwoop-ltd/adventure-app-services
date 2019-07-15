@@ -81,7 +81,7 @@ paths:
         responses: {}
         httpMethod: POST
         type: aws_proxy
-  /maps/{map}/challenges/{type}/{type-id}:
+  /maps/{map}/challenges/{type}/{type_id}:
     post:
       summary: "Gets information about a challenge"
       operationId: get_challenge

@@ -119,6 +119,22 @@ Resources:
             RestApiId: !Ref AdventureApi
             Path: /maps/{map}/beacon/{beacon}
             Method: get
+  GetChallenge:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: get-challenge.handler
+      Runtime: nodejs10.x
+      CodeUri: ./lambda/.build/
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName: !Ref AdventureTable
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            RestApiId: !Ref AdventureApi
+            Path: /maps/{map}/challenges/{type}/{type_id}
+            Method: get
   GetPrizeTypes:
     Type: AWS::Serverless::Function
     Properties:
