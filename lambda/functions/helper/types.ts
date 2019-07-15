@@ -1,4 +1,8 @@
 
+// NOTE: This file can be seperate because it only contains types,
+// so the typescript compiler will do away with the import when it's compiled into js.
+// This same method CANNOT be used for code.
+
 export interface Location {
   latitude: string;
   longitude: string;
