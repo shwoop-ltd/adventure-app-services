@@ -38,7 +38,8 @@
           "latitude": -36.851016,
           "longitude": 174.771965
         },
-        "open": true
+        "open": true,
+        "requisites": 1
       }
     ]
   }

@@ -76,6 +76,10 @@
                   "description": "Number of seconds the marker is available for after release. If not present, assumed always available (after release if present)",
                   "type": "number",
                   "format": "int64"
+                },
+                "requisites": {
+                  "type": "integer",
+                  "description": "The number of requisites to use a challenge from this marker (note: is duplicate from challenge). Optional."
                 }
               },
               "required": ["id", "location"],
@@ -83,7 +87,7 @@
             }
           }
         },
-        "required": ["id", "last-update", "markers"],
+        "required": ["id", "markers"],
         "additionalProperties": false
       },
       {
