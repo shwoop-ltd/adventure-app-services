@@ -77,9 +77,9 @@
                   "type": "number",
                   "format": "int64"
                 },
-                "requisites": {
+                "prerequisites": {
                   "type": "integer",
-                  "description": "The number of requisites to use a challenge from this marker (note: is duplicate from challenge). Optional."
+                  "description": "The number of prerequisite challenges to complete before accessing this marker (note: is duplicate from challenge). Optional."
                 }
               },
               "required": ["id", "location"],
@@ -96,7 +96,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^challenge-(.*)$"
+            "pattern": "^challenge-(.*)-(marker|beacon)-.*$"
           },
           "solution": {
             "description": "The id of the beacon that is the solution to this puzzle",

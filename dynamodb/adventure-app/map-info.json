@@ -39,7 +39,7 @@
           "longitude": 174.771965
         },
         "open": true,
-        "requisites": 1
+        "prerequisites": 1
       }
     ]
   }

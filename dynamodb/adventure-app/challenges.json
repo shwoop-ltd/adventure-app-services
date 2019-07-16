@@ -7,7 +7,8 @@
       { "prize": "red-bull", "available": 20 },
       { "prize": "points", "available": 10, "points": 3 }
     ],
-    "claimed": 0
+    "claimed": 0,
+    "is_prerequisite": true
   },
   {
     "id": "challenge-uoa-marker-3",
@@ -17,6 +18,7 @@
       { "prize": "red-bull", "available": 20 },
       { "prize": "points", "available": 10, "points": 3 }
     ],
-    "claimed": 0
+    "claimed": 0,
+    "prerequisites": 1
   }
 ]

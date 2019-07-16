@@ -4,7 +4,7 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from 'aws-lambda
 import { DBChallenge, DBUser } from 'helper/types';
 
 const table_name = process.env.TABLE_NAME!;
-const user_table_name = process.env.USER_TABLE_NAME!;
+const users_table_name = process.env.USERS_TABLE_NAME!;
 
 const doc_client = new DynamoDB.DocumentClient({ region: process.env.REGION, endpoint: process.env.ENDPOINT_OVERRIDE || undefined });
 
@@ -23,7 +23,7 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
 
   if(challenge.prerequisites) {
     // Check whether user has prerequisites
-    const user_result = await doc_client.get({ TableName: user_table_name, Key: { id: user_id } }).promise();
+    const user_result = await doc_client.get({ TableName: users_table_name, Key: { id: user_id } }).promise();
     const user = user_result.Item as DBUser | undefined;
 
     if(!user)
