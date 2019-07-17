@@ -1,7 +1,6 @@
 [
   {
     "id": "map-uoa",
-    "last-update": 0,
     "markers": [
       {
         "id": 0,
@@ -39,7 +38,8 @@
           "latitude": -36.851016,
           "longitude": 174.771965
         },
-        "open": true
+        "open": true,
+        "prerequisites": 1
       }
     ]
   }

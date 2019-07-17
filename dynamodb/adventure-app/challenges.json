@@ -1,22 +1,24 @@
 [
   {
-    "id": "puzzle-uoa-beacon-0000_0000",
+    "id": "challenge-uoa-marker-2",
     "text": "The solution for this puzzle is beacon 0000_0001",
     "solution": "0000_0001",
     "prizes": [
       { "prize": "red-bull", "available": 20 },
       { "prize": "points", "available": 10, "points": 3 }
     ],
-    "claimed": 0
+    "claimed": 0,
+    "is_prerequisite": true
   },
   {
-    "id": "puzzle-uoa-beacon-0000_0001",
+    "id": "challenge-uoa-marker-3",
     "text": "The solution for this puzzle is beacon 0000_0002",
     "solution": "0000_0002",
     "prizes": [
       { "prize": "red-bull", "available": 20 },
       { "prize": "points", "available": 10, "points": 3 }
     ],
-    "claimed": 0
+    "claimed": 0,
+    "prerequisites": 1
   }
 ]

@@ -7,7 +7,7 @@ import * as AWS from 'aws-sdk';
 import beacons from './beacons.json';
 import marker_sets from './map-info.json';
 import maps from './maps.json';
-import puzzles from './puzzles.json';
+import challenges from './challenges.json';
 import treasures from './treasures.json';
 import surveys from './surveys.json';
 import prize_types from './prize-types.json';
@@ -15,7 +15,7 @@ import prize_types from './prize-types.json';
 const items = [
   ...marker_sets,
   ...maps,
-  ...puzzles,
+  ...challenges,
   ...treasures,
   ...beacons,
   ...surveys,
@@ -29,7 +29,7 @@ const filter_params = {
   beacons: false,
   map_info: false,
   maps: false,
-  puzzles: false,
+  challenges: false,
   treasures: false,
   surveys: false,
   prize_types: false,
@@ -52,8 +52,8 @@ function verify_params() {
     filter_params.map_info = true;
   if(process.argv.includes('--maps'))
     filter_params.maps = true;
-  if(process.argv.includes('--puzzles'))
-    filter_params.puzzles = true;
+  if(process.argv.includes('--challenges'))
+    filter_params.challenges = true;
   if(process.argv.includes('--treasures'))
     filter_params.treasures = true;
   if(process.argv.includes('--surveys'))
@@ -76,7 +76,7 @@ function filter(item: Item) {
     return false;
   else if(item.id.startsWith('map-') && !filter_params.map_info)
     return false;
-  else if(item.id.startsWith('puzzle-') && !filter_params.puzzles)
+  else if(item.id.startsWith('challenge-') && !filter_params.challenges)
     return false;
   else if(item.id.startsWith('treasure-') && !filter_params.treasures)
     return false;

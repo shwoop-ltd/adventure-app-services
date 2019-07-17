@@ -1,37 +1,40 @@
 import { DynamoDB } from 'aws-sdk';
 import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from 'aws-lambda';
 
+import { DBChallenge, DBUser } from 'helper/types';
+
 const table_name = process.env.TABLE_NAME!;
+const users_table_name = process.env.USERS_TABLE_NAME!;
+
 const doc_client = new DynamoDB.DocumentClient({ region: process.env.REGION, endpoint: process.env.ENDPOINT_OVERRIDE || undefined });
 
 export async function handler(event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult> {
-  // TODO: Get info about user
+  if (!event.pathParameters)
+    return { statusCode: 400, body: "Need the user and the challenge id" };
 
-  if (!event.queryStringParameters || (!event.queryStringParameters.beacon
-    && !event.queryStringParameters.marker && !event.queryStringParameters.map)) {
-    return { statusCode: 400, body: "Need a 'map', plus a 'marker' or 'beacon' ID." };
+  const user_id = event.pathParameters.userid;
+  const challenge_id = event.pathParameters.challengeid;
+
+  const challenge_result = await doc_client.get({ TableName: table_name, Key: { id: challenge_id } }).promise();
+  const challenge = challenge_result.Item as DBChallenge | undefined;
+
+  if (!challenge)
+    return { statusCode: 404, body: "No challenge with that ID." };
+
+  if(challenge.prerequisites) {
+    // Check whether user has prerequisites
+    const user_result = await doc_client.get({ TableName: users_table_name, Key: { id: user_id } }).promise();
+    const user = user_result.Item as DBUser | undefined;
+
+    if(!user)
+      return { statusCode: 404, body: "User not found" };
+
+    if(user.prerequisite_challenges_completed < challenge.prerequisites)
+      return { statusCode: 402, body: "Prerequisite challenges not completed" };
   }
 
-  const map_name = event.queryStringParameters.map;
-  const beacon_id = event.queryStringParameters.beacon;
-  const marker_id = event.queryStringParameters.marker;
-
-  let key = 'puzzle-' + map_name + '-';
-  if (beacon_id)
-    key += 'beacon-' + beacon_id;
-  else if (marker_id)
-    key += 'marker-' + marker_id;
-
-  const puzzle_result = await doc_client.get({ TableName: table_name, Key: { id: key } }).promise();
-  const puzzle = puzzle_result.Item;
-
-  if (!puzzle) {
-    return { statusCode: 404, body: "No puzzle with that ID." }
-  };
-
-  // Ensure we dont pass any solution information in the request (which is stored in the db)
-  puzzle.solution = undefined;
-  puzzle.solution_name = undefined;
-
-  return { statusCode: 200, body: JSON.stringify(puzzle)};
+  return { statusCode: 200, body: JSON.stringify({
+    text: challenge.text,
+    image_url: challenge.image_url,
+  })};
 }

@@ -1,6 +1,8 @@
 import { DynamoDB } from 'aws-sdk';
 import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from 'aws-lambda';
 
+import { DBUser } from 'helper/types';
+
 const users_table_name = process.env.USERS_TABLE_NAME!;
 const doc_client = new DynamoDB.DocumentClient({ region: process.env.REGION, endpoint: process.env.ENDPOINT_OVERRIDE || undefined });
 
@@ -23,7 +25,7 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
     doc_client.put({TableName: telemetry_table_name, Item: telemetry_data});
     //Does this user exist already?
     const user_result = await doc_client.get({ TableName: users_table_name, Key: { "id": user_id } }).promise();
-    var user = user_result.Item;
+    let user = user_result.Item;
     if (user) {
         return { statusCode: 409, body: "Conflict. Account already exists." };
     }
@@ -33,8 +35,10 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
         surveys: [],
         prizes: [],
         treasure: [],
-        challenges: []
-    };
+        challenges: [],
+        prerequisite_challenges_completed: 0,
+    } as DBUser;
+
     await doc_client.put({ TableName: users_table_name, Item: user }, function (err, data) { if (err) { return { statusCode: 502, body: "Internal server error." } } });
     return { statusCode: 201, body: "Account created." };
 }

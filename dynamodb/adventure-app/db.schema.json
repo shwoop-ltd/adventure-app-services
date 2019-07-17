@@ -46,10 +46,6 @@
             "type": "string",
             "pattern": "^map-(.*)$"
           },
-          "last-update": {
-            "description": "The time at which this array was last updated",
-            "type": "integer"
-          },
           "markers": {
             "type": "array",
             "items": {
@@ -80,6 +76,10 @@
                   "description": "Number of seconds the marker is available for after release. If not present, assumed always available (after release if present)",
                   "type": "number",
                   "format": "int64"
+                },
+                "prerequisites": {
+                  "type": "integer",
+                  "description": "The number of prerequisite challenges to complete before accessing this marker (note: is duplicate from challenge). Optional."
                 }
               },
               "required": ["id", "location"],
@@ -87,16 +87,16 @@
             }
           }
         },
-        "required": ["id", "last-update", "markers"],
+        "required": ["id", "markers"],
         "additionalProperties": false
       },
       {
-        "description": "A puzzle for a given beacon",
+        "description": "A challenge for a given beacon or marker",
         "type": "object",
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^puzzle-(.*)$"
+            "pattern": "^challenge-(.*)-(marker|beacon)-.*$"
           },
           "solution": {
             "description": "The id of the beacon that is the solution to this puzzle",
@@ -108,6 +108,16 @@
           "image_url": {
             "type": "string",
             "format": "uri"
+          },
+          "prerequisites": {
+            "type": "integer",
+            "description": "Number of prerequisite challenges that must be complete before this one (defaults to 0 if not present)",
+            "default": "0"
+          },
+          "is_prerequisite": {
+            "type": "boolean",
+            "description": "Whether this challenge counts as a prerequisite for other challenges (defaults to false if not present)",
+            "default": "false"
           },
           "prizes": {
             "type": "array",
