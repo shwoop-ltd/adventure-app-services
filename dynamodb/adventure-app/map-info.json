@@ -3,43 +3,41 @@
     "id": "map-uoa",
     "markers": [
       {
-        "id": 0,
-        "name": "symonds st. entrance",
-        "location": {
-          "latitude": -36.851614,
-          "longitude": 174.77037
-        },
-        "release": 1562560538,
-        "duration": 604800
-      },
-      {
         "id": 1,
-        "name": "arts forum stairs",
+        "name": "Piano key at Quad",
         "location": {
-          "latitude": -36.851783,
-          "longitude": 174.770869
+          "latitude": -36.852296,
+          "longitude": 174.769219
         },
-        "release": 1562570538,
-        "duration": 604800
+        "open":true
       },
       {
         "id": 2,
-        "name": "oggb lawn",
+        "name": "John Hood Plaza",
         "location": {
-          "latitude": -36.852794,
-          "longitude": 174.771457
+          "latitude": -36.852497,
+          "longitude": 174.770919
         },
         "open": true
       },
       {
         "id": 3,
-        "name": "music patio",
+        "name": "Level 3 of new science building",
         "location": {
-          "latitude": -36.851016,
-          "longitude": 174.771965
+          "latitude": -36.853303,
+          "longitude": 174.768366
+        },
+        "open": true
+      },
+      {
+        "id": 4,
+        "name": "Unleash Space",
+        "location": {
+          "latitude": -36.853116,
+          "longitude": 174.769583
         },
         "open": true,
-        "prerequisites": 1
+        "prerequisites": 3
       }
     ]
   }

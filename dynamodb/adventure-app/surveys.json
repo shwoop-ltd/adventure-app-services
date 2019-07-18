@@ -3,13 +3,67 @@
     "id": "surveys",
     "surveys": [
       {
-        "question": "What is 3 + 2?",
+        "question": "What type of e-scooter most frequently ride?",
         "answers": [
-          "4",
-          "The square root of negative pi",
-          "carrot",
+          "Lime",
+          "Flamingo",
+          "Wave",
+          "None"
+        ]
+      },
+      {
+        "question": "When do you like to consume Red Bull the most?",
+        "answers": [
+          "To stay up at night longer",
+          "Working/studying during the day",
+          "To wake up in the morning",
+          "None of the use cases apply",
+          "I don't like consuming Red Bull"
+        ]
+      },
+      {
+        "question": "Give us your age pls",
+        "answers": [
+          "17 and under",
+          "18-25",
+          "26-35",
+          "36-50",
+          "50+"
+        ]
+      },
+      {
+        "question": "How many more times effective do you think this in-app brand sponsorship is compared to a Facebook ad?",
+        "answers": [
+          "100x+",
+          "50x",
+          "25x",
+          "15",
+          "10",
           "5",
-          "The complete works of Charles Dickens, including the one about the octopus doing her taxes"
+          "3",
+          "2",
+          "The same effectiveness",
+          "0.5x"
+        ]
+      },
+      {
+        "question": "What do you value most in a cafe experience getting coffee?",
+        "answers": [
+          "The cozy cafe atmosphere",
+          "The quality of the coffee I'm getting",
+          "The quality of service",
+          "The price",
+          "Something Else"
+        ]
+      },
+      {
+        "question": "What experience have you enjoyed the most used this app? Answer this question when you've done all the riddles",
+        "answers": [
+          "Getting a reward",
+          "Doing this with friends",
+          "The challenge of solving a puzzles",
+          "Exploring the environment",
+          "Other (please email jamie@shwoop.co.nz)"
         ]
       }
     ]
