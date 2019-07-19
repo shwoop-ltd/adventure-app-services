@@ -2,22 +2,31 @@
   {
     "id": "challenge-uoa-marker-1",
     "text": "They say I'm all fours, that's not a lie\nI'm a place of culture, I'll tell you why\nI've got restaurants and stores\nIn admist the outdoors\nCome play my music, please excite\nThe truth here is black or white",
-    "solution": "0000_0001"
+    "solution": "0000_0001",
+    "prizes": [],
+    "claimed": 0,
+    "is_prerequisite": true
   },
   {
     "id": "challenge-uoa-marker-2",
     "text": "The grass has never been greener\nAnd the pavements cleanernIn this commercial zone\nMy students are grown\nFind the plaza's corner if you're able\nClosest to that dank ping pong table",
-    "solution": "0000_0001"
+    "solution": "0000_0002",
+    "prizes": [],
+    "claimed": 0,
+    "is_prerequisite": true
   },
   {
     "id": "challenge-uoa-marker-3",
     "text": "This is the 3rd story you'll have\nI'm at the top of staircase,\nOn this level, you need to use your brain\nDon't get psyched out, that's my claim",
-    "solution": "0000_0001"
+    "solution": "0000_0003",
+    "prizes": [],
+    "claimed": 0,
+    "is_prerequisite": true
   },
   {
     "id": "challenge-uoa-marker-4",
     "text": "I give all the dimensions\nFor creators inventions\nI'm easy to learn, so no complaining\nGo to our website, and book a training\nAll my resources are free, which is essential\nFor all of you to unleash your potential",
-    "solution": "0000_0002",
+    "solution": "0000_0004",
     "prizes": [
       { "prize": "red-bull", "available": 200 }
     ],
