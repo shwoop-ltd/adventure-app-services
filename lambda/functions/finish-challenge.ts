@@ -102,16 +102,13 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
   // Establish prize object
   const prize = {
     id: generateRandomString(8),
-    type: "none",
+    type: "",
     received: (new Date()).toISOString(),
     received_from: "challenge",
     claimed: false,
     user_id,
   } as DBPrize;
 
-  if (!challenge.prizes) {
-    return {statusCode: 200, body:JSON.stringify(false)}
-  }
   // Identify the prize that should be awarded.
   let total = 0;
   for(const potential_prize of challenge.prizes) {
@@ -121,6 +118,11 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
       prize.type = potential_prize.prize;
       break;
     }
+  }
+
+  // If there were no prizes, or we have run out of prizes, user gets nothing.
+  if(prize.type === "") {
+    return { statusCode: 200, body: JSON.stringify(false) };
   }
 
   // Store prize in prize table
