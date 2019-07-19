@@ -102,7 +102,7 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
   // Establish prize object
   const prize = {
     id: generateRandomString(8),
-    type: "red-bull",
+    type: "none",
     received: (new Date()).toISOString(),
     received_from: "challenge",
     claimed: false,
@@ -110,13 +110,15 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
   } as DBPrize;
 
   // Identify the prize that should be awarded.
-  let total = 0;
-  for(const potential_prize of challenge.prizes) {
-    total += potential_prize.available;
+  if (challenge.prizes) {
+    let total = 0;
+    for (const potential_prize of challenge.prizes) {
+      total += potential_prize.available;
 
-    if(challenge.claimed < total) {
-      prize.type = potential_prize.prize;
-      break;
+      if (challenge.claimed < total) {
+        prize.type = potential_prize.prize;
+        break;
+      }
     }
   }
 
@@ -126,7 +128,7 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
   // Update user with prize info, challenge info, and prerequisites
   user.prizes.push(prize.id);
   user.challenges.push(challenge_id);
-  if(challenge.is_prerequisite)
+  if (challenge.is_prerequisite)
     user.prerequisite_challenges_completed += 1;
 
   await doc_client.put({ TableName: users_table_name, Item: user }).promise();
