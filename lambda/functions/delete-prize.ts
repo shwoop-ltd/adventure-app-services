@@ -1,11 +1,18 @@
 import { DynamoDB } from 'aws-sdk';
 import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from 'aws-lambda';
 
-import { DBPrize } from 'helper/types';
+import { DBPrize, DBPrizeType } from 'helper/types';
 
 const admin_key = process.env.ADMIN_KEY!;
+const shwoop_table_name = process.env.TABLE_NAME!;
 const prizes_table_name = process.env.PRIZES_TABLE_NAME!;
 const doc_client = new DynamoDB.DocumentClient({ region: process.env.REGION, endpoint: process.env.ENDPOINT_OVERRIDE || undefined });
+
+// Pre-load the prize-types, for efficiency.
+// Note: this assumes there will be no requests before this promise has completed.
+let prize_types: DBPrizeType[];
+doc_client.get({ TableName: shwoop_table_name, Key: { id: "prize-types" } }).promise()
+  .then(request => prize_types = request.Item ? request.Item.prizes : undefined);
 
 async function add_telemetry(user_id: string, function_name: string, event: APIGatewayProxyEvent) {
   const telemetry_table_name = process.env.TELEMETRY_TABLE_NAME!;
@@ -45,6 +52,17 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
   // A user may not access another user's prizes
   if(!is_admin && prize.user_id !== auth)
     return { statusCode: 403, body: "Incorrect user id", headers: { "Content-Type": "text/plain" } };
+
+  // An user may not delete a prize that is not self-redeemable
+  if(!prize_types)
+    return { statusCode: 500, body: "Prize types irretrievable", headers: { "Content-Type": "text/plain" } };
+
+  const prize_type = prize_types.find(type => type.name === prize.type);
+  if(!prize_type)
+    return { statusCode: 500, body: `Prize type ${prize.type} does not exist`, headers: { "Content-Type": "text/plain" } };
+
+  if(!is_admin && !prize_type.self_redeemable)
+    return { statusCode: 400, body: "The user may not redeem this prize themselves", headers: { "Content-Type": "text/plain" } };
 
   // Update the prize as claimed
   prize.redeemed = true;

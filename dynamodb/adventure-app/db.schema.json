@@ -264,6 +264,11 @@
                   "type": "string",
                   "description": "Name of a single instance of the item",
                   "examples": ["a can of Red Bull", "a burger"]
+                },
+                "self_redeemable": {
+                  "type": "boolean",
+                  "description": "Whether the user can redeem this prize themselves",
+                  "default": false
                 }
               },
               "required": ["name", "image_url", "display_name", "instance_name"],

@@ -73,6 +73,16 @@ export interface DBUser {
   prerequisite_challenges_completed: number;
 }
 
+export interface DBPrizeType {
+  name: string;
+  image_url: string;
+
+  display_name: string;
+  instance_name: string;
+
+  self_redeemable: boolean;
+}
+
 export interface DBPrize {
   id: string;
   type: string;
