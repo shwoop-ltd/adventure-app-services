@@ -47,7 +47,7 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
     return { statusCode: 403, body: "Incorrect user id", headers: { "Content-Type": "text/plain" } };
 
   // Update the prize as claimed
-  prize.claimed = true;
+  prize.redeemed = true;
   doc_client.put({ TableName: prizes_table_name, Item: prize });
 
   return { statusCode: 204, body: "Successful Operation", headers: { "Content-Type": "text/plain" } };

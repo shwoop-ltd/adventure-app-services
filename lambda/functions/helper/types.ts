@@ -78,6 +78,6 @@ export interface DBPrize {
   type: string;
   received: string; // ISO date
   received_from: 'challenge' | 'treasure' | 'survey';
-  claimed: boolean;
+  redeemed: boolean;
   user_id: string;
 }

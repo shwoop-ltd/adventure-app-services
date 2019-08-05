@@ -105,7 +105,7 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
     type: "",
     received: (new Date()).toISOString(),
     received_from: "challenge",
-    claimed: false,
+    redeemed: false,
     user_id,
   } as DBPrize;
 
