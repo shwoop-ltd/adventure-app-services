@@ -254,6 +254,10 @@ Resources:
       Policies:
       - DynamoDBCrudPolicy:
           TableName: !Ref PrizesTable
+      - DynamoDBCrudPolicy:
+          TableName: !Ref UsersTable
+      - DynamoDBCrudPolicy:
+          TableName: !Ref TelemetryTable
       Events:
         Api:
           Type: Api
