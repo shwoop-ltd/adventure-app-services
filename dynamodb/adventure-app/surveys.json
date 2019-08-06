@@ -3,68 +3,66 @@
     "id": "surveys",
     "surveys": [
       {
-        "question": "What type of e-scooter most frequently ride?",
         "answers": [
           "Lime",
           "Flamingo",
           "Wave",
           "None"
-        ]
+        ],
+        "question": "What type of e-scooter do you ride most frequently?"
       },
       {
-        "question": "When do you like to consume Red Bull the most?",
         "answers": [
-          "To stay up at night longer",
-          "Working/studying during the day",
-          "To wake up in the morning",
-          "None of the use cases apply",
-          "I don't like consuming Red Bull"
-        ]
+          "When studying",
+          "Before a work out",
+          "On a night out",
+          "When driving",
+          "Other"
+        ],
+        "question": "When do you like to consume Red Bull the most?"
       },
       {
-        "question": "Give us your age pls",
         "answers": [
           "17 and under",
           "18-25",
           "26-35",
           "36-50",
-          "50+"
-        ]
+          "51+"
+        ],
+        "question": "How old are you?"
       },
       {
-        "question": "How many more times effective do you think this in-app brand sponsorship is compared to a Facebook ad?",
         "answers": [
-          "100x+",
           "50x",
           "25x",
-          "15",
-          "10",
-          "5",
-          "3",
-          "2",
+          "10x",
+          "5x",
+          "3x",
+          "2x",
           "The same effectiveness",
           "0.5x"
-        ]
+        ],
+        "question": "Compared to standard advertising, how effective is this in-app brand sponsorship?"
       },
       {
-        "question": "What do you value most in a cafe experience getting coffee?",
         "answers": [
           "The cozy cafe atmosphere",
           "The quality of the coffee I'm getting",
           "The quality of service",
           "The price",
           "Something Else"
-        ]
+        ],
+        "question": "What do you value most in a cafe experience?"
       },
       {
-        "question": "What experience have you enjoyed the most used this app? Answer this question when you've done all the riddles",
         "answers": [
-          "Getting a reward",
-          "Doing this with friends",
-          "The challenge of solving a puzzles",
+          "Rewards",
+          "Playing with friends",
+          "Solving Puzzles",
           "Exploring the environment",
           "Other (please email jamie@shwoop.co.nz)"
-        ]
+        ],
+        "question": "What experience have you enjoyed the most used this app? Answer this question when you've done all riddles."
       }
     ]
   }

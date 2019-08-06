@@ -4,40 +4,21 @@
     "markers": [
       {
         "id": 1,
-        "name": "Piano key at Quad",
         "location": {
-          "latitude": -36.852296,
-          "longitude": 174.769219
+          "latitude": -36.853088,
+          "longitude": 174.768556
         },
-        "open":true
+        "name": "Science ground floor",
+        "open": true
       },
       {
         "id": 2,
-        "name": "John Hood Plaza",
         "location": {
-          "latitude": -36.852497,
-          "longitude": 174.770919
+          "latitude": -36.85129,
+          "longitude": 174.769381
         },
+        "name": "General Library",
         "open": true
-      },
-      {
-        "id": 3,
-        "name": "Level 3 of new science building",
-        "location": {
-          "latitude": -36.853303,
-          "longitude": 174.768366
-        },
-        "open": true
-      },
-      {
-        "id": 4,
-        "name": "Unleash Space",
-        "location": {
-          "latitude": -36.853116,
-          "longitude": 174.769583
-        },
-        "open": true,
-        "prerequisites": 3
       }
     ]
   }
