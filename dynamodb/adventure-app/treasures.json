@@ -1,22 +1,31 @@
 [
     {
+        "claimed": 0,
         "id": "treasure-beacon-0000_0005",
-        "prizes": [
-            { "prize": "red-bull", "available": 20 },
-            { "prize": "points", "available": 10, "points": 3 }
-        ],
-        "claimed": 19,
+        "latitude": 170.852794,
         "longitude": -36.852794,
-        "latitude": 170.852794
+        "prizes": [
+            {
+                "available": 20,
+                "prize": "red-bull"
+            }
+        ]
     },
     {
-        "id": "treasure-beacon-0000_0006",
-        "prizes": [
-            { "prize": "red-bull", "available": 20 },
-            { "prize": "points", "available": 10, "points": 3 }
-        ],
         "claimed": 19,
+        "id": "treasure-beacon-0000_0006",
+        "latitude": 170.852794,
         "longitude": -36.852794,
-        "latitude": 170.852794
+        "prizes": [
+            {
+                "available": 20,
+                "prize": "red-bull"
+            },
+            {
+                "available": 10,
+                "points": 3,
+                "prize": "points"
+            }
+        ]
     }
 ]

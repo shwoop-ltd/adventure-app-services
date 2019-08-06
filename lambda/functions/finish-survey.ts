@@ -78,12 +78,13 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
 
   user_surveys.push({ question: body.question, answer: body.answer });
 
+
   // Create a prize to give to the user.
   // TODO: Prize should be determined by survey
   const d = new Date();
   const prize = {
     id: generateRandomString(8),
-    type: "red-bull",
+    type: "none",
     received: d.toISOString(),
     received_from: "survey",
     claimed: false,

@@ -4,10 +4,16 @@
     "prizes": [
       {
         "name": "red-bull",
-        "image_url": "https://energydrink.redbull.com/sites/default/files/image-server/products/packshots/global/Red-Bull-Energy-Drink-Can-NZ-closed.png",
         "display_name": "Red Bull",
+        "image_url": "https://energydrink.redbull.com/sites/default/files/image-server/products/packshots/global/Red-Bull-Energy-Drink-Can-NZ-closed.png",
         "instance_name": "a can of Red Bull",
         "self_redeemable": true
+      },
+      {
+        "name": "none",
+        "display_name": "No Prize",
+        "image_url": "https://cdn0.iconfinder.com/data/icons/shift-interfaces/32/Block-512.png",
+        "instance_name": "Nothing"
       }
     ]
   }

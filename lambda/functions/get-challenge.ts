@@ -40,6 +40,7 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
     body: JSON.stringify({
       id: challenge.id,
       prerequisites: challenge.prerequisites,
+      claimed: challenge.claimed,
       is_prerequisite: challenge.is_prerequisite,
       prizes: challenge.prizes.slice(first_winnable),
     }),

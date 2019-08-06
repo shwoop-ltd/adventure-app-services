@@ -1,17 +1,18 @@
 [
-  { "id": "maps",
+  {
+    "id": "maps",
     "maps": [
       {
+        "bottom_right": {
+          "latitude": -36.856898,
+          "longitude": 174.775013
+        },
+        "image_url": "https://s3-ap-southeast-2.amazonaws.com/uoa-bs-maps/UniversityOfAuckland.png",
         "name": "uoa",
         "top_left": {
-          "latitude": -36.847897,
-          "longitude": 174.767238
-        },
-        "bottom_right": {
-          "latitude": -36.854402,
-          "longitude": 174.773430
-        },
-        "image_url": "https://s3-ap-southeast-2.amazonaws.com/uoa-bs-maps/UniversityOfAuckland.png"
+          "latitude": -36.84639,
+          "longitude": 174.766093
+        }
       }
     ]
   }
