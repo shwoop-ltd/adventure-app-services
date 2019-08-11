@@ -1,7 +1,7 @@
 import { DynamoDB } from 'aws-sdk';
 import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from 'aws-lambda';
 
-import { DBChallenge, DBUser } from 'helper/types';
+import { DBChallenge, DBUser, DBMapInfo } from 'helper/types';
 
 const table_name = process.env.TABLE_NAME!;
 const users_table_name = process.env.USERS_TABLE_NAME!;
@@ -20,6 +20,28 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
 
   if (!challenge)
     return { statusCode: 404, body: "No challenge with that ID." };
+
+  // Check that this challenge is available during this time
+  if(challenge_id.includes('marker-')) {
+    const splits = challenge_id.split('-');
+    const map = splits[1];
+    const marker_id = splits[3];
+
+    const map_result = await doc_client.get({ TableName: table_name, Key: { id: `map-${map}` } }).promise();
+    if(!map_result.Item)
+      return { statusCode: 404, body: `Map ${map} not found` };
+
+    const map_info = map_result.Item as DBMapInfo;
+    const marker = map_info.markers.find(item => item.id === Number.parseInt(marker_id, 10))!;
+
+    // Logic time:
+    // We test whether the time is greater than the active start date,
+    // which is either active_date (if it exists), or else release_date (if that exists)
+    // We then check that we are not past the end date (if that exists).
+    const time = Date.now() / 1000;
+    if((marker.active_date || marker.release_date || 0) > time || (marker.end_date || time) < time)
+      return { statusCode: 400, body: "This challenge is not available right now" };
+  }
 
   if(challenge.prerequisites) {
     // Check whether user has prerequisites

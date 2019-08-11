@@ -29,8 +29,9 @@ export interface DBMapInfo {
 
     open?: boolean;
 
-    release?: number;
-    duration?: number;
+    release_date?: number;
+    active_date?: number;
+    end_date?: number;
   }[];
 }
 
