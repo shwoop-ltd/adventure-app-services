@@ -253,6 +253,8 @@ Resources:
       CodeUri: ./lambda/.build/
       Policies:
       - DynamoDBCrudPolicy:
+          TableName: !Ref AdventureTable
+      - DynamoDBCrudPolicy:
           TableName: !Ref PrizesTable
       - DynamoDBCrudPolicy:
           TableName: !Ref UsersTable

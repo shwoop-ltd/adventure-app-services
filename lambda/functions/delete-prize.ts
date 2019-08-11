@@ -66,7 +66,7 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
 
   // Update the prize as claimed
   prize.redeemed = true;
-  doc_client.put({ TableName: prizes_table_name, Item: prize });
+  await doc_client.put({ TableName: prizes_table_name, Item: prize }).promise();
 
   return { statusCode: 204, body: "Successful Operation", headers: { "Content-Type": "text/plain" } };
 }
