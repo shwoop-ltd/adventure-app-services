@@ -6,8 +6,5 @@ cd lambda
 tsc
 cd ..
 
-# Pre-upload the openapi.yaml so it is accessible for sam
-aws s3 cp ./api-gateway/openapi.yaml s3://adventure-app-cloudformation/openapi.yaml
-
 sam package --template-file template.yaml --s3-bucket adventure-app-cloudformation --output-template-file cloudformation.yaml
 sam deploy --template-file ./cloudformation.yaml --stack-name adventure-app --capabilities CAPABILITY_IAM

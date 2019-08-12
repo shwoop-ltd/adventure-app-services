@@ -21,7 +21,6 @@ Resources:
         'Fn::Transform':
           Name: 'AWS::Include'
           Parameters:
-            #Location: s3://adventure-app-cloudformation/openapi.yaml
             Location: ./api-gateway/openapi.yaml
   AdventureTable:
     Type: AWS::Serverless::SimpleTable
