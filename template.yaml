@@ -21,7 +21,7 @@ Resources:
         'Fn::Transform':
           Name: 'AWS::Include'
           Parameters:
-            Location: ./api-gateway/openapi.yaml
+            Location: ./resources/openapi.yaml
   AdventureTable:
     Type: AWS::Serverless::SimpleTable
     Properties:
@@ -75,7 +75,7 @@ Resources:
     Properties:
       Handler: get-maps.handler
       Runtime: nodejs10.x
-      CodeUri: ./lambda/.build
+      CodeUri: ./build
       Policies:
       - DynamoDBCrudPolicy:
           TableName: !Ref AdventureTable
@@ -91,7 +91,7 @@ Resources:
     Properties:
       Handler: get-map.handler
       Runtime: nodejs10.x
-      CodeUri: ./lambda/.build
+      CodeUri: ./build
       Policies:
       - DynamoDBCrudPolicy:
           TableName: !Ref AdventureTable
@@ -107,7 +107,7 @@ Resources:
     Properties:
       Handler: get-beacon.handler
       Runtime: nodejs10.x
-      CodeUri: ./lambda/.build/
+      CodeUri: ./build/
       Policies:
       - DynamoDBCrudPolicy:
           TableName: !Ref AdventureTable
@@ -123,7 +123,7 @@ Resources:
     Properties:
       Handler: get-challenge.handler
       Runtime: nodejs10.x
-      CodeUri: ./lambda/.build/
+      CodeUri: ./build/
       Policies:
       - DynamoDBCrudPolicy:
           TableName: !Ref AdventureTable
@@ -139,7 +139,7 @@ Resources:
     Properties:
       Handler: get-prize-types.handler
       Runtime: nodejs10.x
-      CodeUri: ./lambda/.build/
+      CodeUri: ./build/
       Policies:
       - DynamoDBCrudPolicy:
           TableName: !Ref AdventureTable
@@ -155,7 +155,7 @@ Resources:
     Properties:
       Handler: start-challenge.handler
       Runtime: nodejs10.x
-      CodeUri: ./lambda/.build/
+      CodeUri: ./build/
       Policies:
       - DynamoDBCrudPolicy:
           TableName: !Ref AdventureTable
@@ -173,7 +173,7 @@ Resources:
     Properties:
       Handler: stop-challenge.handler
       Runtime: nodejs10.x
-      CodeUri: ./lambda/.build/
+      CodeUri: ./build/
       Policies:
       - DynamoDBCrudPolicy:
           TableName: !Ref AdventureTable
@@ -189,7 +189,7 @@ Resources:
     Properties:
       Handler: finish-challenge.handler
       Runtime: nodejs10.x
-      CodeUri: ./lambda/.build/
+      CodeUri: ./build/
       Policies:
       - DynamoDBCrudPolicy:
           TableName: !Ref AdventureTable
@@ -211,7 +211,7 @@ Resources:
     Properties:
       Handler: get-treasure.handler
       Runtime: nodejs10.x
-      CodeUri: ./lambda/.build/
+      CodeUri: ./build/
       Policies:
       - DynamoDBCrudPolicy:
           TableName: !Ref AdventureTable
@@ -233,7 +233,7 @@ Resources:
     Properties:
       Handler: get-prize.handler
       Runtime: nodejs10.x
-      CodeUri: ./lambda/.build/
+      CodeUri: ./build/
       Policies:
       - DynamoDBCrudPolicy:
           TableName: !Ref PrizesTable
@@ -249,7 +249,7 @@ Resources:
     Properties:
       Handler: delete-prize.handler
       Runtime: nodejs10.x
-      CodeUri: ./lambda/.build/
+      CodeUri: ./build/
       Policies:
       - DynamoDBCrudPolicy:
           TableName: !Ref PrizesTable
@@ -265,7 +265,7 @@ Resources:
     Properties:
       Handler: get-user.handler
       Runtime: nodejs10.x
-      CodeUri: ./lambda/.build/
+      CodeUri: ./build/
       Policies:
       - DynamoDBCrudPolicy:
           TableName: !Ref UsersTable
@@ -281,7 +281,7 @@ Resources:
     Properties:
       Handler: get-user-prizes.handler
       Runtime: nodejs10.x
-      CodeUri: ./lambda/.build/
+      CodeUri: ./build/
       Policies:
       - DynamoDBCrudPolicy:
           TableName: !Ref UsersTable
@@ -297,7 +297,7 @@ Resources:
     Properties:
       Handler: register-user.handler
       Runtime: nodejs10.x
-      CodeUri: ./lambda/.build/
+      CodeUri: ./build/
       Policies:
       - DynamoDBCrudPolicy:
           TableName: !Ref UsersTable
@@ -313,7 +313,7 @@ Resources:
     Properties:
       Handler: get-survey.handler
       Runtime: nodejs10.x
-      CodeUri: ./lambda/.build/
+      CodeUri: ./build/
       Policies:
       - DynamoDBCrudPolicy:
           TableName: !Ref AdventureTable
@@ -331,7 +331,7 @@ Resources:
     Properties:
       Handler: finish-survey.handler
       Runtime: nodejs10.x
-      CodeUri: ./lambda/.build/
+      CodeUri: ./build/
       Policies:
       - DynamoDBCrudPolicy:
           TableName: !Ref AdventureTable

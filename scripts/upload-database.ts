@@ -4,13 +4,13 @@
 
 import * as AWS from 'aws-sdk';
 
-import beacons from 'dynamodb/adventure-app/beacons.json';
-import marker_sets from 'dynamodb/adventure-app/map-info.json';
-import maps from 'dynamodb/adventure-app/maps.json';
-import challenges from 'dynamodb/adventure-app/challenges.json';
-import treasures from 'dynamodb/adventure-app/treasures.json';
-import surveys from 'dynamodb/adventure-app/surveys.json';
-import prize_types from 'dynamodb/adventure-app/prize-types.json';
+import beacons from '../resources/dynamodb/adventure-app/beacons.json';
+import marker_sets from 'resources/dynamodb/adventure-app/map-info.json';
+import maps from 'resources/dynamodb/adventure-app/maps.json';
+import challenges from 'resources/dynamodb/adventure-app/challenges.json';
+import treasures from 'resources/dynamodb/adventure-app/treasures.json';
+import surveys from 'resources/dynamodb/adventure-app/surveys.json';
+import prize_types from 'resources/dynamodb/adventure-app/prize-types.json';
 
 const items = [
   ...marker_sets,

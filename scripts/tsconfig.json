@@ -11,10 +11,8 @@
     "noEmit": true,
     "strict": true,
 
-    "baseUrl": "./",
+    "baseUrl": "../",
     "resolveJsonModule": true,
     "esModuleInterop": true,
-  },
-  "exclude": ["node_modules"]
-
+  }
 }

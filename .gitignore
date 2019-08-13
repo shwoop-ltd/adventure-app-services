@@ -1,7 +1,5 @@
 node_modules/
 
 # Specific stuff for scripts.
-lambda/.pack
-lambda/.build
-
+build
 cloudformation.yaml

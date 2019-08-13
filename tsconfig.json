@@ -4,13 +4,16 @@
     "module": "commonjs",
     "strict": true,
 
-    "baseUrl": "./functions",
-    "outDir": "./.build",
+    "baseUrl": "./src",
+    "outDir": "./build",
 
     "types": [
       "node"
     ],
     "esModuleInterop": false,
     "inlineSourceMap": false
-  }
+  },
+  "include": [
+    "./src/*"
+  ]
 }
