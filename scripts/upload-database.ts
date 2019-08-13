@@ -1,126 +1,63 @@
 /**
  * Writes the given json objects into our table
  */
-
+import { promises as fs } from 'fs';
 import * as AWS from 'aws-sdk';
+import minimist from 'minimist';
 
-import beacons from '../resources/dynamodb/adventure-app/beacons.json';
-import marker_sets from 'resources/dynamodb/adventure-app/map-info.json';
-import maps from 'resources/dynamodb/adventure-app/maps.json';
-import challenges from 'resources/dynamodb/adventure-app/challenges.json';
-import treasures from 'resources/dynamodb/adventure-app/treasures.json';
-import surveys from 'resources/dynamodb/adventure-app/surveys.json';
-import prize_types from 'resources/dynamodb/adventure-app/prize-types.json';
+type Item = { id: string };
 
-const items = [
-  ...marker_sets,
-  ...maps,
-  ...challenges,
-  ...treasures,
-  ...beacons,
-  ...surveys,
-  ...prize_types,
-];
+const args = minimist(process.argv.slice(2));
+const input_files = args._;
+const {
+  filter,
+  profile,
+  db,
+  stage,
+} = args;
 
-type Item = (typeof items)[0];
-
-const filter_params = {
-  map: undefined as string | undefined,
-  beacons: false,
-  map_info: false,
-  maps: false,
-  challenges: false,
-  treasures: false,
-  surveys: false,
-  prize_types: false,
-};
-
-function verify_params() {
-  const mapIndex = process.argv.indexOf("--map");
-  if(mapIndex > 0) {
-    if(process.argv.length <= mapIndex + 1) {
-      console.log("When passing --map, must specify map name after");
-      return false;
-    }
-    else
-      filter_params.map = process.argv[mapIndex + 1];
-  }
-
-  if(process.argv.includes('--beacons'))
-    filter_params.beacons = true;
-  if(process.argv.includes('--map-info'))
-    filter_params.map_info = true;
-  if(process.argv.includes('--maps'))
-    filter_params.maps = true;
-  if(process.argv.includes('--challenges'))
-    filter_params.challenges = true;
-  if(process.argv.includes('--treasures'))
-    filter_params.treasures = true;
-  if(process.argv.includes('--surveys'))
-    filter_params.surveys = true;
-  if(process.argv.includes('--prizes'))
-    filter_params.prize_types = true;
-
-  if(!Object.values(filter_params).includes(true)) {
-    Object.keys(filter_params).filter(key => key !== "map").forEach(key => (filter_params as any)[key] = true);
-  }
-
-  return true;
+if(!['Prod', 'Dev'].includes(stage)) {
+  console.log("Input var --stage must be either 'Prod' or 'Dev'");
+  process.exit(-1);
 }
 
-function filter(item: Item) {
-  if(filter_params.map && (item.id !== "maps" && item.id.split('-')[1] !== filter_params.map))
-    return false;
-
-  if(item.id.startsWith('beacon-') && !filter_params.beacons)
-    return false;
-  else if(item.id.startsWith('map-') && !filter_params.map_info)
-    return false;
-  else if(item.id.startsWith('challenge-') && !filter_params.challenges)
-    return false;
-  else if(item.id.startsWith('treasure-') && !filter_params.treasures)
-    return false;
-  else if(item.id === "maps" && !filter_params.maps)
-    return false;
-  else if(item.id === "surveys" && !filter_params.surveys)
-    return false;
-  else if(item.id === "prizes" && !filter_params.prize_types)
-    return false;
-
-  return true;
-}
-
+// TODO: Currently no method to remove items in the database, only overwrite or add
 async function run() {
-  if(!verify_params())
-    return;
+  // Load db from input files
+  let items = (
+    (await Promise.all(
+      input_files
+      .map(filename => fs.readFile(filename, { encoding: 'utf-8' }))
+    ))
+    .reduce(
+      (prev, cur) => prev.concat(JSON.parse(cur) as Item[]),
+      [] as Item[]
+    )
+  );
+  console.log(`Found ${items.length} items`);
 
-  // TODO: Currently no method to remove items in the database, only overwrite or add
+  // Filter items if requested
+  if(filter) {
+    items = items.filter(({ id }) => id.match(filter));
+    console.log(`Modifying ${items.length} items`);
+  }
 
   // Setup creds
-  let endpoint;
-  const pc_index = process.argv.indexOf('--db');
-  if(pc_index >= 0)
-    endpoint = process.argv[pc_index + 1];
-
-  const profile_index = process.argv.indexOf('--profile');
-  if(profile_index >= 0) {
-    const profile = process.argv[profile_index + 1];
+  if(profile)
     AWS.config.credentials = new AWS.SharedIniFileCredentials({ profile });
-  }
-  const doc_client = new AWS.DynamoDB.DocumentClient({ region: 'ap-southeast-2', endpoint });
 
-  const items_to_change = items.filter(filter);
-
-  console.log("Modifying " + items_to_change.length + " items");
+  const doc_client = new AWS.DynamoDB.DocumentClient({ region: 'ap-southeast-2', endpoint: db });
 
   // DynamoDB imposes a limit of writing at most 25 items at a time
-  for(let i = 0; (i * 25) < items_to_change.length; i += 1) {
-    const mini_batch = items_to_change.slice(i * 25, (i + 1) * 25);
+  for(let i = 0; (i * 25) < items.length; i += 1) {
+    const mini_batch = items.slice(i * 25, (i + 1) * 25);
+
     const result = await doc_client.batchWrite({
       RequestItems: {
-        AdventureApp: mini_batch.map(item => ({ PutRequest: { Item: item } })),
+        [`AdventureApp${stage}`]: mini_batch.map(item => ({ PutRequest: { Item: item } })),
       },
     }).promise();
+
     console.log(result);
   }
 }

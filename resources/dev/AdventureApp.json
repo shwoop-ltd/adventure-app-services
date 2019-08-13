@@ -1,0 +1,218 @@
+[
+  {
+    "id": "maps",
+    "maps": [
+      {
+        "bottom_right": {
+          "latitude": -36.856898,
+          "longitude": 174.775013
+        },
+        "image_url": "https://s3-ap-southeast-2.amazonaws.com/uoa-bs-maps/UniversityOfAuckland.png",
+        "name": "uoa",
+        "top_left": {
+          "latitude": -36.84639,
+          "longitude": 174.766093
+        }
+      }
+    ]
+  },
+  {
+    "id": "map-uoa",
+    "markers": [
+      {
+        "id": 1,
+        "location": {
+          "latitude": -36.853088,
+          "longitude": 174.768556
+        },
+        "name": "Science ground floor",
+        "open": true
+      },
+      {
+        "id": 2,
+        "location": {
+          "latitude": -36.85129,
+          "longitude": 174.769381
+        },
+        "name": "General Library",
+        "open": true
+      }
+    ]
+  },
+  {
+    "id": "beacon-uoa-0000_0001",
+    "beacon_type": "hidden"
+  },
+  {
+    "id": "beacon-uoa-0000_0002",
+    "beacon_type": "hidden"
+  },
+  {
+    "id": "beacon-uoa-0000_0003",
+    "beacon_type": "hidden"
+  },
+  {
+    "id": "beacon-uoa-0000_0004",
+    "beacon_type": "hidden"
+  },
+  {
+    "claimed": 0,
+    "id": "challenge-uoa-marker-1",
+    "is_prerequisite": true,
+    "prizes": [
+      {
+        "available": 200,
+        "prize": "red-bull"
+      }
+    ],
+    "solution": "0000_0001",
+    "text": "We're been making games all week long\nWith a paddle and a net, you can't go wrong\nMy table has four legs to keep it strong\nAnd my name rhymes with donkey kong\n\nWhere am I?"
+  },
+  {
+    "claimed": 0,
+    "id": "challenge-uoa-marker-2",
+    "is_prerequisite": true,
+    "prizes": [
+      {
+        "available": 200,
+        "prize": "red-bull"
+      }
+    ],
+    "solution": "0000_0002",
+    "text": "With treats and sweets, I'm full of delight\nWith snacks and packs, I'm worth a bite\nScan your card, to receive your wish\nI'm ready to go, without a dish\nPush to open, no need to bend\nI'm open 24/7 ready to vend\n\nWhat am I?"
+  },
+  {
+    "claimed": 0,
+    "id": "challenge-uoa-marker-3",
+    "is_prerequisite": true,
+    "prizes": [],
+    "solution": "0000_0003",
+    "text": "This is the 3rd story you'll have\nI'm at the top of staircase,\nOn this level, you need to use your brain\nDon't get psyched out, that's my claim"
+  },
+  {
+    "claimed": 0,
+    "id": "challenge-uoa-marker-4",
+    "prerequisites": 3,
+    "prizes": [
+      {
+        "available": 200,
+        "prize": "red-bull"
+      }
+    ],
+    "solution": "0000_0004",
+    "text": "I give all the dimensions\nFor creators inventions\nI'm easy to learn, so no complaining\nGo to our website, and book a training\nAll my resources are free, which is essential\nFor all of you to unleash your potential"
+  },
+  {
+    "id": "prize-types",
+    "prizes": [
+      {
+        "display_name": "Red Bull",
+        "image_url": "https://energydrink.redbull.com/sites/default/files/image-server/products/packshots/global/Red-Bull-Energy-Drink-Can-NZ-closed.png",
+        "instance_name": "a can of Red Bull",
+        "name": "red-bull"
+      },
+      {
+        "display_name": "No Prize",
+        "image_url": "https://cdn0.iconfinder.com/data/icons/shift-interfaces/32/Block-512.png",
+        "instance_name": "Nothing",
+        "name": "none"
+      }
+    ]
+  },
+  {
+    "id": "surveys",
+    "surveys": [
+      {
+        "answers": [
+          "Lime",
+          "Flamingo",
+          "Wave",
+          "None"
+        ],
+        "question": "What type of e-scooter do you ride most frequently?"
+      },
+      {
+        "answers": [
+          "When studying",
+          "Before a work out",
+          "On a night out",
+          "When driving",
+          "Other"
+        ],
+        "question": "When do you like to consume Red Bull the most?"
+      },
+      {
+        "answers": [
+          "17 and under",
+          "18-25",
+          "26-35",
+          "36-50",
+          "51+"
+        ],
+        "question": "How old are you?"
+      },
+      {
+        "answers": [
+          "50x",
+          "25x",
+          "10x",
+          "5x",
+          "3x",
+          "2x",
+          "The same effectiveness",
+          "0.5x"
+        ],
+        "question": "Compared to standard advertising, how effective is this in-app brand sponsorship?"
+      },
+      {
+        "answers": [
+          "The cozy cafe atmosphere",
+          "The quality of the coffee I'm getting",
+          "The quality of service",
+          "The price",
+          "Something Else"
+        ],
+        "question": "What do you value most in a cafe experience?"
+      },
+      {
+        "answers": [
+          "Rewards",
+          "Playing with friends",
+          "Solving Puzzles",
+          "Exploring the environment",
+          "Other (please email jamie@shwoop.co.nz)"
+        ],
+        "question": "What experience have you enjoyed the most used this app? Answer this question when you've done all riddles."
+      }
+    ]
+  },
+  {
+    "claimed": 0,
+    "id": "treasure-beacon-0000_0005",
+    "latitude": 170.852794,
+    "longitude": -36.852794,
+    "prizes": [
+      {
+        "available": 20,
+        "prize": "red-bull"
+      }
+    ]
+  },
+  {
+    "claimed": 19,
+    "id": "treasure-beacon-0000_0006",
+    "latitude": 170.852794,
+    "longitude": -36.852794,
+    "prizes": [
+      {
+        "available": 20,
+        "prize": "red-bull"
+      },
+      {
+        "available": 10,
+        "points": 3,
+        "prize": "points"
+      }
+    ]
+  }
+]

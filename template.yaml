@@ -1,5 +1,12 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: 'AWS::Serverless-2016-10-31'
+Parameters:
+  Stage:
+    Type: String
+    AllowedValues:
+    - Dev
+    - Prod
+    Description: The stage type to upload
 Globals:
   Function:
     Environment:
@@ -15,8 +22,7 @@ Resources:
   AdventureApi:
     Type: AWS::Serverless::Api
     Properties:
-      StageName: alpha
-      Name: AdventureApp
+      Name: !Join ["-", ["AdventureApp", !Ref Stage]]
       DefinitionBody:
         'Fn::Transform':
           Name: 'AWS::Include'
@@ -25,7 +31,7 @@ Resources:
   AdventureTable:
     Type: AWS::Serverless::SimpleTable
     Properties:
-      TableName: AdventureApp
+      TableName: !Join ["-", ["AdventureApp", !Ref Stage]]
       PrimaryKey:
         Name: id
         Type: String
@@ -37,7 +43,7 @@ Resources:
   PrizesTable:
     Type: AWS::Serverless::SimpleTable
     Properties:
-      TableName: AdventureAppPrizes
+      TableName: !Join ["-", ["AdventureAppPrizes", !Ref Stage]]
       PrimaryKey:
         Name: id
         Type: String
@@ -49,7 +55,7 @@ Resources:
   UsersTable:
     Type: AWS::Serverless::SimpleTable
     Properties:
-      TableName: AdventureAppUsers
+      TableName: !Join ["-", ["AdventureAppUsers", !Ref Stage]]
       PrimaryKey:
         Name: id
         Type: String
@@ -61,7 +67,7 @@ Resources:
   TelemetryTable:
     Type: AWS::Serverless::SimpleTable
     Properties:
-      TableName: AdventureAppTelemetry
+      TableName: !Join ["-", ["AdventureAppTelemetry", !Ref Stage]]
       PrimaryKey:
         Name: id
         Type: String
