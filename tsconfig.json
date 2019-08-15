@@ -7,13 +7,9 @@
     "baseUrl": "./src",
     "outDir": "./build",
 
-    "types": [
-      "node"
-    ],
+    "types": ["node"],
     "esModuleInterop": false,
     "inlineSourceMap": false
   },
-  "include": [
-    "./src/*"
-  ]
+  "include": ["./src/**/*.ts"]
 }
