@@ -22,6 +22,7 @@ Resources:
   AdventureApi:
     Type: AWS::Serverless::Api
     Properties:
+      StageName: !Ref Stage
       Name: !Join ["-", ["AdventureApp", !Ref Stage]]
       DefinitionBody:
         'Fn::Transform':
