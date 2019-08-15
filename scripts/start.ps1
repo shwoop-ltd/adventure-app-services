@@ -12,4 +12,4 @@ aws dynamodb create-table --table-name AdventureAppTelemetry --attribute-definit
 
 ts-node ./scripts/upload-database.ts --db http://localhost:8000
 
-sam local start-api --profile shwoop --env-vars ./evs/local.json --docker-network lambda-local
+sam local start-api --profile shwoop --env-vars ./resources/dev/local-env.json --docker-network lambda-local
