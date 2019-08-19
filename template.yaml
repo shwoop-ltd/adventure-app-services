@@ -1,5 +1,12 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: 'AWS::Serverless-2016-10-31'
+Parameters:
+  Stage:
+    Type: String
+    AllowedValues:
+    - Dev
+    - Prod
+    Description: The stage type to upload
 Globals:
   Function:
     Environment:
@@ -15,18 +22,17 @@ Resources:
   AdventureApi:
     Type: AWS::Serverless::Api
     Properties:
-      StageName: alpha
-      Name: AdventureApp
+      StageName: !Ref Stage
+      Name: !Join ["-", ["AdventureApp", !Ref Stage]]
       DefinitionBody:
         'Fn::Transform':
           Name: 'AWS::Include'
           Parameters:
-            #Location: s3://adventure-app-cloudformation/openapi.yaml
-            Location: ./api-gateway/openapi.yaml
+            Location: ./resources/openapi.yaml
   AdventureTable:
     Type: AWS::Serverless::SimpleTable
     Properties:
-      TableName: AdventureApp
+      TableName: !Join ["-", ["AdventureApp", !Ref Stage]]
       PrimaryKey:
         Name: id
         Type: String
@@ -38,7 +44,7 @@ Resources:
   PrizesTable:
     Type: AWS::Serverless::SimpleTable
     Properties:
-      TableName: AdventureAppPrizes
+      TableName: !Join ["-", ["AdventureAppPrizes", !Ref Stage]]
       PrimaryKey:
         Name: id
         Type: String
@@ -50,7 +56,7 @@ Resources:
   UsersTable:
     Type: AWS::Serverless::SimpleTable
     Properties:
-      TableName: AdventureAppUsers
+      TableName: !Join ["-", ["AdventureAppUsers", !Ref Stage]]
       PrimaryKey:
         Name: id
         Type: String
@@ -62,7 +68,7 @@ Resources:
   TelemetryTable:
     Type: AWS::Serverless::SimpleTable
     Properties:
-      TableName: AdventureAppTelemetry
+      TableName: !Join ["-", ["AdventureAppTelemetry", !Ref Stage]]
       PrimaryKey:
         Name: id
         Type: String
@@ -74,9 +80,9 @@ Resources:
   GetMaps:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: get-maps.handler
       Runtime: nodejs10.x
-      CodeUri: ./lambda/.build
+      CodeUri: ./build/maps/get-maps
+      Handler: index.handler
       Policies:
       - DynamoDBCrudPolicy:
           TableName: !Ref AdventureTable
@@ -90,9 +96,9 @@ Resources:
   GetMap:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: get-map.handler
       Runtime: nodejs10.x
-      CodeUri: ./lambda/.build
+      CodeUri: ./build/maps/get-map
+      Handler: index.handler
       Policies:
       - DynamoDBCrudPolicy:
           TableName: !Ref AdventureTable
@@ -106,9 +112,9 @@ Resources:
   GetBeacon:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: get-beacon.handler
       Runtime: nodejs10.x
-      CodeUri: ./lambda/.build/
+      CodeUri: ./build/maps/get-beacon
+      Handler: index.handler
       Policies:
       - DynamoDBCrudPolicy:
           TableName: !Ref AdventureTable
@@ -122,9 +128,9 @@ Resources:
   GetChallenge:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: get-challenge.handler
       Runtime: nodejs10.x
-      CodeUri: ./lambda/.build/
+      CodeUri: ./build/maps/get-challenge
+      Handler: index.handler
       Policies:
       - DynamoDBCrudPolicy:
           TableName: !Ref AdventureTable
@@ -138,9 +144,9 @@ Resources:
   GetPrizeTypes:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: get-prize-types.handler
       Runtime: nodejs10.x
-      CodeUri: ./lambda/.build/
+      CodeUri: ./build/prize-types/get
+      Handler: index.handler
       Policies:
       - DynamoDBCrudPolicy:
           TableName: !Ref AdventureTable
@@ -151,12 +157,76 @@ Resources:
             RestApiId: !Ref AdventureApi
             Path: /prize-types
             Method: get
+  GetPrize:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: nodejs10.x
+      CodeUri: ./build/prize/get
+      Handler: index.handler
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName: !Ref PrizesTable
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            RestApiId: !Ref AdventureApi
+            Path: /redemption-codes/{code}/
+            Method: post
+  DeletePrize:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: nodejs10.x
+      CodeUri: ./build/prize/delete
+      Handler: index.handler
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName: !Ref PrizesTable
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            RestApiId: !Ref AdventureApi
+            Path: /redemption-codes/{code}/
+            Method: delete
+  GetUser:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: nodejs10.x
+      CodeUri: ./build/user/get
+      Handler: index.handler
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName: !Ref UsersTable
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            RestApiId: !Ref AdventureApi
+            Path: /users/{userid}/
+            Method: get
+  RegisterUser:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: nodejs10.x
+      CodeUri: ./build/user/register
+      Handler: index.handler
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName: !Ref UsersTable
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            RestApiId: !Ref AdventureApi
+            Path: /users/{userid}/
+            Method: put
   StartChallenge:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: start-challenge.handler
       Runtime: nodejs10.x
-      CodeUri: ./lambda/.build/
+      CodeUri: ./build/user/challenge/start
+      Handler: index.handler
       Policies:
       - DynamoDBCrudPolicy:
           TableName: !Ref AdventureTable
@@ -172,12 +242,18 @@ Resources:
   StopChallenge:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: stop-challenge.handler
       Runtime: nodejs10.x
-      CodeUri: ./lambda/.build/
+      CodeUri: ./build/user/challenge/stop
+      Handler: index.handler
       Policies:
       - DynamoDBCrudPolicy:
           TableName: !Ref AdventureTable
+      - DynamoDBCrudPolicy:
+          TableName: !Ref PrizesTable
+      - DynamoDBCrudPolicy:
+          TableName: !Ref UsersTable
+      - DynamoDBCrudPolicy:
+          TableName: !Ref TelemetryTable
       Events:
         Api:
           Type: Api
@@ -188,9 +264,9 @@ Resources:
   FinishChallenge:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: finish-challenge.handler
       Runtime: nodejs10.x
-      CodeUri: ./lambda/.build/
+      CodeUri: ./build/user/challenge/finish
+      Handler: index.handler
       Policies:
       - DynamoDBCrudPolicy:
           TableName: !Ref AdventureTable
@@ -210,9 +286,9 @@ Resources:
   GetTreasure:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: get-treasure.handler
       Runtime: nodejs10.x
-      CodeUri: ./lambda/.build/
+      CodeUri: ./build/user/get-treasure
+      Handler: index.handler
       Policies:
       - DynamoDBCrudPolicy:
           TableName: !Ref AdventureTable
@@ -229,66 +305,12 @@ Resources:
             RestApiId: !Ref AdventureApi
             Path: /users/{userid}/redeem-treasure
             Method: post
-  GetPrize:
-    Type: AWS::Serverless::Function
-    Properties:
-      Handler: get-prize.handler
-      Runtime: nodejs10.x
-      CodeUri: ./lambda/.build/
-      Policies:
-      - DynamoDBCrudPolicy:
-          TableName: !Ref PrizesTable
-      Events:
-        Api:
-          Type: Api
-          Properties:
-            RestApiId: !Ref AdventureApi
-            Path: /redemption-codes/{code}/
-            Method: post
-  DeletePrize:
-    Type: AWS::Serverless::Function
-    Properties:
-      Handler: delete-prize.handler
-      Runtime: nodejs10.x
-      CodeUri: ./lambda/.build/
-      Policies:
-      - DynamoDBCrudPolicy:
-          TableName: !Ref AdventureTable
-      - DynamoDBCrudPolicy:
-          TableName: !Ref PrizesTable
-      - DynamoDBCrudPolicy:
-          TableName: !Ref UsersTable
-      - DynamoDBCrudPolicy:
-          TableName: !Ref TelemetryTable
-      Events:
-        Api:
-          Type: Api
-          Properties:
-            RestApiId: !Ref AdventureApi
-            Path: /redemption-codes/{code}/
-            Method: delete
-  GetUser:
-    Type: AWS::Serverless::Function
-    Properties:
-      Handler: get-user.handler
-      Runtime: nodejs10.x
-      CodeUri: ./lambda/.build/
-      Policies:
-      - DynamoDBCrudPolicy:
-          TableName: !Ref UsersTable
-      Events:
-        Api:
-          Type: Api
-          Properties:
-            RestApiId: !Ref AdventureApi
-            Path: /users/{userid}/
-            Method: get
   GetUserPrizes:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: get-user-prizes.handler
       Runtime: nodejs10.x
-      CodeUri: ./lambda/.build/
+      CodeUri: ./build/user/get-prizes
+      Handler: index.handler
       Policies:
       - DynamoDBCrudPolicy:
           TableName: !Ref UsersTable
@@ -299,28 +321,12 @@ Resources:
             RestApiId: !Ref AdventureApi
             Path: /users/{userid}/prizes
             Method: get
-  RegisterUser:
-    Type: AWS::Serverless::Function
-    Properties:
-      Handler: register-user.handler
-      Runtime: nodejs10.x
-      CodeUri: ./lambda/.build/
-      Policies:
-      - DynamoDBCrudPolicy:
-          TableName: !Ref UsersTable
-      Events:
-        Api:
-          Type: Api
-          Properties:
-            RestApiId: !Ref AdventureApi
-            Path: /users/{userid}/
-            Method: put
   GetSurvey:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: get-survey.handler
       Runtime: nodejs10.x
-      CodeUri: ./lambda/.build/
+      CodeUri: ./build/user/survey/get
+      Handler: get-survey.handler
       Policies:
       - DynamoDBCrudPolicy:
           TableName: !Ref AdventureTable
@@ -336,9 +342,9 @@ Resources:
   FinishSurvey:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: finish-survey.handler
       Runtime: nodejs10.x
-      CodeUri: ./lambda/.build/
+      CodeUri: ./build/user/survey/finish
+      Handler: index.handler
       Policies:
       - DynamoDBCrudPolicy:
           TableName: !Ref AdventureTable

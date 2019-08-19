@@ -1,20 +1,15 @@
 {
   "compilerOptions": {
-    "allowJs": false,
-
-    "allowSyntheticDefaultImports": true,
-    "isolatedModules": true,
-    "lib": ["es6"],
-    "moduleResolution": "node",
-    "target": "esnext",
-
-    "noEmit": true,
+    "target": "es2018",
+    "module": "commonjs",
     "strict": true,
 
-    "baseUrl": "./",
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-  },
-  "exclude": ["node_modules"]
+    "baseUrl": "./src",
+    "outDir": "./build",
 
+    "types": ["node"],
+    "esModuleInterop": false,
+    "inlineSourceMap": false
+  },
+  "include": ["./src/**/*.ts"]
 }

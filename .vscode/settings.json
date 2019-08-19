@@ -10,9 +10,19 @@
         "dynamodb/adventure-app/treasures.json",
         "dynamodb/adventure-app/surveys.json"
       ],
-      "url": "./dynamodb/adventure-app/db.schema.json"
+      "url": "./resources/adventure-app.schema.json"
     }
   ],
-  "files.exclude": {
-  }
+  "yaml.customTags": [
+    "!Equals sequence",
+    "!FindInMap sequence",
+    "!GetAtt",
+    "!GetAZs",
+    "!ImportValue",
+    "!Join sequence",
+    "!Ref",
+    "!Select sequence",
+    "!Split sequence",
+    "!Sub"
+    ]
 }
