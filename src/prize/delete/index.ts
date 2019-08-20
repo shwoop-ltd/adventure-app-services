@@ -1,5 +1,5 @@
 import { DynamoDB } from 'aws-sdk';
-import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from 'aws-lambda';
+import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 
 import { DBPrize, DBPrizeType } from 'helper/types';
 
@@ -12,14 +12,16 @@ const doc_client = new DynamoDB.DocumentClient({ region: process.env.REGION, end
 // Note: this assumes there will be no requests before this promise has completed.
 let prize_types: DBPrizeType[];
 doc_client.get({ TableName: shwoop_table_name, Key: { id: "prize-types" } }).promise()
-  .then(request => prize_types = request.Item ? request.Item.prizes : undefined);
+  .then((request) => {
+    prize_types = request.Item ? request.Item.prizes : undefined;
+  });
 
 async function add_telemetry(user_id: string, function_name: string, event: APIGatewayProxyEvent) {
   const telemetry_table_name = process.env.TELEMETRY_TABLE_NAME!;
   const telemetry_date = new Date();
 
   const telemetry_data = {
-    id: user_id + "-" + function_name + "-" + telemetry_date.toISOString(),
+    id: `${user_id}-${function_name}-${telemetry_date.toISOString()}`,
     pathParameters: event.pathParameters,
     body: event.body,
     queryStringParameters: event.queryStringParameters,
@@ -29,7 +31,7 @@ async function add_telemetry(user_id: string, function_name: string, event: APIG
   await doc_client.put({ TableName: telemetry_table_name, Item: telemetry_data }).promise();
 }
 
-export async function handler(event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult> {
+export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
   if(!event.pathParameters)
     return { statusCode: 500, body: "No path parameters. This should never happen!", headers: { "Content-Type": "text/plain" } };
   if(!event.headers.Authorization)
@@ -57,7 +59,7 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
   if(!prize_types)
     return { statusCode: 500, body: "Prize types irretrievable", headers: { "Content-Type": "text/plain" } };
 
-  const prize_type = prize_types.find(type => type.name === prize.type);
+  const prize_type = prize_types.find((type) => type.name === prize.type);
   if(!prize_type)
     return { statusCode: 500, body: `Prize type ${prize.type} does not exist`, headers: { "Content-Type": "text/plain" } };
 

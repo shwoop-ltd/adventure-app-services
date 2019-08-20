@@ -35,7 +35,7 @@ export interface DBMapInfo {
 }
 
 export type DBBeacon =
-  { beacon_type: 'marker', marker: number } |
+  { beacon_type: 'marker'; marker: number } |
   { beacon_type: 'treasure' } |
   { beacon_type: 'hidden' };
 
@@ -49,7 +49,7 @@ export interface DBChallenge {
   prerequisites?: number;
   is_prerequisite?: boolean;
 
-  prizes: { prize: string; available: number; points?: number; }[];
+  prizes: { prize: string; available: number; points?: number }[];
   claimed: number;
 }
 
@@ -65,7 +65,7 @@ export interface DBUser {
   id: string;
 
   points: number;
-  surveys: { question: string; answer: string; }[];
+  surveys: { question: string; answer: string }[];
   prizes: string[];
   treasure: string[];
   challenges: string[];

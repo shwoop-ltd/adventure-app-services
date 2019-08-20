@@ -1,16 +1,16 @@
 import { DynamoDB } from 'aws-sdk';
-import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from 'aws-lambda';
+import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 
 const table_name = process.env.TABLE_NAME!;
 const doc_client = new DynamoDB.DocumentClient({ region: process.env.REGION, endpoint: process.env.ENDPOINT_OVERRIDE || undefined });
 
-export async function handler(event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult> {
+export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
   if(!event.pathParameters)
     return { statusCode: 400, body: "No path parameters" };
 
   const map_name = event.pathParameters.map;
   const beacon_id = event.pathParameters.beacon;
-  const key = 'beacon-' + map_name + '-' + beacon_id;
+  const key = `beacon-${map_name}-${beacon_id}`;
 
   const result = await doc_client.get({ TableName: table_name, Key: { id: key } }).promise();
 

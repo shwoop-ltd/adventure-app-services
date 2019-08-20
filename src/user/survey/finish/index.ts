@@ -1,5 +1,5 @@
 import { DynamoDB } from 'aws-sdk';
-import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from 'aws-lambda';
+import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 
 interface Survey {
   question: string;
@@ -18,9 +18,9 @@ const doc_client = new DynamoDB.DocumentClient({ region: process.env.REGION, end
 function generateRandomString(length: number) {
   let returnString = "";
   const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  for (let i = 0; i < length; i++) {
+  for(let i = 0; i < length; i += 1)
     returnString += characters.charAt(Math.floor(Math.random() * characters.length));
-  }
+
   return returnString;
 }
 
@@ -29,7 +29,7 @@ function add_telemetry(user_id: string, function_name: string, event: APIGateway
   const telemetry_date = new Date();
 
   const telemetry_data = {
-    id: user_id + "-" + function_name + "-" + telemetry_date.toISOString(),
+    id: `${user_id}-${function_name}-${telemetry_date.toISOString()}`,
     pathParameters: event.pathParameters,
     body: event.body,
     queryStringParameters: event.queryStringParameters,
@@ -39,13 +39,13 @@ function add_telemetry(user_id: string, function_name: string, event: APIGateway
   doc_client.put({ TableName: telemetry_table_name, Item: telemetry_data });
 }
 
-export async function handler(event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult> {
-  if (!event.pathParameters || !event.pathParameters.userid) {
+export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
+  if(!event.pathParameters || !event.pathParameters.userid)
     return { statusCode: 400, body: "Missing path parameters." };
-  }
-  if (!event.body) {
+
+  if(!event.body)
     return { statusCode: 400, body: "Body not present" };
-  }
+
 
   const body = JSON.parse(event.body) as CompletedSurvey;
 
@@ -53,18 +53,18 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
   // Does this user exist?
   const user_result = await doc_client.get({ TableName: users_table_name, Key: { id: user_id } }).promise();
   const user = user_result.Item;
-  if (!user) {
+  if(!user)
     return { statusCode: 401, body: "User does not exist." };
-  }
+
   const user_surveys = user.surveys as CompletedSurvey[];
   const answered_questions = user_surveys.map(({ question }) => question);
 
   add_telemetry(user_id, "finish-survey", event);
 
   const survey_result = await doc_client.get({ TableName: table_name, Key: { id: "surveys" } }).promise();
-  if (!survey_result.Item) {
+  if(!survey_result.Item)
     return { statusCode: 502, body: "Could not find survey" };
-  }
+
   const surveys = survey_result.Item.surveys as Survey[];
   const answered_survey = surveys.find(({ question }) => question === body.question);
   if(!answered_survey)

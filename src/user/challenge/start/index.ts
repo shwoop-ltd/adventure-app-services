@@ -1,5 +1,5 @@
 import { DynamoDB } from 'aws-sdk';
-import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from 'aws-lambda';
+import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 
 import { DBChallenge, DBUser } from 'helper/types';
 
@@ -8,8 +8,8 @@ const users_table_name = process.env.USERS_TABLE_NAME!;
 
 const doc_client = new DynamoDB.DocumentClient({ region: process.env.REGION, endpoint: process.env.ENDPOINT_OVERRIDE || undefined });
 
-export async function handler(event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult> {
-  if (!event.pathParameters)
+export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
+  if(!event.pathParameters)
     return { statusCode: 400, body: "Need the user and the challenge id" };
 
   const user_id = event.pathParameters.userid;
@@ -18,7 +18,7 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
   const challenge_result = await doc_client.get({ TableName: table_name, Key: { id: challenge_id } }).promise();
   const challenge = challenge_result.Item as DBChallenge | undefined;
 
-  if (!challenge)
+  if(!challenge)
     return { statusCode: 404, body: "No challenge with that ID." };
 
   if(challenge.prerequisites) {
@@ -33,8 +33,11 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
       return { statusCode: 402, body: "Prerequisite challenges not completed" };
   }
 
-  return { statusCode: 200, body: JSON.stringify({
-    text: challenge.text,
-    image_url: challenge.image_url,
-  })};
+  return {
+    statusCode: 200,
+    body: JSON.stringify({
+      text: challenge.text,
+      image_url: challenge.image_url,
+    }),
+  };
 }
