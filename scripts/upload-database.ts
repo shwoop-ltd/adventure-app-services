@@ -3,7 +3,7 @@
  */
 import { promises as fs } from 'fs';
 import * as AWS from 'aws-sdk';
-import minimist from 'minimist';
+const minimist = require('minimist') as typeof import('minimist');
 
 type Item = { id: string };
 
@@ -54,7 +54,7 @@ async function run() {
 
     const result = await doc_client.batchWrite({
       RequestItems: {
-        [`AdventureApp${stage}`]: mini_batch.map(item => ({ PutRequest: { Item: item } })),
+        [`AdventureApp-${stage}`]: mini_batch.map(item => ({ PutRequest: { Item: item } })),
       },
     }).promise();
 
