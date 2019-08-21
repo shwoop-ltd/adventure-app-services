@@ -43,7 +43,7 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
   if(!prize_type)
     return response(500, `Prize type ${prize.type} does not exist`);
 
-  if(!is_admin && !prize_type.self_redeemable)
+  if(!is_admin && !prize_type.redeem_type)
     return response(400, "The user may not redeem this prize themselves");
 
   // Update the prize as claimed

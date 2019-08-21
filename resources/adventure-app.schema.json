@@ -260,25 +260,76 @@
                   "description": "Name of item intended for users",
                   "examples": ["Red Bull", "Burger"]
                 },
+                "description": {
+                  "type": "string",
+                  "description": "Short description of the prize"
+                },
                 "instance_name": {
                   "type": "string",
                   "description": "Name of a single instance of the item",
                   "examples": ["a can of Red Bull", "a burger"]
                 },
-                "self_redeemable": {
-                  "type": "boolean",
-                  "description": "Whether the user can redeem this prize themselves",
-                  "default": false
+                "redeem_type": {
+                  "type": "string",
+                  "enum": [
+                    "online",
+                    "in-store"
+                  ],
+                  "description": "How the user should redeem this prize. If not present or null, it is assumed the user may not redeem themselves but must intead approach a campaign manager",
+                  "default": null
+                },
+                "redeem_info": {
+                  "type": "string",
+                  "description": "Information about how to redeem the item"
                 }
               },
-              "required": ["name", "image_url", "display_name", "instance_name"],
+              "required": ["name", "image_url", "display_name", "description", "instance_name", "redeem_info"],
               "additionalProperties": false
           }
         }
       },
       "required": ["id", "prizes"],
       "additionalProperties": false
-    }]
+    },
+    {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^treasure-beacon-(.*)$"
+        },
+        "prizes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "prize": {
+                "type": "string",
+                "description": "The prize type"
+              },
+              "available": {
+                "type": "number",
+                "description": "Number of available instances of this prize"
+              },
+              "points": {
+                "type": "number",
+                "description": "If the prize type is 'points', the number of points given",
+                "default": 1
+              }
+            },
+            "required": ["prize", "available"],
+            "additionalProperties": false
+          }
+        },
+        "claimed": {
+          "type": "number",
+          "description": "Number of prizes already claimed here"
+        }
+      },
+      "required": ["id", "prizes", "claimed"],
+      "additionalProperties": false
+    }
+  ]
   },
   "definitions": {
     "location": {

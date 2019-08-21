@@ -67,8 +67,10 @@ export interface DBPrizeType {
 
   display_name: string;
   instance_name: string;
+  description: string;
 
-  self_redeemable: boolean;
+  redeem_type?: 'in-store' | 'online';
+  redeem_message: string;
 }
 export interface DBPrizeTypeCollection {
   id: 'prize-types';
