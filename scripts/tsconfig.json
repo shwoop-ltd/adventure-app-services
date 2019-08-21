@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "allowJs": false,
+
+    "allowSyntheticDefaultImports": true,
+    "isolatedModules": true,
+    "lib": ["es6"],
+    "moduleResolution": "node",
+    "target": "esnext",
+
+    "noEmit": true,
+    "strict": true,
+
+    "baseUrl": "../",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+  }
+}

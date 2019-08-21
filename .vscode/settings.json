@@ -2,17 +2,41 @@
   "json.schemas": [
     {
       "fileMatch": [
-        "dynamodb/adventure-app/beacons.json",
-        "dynamodb/adventure-app/maps.json",
-        "dynamodb/adventure-app/challenges.json",
-        "dynamodb/adventure-app/map-info.json",
-        "dynamodb/adventure-app/prize-types.json",
-        "dynamodb/adventure-app/treasures.json",
-        "dynamodb/adventure-app/surveys.json"
+        "**/AdventureApp.json"
       ],
-      "url": "./dynamodb/adventure-app/db.schema.json"
+      "url": "./resources/adventure-app.schema.json"
     }
   ],
-  "files.exclude": {
-  }
+  "yaml.customTags": [
+    "!Equals sequence",
+    "!FindInMap sequence",
+    "!GetAtt",
+    "!GetAZs",
+    "!ImportValue",
+    "!Join sequence",
+    "!Ref",
+    "!Select sequence",
+    "!Split sequence",
+    "!Sub"
+  ],
+  // Disable tslint for the newer eslint-typescript
+  "tslint.exclude": ["**/*.ts"],
+  // formatting using eslint
+  "eslint.enable": true,
+  "eslint.validate": [
+    {
+      "language": "javascript",
+      "autoFix": true
+    },
+    {
+      "language": "typescript",
+      "autoFix": true
+    },
+  ],
+  "eslint.run": "onType",
+  "eslint.packageManager": "yarn",
+  "editor.formatOnSave": true,
+  // available through eslint plugin in vscode
+  "eslint.autoFixOnSave": true,
+  "eslint.alwaysShowStatus": true,
 }
