@@ -19,13 +19,13 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
   // Allow elements that either do not have a release time (considered timeless) or whose life time covers the current date.
   // Elements with a release time and no duration are assumed to be available forever after release
   const markers = map_info.markers.filter(
-    ({ release, duration }) => !release || (release < time && (!duration || release + duration > time)),
+    ({ release_date, end_date }) => (!release_date || (release_date < time)) && (!end_date || end_date > time),
   );
 
   const next_release = (
     Math.min(...map_info.markers
-      .filter(({ release }) => release && release > time) // Filters to future objects
-      .map(({ release }) => release as number)) // Converts objects into just release time
+      .filter(({ release_date }) => release_date && release_date > time) // Filters to future objects
+      .map(({ release_date }) => release_date as number)) // Converts objects into just release time
   );
 
   const return_data = {

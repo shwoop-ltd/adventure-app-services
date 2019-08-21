@@ -22,6 +22,29 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
       return response(402, "Prerequisite challenges not completed");
   }
 
+  // TODO: This is not checked with beacon challenges because they are currently not used.
+  if(challengeid.includes('marker-')) {
+    const splits = challengeid.split('-');
+    const map = splits[1];
+    const marker_id = splits[3];
+
+    const map_info = await AdventureApp.get_map(map);
+    if(!map_info)
+      return response(404, `Map ${map} not found`);
+
+    const marker = map_info.markers.find((item) => item.id === Number.parseInt(marker_id, 10));
+    if(!marker)
+      return response(404, `Marker ${marker_id} does not exist`);
+
+    // Logic time:
+    // We test whether the time is greater than the active start date,
+    // which is either active_date (if it exists), or else release_date (if that exists)
+    // We then check that we are not past the end date (if that exists).
+    const time = Date.now() / 1000;
+    if((marker.active_date || marker.release_date || 0) > time || (marker.end_date || time) < time)
+      return response(400, "This challenge is not available right now");
+  }
+
   return response(
     200,
     {

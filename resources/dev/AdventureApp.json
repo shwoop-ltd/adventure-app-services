@@ -57,7 +57,10 @@
           "latitude": -36.853088,
           "longitude": 174.772000
         },
-        "open": true
+        "open": true,
+        "release_date": 1566381651,
+        "active_date": 1566581651,
+        "close_date": 1566981651
       },
       {
         "id": 6,
@@ -65,7 +68,10 @@
           "latitude": -36.853088,
           "longitude": 174.773000
         },
-        "open": true
+        "open": true,
+        "release_date": 0,
+        "active_date": 1566181651,
+        "close_date": 1566981651
       }
     ]
   },

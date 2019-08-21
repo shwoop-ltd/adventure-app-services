@@ -67,13 +67,18 @@
                   "type": "boolean",
                   "default": "true"
                 },
-                "release": {
+                "release_date": {
                   "description": "Time in epoch seconds at which the marker becomes available to users. If not present, assumed always available",
                   "type": "number",
                   "format": "int64"
                 },
-                "duration": {
-                  "description": "Number of seconds the marker is available for after release. If not present, assumed always available (after release if present)",
+                "active_date": {
+                  "description": "Time in epoch seconds after which the challenge is accessible. If not present, assumed to be release_date",
+                  "type": "number",
+                  "format": "int64"
+                },
+                "close_date": {
+                  "description": "Time in epoch seconds at which marker is no longer available. If not present, no close date.",
                   "type": "number",
                   "format": "int64"
                 },
