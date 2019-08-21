@@ -181,7 +181,11 @@ Resources:
       Handler: index.handler
       Policies:
       - DynamoDBCrudPolicy:
+          TableName: !Ref AdventureTable
+      - DynamoDBCrudPolicy:
           TableName: !Ref PrizesTable
+      - DynamoDBCrudPolicy:
+          TableName: !Ref TelemetryTable
       Events:
         Api:
           Type: Api

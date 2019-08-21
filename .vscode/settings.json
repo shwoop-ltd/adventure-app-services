@@ -2,13 +2,7 @@
   "json.schemas": [
     {
       "fileMatch": [
-        "dynamodb/adventure-app/beacons.json",
-        "dynamodb/adventure-app/maps.json",
-        "dynamodb/adventure-app/challenges.json",
-        "dynamodb/adventure-app/map-info.json",
-        "dynamodb/adventure-app/prize-types.json",
-        "dynamodb/adventure-app/treasures.json",
-        "dynamodb/adventure-app/surveys.json"
+        "**/AdventureApp.json"
       ],
       "url": "./resources/adventure-app.schema.json"
     }
@@ -26,7 +20,7 @@
     "!Sub"
   ],
   // Disable tslint for the newer eslint-typescript
-  "tslint.exclude": ["**/*.{ts,tsx}"],
+  "tslint.exclude": ["**/*.ts"],
   // formatting using eslint
   "eslint.enable": true,
   "eslint.validate": [
@@ -35,17 +29,9 @@
       "autoFix": true
     },
     {
-      "language": "javascriptreact",
-      "autoFix": true
-    },
-    {
       "language": "typescript",
       "autoFix": true
     },
-    {
-      "language": "typescriptreact",
-      "autoFix": true
-    }
   ],
   "eslint.run": "onType",
   "eslint.packageManager": "yarn",
