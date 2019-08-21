@@ -1,113 +1,73 @@
-import { DynamoDB } from 'aws-sdk';
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 
-interface User {
-  prizes: string[];
-  treasure: string[];
-}
-
-const table_name = process.env.TABLE_NAME!;
-const users_table_name = process.env.USERS_TABLE_NAME!;
-const prizes_table_name = process.env.PRIZES_TABLE_NAME!;
-// const accuracy = 0.00005 //TODO: Move this to environment variables
-const doc_client = new DynamoDB.DocumentClient({ region: process.env.REGION, endpoint: process.env.ENDPOINT_OVERRIDE || undefined });
-
-function generateRandomString(length: number) { // TODO: Put this in its own class.
-  let returnString = "";
-  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  for(let i = 0; i < length; i += 1)
-    returnString += characters.charAt(Math.floor(Math.random() * characters.length));
-
-  return returnString;
-}
+import {
+  response, Users, AdventureApp, create_prize, generate_telemetry,
+} from '/opt/nodejs';
 
 export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
   // TODO: Appropriate null checks for malformed data in the DB (E.g. treasures without prizes)
   if(!event.queryStringParameters || !event.queryStringParameters.beacon)
-    return { statusCode: 400, body: "Query Parameter missing. Expected beacon." };
+    return response(400, "Query Parameter missing. Expected beacon.");
   if(!event.pathParameters || !event.pathParameters.userid)
-    return { statusCode: 400, body: "Missing path parameters." };
-
+    return response(400, "Missing path parameters.");
 
   const user_id = event.pathParameters.userid;
+  const { beacon } = event.queryStringParameters;
 
-  const telemetry_table_name = process.env.TELEMETRY_TABLE_NAME!;
-  const telemetry_date = new Date();
-  const telemetry_data = {
-    id: `${user_id}-gettreasure-${telemetry_date.toISOString()}`,
-    pathParameters: event.pathParameters,
-    body: event.body,
-    queryStringParameters: event.queryStringParameters,
-    headers: event.headers,
-  };
-  doc_client.put({ TableName: telemetry_table_name, Item: telemetry_data });
+  generate_telemetry(event, "get-treasure", user_id);
 
   // Does this user exist?
-  const user_result = await doc_client.get({ TableName: users_table_name, Key: { id: user_id } }).promise();
-  const user = user_result.Item as User | undefined;
+  const user = await Users.get(user_id);
   if(!user)
-    return { statusCode: 401, body: "User does not exist." };
-
+    return response(401, "User does not exist.");
 
   // Is it a new treasure?
-  const treasure_id = event.queryStringParameters.beacon;
-  if(user.treasure.includes(treasure_id))
-    return { statusCode: 403, body: "Treasure already claimed" };
-
+  // TODO: Should be related to map
+  if(user.treasure.includes(beacon))
+    return response(403, "Treasure already claimed");
 
   // Is there a treasure with this beacon?
-  const key = `treasure-beacon-${event.queryStringParameters.beacon}`;
-  const treasure_result = await doc_client.get({ TableName: table_name, Key: { id: key } }, () => { }).promise();
-  if(!treasure_result.Item)
-    return { statusCode: 404, body: `There is no treasure with beacon id ${treasure_id}` };
+  const treasure = await AdventureApp.get_treasure(beacon);
+  if(!treasure)
+    return response(404, `There is no treasure with beacon id ${beacon}`);
 
+  let prize_type;
+  let points;
 
-  // Prize stuff - TODO: Move to its own class
-  const d = new Date();
-  const prize = {
-    id: generateRandomString(8),
-    type: "red-bull",
-    received: d.toISOString(),
-    received_from: "treasure",
-    claimed: false,
-    points: undefined,
-    user_id,
-  };
-
-  const { prizes } = treasure_result.Item;
-  const { claimed } = treasure_result.Item;
+  // Determine prize type
+  const { prizes, claimed } = treasure;
   let total = 0;
   for(let i = 0; i < prizes.length; i += 1) {
     const element = prizes[i];
     total += element.available;
     if(claimed < total) {
-      prize.type = element.prize;
-      prize.points = element.points;
+      prize_type = element.prize;
+      points = element.points;
       break;
     }
   }
 
-  // Params - Increment "claimed" counter
-  const counter_params = {
-    TableName: table_name,
-    Key: { id: key },
-    UpdateExpression: "set claimed = claimed + :val",
-    ExpressionAttributeValues: {
-      ":val": 1,
-    },
-  };
+  if(!prize_type)
+    return response(204, `There is no more treasure to claim`);
 
   // Moved to the end so that if there are any fatal errors in the middle, nothing will be half changed
 
-  // Store Prize
-  doc_client.put({ TableName: prizes_table_name, Item: prize }, () => { });
+  // Create prize for user, or give user points
+  let prize;
+  if(prize_type !== 'points') {
+    prize = await create_prize(user_id, prize_type, "treasure");
+    user.prizes.push(prize.id);
+  }
+  else
+    user.points += points || 1;
 
   // Params - Add treasure and prize to user
-  user.treasure.push(treasure_id);
-  user.prizes.push(prize.id);
-  await doc_client.put({ TableName: users_table_name, Item: user }, () => {}).promise();
+  user.treasure.push(beacon);
+  await Users.put(user);
 
-  // Update number of treasures claimed
-  doc_client.update(counter_params);
-  return { statusCode: 201, body: JSON.stringify(prize) };
+  // Store treasure update
+  treasure.claimed += 1;
+  await AdventureApp.put_treasure(treasure);
+
+  return response(201, prize || { type: prize_type, points });
 }

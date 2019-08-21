@@ -1,22 +1,11 @@
-import { DynamoDB } from 'aws-sdk';
 import { APIGatewayProxyResult } from 'aws-lambda';
-
-const table_name = process.env.TABLE_NAME!;
-const doc_client = new DynamoDB.DocumentClient({ region: process.env.REGION, endpoint: process.env.ENDPOINT_OVERRIDE || undefined });
+import { AdventureApp, response } from '/opt/nodejs';
 
 export async function handler(): Promise<APIGatewayProxyResult> {
-  const result = await doc_client.get({ TableName: table_name, Key: { id: "prize-types" } }).promise();
+  const result = await AdventureApp.get_prize_types();
 
-  if(result.Item) {
-    return {
-      statusCode: 200,
-      body: JSON.stringify(result.Item.prizes),
-    };
-  }
-  else {
-    return {
-      statusCode: 502,
-      body: "No prize types!",
-    };
-  }
+  if(result)
+    return response(200, result.prizes);
+  else
+    return response(502, "No prize types!");
 }

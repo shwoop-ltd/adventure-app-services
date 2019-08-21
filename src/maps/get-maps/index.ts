@@ -1,22 +1,11 @@
-import { DynamoDB } from 'aws-sdk';
 import { APIGatewayProxyResult } from 'aws-lambda';
-
-const table_name = process.env.TABLE_NAME!;
-const doc_client = new DynamoDB.DocumentClient({ region: process.env.REGION, endpoint: process.env.ENDPOINT_OVERRIDE || undefined });
+import { AdventureApp, response } from '/opt/nodejs';
 
 export async function handler(): Promise<APIGatewayProxyResult> {
-  const result = await doc_client.get({ TableName: table_name, Key: { id: "maps" } }).promise();
+  const maps = await AdventureApp.get_maps();
 
-  if(result.Item) {
-    return {
-      statusCode: 200,
-      body: JSON.stringify(result.Item.maps),
-    };
-  }
-  else {
-    return {
-      statusCode: 500,
-      body: "Maps not found!",
-    };
-  }
+  if(maps)
+    return response(200, maps.maps);
+  else
+    return response(500, "Maps not found!");
 }

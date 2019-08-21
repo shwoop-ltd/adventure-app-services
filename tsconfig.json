@@ -6,6 +6,12 @@
 
     "baseUrl": "./src",
     "outDir": "./build",
+    "paths": {
+      "schemas": ["_schemas/index.ts"],
+      "schemas/*": ["_schemas/*"],
+      "/opt/nodejs": ["_common/nodejs/index.ts"],
+      "/opt/nodejs/*": ["_common/nodejs/*"]
+    },
 
     "types": ["node"],
     "esModuleInterop": false,

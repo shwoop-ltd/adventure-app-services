@@ -1,28 +1,23 @@
-import { DynamoDB } from 'aws-sdk';
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 
-import { DBChallenge } from 'helper/types';
-
-const table_name = process.env.TABLE_NAME!;
-const doc_client = new DynamoDB.DocumentClient({ region: process.env.REGION, endpoint: process.env.ENDPOINT_OVERRIDE || undefined });
+import { AdventureApp, response } from '/opt/nodejs';
 
 export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
   // TODO: Get info about user
 
-  if(!event.pathParameters || !['challenge', 'marker'].includes(event.pathParameters.type))
-    return { statusCode: 400, body: "Need a 'map', plus a type of 'marker' or 'beacon', and a correct ID for that type." };
+  if(!event.pathParameters)
+    return response(400, "Need a 'map', plus a type of 'marker' or 'beacon', and a correct ID for that type.");
 
 
   const { map, type, type_id } = event.pathParameters;
 
-  const from_key = `${type}-${type_id}`;
-  const key = `challenge-${map}-${from_key}`;
+  if(type !== 'beacon' && type !== 'marker')
+    return response(400, "Type must be marker or beacon");
 
-  const challenge_result = await doc_client.get({ TableName: table_name, Key: { id: key } }).promise();
-  const challenge = challenge_result.Item as DBChallenge | undefined;
+  const challenge = await AdventureApp.get_challenge(map, type, type_id);
 
   if(!challenge)
-    return { statusCode: 404, body: "No puzzle with that ID." };
+    return response(404, "No puzzle with that ID.");
 
   // Only return the puzzles which are still winnable
   let sum = 0;
@@ -32,14 +27,14 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
   });
 
   // Ensure we only pass certain information
-  return {
-    statusCode: 200,
-    body: JSON.stringify({
+  return response(
+    200,
+    {
       id: challenge.id,
       prerequisites: challenge.prerequisites,
       claimed: challenge.claimed,
       is_prerequisite: challenge.is_prerequisite,
       prizes: challenge.prizes.slice(first_winnable),
-    }),
-  };
+    },
+  );
 }

@@ -11,7 +11,7 @@ export interface Location {
 // Database types
 
 export interface DBMapCollection {
-  id: string;
+  id: 'maps';
   maps: {
     name: string;
     top_left: Location;
@@ -54,23 +54,11 @@ export interface DBChallenge {
 }
 
 export interface DBSurveyCollection {
-  id: string;
+  id: 'surveys';
   surveys: {
     question: string;
     answers: string[];
   }[];
-}
-
-export interface DBUser {
-  id: string;
-
-  points: number;
-  surveys: { question: string; answer: string }[];
-  prizes: string[];
-  treasure: string[];
-  challenges: string[];
-
-  prerequisite_challenges_completed: number;
 }
 
 export interface DBPrizeType {
@@ -82,12 +70,14 @@ export interface DBPrizeType {
 
   self_redeemable: boolean;
 }
+export interface DBPrizeTypeCollection {
+  id: 'prize-types';
+  prizes: DBPrizeType[];
+}
 
-export interface DBPrize {
+// TODO:
+export interface DBTreasure extends Location {
   id: string;
-  type: string;
-  received: string; // ISO date
-  received_from: 'challenge' | 'treasure' | 'survey';
-  redeemed: boolean;
-  user_id: string;
+  claimed: number;
+  prizes: { prize: string; available: number; points?: number }[];
 }

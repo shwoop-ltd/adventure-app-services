@@ -1,8 +1,5 @@
 {
   "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "project": "./tsconfig.json"
-  },
   "plugins": ["@typescript-eslint"],
   "extends": ["plugin:@typescript-eslint/recommended", "airbnb/base"],
   "settings": {
@@ -24,6 +21,7 @@
     "curly": ["warn", "multi-or-nest"],
     "import/no-unresolved": "off",
     "import/prefer-default-export": "off",
+    "import/no-absolute-path": "off",
     "keyword-spacing": [
       "warn",
       {
