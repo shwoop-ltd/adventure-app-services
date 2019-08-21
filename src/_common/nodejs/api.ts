@@ -1,6 +1,6 @@
 import { APIGatewayProxyResult } from "aws-lambda";
 
-export function response(code: number, body: string | object): APIGatewayProxyResult {
+export function response(code: number, body: string | object | boolean): APIGatewayProxyResult {
   if(typeof body === "string") {
     return {
       statusCode: code,

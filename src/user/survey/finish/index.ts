@@ -48,5 +48,5 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
   // Update user info with the previously inserted survey
   await Users.put(user);
 
-  return response(201, "");
+  return response(201, false);
 }

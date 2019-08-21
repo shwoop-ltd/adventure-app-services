@@ -244,6 +244,8 @@ Resources:
       Policies:
       - DynamoDBCrudPolicy:
           TableName: !Ref UsersTable
+      - DynamoDBCrudPolicy:
+          TableName: !Ref TelemetryTable
       Events:
         Api:
           Type: Api
@@ -366,7 +368,9 @@ Resources:
     Properties:
       Runtime: nodejs10.x
       CodeUri: ./build/user/survey/get
-      Handler: get-survey.handler
+      Handler: index.handler
+      Layers:
+        - !Ref CommonCode
       Policies:
       - DynamoDBCrudPolicy:
           TableName: !Ref AdventureTable

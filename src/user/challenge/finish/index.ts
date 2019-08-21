@@ -54,7 +54,7 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
 
   // If there were no prizes, or we have run out of prizes, user gets nothing.
   if(!prize_type)
-    return response(200, JSON.stringify(false));
+    return response(200, false);
 
   // Store prize in prize table
   const prize = await create_prize(user.id, prize_type, "challenge");

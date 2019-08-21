@@ -8,7 +8,6 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
   if(!event.pathParameters)
     return response(400, "Need a 'map', plus a type of 'marker' or 'beacon', and a correct ID for that type.");
 
-
   const { map, type, type_id } = event.pathParameters;
 
   if(type !== 'beacon' && type !== 'marker')
