@@ -479,9 +479,6 @@ components:
         is_prerequisite:
           type: boolean
           description: "Whether this challenge counts towards the prerequisites"
-        prerequisites:
-          type: number
-          description: "The number of prerequisite challenges that must be completed first"
         prizes:
           type: array
           items:
@@ -511,18 +508,25 @@ components:
           description: Unique id
         location:
           $ref: '#/components/schemas/Coordinate'
+        prerequisites:
+          type: number
+          description: "The number of prerequisite challenges that must be completed first before starting this challenge"
         open:
           type: boolean
           default: false
           description: Whether the marker requires a connection to bluetooth (if it is open, no connection required)
-        release:
+        release_date:
           type: integer
           format: int64
-          description: Time at which the marker became available (in epoch seconds)
-        duration:
+          description: Time at which the marker becomes visible in epoch seconds
+        active_date:
           type: integer
           format: int64
-          description: Number of seconds after release the marker is available for
+          description: Time at which marker's challenge is startable
+        end_date:
+          type: integer
+          format: int64
+          description: Time at which marker is no longer usable
       required: [id, location]
     Beacon:
       type: object

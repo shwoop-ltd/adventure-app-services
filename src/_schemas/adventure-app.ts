@@ -1,4 +1,3 @@
-
 // NOTE: This file can be seperate because it only contains types,
 // so the typescript compiler will do away with the import when it's compiled into js.
 // This same method CANNOT be used for code.
@@ -11,7 +10,7 @@ export interface Location {
 // Database types
 
 export interface DBMapCollection {
-  id: 'maps';
+  id: "maps";
   maps: {
     name: string;
     top_left: Location;
@@ -29,6 +28,8 @@ export interface DBMapInfo {
 
     open?: boolean;
 
+    prerequisites?: number;
+
     release_date?: number;
     active_date?: number;
     end_date?: number;
@@ -36,9 +37,9 @@ export interface DBMapInfo {
 }
 
 export type DBBeacon =
-  { beacon_type: 'marker'; marker: number } |
-  { beacon_type: 'treasure' } |
-  { beacon_type: 'hidden' };
+  | { beacon_type: "marker"; marker: number }
+  | { beacon_type: "treasure" }
+  | { beacon_type: "hidden" };
 
 export interface DBChallenge {
   id: string;
@@ -47,7 +48,6 @@ export interface DBChallenge {
   image_url?: string;
   solution: string;
 
-  prerequisites?: number;
   is_prerequisite?: boolean;
 
   prizes: { prize: string; available: number; points?: number }[];
@@ -55,7 +55,7 @@ export interface DBChallenge {
 }
 
 export interface DBSurveyCollection {
-  id: 'surveys';
+  id: "surveys";
   surveys: {
     question: string;
     answers: string[];
@@ -70,11 +70,11 @@ export interface DBPrizeType {
   instance_name: string;
   description: string;
 
-  redeem_type?: 'in-store' | 'online';
+  redeem_type?: "in-store" | "online";
   redeem_message: string;
 }
 export interface DBPrizeTypeCollection {
-  id: 'prize-types';
+  id: "prize-types";
   prizes: DBPrizeType[];
 }
 
