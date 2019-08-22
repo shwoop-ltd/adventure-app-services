@@ -23,7 +23,7 @@
         "id": 1,
         "location": {
           "latitude": -36.853088,
-          "longitude": 174.768000
+          "longitude": 174.768
         },
         "open": true
       },
@@ -31,7 +31,7 @@
         "id": 2,
         "location": {
           "latitude": -36.853088,
-          "longitude": 174.769000
+          "longitude": 174.769
         },
         "open": true
       },
@@ -39,7 +39,7 @@
         "id": 3,
         "location": {
           "latitude": -36.853088,
-          "longitude": 174.770000
+          "longitude": 174.77
         },
         "open": true
       },
@@ -47,17 +47,19 @@
         "id": 4,
         "location": {
           "latitude": -36.853088,
-          "longitude": 174.771000
+          "longitude": 174.771
         },
+        "prerequisites": 3,
         "open": true
       },
       {
         "id": 5,
         "location": {
           "latitude": -36.853088,
-          "longitude": 174.772000
+          "longitude": 174.772
         },
         "open": true,
+        "prerequisites": 3,
         "release_date": 1566381651,
         "active_date": 1566581651,
         "close_date": 1566981651
@@ -66,9 +68,10 @@
         "id": 6,
         "location": {
           "latitude": -36.853088,
-          "longitude": 174.773000
+          "longitude": 174.773
         },
         "open": true,
+        "prerequisites": 3,
         "release_date": 0,
         "active_date": 1566181651,
         "close_date": 1566981651
@@ -149,7 +152,6 @@
   {
     "claimed": 0,
     "id": "challenge-uoa-marker-4",
-    "prerequisites": 3,
     "prizes": [
       {
         "available": 200,
@@ -162,7 +164,6 @@
   {
     "claimed": 0,
     "id": "challenge-uoa-marker-5",
-    "prerequisites": 3,
     "prizes": [
       {
         "available": 200,
@@ -175,7 +176,6 @@
   {
     "claimed": 0,
     "id": "challenge-uoa-marker-6",
-    "prerequisites": 3,
     "prizes": [
       {
         "available": 200,
@@ -203,12 +203,7 @@
     "id": "surveys",
     "surveys": [
       {
-        "answers": [
-          "Lime",
-          "Flamingo",
-          "Wave",
-          "None"
-        ],
+        "answers": ["Lime", "Flamingo", "Wave", "None"],
         "question": "What type of e-scooter do you ride most frequently?"
       },
       {
@@ -222,13 +217,7 @@
         "question": "When do you like to consume Red Bull the most?"
       },
       {
-        "answers": [
-          "17 and under",
-          "18-25",
-          "26-35",
-          "36-50",
-          "51+"
-        ],
+        "answers": ["17 and under", "18-25", "26-35", "36-50", "51+"],
         "question": "How old are you?"
       },
       {
