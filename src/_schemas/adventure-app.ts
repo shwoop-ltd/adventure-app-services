@@ -7,6 +7,15 @@ export interface Location {
   longitude: string;
 }
 
+export type PrizeOption =
+  | { prize: 'points'; points: number }
+  | { prize: string; points: undefined }
+
+export interface PrizePool {
+  claimed: number;
+  prizes: ({ available: number } & PrizeOption)[];
+}
+
 // Database types
 
 export interface DBMapCollection {
@@ -41,7 +50,7 @@ export type DBBeacon =
   | { beacon_type: "treasure" }
   | { beacon_type: "hidden" };
 
-export interface DBChallenge {
+export interface DBChallenge extends PrizePool {
   id: string;
 
   text?: string;
@@ -49,9 +58,6 @@ export interface DBChallenge {
   solution: string;
 
   is_prerequisite?: boolean;
-
-  prizes: { prize: string; available: number; points?: number }[];
-  claimed: number;
 }
 
 export interface DBSurveyCollection {
@@ -79,8 +85,6 @@ export interface DBPrizeTypeCollection {
 }
 
 // TODO:
-export interface DBTreasure extends Location {
+export interface DBTreasure extends Location, PrizePool {
   id: string;
-  claimed: number;
-  prizes: { prize: string; available: number; points?: number }[];
 }

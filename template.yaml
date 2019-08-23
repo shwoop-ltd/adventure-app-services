@@ -321,11 +321,11 @@ Resources:
             RestApiId: !Ref AdventureApi
             Path: /users/{userid}/challenge
             Method: post
-  GetTreasure:
+  ClaimTreasure:
     Type: AWS::Serverless::Function
     Properties:
       Runtime: nodejs10.x
-      CodeUri: ./build/user/get-treasure
+      CodeUri: ./build/user/claim-treasure
       Handler: index.handler
       Layers:
         - !Ref CommonCode
@@ -343,7 +343,7 @@ Resources:
           Type: Api
           Properties:
             RestApiId: !Ref AdventureApi
-            Path: /users/{userid}/redeem-treasure
+            Path: /users/{userid}/treasure/{map}/{beacon_id}
             Method: post
   GetUserPrizes:
     Type: AWS::Serverless::Function

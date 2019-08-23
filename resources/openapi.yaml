@@ -254,7 +254,7 @@ paths:
         responses: {}
         httpMethod: POST
         type: aws_proxy
-  /users/{userid}/redeem-treasure:
+  /users/{userid}/treasure/{map}/{beacon_id}:
     post:
       summary: "Gets a prize for a treasure beacon"
       operationId: redeem_treasure
@@ -265,9 +265,15 @@ paths:
         schema:
           type: string
         required: true
-      - in: query
-        name: beacon
-        description: "The treasure beacon"
+      - in: path
+        name: map
+        description: "The map in which the treasure is found"
+        schema:
+          type: string
+        required: true
+      - in: path:
+        name: beacon_id
+        description: "The beacon_id of the treasure"
         schema:
           type: string
         required: true
@@ -280,7 +286,7 @@ paths:
                 $ref: '#/components/schemas/Prize'
       x-amazon-apigateway-integration:
         uri:
-          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetTreasure.Arn}/invocations"
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ClaimTreasure.Arn}/invocations"
         responses: {}
         httpMethod: POST
         type: aws_proxy
@@ -439,7 +445,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Prize'
+                type: object
+                oneOf:
+                  - $ref: '#/components/schemas/Prize'
+                  - type: boolean
+                    value: false
       x-amazon-apigateway-integration:
         uri:
           Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${FinishSurvey.Arn}/invocations"
