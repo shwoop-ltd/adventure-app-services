@@ -3,45 +3,43 @@
     "id": "maps",
     "maps": [
       {
-        "bottom_right": {
-          "latitude": -36.856898,
-          "longitude": 174.775013
-        },
-        "image_url": "https://s3-ap-southeast-2.amazonaws.com/uoa-bs-maps/UniversityOfAuckland.png",
         "name": "uoa",
-        "top_left": {
-          "latitude": -36.84639,
-          "longitude": 174.766093
-        }
+        "area": [
+          {
+            "latitude": -36.84639,
+            "longitude": 174.766093
+          },
+          {
+            "latitude": -36.856898,
+            "longitude": 174.775013
+          }
+        ]
       }
     ]
   },
   {
     "id": "map-uoa",
-    "markers": [
+    "challenges": [
       {
         "id": 1,
         "location": {
           "latitude": -36.853088,
           "longitude": 174.768
-        },
-        "open": true
+        }
       },
       {
         "id": 2,
         "location": {
           "latitude": -36.853088,
           "longitude": 174.769
-        },
-        "open": true
+        }
       },
       {
         "id": 3,
         "location": {
           "latitude": -36.853088,
           "longitude": 174.77
-        },
-        "open": true
+        }
       },
       {
         "id": 4,
@@ -49,8 +47,7 @@
           "latitude": -36.853088,
           "longitude": 174.771
         },
-        "prerequisites": 3,
-        "open": true
+        "prerequisites": 3
       },
       {
         "id": 5,
@@ -58,7 +55,6 @@
           "latitude": -36.853088,
           "longitude": 174.772
         },
-        "open": true,
         "prerequisites": 3,
         "release_date": 1566381651,
         "active_date": 1566581651,
@@ -70,7 +66,6 @@
           "latitude": -36.853088,
           "longitude": 174.773
         },
-        "open": true,
         "prerequisites": 3,
         "release_date": 0,
         "active_date": 1566181651,
@@ -112,7 +107,7 @@
   },
   {
     "claimed": 0,
-    "id": "challenge-uoa-marker-1",
+    "id": "challenge-uoa-1",
     "is_prerequisite": true,
     "prizes": [
       {
@@ -125,7 +120,7 @@
   },
   {
     "claimed": 0,
-    "id": "challenge-uoa-marker-2",
+    "id": "challenge-uoa-2",
     "is_prerequisite": true,
     "prizes": [
       {
@@ -138,7 +133,7 @@
   },
   {
     "claimed": 0,
-    "id": "challenge-uoa-marker-3",
+    "id": "challenge-uoa-3",
     "is_prerequisite": true,
     "prizes": [
       {
@@ -151,7 +146,7 @@
   },
   {
     "claimed": 0,
-    "id": "challenge-uoa-marker-4",
+    "id": "challenge-uoa-4",
     "prizes": [
       {
         "available": 200,
@@ -163,7 +158,7 @@
   },
   {
     "claimed": 0,
-    "id": "challenge-uoa-marker-5",
+    "id": "challenge-uoa-5",
     "prizes": [
       {
         "available": 200,
@@ -175,7 +170,7 @@
   },
   {
     "claimed": 0,
-    "id": "challenge-uoa-marker-6",
+    "id": "challenge-uoa-6",
     "prizes": [
       {
         "available": 200,
@@ -256,7 +251,7 @@
     ]
   },
   {
-    "id": "treasure-beacon-0000_0007",
+    "id": "treasure-uoa-0000_0007",
     "prizes": [
       {
         "available": 20,
@@ -266,7 +261,7 @@
     "claimed": 0
   },
   {
-    "id": "treasure-beacon-0000_0008",
+    "id": "treasure-uoa-0000_0008",
     "prizes": [
       {
         "available": 20,

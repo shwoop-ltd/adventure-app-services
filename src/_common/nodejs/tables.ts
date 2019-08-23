@@ -16,9 +16,7 @@ export const AdventureApp = {
   get_maps: () => get_item<DBMapCollection>(TABLE_NAME, 'maps', true),
   get_map: (name: string) => get_item<DBMapInfo>(TABLE_NAME, `map-${name}`),
   get_beacon: (map: string, beacon: string) => get_item<DBBeacon>(TABLE_NAME, `beacon-${map}-${beacon}`),
-  get_challenge: (
-    (map: string, type: 'beacon' | 'marker', id: string) => get_item<DBChallenge>(TABLE_NAME, `challenge-${map}-${type}-${id}`)
-  ),
+  get_challenge: (map: string, id: number) => get_item<DBChallenge>(TABLE_NAME, `challenge-${map}-${id}`),
   get_challenge_by_id: (id: string) => get_item<DBChallenge>(TABLE_NAME, id),
   put_challenge: (challenge: DBChallenge) => put_item(TABLE_NAME, challenge),
   get_prize_types: () => get_item<DBPrizeTypeCollection>(TABLE_NAME, 'prize-types', true),
@@ -41,6 +39,13 @@ export const Telemetry = {
   put: (item: DBTelemetry) => put_item(TELEMETRY_TABLE_NAME, item),
 };
 
+/**
+ * Places information in the Telemetry table about an event.
+ *
+ * @param event - The api event that occured
+ * @param function_name - The name of the api function
+ * @param user_id - The user making the request, if known
+ */
 export function generate_telemetry(event: APIGatewayProxyEvent, function_name: string, user_id?: string) {
   const date = Date.now() / 1000;
 
@@ -60,11 +65,19 @@ export function generate_telemetry(event: APIGatewayProxyEvent, function_name: s
   return Telemetry.put(object);
 }
 
+/**
+ * Creates a prize, and if asked, updates the user with this info
+ *
+ * @param user_id
+ * @param type
+ * @param received_from
+ * @param points
+ * @param update_user
+ */
 export async function create_prize(
   user_id: string,
   type: string,
   received_from: 'survey' | 'challenge' | 'treasure',
-  points?: number,
   update_user = false,
 ) {
   function generate_id(length: number) {
