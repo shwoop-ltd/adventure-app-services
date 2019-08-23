@@ -30,7 +30,6 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
     200,
     {
       id: challenge.id,
-      prerequisites: challenge.prerequisites,
       claimed: challenge.claimed,
       is_prerequisite: challenge.is_prerequisite,
       prizes: challenge.prizes.slice(first_winnable),
