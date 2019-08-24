@@ -9,13 +9,13 @@ interface Body {
 }
 
 export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
-  if(!event.pathParameters || !event.pathParameters.userid)
+  if(!event.pathParameters || !event.pathParameters.user_id)
     return response(400, "Missing path parameters.");
 
   if(!event.body)
     return response(400, "Body not present");
 
-  const user_id = event.pathParameters.userid;
+  const { user_id } = event.pathParameters;
   await generate_telemetry(event, "finish-survey", user_id);
 
   const body = JSON.parse(event.body) as Body;

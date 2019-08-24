@@ -16,7 +16,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/MapSummary'
+                  $ref: "#/components/schemas/MapSummary"
       x-amazon-apigateway-integration:
         uri:
           Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetMaps.Arn}/invocations"
@@ -28,19 +28,19 @@ paths:
       summary: "Gets all markers for the given map"
       operationId: get_map
       parameters:
-      - name: map
-        in: path
-        description: "Name of map"
-        schema:
-          type: string
-        required: true
+        - name: map
+          in: path
+          description: "Name of map"
+          schema:
+            type: string
+          required: true
       responses:
         200:
           description: "successful operation"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Map'
+                $ref: "#/components/schemas/Map"
         404:
           description: "map not found"
       x-amazon-apigateway-integration:
@@ -54,25 +54,25 @@ paths:
       summary: "Attempts to get information about the given beacon"
       operationId: get_beacon
       parameters:
-      - name: map
-        in: path
-        description: "Name of map"
-        schema:
-          type: string
-        required: true
-      - name: beacon
-        in: path
-        description: "ID of the beacon"
-        schema:
-          type: string
-        required: true
+        - name: map
+          in: path
+          description: "Name of map"
+          schema:
+            type: string
+          required: true
+        - name: beacon
+          in: path
+          description: "ID of the beacon"
+          schema:
+            type: string
+          required: true
       responses:
         200:
           description: "successful operation"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Beacon'
+                $ref: "#/components/schemas/Beacon"
         404:
           description: "map or beacon not found"
       x-amazon-apigateway-integration:
@@ -81,43 +81,36 @@ paths:
         responses: {}
         httpMethod: POST
         type: aws_proxy
-  /maps/{map}/challenges/{type}/{type_id}:
+  /maps/{map}/challenges/{id}/prizes:
     get:
-      summary: "Gets information about a challenge"
-      operationId: get_challenge
+      summary: "Gets information about a challenge's prizes"
+      operationId: get_challenge_prizes
       parameters:
-      - name: map
-        in: path
-        description: Map containing the beacon or marker
-        schema:
-          type: string
-        required: true
-      - name: type
-        in: path
-        description: "Whether the challenge is from a beacon or a marker"
-        schema:
-          type: string
-          enum: [beacon, marker]
-        required: true
-      - name: type_id
-        in: path
-        description: "Id of respective beacon or marker"
-        schema:
-          type: string
-        required: true
+        - name: map
+          in: path
+          description: Map containing the challenge
+          schema:
+            type: string
+          required: true
+        - name: id
+          in: path
+          description: "Id of challenge"
+          schema:
+            type: string
+          required: true
       responses:
         200:
           description: "successful operation"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ChallengeInfo'
+                $ref: "#/components/schemas/PrizePool"
         404:
           description: "map or challenge not found"
           content: {}
       x-amazon-apigateway-integration:
         uri:
-          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetChallenge.Arn}/invocations"
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetChallengePrizes.Arn}/invocations"
         responses: {}
         httpMethod: POST
         type: aws_proxy
@@ -126,19 +119,19 @@ paths:
       summary: "Gets a prize object for a redemption code"
       operationId: get_prize
       parameters:
-      - in: path
-        name: code
-        description: "The redeemable code"
-        schema:
-          type: string
-        required: true
+        - in: path
+          name: code
+          description: "The redeemable code"
+          schema:
+            type: string
+          required: true
       responses:
         200:
           description: "successful operation"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Prize'
+                $ref: "#/components/schemas/Prize"
       x-amazon-apigateway-integration:
         uri:
           Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetPrize.Arn}/invocations"
@@ -151,12 +144,12 @@ paths:
       security:
         - User: []
       parameters:
-      - in: path
-        name: code
-        description: "The redeemable code"
-        schema:
-          type: string
-        required: true
+        - in: path
+          name: code
+          description: "The redeemable code"
+          schema:
+            type: string
+          required: true
       responses:
         204:
           description: "successful operation"
@@ -176,7 +169,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PrizeTypes'
+                $ref: "#/components/schemas/PrizeTypes"
       x-amazon-apigateway-integration:
         uri:
           Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetPrizeTypes.Arn}/invocations"
@@ -184,25 +177,25 @@ paths:
         httpMethod: POST
         type: aws_proxy
 
-  #Users
-  /users/{userid}/:
+  # Users
+  /users/{user_id}/:
     get:
       summary: "Gets the user object for an id"
       operationId: get_user
       parameters:
-      - in: path
-        name: userid
-        description: "The user ID"
-        schema:
-          type: string
-        required: true
+        - in: path
+          name: user_id
+          description: "The user ID"
+          schema:
+            type: string
+          required: true
       responses:
         200:
           description: "successful operation"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: "#/components/schemas/User"
       x-amazon-apigateway-integration:
         uri:
           Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetUser.Arn}/invocations"
@@ -213,12 +206,12 @@ paths:
       summary: "Creates a user"
       operationId: register_user
       parameters:
-      - in: path
-        name: userid
-        description: "The user ID"
-        schema:
-          type: string
-        required: true
+        - in: path
+          name: user_id
+          description: "The user ID"
+          schema:
+            type: string
+          required: true
       responses:
         201:
           description: "Account created."
@@ -230,14 +223,14 @@ paths:
         responses: {}
         httpMethod: POST
         type: aws_proxy
-  /users/{userid}/prizes:
+  /users/{user_id}/prizes:
     parameters:
-    - in: path
-      name: userid
-      description: "The User ID"
-      schema:
-        type: string
-      required: true
+      - in: path
+        name: user_id
+        description: "The User ID"
+        schema:
+          type: string
+        required: true
     get:
       summary: "Gets the prizes and points of a given user"
       operationId: get_user_prizes
@@ -247,72 +240,87 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserPrizes'
+                $ref: "#/components/schemas/UserPrizes"
       x-amazon-apigateway-integration:
         uri:
           Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetUserPrizes.Arn}/invocations"
         responses: {}
         httpMethod: POST
         type: aws_proxy
-  /users/{userid}/redeem-treasure:
+  /users/{user_id}/treasure/{map}/{beacon_id}:
     post:
       summary: "Gets a prize for a treasure beacon"
       operationId: redeem_treasure
       parameters:
-      - in: path
-        name: userid
-        description: "The User ID"
-        schema:
-          type: string
-        required: true
-      - in: query
-        name: beacon
-        description: "The treasure beacon"
-        schema:
-          type: string
-        required: true
+        - in: path
+          name: user_id
+          description: "The User ID"
+          schema:
+            type: string
+          required: true
+        - in: path
+          name: map
+          description: "The map in which the treasure is found"
+          schema:
+            type: string
+          required: true
+        - in: path
+          name: beacon_id
+          description: "The beacon_id of the treasure"
+          schema:
+            type: string
+          required: true
       responses:
         200:
           description: "successful operation"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Prize'
+                $ref: "#/components/schemas/Prize"
       x-amazon-apigateway-integration:
         uri:
-          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetTreasure.Arn}/invocations"
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ClaimTreasure.Arn}/invocations"
         responses: {}
         httpMethod: POST
         type: aws_proxy
-  /users/{userid}/challenge/{challengeid}:
+  /users/{user_id}/challenge/{map}/{challenge_id}:
     post:
       summary: "Start a new challenge"
       operationId: start_challenge
       parameters:
-      - name: userid
-        in: path
-        description: User starting the challenge
-        schema:
-          type: string
-        required: true
-      - name: challengeid
-        in: path
-        description: "ID of the challenge being started"
-        schema:
-          type: string
-        required: true
+        - name: user_id
+          in: path
+          description: User starting the challenge
+          schema:
+            type: string
+          required: true
+        - name: map
+          in: path
+          description: Map containing the challenge
+          schema:
+            type: string
+          required: true
+        - name: challenge_id
+          in: path
+          description: Challenge id
+          schema:
+            type: number
+          required: true
       responses:
         201:
           description: "successful operation"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ChallengeContents'
+                $ref: "#/components/schemas/ChallengeContents"
+        400:
+          description: "This challenge is not available right now"
+          content: {}
         402:
           description: "Have not completed enough prerequisite challenges"
           content: {}
         404:
-          description: "map or beacon not found"
+          description: "Map or beacon not found"
           content: {}
       x-amazon-apigateway-integration:
         uri:
@@ -320,17 +328,17 @@ paths:
         responses: {}
         httpMethod: POST
         type: aws_proxy
-  /users/{userid}/challenge:
+  /users/{user_id}/challenge:
     post:
       summary: "Attempt to complete a challenge"
       operationId: finish_challenge
       parameters:
-      - in: path
-        name: userid
-        description: "The User ID"
-        schema:
-          type: string
-        required: true
+        - in: path
+          name: user_id
+          description: "The User ID"
+          schema:
+            type: string
+          required: true
       requestBody:
         description: "Contains the beacon of the guessed solution"
         content:
@@ -340,10 +348,12 @@ paths:
               properties:
                 beacon_id:
                   type: string
-                challenge_id:
-                  type: string
                 map:
                   type: string
+                challenge_id:
+                  type: number
+              required: [beacon_id, map, challenge_id]
+              additionalProperties: false
       responses:
         200:
           description: "Successfully solved puzzle"
@@ -353,13 +363,15 @@ paths:
                 type: object
                 properties:
                   prize:
-                    $ref: '#/components/schemas/Prize'
+                    $ref: "#/components/schemas/Prize"
         204:
           description: "Did not solve puzzle"
           content: {}
         400:
           description: "Input body incorrect. Need a valid beacon_id"
           content: {}
+        403:
+          description: "Challenge already completed"
         404:
           description: "map not found, or challenge not started"
           content: {}
@@ -373,12 +385,12 @@ paths:
       summary: "Stop a challenge"
       operationId: stop_challenge
       parameters:
-      - in: path
-        name: userid
-        description: "The User ID"
-        schema:
-          type: string
-        required: true
+        - in: path
+          name: user_id
+          description: "The User ID"
+          schema:
+            type: string
+          required: true
       responses:
         204:
           description: "successful operation"
@@ -391,24 +403,24 @@ paths:
         responses: {}
         httpMethod: POST
         type: aws_proxy
-  /users/{userid}/surveys/new:
+  /users/{user_id}/surveys/new:
     get:
       summary: "Gets a survey"
       operationId: get_survey
       parameters:
-      - name: userid
-        in: path
-        description: The user's ID
-        schema:
-          type: string
-        required: true
+        - name: user_id
+          in: path
+          description: The user's ID
+          schema:
+            type: string
+          required: true
       responses:
         200:
           description: "successful operation"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Survey'
+                $ref: "#/components/schemas/Survey"
         204:
           description: "No more surveys to complete"
       x-amazon-apigateway-integration:
@@ -417,29 +429,32 @@ paths:
         responses: {}
         httpMethod: POST
         type: aws_proxy
-  /users/{userid}/surveys:
+  /users/{user_id}/surveys:
     post:
       summary: "Finish a survey"
       operationId: finish_survey
       parameters:
-      - name: userid
-        in: path
-        description: The user's ID
-        schema:
-          type: string
-        required: true
+        - name: user_id
+          in: path
+          description: The user's ID
+          schema:
+            type: string
+          required: true
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/SurveyResponse'
+              $ref: "#/components/schemas/SurveyResponse"
       responses:
         201:
           description: "successful operation"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Prize'
+                type: object
+                oneOf:
+                  - $ref: "#/components/schemas/Prize"
+                  - type: boolean
       x-amazon-apigateway-integration:
         uri:
           Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${FinishSurvey.Arn}/invocations"
@@ -459,26 +474,34 @@ components:
         image_url:
           type: string
           description: "Url of the map image"
-        top_left:
-          $ref: '#/components/schemas/Coordinate'
-        bottom_right:
-          $ref: '#/components/schemas/Coordinate'
+        area:
+          type: array
+          items:
+            $ref: "#/components/schemas/Coordinate"
+      required: [image_url, area]
+      additionalProperties: false
     Map:
       type: object
       properties:
-        markers:
+        challenges:
           type: array
           items:
-            $ref: '#/components/schemas/Marker'
-    ChallengeInfo:
+            $ref: "#/components/schemas/ChallengeInfo"
+        events:
+          type: array
+          items:
+            type: object
+            properties:
+              location:
+                $ref: "#/components/schemas/Coordinate"
+              description:
+                type: string
+                description: The event info as markdown
+      required: [challenges, events]
+      additionalProperties: false
+    PrizePool:
       type: object
       properties:
-        id:
-          type: string
-          description: "The challenge id to be used in further communications"
-        is_prerequisite:
-          type: boolean
-          description: "Whether this challenge counts towards the prerequisites"
         prizes:
           type: array
           items:
@@ -487,9 +510,20 @@ components:
               prize:
                 type: string
                 description: The type of the prize
+              points:
+                type: number
+                description: If the prize is 'points', the number of points awarded
               available:
                 type: number
                 description: The number of this prize that may be given out by this challenge
+            required: [prize, available]
+            additionalProperties: false
+        claimed:
+          type: number
+          format: integer
+          description: The number of prizes already claimed from this prize pool
+      required: [prizes, claimed]
+      additionalProperties: false
     ChallengeContents:
       type: object
       properties:
@@ -500,17 +534,20 @@ components:
           type: string
           description: "Url of an image related to the puzzle"
       additionalProperties: false
-    Marker:
+    ChallengeInfo:
       type: object
       properties:
         id:
           type: integer
           description: Unique id
         location:
-          $ref: '#/components/schemas/Coordinate'
+          $ref: "#/components/schemas/Coordinate"
         prerequisites:
           type: number
           description: "The number of prerequisite challenges that must be completed first before starting this challenge"
+        is_prerequisite:
+          type: boolean
+          description: "Whether this challenge counts towards the prerequisites"
         open:
           type: boolean
           default: false
@@ -528,32 +565,19 @@ components:
           format: int64
           description: Time at which marker is no longer usable
       required: [id, location]
+      additionalProperties: false
     Beacon:
       type: object
       properties:
         location:
-          $ref: '#/components/schemas/Coordinate'
-      oneOf:
-      - type: object
-        properties:
-          beacon_type:
-            type: string
-            enum:
-              - marker
-          marker:
-            type: integer
-      - type: object
-        properties:
-          beacon_type:
-            type: string
-            enum:
-              - treasure
-      - type: object
-        properties:
-          beacon_type:
-            type: string
-            enum:
-              - hidden
+          $ref: "#/components/schemas/Coordinate"
+        beacon_type:
+          type: string
+          enum:
+            - challenge-completer
+            - treasure
+      required: [beacon_type]
+      additionalProperties: false
     PrizeTypes:
       type: array
       items:
@@ -568,6 +592,24 @@ components:
             type: string
           instance_name:
             type: string
+          description:
+            type: string
+          redeem_type:
+            type: string
+            enum: ["in-store", "online"]
+          redeem_info:
+            type: string
+      required:
+        [
+          name,
+          image_url,
+          display_name,
+          instance_name,
+          description,
+          redeem_type,
+          redeem_info,
+        ]
+      additionalProperties: false
     Prize:
       type: object
       properties:
@@ -575,9 +617,6 @@ components:
           type: string
         type:
           type: string
-          enum:
-          - 'points'
-          - 'red-bull'
         points:
           type: number
           description: "Number of points recieved. Only present if type is 'points'"
@@ -586,9 +625,12 @@ components:
           type: string
         received_from:
           type: string
-          enum: ['challenge', 'treasure']
-        claimed:
+          enum: ["challenge", "treasure"]
+        redeemed:
           type: boolean
+          default: false
+      required: [type, points, received, received_from]
+      additionalProperties: false
     UserPrizes:
       type: object
       properties:
@@ -599,6 +641,8 @@ components:
           items:
             type: string
             description: The ID of the prize owned by the user
+      required: [points, prizes]
+      additionalProperties: false
     Survey:
       type: object
       properties:
@@ -633,7 +677,7 @@ components:
         surveys:
           type: array
           items:
-            $ref: '#/components/schemas/SurveyResponse'
+            $ref: "#/components/schemas/SurveyResponse"
         prizes:
           type: array
           items:
@@ -647,6 +691,16 @@ components:
         prerequisite_challenges_completed:
           type: number
           description: Nubmer of prerequisite challenges completed
+      required:
+        [
+          id,
+          points,
+          surveys,
+          prizes,
+          treasure,
+          prerequisite_challenges_completed,
+        ]
+      additionalProperties: false
     Coordinate:
       type: object
       properties:
@@ -660,3 +714,5 @@ components:
           format: double
           maximum: 180
           minimum: -180
+      required: [latitude, longitude]
+      additionalProperties: false

@@ -7,51 +7,79 @@ export interface Location {
   longitude: string;
 }
 
+export type PrizeOption =
+  | { prize: 'points'; points: number }
+  | { prize: string; points: undefined }
+
+export interface PrizePool {
+  claimed: number;
+  prizes: ({ available: number } & PrizeOption)[];
+}
+
 // Database types
 
 export interface DBMapCollection {
   id: "maps";
   maps: {
+    // The name of the map used for further backend requests
     name: string;
-    top_left: Location;
-    bottom_right: Location;
-    image_url: string;
+    // A polygon representing the area of the map
+    area?: Location[];
   }[];
 }
 
 export interface DBMapInfo {
   id: string;
-  markers: {
+
+  // A list of the challenges in the map
+  challenges: {
     id: number;
-    name?: string;
     location: Location;
 
-    open?: boolean;
-
+    // Challenge requirements
     prerequisites?: number;
 
     release_date?: number;
     active_date?: number;
     end_date?: number;
+
+    // A name for the marker's location. Used for debug purposes only
+    name?: string;
   }[];
+
+  // A list of events occuring in the map
+  // TODO: Is this too much info to put into this object?
+  events: {
+    location: Location;
+
+    // A markdown description of the event
+    description: string;
+  };
 }
 
-export type DBBeacon =
-  | { beacon_type: "marker"; marker: number }
-  | { beacon_type: "treasure" }
-  | { beacon_type: "hidden" };
+// TODO: Move this into map object?
+export interface DBBeacon {
+  id: string; /* beacon-{map}-{beacon_id} */
+  beacon_type: 'challenge-completer' | 'treasure';
+}
 
-export interface DBChallenge {
-  id: string;
+export interface DBChallenge extends PrizePool {
+  id: string; /* challenge-{map}-{id} */
 
+  // Clue stuff
   text?: string;
   image_url?: string;
+
+  // Beacon id to use
   solution: string;
 
+  // Whether the challenge can be used as a prerequisite to other challenges
+  // TODO: Construct a proper logic for this (e.g. it must be a 'special' challenge to not be a prerequisite)
   is_prerequisite?: boolean;
+}
 
-  prizes: { prize: string; available: number; points?: number }[];
-  claimed: number;
+export interface DBTreasure extends Location, PrizePool {
+  id: string; /* treasure-{map}-{beacon} */
 }
 
 export interface DBSurveyCollection {
@@ -76,11 +104,4 @@ export interface DBPrizeType {
 export interface DBPrizeTypeCollection {
   id: "prize-types";
   prizes: DBPrizeType[];
-}
-
-// TODO:
-export interface DBTreasure extends Location {
-  id: string;
-  claimed: number;
-  prizes: { prize: string; available: number; points?: number }[];
 }

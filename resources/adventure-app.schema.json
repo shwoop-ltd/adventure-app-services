@@ -19,18 +19,14 @@
                 "name": {
                   "type": "string"
                 },
-                "top_left": {
-                  "$ref": "#/definitions/location"
-                },
-                "bottom_right": {
-                  "$ref": "#/definitions/location"
-                },
-                "image_url": {
-                  "type": "string",
-                  "format": "uri"
+                "area": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/location"
+                  }
                 }
               },
-              "required": ["name", "top_left", "bottom_right", "image_url"],
+              "required": ["name"],
               "additionalProperties": false
             }
           }
@@ -46,7 +42,7 @@
             "type": "string",
             "pattern": "^map-(.*)$"
           },
-          "markers": {
+          "challenges": {
             "type": "array",
             "items": {
               "type": "object",
@@ -61,11 +57,6 @@
                 },
                 "location": {
                   "$ref": "#/definitions/location"
-                },
-                "open": {
-                  "description": "Whether a beacon is required to use this marker",
-                  "type": "boolean",
-                  "default": "true"
                 },
                 "release_date": {
                   "description": "Time in epoch seconds at which the marker becomes available to users. If not present, assumed always available",
@@ -90,9 +81,27 @@
               "required": ["id", "location"],
               "additionalProperties": false
             }
+          },
+          "events": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "location": {
+                  "$ref": "#/definitions/location"
+                },
+                "description": {
+                  "type": "string",
+                  "format": "markdown",
+                  "description": "Markdown text describing the event"
+                }
+              },
+              "required": ["location", "description"],
+              "additionalProperties": false
+            }
           }
         },
-        "required": ["id", "markers"],
+        "required": ["id", "challenges", "events"],
         "additionalProperties": false
       },
       {
@@ -101,7 +110,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^challenge-(.*)-(marker|beacon)-.*$"
+            "pattern": "^challenge-(.*)-(.*)$"
           },
           "solution": {
             "description": "The id of the beacon that is the solution to this puzzle",
@@ -157,7 +166,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^beacon-(.*)$"
+            "pattern": "^beacon-(.*)-(.*)$"
           },
           "location": {
             "$ref": "#/definitions/location"
@@ -169,24 +178,7 @@
             "properties": {
               "beacon_type": {
                 "type": "string",
-                "enum": ["marker"]
-              },
-              "marker": {
-                "type": "integer"
-              }
-            },
-            "required": ["beacon_type", "marker"]
-          },
-          {
-            "type": "object",
-            "properties": {
-              "beacon_type": {
-                "type": "string",
                 "enum": ["treasure"]
-              },
-              "treasure_information": {
-                "description": "TODO: THIS",
-                "type": "string"
               }
             },
             "required": ["beacon_type"]
@@ -300,7 +292,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^treasure-beacon-(.*)$"
+            "pattern": "^treasure-(.*)-(.*)$"
           },
           "prizes": {
             "type": "array",
