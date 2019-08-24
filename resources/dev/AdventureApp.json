@@ -71,6 +71,15 @@
         "active_date": 1566181651,
         "close_date": 1566981651
       }
+    ],
+    "events": [
+      {
+        "location": {
+          "latitude": -36.855,
+          "longitude": 174.77
+        },
+        "description": "# Title\n\nThis is a simple markdown test\n\n![alt text](https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Pareto_Efficient_Frontier_1024x1024.png/600px-Pareto_Efficient_Frontier_1024x1024.png)\n\n*And some other text kinds* _like this_ or __this__\n"
+      }
     ]
   },
   {

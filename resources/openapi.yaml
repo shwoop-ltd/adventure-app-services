@@ -110,7 +110,7 @@ paths:
           content: {}
       x-amazon-apigateway-integration:
         uri:
-          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetChallenge.Arn}/invocations"
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetChallengePrizes.Arn}/invocations"
         responses: {}
         httpMethod: POST
         type: aws_proxy

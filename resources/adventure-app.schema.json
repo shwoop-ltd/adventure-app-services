@@ -95,7 +95,9 @@
                   "format": "markdown",
                   "description": "Markdown text describing the event"
                 }
-              }
+              },
+              "required": ["location", "description"],
+              "additionalProperties": false
             }
           }
         },

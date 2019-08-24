@@ -231,7 +231,7 @@ Resources:
           Type: Api
           Properties:
             RestApiId: !Ref AdventureApi
-            Path: /users/{userid}/
+            Path: /users/{user_id}/
             Method: get
   RegisterUser:
     Type: AWS::Serverless::Function
@@ -251,7 +251,7 @@ Resources:
           Type: Api
           Properties:
             RestApiId: !Ref AdventureApi
-            Path: /users/{userid}/
+            Path: /users/{user_id}/
             Method: put
   StartChallenge:
     Type: AWS::Serverless::Function
@@ -271,7 +271,7 @@ Resources:
           Type: Api
           Properties:
             RestApiId: !Ref AdventureApi
-            Path: /users/{userid}/challenge/{map}/{challenge_id}
+            Path: /users/{user_id}/challenge/{map}/{challenge_id}
             Method: post
   StopChallenge:
     Type: AWS::Serverless::Function
@@ -295,7 +295,7 @@ Resources:
           Type: Api
           Properties:
             RestApiId: !Ref AdventureApi
-            Path: /users/{userid}/challenge
+            Path: /users/{user_id}/challenge
             Method: delete
   FinishChallenge:
     Type: AWS::Serverless::Function
@@ -319,7 +319,7 @@ Resources:
           Type: Api
           Properties:
             RestApiId: !Ref AdventureApi
-            Path: /users/{userid}/challenge
+            Path: /users/{user_id}/challenge
             Method: post
   ClaimTreasure:
     Type: AWS::Serverless::Function
@@ -343,7 +343,7 @@ Resources:
           Type: Api
           Properties:
             RestApiId: !Ref AdventureApi
-            Path: /users/{userid}/treasure/{map}/{beacon_id}
+            Path: /users/{user_id}/treasure/{map}/{beacon_id}
             Method: post
   GetUserPrizes:
     Type: AWS::Serverless::Function
@@ -361,7 +361,7 @@ Resources:
           Type: Api
           Properties:
             RestApiId: !Ref AdventureApi
-            Path: /users/{userid}/prizes
+            Path: /users/{user_id}/prizes
             Method: get
   GetSurvey:
     Type: AWS::Serverless::Function
@@ -381,7 +381,7 @@ Resources:
           Type: Api
           Properties:
             RestApiId: !Ref AdventureApi
-            Path: /users/{userid}/surveys/new
+            Path: /users/{user_id}/surveys/new
             Method: get
   FinishSurvey:
     Type: AWS::Serverless::Function
@@ -405,5 +405,5 @@ Resources:
           Type: Api
           Properties:
             RestApiId: !Ref AdventureApi
-            Path: /users/{userid}/surveys
+            Path: /users/{user_id}/surveys
             Method: post
