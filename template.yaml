@@ -1,11 +1,11 @@
-AWSTemplateFormatVersion: '2010-09-09'
-Transform: 'AWS::Serverless-2016-10-31'
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: "AWS::Serverless-2016-10-31"
 Parameters:
   Stage:
     Type: String
     AllowedValues:
-    - Dev
-    - Prod
+      - Dev
+      - Prod
     Description: The stage type to upload
 Globals:
   Function:
@@ -25,8 +25,8 @@ Resources:
       StageName: !Ref Stage
       Name: !Join ["-", ["AdventureApp", !Ref Stage]]
       DefinitionBody:
-        'Fn::Transform':
-          Name: 'AWS::Include'
+        "Fn::Transform":
+          Name: "AWS::Include"
           Parameters:
             Location: ./resources/openapi.yaml
   AdventureTable:
@@ -94,8 +94,8 @@ Resources:
       Layers:
         - !Ref CommonCode
       Policies:
-      - DynamoDBCrudPolicy:
-          TableName: !Ref AdventureTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref AdventureTable
       Events:
         Api:
           Type: Api
@@ -112,8 +112,8 @@ Resources:
       Layers:
         - !Ref CommonCode
       Policies:
-      - DynamoDBCrudPolicy:
-          TableName: !Ref AdventureTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref AdventureTable
       Events:
         Api:
           Type: Api
@@ -130,8 +130,8 @@ Resources:
       Layers:
         - !Ref CommonCode
       Policies:
-      - DynamoDBCrudPolicy:
-          TableName: !Ref AdventureTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref AdventureTable
       Events:
         Api:
           Type: Api
@@ -139,23 +139,23 @@ Resources:
             RestApiId: !Ref AdventureApi
             Path: /maps/{map}/beacon/{beacon}
             Method: get
-  GetChallenge:
+  GetChallengePrizes:
     Type: AWS::Serverless::Function
     Properties:
       Runtime: nodejs10.x
-      CodeUri: ./build/maps/get-challenge
+      CodeUri: ./build/maps/get-challenge-prizes
       Handler: index.handler
       Layers:
         - !Ref CommonCode
       Policies:
-      - DynamoDBCrudPolicy:
-          TableName: !Ref AdventureTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref AdventureTable
       Events:
         Api:
           Type: Api
           Properties:
             RestApiId: !Ref AdventureApi
-            Path: /maps/{map}/challenges/{type}/{type_id}
+            Path: /maps/{map}/challenges/{id}/prizes
             Method: get
   GetPrizeTypes:
     Type: AWS::Serverless::Function
@@ -166,8 +166,8 @@ Resources:
       Layers:
         - !Ref CommonCode
       Policies:
-      - DynamoDBCrudPolicy:
-          TableName: !Ref AdventureTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref AdventureTable
       Events:
         Api:
           Type: Api
@@ -184,8 +184,8 @@ Resources:
       Layers:
         - !Ref CommonCode
       Policies:
-      - DynamoDBCrudPolicy:
-          TableName: !Ref PrizesTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref PrizesTable
       Events:
         Api:
           Type: Api
@@ -202,12 +202,12 @@ Resources:
       Layers:
         - !Ref CommonCode
       Policies:
-      - DynamoDBCrudPolicy:
-          TableName: !Ref AdventureTable
-      - DynamoDBCrudPolicy:
-          TableName: !Ref PrizesTable
-      - DynamoDBCrudPolicy:
-          TableName: !Ref TelemetryTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref AdventureTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref PrizesTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref TelemetryTable
       Events:
         Api:
           Type: Api
@@ -224,8 +224,8 @@ Resources:
       Layers:
         - !Ref CommonCode
       Policies:
-      - DynamoDBCrudPolicy:
-          TableName: !Ref UsersTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref UsersTable
       Events:
         Api:
           Type: Api
@@ -242,10 +242,10 @@ Resources:
       Layers:
         - !Ref CommonCode
       Policies:
-      - DynamoDBCrudPolicy:
-          TableName: !Ref UsersTable
-      - DynamoDBCrudPolicy:
-          TableName: !Ref TelemetryTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref UsersTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref TelemetryTable
       Events:
         Api:
           Type: Api
@@ -262,16 +262,16 @@ Resources:
       Layers:
         - !Ref CommonCode
       Policies:
-      - DynamoDBCrudPolicy:
-          TableName: !Ref AdventureTable
-      - DynamoDBCrudPolicy:
-          TableName: !Ref UsersTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref AdventureTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref UsersTable
       Events:
         Api:
           Type: Api
           Properties:
             RestApiId: !Ref AdventureApi
-            Path: /users/{userid}/challenge/{challengeid}
+            Path: /users/{userid}/challenge/{map}/{challenge_id}
             Method: post
   StopChallenge:
     Type: AWS::Serverless::Function
@@ -282,14 +282,14 @@ Resources:
       Layers:
         - !Ref CommonCode
       Policies:
-      - DynamoDBCrudPolicy:
-          TableName: !Ref AdventureTable
-      - DynamoDBCrudPolicy:
-          TableName: !Ref PrizesTable
-      - DynamoDBCrudPolicy:
-          TableName: !Ref UsersTable
-      - DynamoDBCrudPolicy:
-          TableName: !Ref TelemetryTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref AdventureTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref PrizesTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref UsersTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref TelemetryTable
       Events:
         Api:
           Type: Api
@@ -306,14 +306,14 @@ Resources:
       Layers:
         - !Ref CommonCode
       Policies:
-      - DynamoDBCrudPolicy:
-          TableName: !Ref AdventureTable
-      - DynamoDBCrudPolicy:
-          TableName: !Ref PrizesTable
-      - DynamoDBCrudPolicy:
-          TableName: !Ref UsersTable
-      - DynamoDBCrudPolicy:
-          TableName: !Ref TelemetryTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref AdventureTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref PrizesTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref UsersTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref TelemetryTable
       Events:
         Api:
           Type: Api
@@ -330,14 +330,14 @@ Resources:
       Layers:
         - !Ref CommonCode
       Policies:
-      - DynamoDBCrudPolicy:
-          TableName: !Ref AdventureTable
-      - DynamoDBCrudPolicy:
-          TableName: !Ref PrizesTable
-      - DynamoDBCrudPolicy:
-          TableName: !Ref UsersTable
-      - DynamoDBCrudPolicy:
-          TableName: !Ref TelemetryTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref AdventureTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref PrizesTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref UsersTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref TelemetryTable
       Events:
         Api:
           Type: Api
@@ -354,8 +354,8 @@ Resources:
       Layers:
         - !Ref CommonCode
       Policies:
-      - DynamoDBCrudPolicy:
-          TableName: !Ref UsersTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref UsersTable
       Events:
         Api:
           Type: Api
@@ -372,10 +372,10 @@ Resources:
       Layers:
         - !Ref CommonCode
       Policies:
-      - DynamoDBCrudPolicy:
-          TableName: !Ref AdventureTable
-      - DynamoDBCrudPolicy:
-          TableName: !Ref UsersTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref AdventureTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref UsersTable
       Events:
         Api:
           Type: Api
@@ -392,14 +392,14 @@ Resources:
       Layers:
         - !Ref CommonCode
       Policies:
-      - DynamoDBCrudPolicy:
-          TableName: !Ref AdventureTable
-      - DynamoDBCrudPolicy:
-          TableName: !Ref PrizesTable
-      - DynamoDBCrudPolicy:
-          TableName: !Ref UsersTable
-      - DynamoDBCrudPolicy:
-          TableName: !Ref TelemetryTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref AdventureTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref PrizesTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref UsersTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref TelemetryTable
       Events:
         Api:
           Type: Api

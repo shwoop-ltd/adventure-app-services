@@ -12,21 +12,21 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
   if(!body.challenge_id || !body.beacon_id || !body.map)
     return response(400, "Incorrect body.");
 
-  if(!event.pathParameters || !event.pathParameters.userid)
-    return response(400, "No userid");
+  if(!event.pathParameters || !event.pathParameters.user_id)
+    return response(400, "No user_id");
 
   // Done first to ensure our telemetry is about a given user.
-  const user = await Users.get(event.pathParameters.userid);
+  const user = await Users.get(event.pathParameters.user_id);
   if(!user)
     return response(404, "User does not exist.");
 
   await generate_telemetry(event, "finish-challenge", user.id);
 
   // Core variable assignment
-  const { beacon_id, challenge_id } = body;
+  const { beacon_id, map, challenge_id } = body;
 
   // Puzzle Check
-  const challenge = await AdventureApp.get_challenge_by_id(challenge_id);
+  const challenge = await AdventureApp.get_challenge(map, challenge_id);
   if(!challenge)
     return response(404, "Puzzle not found");
 

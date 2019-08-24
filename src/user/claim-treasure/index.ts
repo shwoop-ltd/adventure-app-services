@@ -6,15 +6,15 @@ import {
 import { get_next_prize } from '/opt/nodejs/helpers';
 
 export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
-  if(!event.pathParameters || !event.pathParameters.userid)
+  if(!event.pathParameters || !event.pathParameters.user_id)
     return response(400, "Missing path parameters.");
 
-  const { userid, map, beacon } = event.pathParameters;
+  const { user_id, map, beacon } = event.pathParameters;
 
-  generate_telemetry(event, "get-treasure", userid);
+  generate_telemetry(event, "get-treasure", user_id);
 
   // Does this user exist?
-  const user = await Users.get(userid);
+  const user = await Users.get(user_id);
   if(!user)
     return response(401, "User does not exist.");
 
@@ -39,7 +39,7 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
   if(prize_info.points)
     user.points += prize_info.points;
   else {
-    prize = await create_prize(userid, prize_info.prize, "treasure");
+    prize = await create_prize(user_id, prize_info.prize, "treasure");
     user.prizes.push(prize.id);
   }
 

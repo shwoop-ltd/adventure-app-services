@@ -2,11 +2,11 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { Users, response, AdventureApp } from '/opt/nodejs';
 
 export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
-  if(!event.pathParameters || !event.pathParameters.userid)
+  if(!event.pathParameters || !event.pathParameters.user_id)
     return response(400, "Missing path parameters.");
 
   // Get the user, as we need to find a survey the user has yet to answer
-  const user = await Users.get(event.pathParameters.userid);
+  const user = await Users.get(event.pathParameters.user_id);
   if(!user)
     return response(401, "User does not exist.");
 

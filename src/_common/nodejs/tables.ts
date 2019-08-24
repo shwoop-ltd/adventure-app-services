@@ -17,7 +17,6 @@ export const AdventureApp = {
   get_map: (name: string) => get_item<DBMapInfo>(TABLE_NAME, `map-${name}`),
   get_beacon: (map: string, beacon: string) => get_item<DBBeacon>(TABLE_NAME, `beacon-${map}-${beacon}`),
   get_challenge: (map: string, id: number) => get_item<DBChallenge>(TABLE_NAME, `challenge-${map}-${id}`),
-  get_challenge_by_id: (id: string) => get_item<DBChallenge>(TABLE_NAME, id),
   put_challenge: (challenge: DBChallenge) => put_item(TABLE_NAME, challenge),
   get_prize_types: () => get_item<DBPrizeTypeCollection>(TABLE_NAME, 'prize-types', true),
   get_surveys: () => get_item<DBSurveyCollection>(TABLE_NAME, 'surveys', true),

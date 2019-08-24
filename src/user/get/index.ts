@@ -6,7 +6,7 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
   if(!event.pathParameters || !event.pathParameters.userid)
     return response(400, "No userid");
 
-  const user_id = event.pathParameters.userid;
+  const { user_id } = event.pathParameters;
 
   // Does this user exist?
   const user = await Users.get(user_id);

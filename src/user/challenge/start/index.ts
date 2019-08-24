@@ -6,28 +6,32 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
   if(!event.pathParameters)
     return response(400, "Need the user and the challenge id");
 
-  const { userid, challengeid } = event.pathParameters;
+  const { user_id, map } = event.pathParameters;
 
-  const challenge = await AdventureApp.get_challenge_by_id(challengeid);
+  let challenge_id: number;
+  try {
+    challenge_id = Number.parseInt(event.pathParameters.challenge_id, 10);
+  }
+  catch(e) {
+    return response(400, "challenge_id must be a number");
+  }
+
+  const challenge = await AdventureApp.get_challenge(map, challenge_id);
   if(!challenge)
     return response(404, "No challenge with that ID.");
-
-  const splits = challengeid.split("-");
-  const map = splits[1];
-  const marker_id = Number.parseInt(splits[3], 10);
 
   const map_info = await AdventureApp.get_map(map);
   if(!map_info)
     return response(404, `Map ${map} not found`);
 
-  const marker = map_info.challenges.find((item) => item.id === marker_id);
+  const marker = map_info.challenges.find(({ id }) => id === challenge_id);
   if(!marker)
-    return response(404, `Marker ${marker_id} does not exist`);
+    return response(404, `Marker ${challenge_id} does not exist`);
 
   // Prerequisite challenge checking
   if(marker.prerequisites) {
     // Check whether user has prerequisites
-    const user = await Users.get(userid);
+    const user = await Users.get(user_id);
     if(!user)
       return response(404, "User not found");
 
