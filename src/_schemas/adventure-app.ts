@@ -24,7 +24,7 @@ export interface DBMapCollection {
     // The name of the map used for further backend requests
     name: string;
     // A polygon representing the area of the map
-    area?: Location[];
+    area: Location[];
   }[];
 }
 
