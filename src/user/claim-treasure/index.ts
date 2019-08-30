@@ -1,7 +1,7 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 
 import {
-  response, Users, AdventureApp, create_prize, generate_telemetry,
+  response, Users, AdventureApp, create_prize, generate_telemetry, create_points_prize_response, create_prize_response,
 } from '/opt/nodejs';
 import { get_next_prize } from '/opt/nodejs/helpers';
 
@@ -35,12 +35,15 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
   // Moved to the end so that if there are any fatal errors in the middle, nothing will be half changed
 
   // Create prize for user, or give user points
-  let prize;
-  if(prize_info.points)
+  let response_object;
+  if(prize_info.points) {
     user.points += prize_info.points;
+    response_object = create_points_prize_response(prize_info.points, 'treasure');
+  }
   else {
-    prize = await create_prize(user_id, prize_info.prize, "treasure");
+    const prize = await create_prize(user_id, prize_info.prize, "treasure");
     user.prizes.push(prize.id);
+    response_object = create_prize_response(prize);
   }
 
   // Params - Add treasure and prize to user
@@ -51,5 +54,5 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
   treasure.claimed += 1;
   await AdventureApp.put_treasure(treasure);
 
-  return response(201, prize_info);
+  return response(201, response_object);
 }

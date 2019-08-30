@@ -1,6 +1,6 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import {
-  response, Users, generate_telemetry, AdventureApp, create_prize,
+  response, Users, generate_telemetry, AdventureApp, create_prize, create_points_prize_response, create_prize_response,
 } from '/opt/nodejs';
 import { get_next_prize } from '/opt/nodejs/helpers';
 
@@ -16,7 +16,8 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
     return response(400, "No user_id");
 
   // Done first to ensure our telemetry is about a given user.
-  const user = await Users.get(event.pathParameters.user_id);
+  const { user_id } = event.pathParameters;
+  const user = await Users.get(user_id);
   if(!user)
     return response(404, "User does not exist.");
 
@@ -45,12 +46,16 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
   if(!prize_info)
     return response(200, false);
 
-  if(prize_info.points)
+  // Create prize for user, or give user points
+  let response_object;
+  if(prize_info.points) {
     user.points += prize_info.points;
+    response_object = create_points_prize_response(prize_info.points, 'treasure');
+  }
   else {
-    // Create a prize
-    const prize = await create_prize(user.id, prize_info.prize, "challenge");
+    const prize = await create_prize(user_id, prize_info.prize, "treasure");
     user.prizes.push(prize.id);
+    response_object = create_prize_response(prize);
   }
 
   user.challenges.push(challenge_id);
@@ -61,5 +66,5 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
   Users.put(user);
 
   // Return the prize
-  return response(200, prize_info);
+  return response(200, response_object);
 }
