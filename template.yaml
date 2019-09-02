@@ -29,6 +29,13 @@ Resources:
           Name: "AWS::Include"
           Parameters:
             Location: ./resources/openapi.yaml
+      Auth:
+        DefaultAuthorizer: CognitoUser
+        Authorizers:
+          CognitoUser: # TODO: Not hardcode
+            UserPoolArn: arn:aws:cognito-idp:ap-southeast-2:020479359034:userpool/ap-southeast-2_UyvhAfzW8
+            Identity:
+              Header: Authorization
   AdventureTable:
     Type: AWS::Serverless::SimpleTable
     Properties:
@@ -103,6 +110,8 @@ Resources:
             RestApiId: !Ref AdventureApi
             Path: /maps
             Method: get
+            Auth:
+              Authorizer: "NONE"
   GetMap:
     Type: AWS::Serverless::Function
     Properties:
@@ -121,6 +130,8 @@ Resources:
             RestApiId: !Ref AdventureApi
             Path: /maps/{map}
             Method: get
+            Auth:
+              Authorizer: None
   GetBeacon:
     Type: AWS::Serverless::Function
     Properties:
@@ -139,6 +150,8 @@ Resources:
             RestApiId: !Ref AdventureApi
             Path: /maps/{map}/beacon/{beacon}
             Method: get
+            Auth:
+              Authorizer: None
   GetChallengePrizes:
     Type: AWS::Serverless::Function
     Properties:
@@ -157,6 +170,8 @@ Resources:
             RestApiId: !Ref AdventureApi
             Path: /maps/{map}/challenges/{id}/prizes
             Method: get
+            Auth:
+              Authorizer: None
   GetPrizeTypes:
     Type: AWS::Serverless::Function
     Properties:
@@ -175,6 +190,8 @@ Resources:
             RestApiId: !Ref AdventureApi
             Path: /prize-types
             Method: get
+            Auth:
+              Authorizer: None
   GetPrize:
     Type: AWS::Serverless::Function
     Properties:
@@ -193,6 +210,8 @@ Resources:
             RestApiId: !Ref AdventureApi
             Path: /redemption-codes/{code}/
             Method: post
+            Auth:
+              Authorizer: None
   DeletePrize:
     Type: AWS::Serverless::Function
     Properties:
@@ -215,6 +234,8 @@ Resources:
             RestApiId: !Ref AdventureApi
             Path: /redemption-codes/{code}/
             Method: delete
+            Auth:
+              Authorizer: None
   GetUser:
     Type: AWS::Serverless::Function
     Properties:
@@ -233,6 +254,8 @@ Resources:
             RestApiId: !Ref AdventureApi
             Path: /users/{user_id}/
             Method: get
+            Auth:
+              Authorizer: CognitoUser
   RegisterUser:
     Type: AWS::Serverless::Function
     Properties:
@@ -253,6 +276,8 @@ Resources:
             RestApiId: !Ref AdventureApi
             Path: /users/{user_id}/
             Method: put
+            Auth:
+              Authorizer: CognitoUser
   StartChallenge:
     Type: AWS::Serverless::Function
     Properties:
@@ -273,6 +298,8 @@ Resources:
             RestApiId: !Ref AdventureApi
             Path: /users/{user_id}/challenge/{map}/{challenge_id}
             Method: post
+            Auth:
+              Authorizer: CognitoUser
   StopChallenge:
     Type: AWS::Serverless::Function
     Properties:
@@ -297,6 +324,8 @@ Resources:
             RestApiId: !Ref AdventureApi
             Path: /users/{user_id}/challenge
             Method: delete
+            Auth:
+              Authorizer: CognitoUser
   FinishChallenge:
     Type: AWS::Serverless::Function
     Properties:
@@ -321,6 +350,8 @@ Resources:
             RestApiId: !Ref AdventureApi
             Path: /users/{user_id}/challenge
             Method: post
+            Auth:
+              Authorizer: CognitoUser
   ClaimTreasure:
     Type: AWS::Serverless::Function
     Properties:
@@ -345,6 +376,8 @@ Resources:
             RestApiId: !Ref AdventureApi
             Path: /users/{user_id}/treasure/{map}/{beacon_id}
             Method: post
+            Auth:
+              Authorizer: CognitoUser
   GetUserPrizes:
     Type: AWS::Serverless::Function
     Properties:
@@ -363,6 +396,8 @@ Resources:
             RestApiId: !Ref AdventureApi
             Path: /users/{user_id}/prizes
             Method: get
+            Auth:
+              Authorizer: CognitoUser
   GetSurvey:
     Type: AWS::Serverless::Function
     Properties:
@@ -383,6 +418,8 @@ Resources:
             RestApiId: !Ref AdventureApi
             Path: /users/{user_id}/surveys/new
             Method: get
+            Auth:
+              Authorizer: CognitoUser
   FinishSurvey:
     Type: AWS::Serverless::Function
     Properties:
@@ -407,3 +444,5 @@ Resources:
             RestApiId: !Ref AdventureApi
             Path: /users/{user_id}/surveys
             Method: post
+            Auth:
+              Authorizer: CognitoUser

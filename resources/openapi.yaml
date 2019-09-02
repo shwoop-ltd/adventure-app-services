@@ -3,6 +3,8 @@ info:
   title: Shwoop Adventure App
   description: "This is the backend for the Shwoop Adventure App"
   version: 1.0.0
+security:
+  - CognitoAuthorizer: []
 paths:
   /maps:
     get:
@@ -196,30 +198,11 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/User"
+      security:
+        - CognitoAuthorizer: []
       x-amazon-apigateway-integration:
         uri:
           Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetUser.Arn}/invocations"
-        responses: {}
-        httpMethod: POST
-        type: aws_proxy
-    put:
-      summary: "Creates a user"
-      operationId: register_user
-      parameters:
-        - in: path
-          name: user_id
-          description: "The user ID"
-          schema:
-            type: string
-          required: true
-      responses:
-        201:
-          description: "Account created."
-        409:
-          description: "Conflict. Account already exists."
-      x-amazon-apigateway-integration:
-        uri:
-          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${RegisterUser.Arn}/invocations"
         responses: {}
         httpMethod: POST
         type: aws_proxy
@@ -241,6 +224,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/UserPrizes"
+      security:
+        - CognitoAuthorizer: []
       x-amazon-apigateway-integration:
         uri:
           Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetUserPrizes.Arn}/invocations"
@@ -270,6 +255,8 @@ paths:
           schema:
             type: string
           required: true
+      security:
+        - CognitoAuthorizer: []
       responses:
         200:
           description: "successful operation"
@@ -306,6 +293,8 @@ paths:
           schema:
             type: number
           required: true
+      security:
+        - CognitoAuthorizer: []
       responses:
         201:
           description: "successful operation"
@@ -354,6 +343,8 @@ paths:
                   type: number
               required: [beacon_id, map, challenge_id]
               additionalProperties: false
+      security:
+        - CognitoAuthorizer: []
       responses:
         200:
           description: "Successfully solved puzzle"
@@ -414,6 +405,8 @@ paths:
           schema:
             type: string
           required: true
+      security:
+        - CognitoAuthorizer: []
       responses:
         200:
           description: "successful operation"
@@ -445,6 +438,8 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/SurveyResponse"
+      security:
+        - CognitoAuthorizer: []
       responses:
         201:
           description: "successful operation"
@@ -464,9 +459,16 @@ paths:
 
 components:
   securitySchemes:
-    User:
-      type: http
-      scheme: bearer
+    CognitoAuthorizer:
+      type: "apiKey"
+      name: "Authorization"
+      in: "header"
+      x-amazon-apigateway-authtype: "cognito_user_pools"
+      x-amazon-apigateway-authorizer:
+        # TODO: Not put this in here
+        providerARNs:
+          - "arn:aws:cognito-idp:ap-southeast-2:020479359034:userpool/ap-southeast-2_UyvhAfzW8"
+        type: "cognito_user_pools"
   schemas:
     MapSummary:
       type: object

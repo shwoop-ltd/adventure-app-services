@@ -17,6 +17,10 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
 
   // Done first to ensure our telemetry is about a given user.
   const { user_id } = event.pathParameters;
+
+  if(!event.requestContext.authorizer || user_id !== event.requestContext.authorizer.claims.sub)
+    return response(401, "Cannot access this user");
+
   const user = await Users.get(user_id);
   if(!user)
     return response(404, "User does not exist.");

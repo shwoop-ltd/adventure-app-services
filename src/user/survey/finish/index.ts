@@ -16,6 +16,12 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
     return response(400, "Body not present");
 
   const { user_id } = event.pathParameters;
+
+  if(!event.requestContext.authorizer || user_id !== event.requestContext.authorizer.claims.sub) {
+    await generate_telemetry(event, "unusual-access", user_id);
+    return response(401, "Cannot access this user");
+  }
+
   await generate_telemetry(event, "finish-survey", user_id);
 
   const body = JSON.parse(event.body) as Body;

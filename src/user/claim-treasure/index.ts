@@ -15,6 +15,10 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
 
   // Does this user exist?
   const user = await Users.get(user_id);
+
+  if(!event.requestContext.authorizer || user_id !== event.requestContext.authorizer.claims.sub)
+    return response(401, "Cannot access this user");
+
   if(!user)
     return response(401, "User does not exist.");
 

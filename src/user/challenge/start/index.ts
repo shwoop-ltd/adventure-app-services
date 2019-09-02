@@ -8,6 +8,9 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
 
   const { user_id, map } = event.pathParameters;
 
+  if(!event.requestContext.authorizer || user_id !== event.requestContext.authorizer.claims.sub)
+    return response(401, "Cannot access this user");
+
   let challenge_id: number;
   try {
     challenge_id = Number.parseInt(event.pathParameters.challenge_id, 10);

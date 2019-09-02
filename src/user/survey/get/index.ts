@@ -5,6 +5,9 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
   if(!event.pathParameters || !event.pathParameters.user_id)
     return response(400, "Missing path parameters.");
 
+  if(!event.requestContext.authorizer || event.pathParameters.user_id !== event.requestContext.authorizer.claims.sub)
+    return response(401, "Cannot access this user");
+
   // Get the user, as we need to find a survey the user has yet to answer
   const user = await Users.get(event.pathParameters.user_id);
   if(!user)
