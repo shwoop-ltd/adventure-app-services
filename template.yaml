@@ -275,7 +275,7 @@ Resources:
           Properties:
             RestApiId: !Ref AdventureApi
             Path: /users/{user_id}/
-            Method: put
+            Method: post
             Auth:
               Authorizer: CognitoUser
   StartChallenge:

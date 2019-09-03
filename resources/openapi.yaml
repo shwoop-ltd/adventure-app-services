@@ -182,7 +182,7 @@ paths:
   # Users
   /users/{user_id}/:
     get:
-      summary: "Gets the user object for an id"
+      summary: "Gets the user's game info"
       operationId: get_user
       parameters:
         - in: path
@@ -191,6 +191,8 @@ paths:
           schema:
             type: string
           required: true
+      security:
+        - CognitoAuthorizer: []
       responses:
         200:
           description: "successful operation"
@@ -198,8 +200,41 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/User"
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetUser.Arn}/invocations"
+        responses: {}
+        httpMethod: POST
+        type: aws_proxy
+    post:
+      summary: "Creates a new user object associated to a cognito user"
+      operationId: register_user
+      parameters:
+        - in: path
+          name: user_id
+          description: "The user ID"
+          schema:
+            type: string
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                campaign:
+                  type: string
+                  description: The campaign
+                beta:
+                  type: boolean
+                  description: Whether or not this user is a beta user
       security:
         - CognitoAuthorizer: []
+      responses:
+        201:
+          description: "Successfully created"
+        409:
+          description: "User already exists"
       x-amazon-apigateway-integration:
         uri:
           Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetUser.Arn}/invocations"
@@ -228,7 +263,7 @@ paths:
         - CognitoAuthorizer: []
       x-amazon-apigateway-integration:
         uri:
-          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetUserPrizes.Arn}/invocations"
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${RegisterUser.Arn}/invocations"
         responses: {}
         httpMethod: POST
         type: aws_proxy
