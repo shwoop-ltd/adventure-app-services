@@ -26,7 +26,7 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
   }
 
   // Does this user exist?
-  const beta = body.beta !== undefined ? body.beta : Math.random() > 0.1;
+  const beta = body.beta !== undefined ? body.beta : Math.random() < 0.01;
 
   const user = {
     id: user_id,
