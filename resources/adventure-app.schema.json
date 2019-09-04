@@ -170,30 +170,15 @@
           },
           "location": {
             "$ref": "#/definitions/location"
+          },
+          "beacon_type": {
+            "type": "string",
+            "enum": [
+              "challenge-completer",
+              "treasure"
+            ]
           }
         },
-        "oneOf": [
-          {
-            "type": "object",
-            "properties": {
-              "beacon_type": {
-                "type": "string",
-                "enum": ["treasure"]
-              }
-            },
-            "required": ["beacon_type"]
-          },
-          {
-            "type": "object",
-            "properties": {
-              "beacon_type": {
-                "type": "string",
-                "enum": ["hidden"]
-              }
-            },
-            "required": ["beacon_type"]
-          }
-        ],
         "required": ["id", "beacon_type"]
       },
       {
