@@ -18,6 +18,8 @@ Globals:
         TELEMETRY_TABLE_NAME: !Ref TelemetryTable
         ENDPOINT_OVERRIDE: ""
         ADMIN_KEY: "nW0xj7iN7bMAS1L7cyRB32sKDtNi2qmBi2sHed8qOPPAgkPI2qhjnt5VYTDPLt0z"
+  Api:
+    OpenApiVersion: '3.0.1'
 Resources:
   AdventureApi:
     Type: AWS::Serverless::Api
