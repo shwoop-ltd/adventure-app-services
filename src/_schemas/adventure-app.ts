@@ -87,7 +87,12 @@ export interface DBSurveyCollection {
   surveys: {
     question: string;
     answers: string[];
+    location: Location;
   }[];
+  prize_given: {
+    prize: string;
+    surveys_to_prize: number;
+  };
 }
 
 export interface DBPrizeType {

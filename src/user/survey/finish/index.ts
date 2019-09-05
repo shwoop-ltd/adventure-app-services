@@ -1,6 +1,6 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import {
-  generate_telemetry, response, Users, AdventureApp,
+  generate_telemetry, response, Users, AdventureApp, create_prize,
 } from '/opt/nodejs';
 
 interface Body {
@@ -51,8 +51,25 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
 
   // TODO: Determine a prize to give to the user
 
-  // Update user info with the previously inserted survey
-  await Users.put(user);
+  // Return the fraction of a prize they now have
+  const { surveys_to_prize } = surveys.prize_given;
+  const surveys_completed = (user.surveys.length % surveys.prize_given.surveys_to_prize);
+  if(surveys_completed === 0) {
+    const prize = await create_prize(user.id, surveys.prize_given.prize, "survey");
+    user.prizes.push(prize.id);
 
-  return response(201, false);
+    // Update user info with the previously inserted survey
+    await Users.put(user);
+    // Return the prize
+    return response(201, prize);
+  }
+  else {
+    const prize = {
+      partial_prize: surveys.prize_given.prize,
+      fraction_complete: (surveys_to_prize - surveys_completed) / surveys_to_prize,
+    };
+
+    await Users.put(user);
+    return response(200, prize);
+  }
 }

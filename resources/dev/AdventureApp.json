@@ -84,27 +84,27 @@
   },
   {
     "id": "beacon-uoa-0000_0001",
-    "beacon_type": "hidden"
+    "beacon_type": "challenge-completer"
   },
   {
     "id": "beacon-uoa-0000_0002",
-    "beacon_type": "hidden"
+    "beacon_type": "challenge-completer"
   },
   {
     "id": "beacon-uoa-0000_0003",
-    "beacon_type": "hidden"
+    "beacon_type": "challenge-completer"
   },
   {
     "id": "beacon-uoa-0000_0004",
-    "beacon_type": "hidden"
+    "beacon_type": "challenge-completer"
   },
   {
     "id": "beacon-uoa-0000_0005",
-    "beacon_type": "hidden"
+    "beacon_type": "challenge-completer"
   },
   {
     "id": "beacon-uoa-0000_0006",
-    "beacon_type": "hidden"
+    "beacon_type": "challenge-completer"
   },
   {
     "id": "beacon-uoa-0000_0007",
@@ -208,7 +208,11 @@
     "surveys": [
       {
         "answers": ["Lime", "Flamingo", "Wave", "None"],
-        "question": "What type of e-scooter do you ride most frequently?"
+        "question": "What type of e-scooter do you ride most frequently?",
+        "location": {
+          "latitude": -36.852,
+          "longitude": 174.771
+        }
       },
       {
         "answers": [
@@ -218,11 +222,19 @@
           "When driving",
           "Other"
         ],
-        "question": "When do you like to consume Red Bull the most?"
+        "question": "When do you like to consume Red Bull the most?",
+        "location": {
+          "latitude": -36.852,
+          "longitude": 174.770
+        }
       },
       {
         "answers": ["17 and under", "18-25", "26-35", "36-50", "51+"],
-        "question": "How old are you?"
+        "question": "How old are you?",
+        "location": {
+          "latitude": -36.852,
+          "longitude": 174.769
+        }
       },
       {
         "answers": [
@@ -235,7 +247,11 @@
           "The same effectiveness",
           "0.5x"
         ],
-        "question": "Compared to standard advertising, how effective is this in-app brand sponsorship?"
+        "question": "Compared to standard advertising, how effective is this in-app brand sponsorship?",
+        "location": {
+          "latitude": -36.852,
+          "longitude": 174.772
+        }
       },
       {
         "answers": [
@@ -245,7 +261,11 @@
           "The price",
           "Something Else"
         ],
-        "question": "What do you value most in a cafe experience?"
+        "question": "What do you value most in a cafe experience?",
+        "location": {
+          "latitude": -36.850,
+          "longitude": 174.77
+        }
       },
       {
         "answers": [
@@ -255,9 +275,17 @@
           "Exploring the environment",
           "Other (please email jamie@shwoop.co.nz)"
         ],
-        "question": "What experience have you enjoyed the most used this app? Answer this question when you've done all riddles."
+        "question": "What experience have you enjoyed the most used this app? Answer this question when you've done all riddles.",
+        "location": {
+          "latitude": -36.850,
+          "longitude": 174.772
+        }
       }
-    ]
+    ],
+    "prize_given": {
+      "prize": "red-bull",
+      "surveys_to_prize": 2
+    }
   },
   {
     "id": "treasure-uoa-0000_0007",

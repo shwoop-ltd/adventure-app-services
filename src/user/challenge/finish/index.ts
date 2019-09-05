@@ -67,7 +67,7 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
   if(challenge.is_prerequisite)
     user.prerequisite_challenges_completed += 1;
 
-  Users.put(user);
+  await Users.put(user);
 
   // Return the prize
   return response(200, response_object);

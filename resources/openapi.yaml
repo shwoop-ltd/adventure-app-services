@@ -477,14 +477,27 @@ paths:
         - CognitoAuthorizer: []
       responses:
         201:
-          description: "successful operation"
+          description: "Prize created"
           content:
             application/json:
               schema:
+                $ref: "#/components/schemas/Prize"
+        200:
+          description: "No prize created"
+          content:
+            application/json:
+              schema:
+                description: Information about how close the user is to a prize
                 type: object
-                oneOf:
-                  - $ref: "#/components/schemas/Prize"
-                  - type: boolean
+                properties:
+                  partial_prize:
+                    description: The type of prize
+                    type: string
+                  fraction_complete:
+                    description: Amount of prize now won
+                    type: number
+                    format: float
+                nullable: true
       x-amazon-apigateway-integration:
         uri:
           Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${FinishSurvey.Arn}/invocations"
@@ -691,6 +704,18 @@ components:
           description: The possible answers to the question
           items:
             type: string
+        prize:
+          type: object
+          properties:
+            prize:
+              type: string
+            surveys_to_prize:
+              description: Number of surveys until prize is awarded
+              type: number
+              format: integer
+              default: 1
+          required: [prize]
+          additionalProperties: false
       required: [question, answers]
       additionalProperties: false
     SurveyResponse:

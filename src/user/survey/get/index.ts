@@ -24,6 +24,13 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
 
   if(choices.length === 0)
     return response(204, "");
-  else
-    return response(200, choices[0]);
+  else {
+    return response(
+      200,
+      {
+        ...choices[0],
+        prize: surveys.prize_given,
+      },
+    );
+  }
 }

@@ -179,7 +179,8 @@
             ]
           }
         },
-        "required": ["id", "beacon_type"]
+        "required": ["id", "beacon_type"],
+        "additionalProperties": false
       },
       {
         "type": "object",
@@ -201,14 +202,33 @@
                   "items": {
                     "type": "string"
                   }
+                },
+                "location": {
+                  "$ref": "#/definitions/location"
                 }
+              },
+              "required": ["question", "answers", "location"],
+              "additionalProperties": false
+            }
+          },
+          "prize_given": {
+            "type": "object",
+            "properties": {
+              "prize": {
+                "description": "Prize type to be awarded",
+                "type": "string"
+              },
+              "surveys_to_prize": {
+                "description": "Number of surveys that need to be completed to grant a prize",
+                "type": "number",
+                "format": "integer"
               }
             },
-            "required": ["question", "answers"],
+            "required": ["prize", "surveys_to_prize"],
             "additionalProperties": false
           }
         },
-        "required": ["id", "surveys"],
+        "required": ["id", "surveys", "prize_given"],
         "additionalProperties": false
       },
       {

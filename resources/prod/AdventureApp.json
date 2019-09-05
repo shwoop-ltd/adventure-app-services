@@ -87,8 +87,16 @@
           "When driving",
           "Other"
         ],
-        "question": "When do you like to consume Red Bull the most?"
+        "question": "When do you like to consume Red Bull the most?",
+        "location": {
+          "latitude": -36.860898,
+          "longitude": 174.775013
+        }
       }
-    ]
+    ],
+    "prize_given": {
+      "prize": "red-bull",
+      "surveys_to_prize": 2
+    }
   }
 ]
