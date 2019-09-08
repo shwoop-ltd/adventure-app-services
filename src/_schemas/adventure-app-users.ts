@@ -9,7 +9,7 @@ export interface DBUser {
   surveys: { question: string; answer: string }[];
   prizes: string[];
   treasure: string[];
-  challenges: string[];
+  challenges: number[];
 
   prerequisite_challenges_completed: number;
 }
