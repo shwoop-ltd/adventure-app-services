@@ -116,7 +116,7 @@
       }
     ],
     "claimed": 0,
-    "solution": "TODO",
+    "solution": "4727_2E43",
     "text": "I'm here for you voice\nI'm here by your choice\nIn the plaza was my conception\nSo come to my reception\nIn 2 mins I'll give you food\nI'm just here for you mood"
   },
   {
@@ -129,7 +129,7 @@
       }
     ],
     "claimed": 0,
-    "solution": "",
+    "solution": "f3CE_D80D",
     "text": "A Shwoopian you will find inside\nMake them laugh for win a prize\nWhat a simple guide"
   },
   {
@@ -142,7 +142,7 @@
       }
     ],
     "claimed": 0,
-    "solution": "",
+    "solution": "E358_2E21",
     "text": "Freeze to the sound of action\nFind the double eight and you've won\nI'm run by students, they're my cast\nLive on the air, to have a blast"
   },
   {
@@ -155,7 +155,7 @@
       }
     ],
     "claimed": 0,
-    "solution": "",
+    "solution": "0CE7_CA6A",
     "text": "Inside the circle you will find\nShwooper, the purple lime\nTake a photo 3 meters close\nCome show our HQ for a prize and boast"
   },
   {
@@ -168,7 +168,7 @@
       }
     ],
     "claimed": 0,
-    "solution": "",
+    "solution": "F62F_4D0A",
     "text": "Here we come together, to make and create\nMy name comes from the word collaborate\nWith gizmos and gadgets, my workshop has more\nFind my reception, on a high WG floor"
   },
   {
@@ -181,7 +181,7 @@
       }
     ],
     "claimed": 0,
-    "solution": "",
+    "solution": "15B6_4926",
     "text": "This challenge consist of no riddle, for a picture paints a thousand words. Check our social’s for hints"
   },
   {
@@ -194,7 +194,35 @@
       }
     ],
     "claimed": 0,
-    "solution": "",
+    "solution": "BC5A_336C",
     "text": "The place you go to appreciate aesthetics\nUsually an opposite vibe to athletics\nBoundless in meaning, each piece may induce daydreaming\nVisual representation of perception, this place is nice for self-reflection"
+  },
+  {
+    "id": "beacon-aut-4727_2E43",
+    "beacon_type": "challenge-completer"
+  },
+  {
+    "id": "beacon-aut-F3CE_D80D",
+    "beacon_type": "challenge-completer"
+  },
+  {
+    "id": "beacon-aut-E358_2E21",
+    "beacon_type": "challenge-completer"
+  },
+  {
+    "id": "beacon-aut-0CE7_CA6A",
+    "beacon_type": "challenge-completer"
+  },
+  {
+    "id": "beacon-aut-F62F_4D0A",
+    "beacon_type": "challenge-completer"
+  },
+  {
+    "id": "beacon-aut-15B6_4926",
+    "beacon_type": "challenge-completer"
+  },
+  {
+    "id": "beacon-aut-BC5A_336C",
+    "beacon_type": "challenge-completer"
   }
 ]
