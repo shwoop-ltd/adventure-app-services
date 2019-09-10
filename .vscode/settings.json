@@ -2,7 +2,7 @@
   "json.schemas": [
     {
       "fileMatch": [
-        "**/AdventureApp.json"
+        "**/AdventureApp*.json"
       ],
       "url": "./resources/adventure-app.schema.json"
     }

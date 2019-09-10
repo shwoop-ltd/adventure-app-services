@@ -1,0 +1,200 @@
+[
+  {
+    "id": "map-aut",
+    "challenges": [
+      {
+        "id": 511,
+        "location": {
+          "latitude": -36.853291,
+          "longitude": 174.767067
+        },
+        "release_date":  1568012400,
+        "close_date": 1569261600
+      },
+      {
+        "id": 512,
+        "location": {
+          "latitude": -36.853455,
+          "longitude": 174.766926
+        },
+        "prerequisites": 1,
+        "release_date":  1568012400,
+        "active_date": 1569232800,
+        "close_date": 1569261600
+      },
+      {
+        "id": 513,
+        "location": {
+          "latitude": -36.852569,
+          "longitude": 174.766468
+        },
+        "prerequisites": 1,
+        "release_date":  1568012400,
+        "close_date": 1569261600
+      },
+      {
+        "id": 514,
+        "location": {
+          "latitude": -36.853291,
+          "longitude": 174.766870
+        },
+        "prerequisites": 2,
+        "release_date":  1568012400,
+        "active_date": 1569232800,
+        "close_date": 1569261600
+      },
+      {
+        "id": 515,
+        "location": {
+          "latitude": -36.853336,
+          "longitude": 174.765655
+        },
+        "prerequisites": 2,
+        "release_date":  1568012400,
+        "close_date": 1569261600
+      },
+      {
+        "id": 516,
+        "location": {
+          "latitude": -36.852839,
+          "longitude": 174.765264
+        },
+        "prerequisites": 3,
+        "release_date":  1568012400,
+        "close_date": 1569261600
+      },
+      {
+        "id": 517,
+        "location": {
+          "latitude": -36.853867,
+          "longitude": 174.766395
+        },
+        "prerequisites": 3,
+        "release_date":  1568012400,
+        "active_date": 1569247200,
+        "close_date": 1569261600
+      }
+    ],
+    "events": [
+      {
+        "location": {
+        "latitude": -36.853216,
+        "longitude": 174.764893
+        },
+        "description": "#Make a Meme \n\nHead over to our Facebook page to find out how to compete\n\n![]()\n\n*"
+      },
+      {
+        "location": {
+          "latitude": -36.851620,
+          "longitude": 174.765721
+        },
+       "description": "#Shwoop Score\n\nReady for a week long challenge?\n\n![Head over to our Facebook Page to find out how to enter]()\n\n**"
+      },
+      {
+        "location": {
+          "latitude": -36.853304,
+          "longitude": 174.765500
+        },
+       "description": "#$2000 Ola Amazing Race \n\n1pm WF plaza \n\n![Head over to our Facebook Page to find out more details]()\n\n**"
+      },
+      {
+        "location": {
+          "latitude": -36.853154,
+          "longitude": 174.767027
+        },
+       "description": "#SHWOOP HQ\n\n Hikuwai Plaza\n\n![Head over to our Facebook Page to find out more details]()\n\n*Open 10am-5pm*"
+      }
+    ]
+  },
+  {
+    "id": "challenge-aut-511",
+    "is_prerequisite": true,
+    "prizes": [
+      {
+        "available": 800,
+        "prize": "ola-gift-card"
+      }
+    ],
+    "claimed": 0,
+    "solution": "TODO",
+    "text": "I'm here for you voice\nI'm here by your choice\nIn the plaza was my conception\nSo come to my reception\nIn 2 mins I'll give you food\nI'm just here for you mood"
+  },
+  {
+    "id": "challenge-aut-512",
+    "is_prerequisite": false,
+    "prizes": [
+      {
+        "available": 40,
+        "prize": "noel-leaming-power-bank"
+      }
+    ],
+    "claimed": 0,
+    "solution": "",
+    "text": "A Shwoopian you will find inside\nMake them laugh for win a prize\nWhat a simple guide"
+  },
+  {
+    "id": "challenge-aut-513",
+    "is_prerequisite": true,
+    "prizes": [
+      {
+        "available": 500,
+        "prize": "lime-unlock"
+      }
+    ],
+    "claimed": 0,
+    "solution": "",
+    "text": "Freeze to the sound of action\nFind the double eight and you've won\nI'm run by students, they're my cast\nLive on the air, to have a blast"
+  },
+  {
+    "id": "challenge-aut-514",
+    "is_prerequisite": false,
+    "prizes": [
+      {
+        "available": 20,
+        "prize": "20-the-market-gift-card"
+      }
+    ],
+    "claimed": 0,
+    "solution": "",
+    "text": "Inside the circle you will find\nShwooper, the purple lime\nTake a photo 3 meters close\nCome show our HQ for a prize and boast"
+  },
+  {
+    "id": "challenge-aut-515",
+    "is_prerequisite": true,
+    "prizes": [
+      {
+        "available": 20,
+        "prize": "30-Ola-gift-card"
+      }
+    ],
+    "claimed": 0,
+    "solution": "",
+    "text": "Here we come together, to make and create\nMy name comes from the word collaborate\nWith gizmos and gadgets, my workshop has more\nFind my reception, on a high WG floor"
+  },
+  {
+    "id": "challenge-aut-516",
+    "is_prerequisite": false,
+    "prizes": [
+      {
+        "available": 1,
+        "prize": "100-market-gift-card"
+      }
+    ],
+    "claimed": 0,
+    "solution": "",
+    "text": "This challenge consist of no riddle, for a picture paints a thousand words. Check our social’s for hints"
+  },
+  {
+    "id": "challenge-aut-517",
+    "is_prerequisite": true,
+    "prizes": [
+      {
+        "available": 1,
+        "prize": "ue-megaboom"
+      }
+    ],
+    "claimed": 0,
+    "solution": "",
+    "text": "The place you go to appreciate aesthetics\nUsually an opposite vibe to athletics\nBoundless in meaning, each piece may induce daydreaming\nVisual representation of perception, this place is nice for self-reflection"
+  }
+]
