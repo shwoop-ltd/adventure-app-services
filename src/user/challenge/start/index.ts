@@ -56,5 +56,6 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
   return response(200, {
     text: challenge.text,
     image_url: challenge.image_url,
+    radius: challenge.radius,
   });
 }

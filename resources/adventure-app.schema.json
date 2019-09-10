@@ -123,6 +123,10 @@
             "type": "string",
             "format": "uri"
           },
+          "radius": {
+            "description": "Radius in metres in which the solution can be found",
+            "type": "number"
+          },
           "is_prerequisite": {
             "type": "boolean",
             "description": "Whether this challenge counts as a prerequisite for other challenges (defaults to false if not present)",

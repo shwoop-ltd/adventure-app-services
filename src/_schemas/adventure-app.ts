@@ -69,6 +69,7 @@ export interface DBChallenge extends PrizePool {
   // Clue stuff
   text?: string;
   image_url?: string;
+  radius?: number;
 
   // Beacon id to use
   solution: string;

@@ -583,6 +583,9 @@ components:
         image_url:
           type: string
           description: "Url of an image related to the puzzle"
+        radius:
+          discreption: "Radius in which the solution can be found"
+          type: number
       additionalProperties: false
     ChallengeInfo:
       type: object
