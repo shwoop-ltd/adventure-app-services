@@ -121,7 +121,7 @@
     "prizes": [
       {
         "available": 200,
-        "prize": "red-bull"
+        "prize": "redbull-can"
       }
     ],
     "solution": "0000_0001",
@@ -134,7 +134,7 @@
     "prizes": [
       {
         "available": 200,
-        "prize": "red-bull"
+        "prize": "redbull-can"
       }
     ],
     "solution": "0000_0002",
@@ -147,7 +147,7 @@
     "prizes": [
       {
         "available": 200,
-        "prize": "red-bull"
+        "prize": "redbull-can"
       }
     ],
     "solution": "0000_0003",
@@ -159,7 +159,7 @@
     "prizes": [
       {
         "available": 200,
-        "prize": "red-bull"
+        "prize": "redbull-can"
       }
     ],
     "solution": "0000_0004",
@@ -171,7 +171,7 @@
     "prizes": [
       {
         "available": 200,
-        "prize": "red-bull"
+        "prize": "redbull-can"
       }
     ],
     "solution": "0000_0005",
@@ -183,7 +183,7 @@
     "prizes": [
       {
         "available": 200,
-        "prize": "red-bull"
+        "prize": "redbull-can"
       }
     ],
     "solution": "0000_0006",
@@ -193,7 +193,7 @@
     "id": "prize-types",
     "prizes": [
       {
-        "name": "red-bull",
+        "name": "redbull-can",
         "display_name": "Red Bull",
         "image_url": "https://energydrink.redbull.com/sites/default/files/image-server/products/packshots/global/Red-Bull-Energy-Drink-Can-NZ-closed.png",
         "description": "This is a generic description for red bull. Please bully jamie into replacing it",
@@ -283,7 +283,7 @@
       }
     ],
     "prize_given": {
-      "prize": "red-bull",
+      "prize": "redbull-can",
       "surveys_to_prize": 2
     }
   },
@@ -292,7 +292,7 @@
     "prizes": [
       {
         "available": 20,
-        "prize": "red-bull"
+        "prize": "redbull-can"
       }
     ],
     "claimed": 0
@@ -302,7 +302,7 @@
     "prizes": [
       {
         "available": 20,
-        "prize": "red-bull"
+        "prize": "redbull-can"
       },
       {
         "available": 10,

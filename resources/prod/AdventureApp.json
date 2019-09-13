@@ -1,0 +1,140 @@
+[
+  {
+    "id": "prize-types",
+    "prizes": [
+      {
+        "name": "shakeyisles-coffee",
+        "display_name": "Shakey Isles Coffee",
+        "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/Shaky-Isles-Logo.png",
+        "description": "A beautiful cup of Shakey Isles brewed coffee, with stunning aromas to win you over.",
+        "instance_name": "a Shakey Isles Coffee",
+        "redeem_type": "in-store",
+        "redeem_info": "Visit the store and show this page to the Cashier. If you are the cashier, press the button twice to delete the prize."
+      },
+        {
+            "name": "10-ola-gift-card",
+            "display_name": "$10 Ola Gift Card",
+            "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/Ola-Prize.png",
+            "description": "No need to sober drive this weekend, because Ola has this one.",
+            "instance_name": "an Ola gift card",
+            "redeem_type": "online",
+            "redeem_info": "When you’re booking your ride in Ola, copy this into the apply coupon box."
+        },
+        {
+            "name": "noel-leeming-power-bank",
+            "display_name": "Noel leeming Power Bank",
+            "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/Noel-Leeming-Logo.png",
+            "description": "Power banks keep you going during your end of year festivals",
+            "instance_name": "a Noel Leeming power bank",
+            "redeem_type": "in-store",
+            "redeem_info": "Show your phone to the Shwoopian once you make him laugh to win your prize."
+        },
+        {
+            "name": "lime-unlock",
+            "display_name": "3 Lime Unlocks",
+            "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/Lime-Logo-3.png",
+            "description": "Get where you're going faster on a Lime.",
+            "instance_name": "3 Lime Unlocks",
+            "redeem_type": "online",
+            "redeem_info": "Head over to the Lime app and enter your promo code inside the wallet."
+        },
+        {
+            "name": "20-the-market-gift-card",
+            "display_name": "$20 The Market gift card",
+            "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/The-Market-Logo.png",
+            "description": "Ènjoy $20 off your next purchase at The Market.",
+            "instance_name": "a $20 The Market gift card",
+            "redeem_type": "online",
+            "redeem_info": "Next time you make a purchase at themarket.com enter this code during checkout for $20 off"
+        },
+        {
+            "name": "30-ola-gift-card",
+            "display_name": "$30 Ola Voucher",
+            "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/Ola-Prize.png",
+            "description": "Head out for the weekend with your friends, you deserve it. Don’t worry, Ola’s got your next ride home.",
+            "instance_name": "a $30 Ola voucher",
+            "redeem_type": "online",
+            "redeem_info": "When you’re booking your ride in Ola, copy this into the apply coupon box"
+        },
+        {
+            "name": "100-market-gift-card",
+            "display_name": "$100 The Market Gift Voucher",
+            "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/The-Market-Logo.png",
+            "description": "Ènjoy $100 off your next purchase at The Market.",
+            "instance_name": "a $100 The Market gift voucher",
+            "redeem_type": "online",
+            "redeem_info": " Next time you make a purchase at themarket.com enter this code during checkout for $100 off"
+        },
+        {
+            "name": "ue-megaboom",
+            "display_name": "UE Megaboom",
+            "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/Noel-Leeming-Logo.png",
+            "description": "A portable, waterproof and dust proof speaker for all your summer adventures.",
+            "instance_name": "a UE Megaboom",
+            "redeem_type": "in-store",
+            "redeem_info": "Be the first to show this screen to a Shwoopian at our HQ and win!"
+        },
+        {
+            "name": "redbull-can",
+            "display_name": "Red Bull",
+            "image_url": "https://energydrink.redbull.com/sites/default/files/image-server/products/packshots/global/Red-Bull-Energy-Drink-Can-NZ-closed.png",
+            "description": "Perfect 250ml refresher to keep you focused and awake during the study season",
+            "instance_name": "a can of Red Bull",
+            "redeem_type": "in-store",
+            "redeem_info": "Show your phone to the team at HQ for a cold can of Red Bull"
+        }
+    ]
+  },
+  {
+    "id": "maps",
+    "maps": [
+      {
+        "name": "aut",
+        "area": [
+          {
+            "latitude": -36.8528,
+            "longitude": 174.7656
+          },
+          {
+            "latitude": -36.8543,
+            "longitude": 174.7677
+          }
+        ]
+      },
+      {
+        "name": "uoa",
+        "area": [
+          {
+            "latitude": -36.8507,
+            "longitude": 174.7673
+          },
+          {
+            "latitude": -36.8535,
+            "longitude": 174.7722
+          }
+        ]
+      },
+      {
+        "name": "auckland",
+        "area": [
+          {
+            "latitude": -36.8395,
+            "longitude": 174.7088
+          },
+          {
+            "latitude": -36.9353,
+            "longitude": 174.8248
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "surveys",
+    "surveys": [],
+    "prize_given": {
+      "prize": "redbull-can",
+      "surveys_to_prize": 5
+    }
+  }
+]

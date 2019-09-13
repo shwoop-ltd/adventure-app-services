@@ -1,0 +1,109 @@
+[
+  {
+      "claimed": 0,
+      "id": "challenge-uoa-1",
+      "is_prerequisite": true,
+      "prizes": [
+          {
+              "available": 200,
+              "prize": "shakeyisles-coffee"
+          }
+      ],
+      "solution": "0000_0001",
+      "text": "Watch me shake, hear me grind.\nNow you wake, peace of mind.\nYour exams are near\nThe answer is clear\nAdventure to the isle\nAnd meet the Cashier."
+  },
+  {
+      "claimed": 0,
+      "id": "challenge-uoa-2",
+      "is_prerequisite": true,
+      "prizes": [
+          {
+              "available": 4000,
+              "prize": "10-ola-gift-card"
+          }
+      ],
+      "solution": "0000_0002",
+      "text": "They say I'm all fours, that's not a lie\nI'm a place of culture, I'll tell you why\nI've got restaurants and stores\nIn amidst the outdoors\nCome play my music,\nand write a score"
+  },
+  {
+      "claimed": 0,
+      "id": "challenge-uoa-3",
+      "is_prerequisite": true,
+      "prizes": [
+          {
+              "available": 200,
+              "prize": "shakeyisles-coffee"
+          }
+      ],
+      "solution": "0000_0003",
+      "text": "We've been doing experiments all week long\nWith a paddle and a net, you can't go wrong\nMy table has four legs to keep it strong\nAnd my name rhymes with donkey kong"
+  },
+  {
+      "claimed": 0,
+      "id": "challenge-uoa-4",
+      "is_prerequisite": true,
+      "prizes": [
+          {
+              "available": 200,
+              "prize": "shakeyisles-coffee"
+          }
+      ],
+      "solution": "0000_0004",
+      "text": "When you’ve got a cold\nMy forms unfold\nWhen you’re warm and hot\nThe difference is not\nWhere am I?"
+  },
+  {
+      "id": "beacon-uoa-0000_0001",
+      "beacon_type": "challenge-completer"
+  },
+  {
+      "id": "beacon-uoa-0000_0002",
+      "beacon_type": "challenge-completer"
+  },
+  {
+      "id": "beacon-uoa-0000_0003",
+      "beacon_type": "challenge-completer"
+  },
+  {
+      "id": "beacon-uoa-0000_0004",
+      "beacon_type": "challenge-completer"
+  },
+  {
+      "id": "map-uoa",
+      "challenges": [
+          {
+              "id": 1,
+              "location": {
+                  "latitude": -36.852048,
+                  "longitude": 174.769881
+              },
+              "close_date": 1569157200
+          },
+          {
+              "id": 2,
+              "location": {
+                  "latitude": -36.852081,
+                  "longitude": 174.768925
+              },
+              "close_date": 1569157200
+          },
+          {
+              "id": 3,
+              "location": {
+                  "latitude": -36.853037,
+                  "longitude": 174.768439
+              },
+              "close_date": 1569157200
+          },
+          {
+              "id": 4,
+              "location": {
+                  "latitude": -36.852001,
+                  "longitude": 174.769476
+              },
+              "close_date": 1569157200,
+              "prerequisites": 2
+          }
+      ],
+      "events": []
+  }
+]
