@@ -1,48 +1,48 @@
 [
   {
-      "id": "map-auckland",
-      "challenges": [
-          {
-              "id": 1,
-              "location": {
-                  "latitude": -36.848370,
-                  "longitude": 174.762103
-              }
-          },
-          {
-              "id": 2,
-              "location": {
-                  "latitude": -36.861516,
-                  "longitude": 174.777838
-              }
-          }
-      ],
-      "events": []
+    "id": "map-auckland",
+    "challenges": [
+      {
+        "id": 1,
+        "location": {
+          "latitude": -36.848370,
+          "longitude": 174.762103
+        },
+        "is_prerequisite": true
+      },
+      {
+        "id": 2,
+        "location": {
+          "latitude": -36.861516,
+          "longitude": 174.777838
+        },
+        "is_prerequisite": true
+      }
+    ],
+    "events": []
   },
   {
-      "id": "challenge-auckland-1",
-      "is_prerequisite": true,
-      "prizes": [
-          {
-              "available": 500,
-              "prize": "lime-unlock"
-          }
-      ],
-      "claimed": 0,
-      "solution": "0000_0009",
-      "text": "Up above the city, where the view is quite pretty, come find the tower and watch rush hour."
+    "id": "challenge-auckland-1",
+    "prizes": [
+      {
+        "available": 500,
+        "prize": "lime-unlock"
+      }
+    ],
+    "claimed": 0,
+    "solution": "0000_0009",
+    "text": "Up above the city, where the view is quite pretty, come find the tower and watch rush hour."
   },
   {
-      "id": "challenge-auckland-2",
-      "is_prerequisite": true,
-      "prizes": [
-          {
-              "available": 500,
-              "prize": "lime-unlock"
-          }
-      ],
-      "claimed": 0,
-      "solution": "0000_000A",
-      "text": "Out on the field, players don't yield as rounds were fired and artwork admired."
+    "id": "challenge-auckland-2",
+    "prizes": [
+      {
+        "available": 500,
+        "prize": "lime-unlock"
+      }
+    ],
+    "claimed": 0,
+    "solution": "0000_000A",
+    "text": "Out on the field, players don't yield as rounds were fired and artwork admired."
   }
 ]

@@ -25,21 +25,24 @@
         "location": {
           "latitude": -36.853088,
           "longitude": 174.768
-        }
+        },
+        "is_prerequisite": true
       },
       {
         "id": 2,
         "location": {
           "latitude": -36.853088,
           "longitude": 174.769
-        }
+        },
+        "is_prerequisite": true
       },
       {
         "id": 3,
         "location": {
           "latitude": -36.853088,
           "longitude": 174.77
-        }
+        },
+        "is_prerequisite": true
       },
       {
         "id": 4,
@@ -117,7 +120,6 @@
   {
     "claimed": 0,
     "id": "challenge-uoa-1",
-    "is_prerequisite": true,
     "prizes": [
       {
         "available": 200,
@@ -131,7 +133,6 @@
   {
     "claimed": 0,
     "id": "challenge-uoa-2",
-    "is_prerequisite": true,
     "prizes": [
       {
         "available": 200,
@@ -145,7 +146,6 @@
   {
     "claimed": 0,
     "id": "challenge-uoa-3",
-    "is_prerequisite": true,
     "prizes": [
       {
         "available": 200,

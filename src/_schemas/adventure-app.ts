@@ -38,6 +38,8 @@ export interface DBMapInfo {
 
     // Challenge requirements
     prerequisites?: number;
+    // Whether the challenge can be used as a prerequisite to other challenges
+    is_prerequisite?: boolean;
 
     release_date?: number;
     active_date?: number;
@@ -73,10 +75,6 @@ export interface DBChallenge extends PrizePool {
 
   // Beacon id to use
   solution: string;
-
-  // Whether the challenge can be used as a prerequisite to other challenges
-  // TODO: Construct a proper logic for this (e.g. it must be a 'special' challenge to not be a prerequisite)
-  is_prerequisite?: boolean;
 }
 
 export interface DBTreasure extends Location, PrizePool {

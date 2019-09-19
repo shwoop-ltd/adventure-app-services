@@ -8,7 +8,8 @@
           "latitude": -36.853291,
           "longitude": 174.767067
         },
-        "release_date":  1568012400,
+        "is_prerequisite": true,
+        "release_date": 1568012400,
         "close_date": 1569261600
       },
       {
@@ -18,7 +19,7 @@
           "longitude": 174.766926
         },
         "prerequisites": 1,
-        "release_date":  1568012400,
+        "release_date": 1568012400,
         "active_date": 1569232800,
         "close_date": 1569261600
       },
@@ -29,7 +30,8 @@
           "longitude": 174.766468
         },
         "prerequisites": 1,
-        "release_date":  1568012400,
+        "is_prerequisite": true,
+        "release_date": 1568012400,
         "close_date": 1569261600
       },
       {
@@ -39,7 +41,7 @@
           "longitude": 174.766870
         },
         "prerequisites": 2,
-        "release_date":  1568012400,
+        "release_date": 1568012400,
         "active_date": 1569232800,
         "close_date": 1569261600
       },
@@ -50,7 +52,8 @@
           "longitude": 174.765655
         },
         "prerequisites": 2,
-        "release_date":  1568012400,
+        "is_prerequisite": true,
+        "release_date": 1568012400,
         "close_date": 1569261600
       },
       {
@@ -60,7 +63,7 @@
           "longitude": 174.765264
         },
         "prerequisites": 3,
-        "release_date":  1568012400,
+        "release_date": 1568012400,
         "close_date": 1569261600
       },
       {
@@ -70,7 +73,8 @@
           "longitude": 174.766395
         },
         "prerequisites": 3,
-        "release_date":  1568012400,
+        "is_prerequisite": true,
+        "release_date": 1568012400,
         "active_date": 1569247200,
         "close_date": 1569261600
       }
@@ -78,8 +82,8 @@
     "events": [
       {
         "location": {
-        "latitude": -36.853216,
-        "longitude": 174.764893
+          "latitude": -36.853216,
+          "longitude": 174.764893
         },
         "description": "# Make a Meme \n\n[Head over to our Facebook Page to find out how to enter](https://www.facebook.com/events/657121748114217/)"
       },
@@ -88,27 +92,26 @@
           "latitude": -36.851620,
           "longitude": 174.765721
         },
-       "description": "# Shwoop Score\n\nReady for a week long challenge?\n\n[Head over to our Facebook Page to find out how to enter](https://www.facebook.com/events/657121748114217/)"
+        "description": "# Shwoop Score\n\nReady for a week long challenge?\n\n[Head over to our Facebook Page to find out how to enter](https://www.facebook.com/events/657121748114217/)"
       },
       {
         "location": {
           "latitude": -36.853304,
           "longitude": 174.765500
         },
-       "description": "# $2000 Ola Amazing Race \n\n1pm WF plaza \n\n[Head over to our Facebook Page to find out more details](https://www.facebook.com/events/657121748114217/)"
+        "description": "# $2000 Ola Amazing Race \n\n1pm WF plaza \n\n[Head over to our Facebook Page to find out more details](https://www.facebook.com/events/657121748114217/)"
       },
       {
         "location": {
           "latitude": -36.853154,
           "longitude": 174.767027
         },
-       "description": "# SHWOOP HQ\n\n Hikuwai Plaza\n\n[Head over to our Facebook Page to find out more details](https://www.facebook.com/events/657121748114217/)\n\n*Open 10am-5pm*"
+        "description": "# SHWOOP HQ\n\n Hikuwai Plaza\n\n[Head over to our Facebook Page to find out more details](https://www.facebook.com/events/657121748114217/)\n\n*Open 10am-5pm*"
       }
     ]
   },
   {
     "id": "challenge-aut-511",
-    "is_prerequisite": true,
     "prizes": [
       {
         "available": 800,
@@ -121,7 +124,6 @@
   },
   {
     "id": "challenge-aut-512",
-    "is_prerequisite": false,
     "prizes": [
       {
         "available": 40,
@@ -134,7 +136,6 @@
   },
   {
     "id": "challenge-aut-513",
-    "is_prerequisite": true,
     "prizes": [
       {
         "available": 500,
@@ -147,7 +148,6 @@
   },
   {
     "id": "challenge-aut-514",
-    "is_prerequisite": false,
     "prizes": [
       {
         "available": 20,
@@ -160,7 +160,6 @@
   },
   {
     "id": "challenge-aut-515",
-    "is_prerequisite": true,
     "prizes": [
       {
         "available": 20,
@@ -173,7 +172,6 @@
   },
   {
     "id": "challenge-aut-516",
-    "is_prerequisite": false,
     "prizes": [
       {
         "available": 1,
@@ -186,7 +184,6 @@
   },
   {
     "id": "challenge-aut-517",
-    "is_prerequisite": true,
     "prizes": [
       {
         "available": 1,

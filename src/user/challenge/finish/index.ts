@@ -31,6 +31,13 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
   const { beacon_id, map, challenge_id } = body;
 
   // Puzzle Check
+  const map_info = await AdventureApp.get_map(map);
+  if(!map_info)
+    return response(500, "Map not found");
+  const challenge_info = map_info.challenges.find((challenge) => challenge.id === challenge_id);
+  if(!challenge_info)
+    return response(400, "Challenge not found");
+
   const challenge = await AdventureApp.get_challenge(map, challenge_id);
   if(!challenge)
     return response(404, "Puzzle not found");
@@ -64,7 +71,7 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
 
   user.challenges.push(challenge_id);
 
-  if(challenge.is_prerequisite)
+  if(challenge_info.is_prerequisite)
     user.prerequisite_challenges_completed += 1;
 
   await Users.put(user);

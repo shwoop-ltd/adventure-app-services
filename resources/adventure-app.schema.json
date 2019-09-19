@@ -76,6 +76,11 @@
                 "prerequisites": {
                   "type": "integer",
                   "description": "The number of prerequisite challenges to complete before accessing this marker (note: is duplicate from challenge). Optional."
+                },
+                "is_prerequisite": {
+                  "type": "boolean",
+                  "description": "Whether this challenge counts as a prerequisite for other challenges (defaults to false if not present)",
+                  "default": "false"
                 }
               },
               "required": ["id", "location"],
@@ -126,11 +131,6 @@
           "radius": {
             "description": "Radius in metres in which the solution can be found",
             "type": "number"
-          },
-          "is_prerequisite": {
-            "type": "boolean",
-            "description": "Whether this challenge counts as a prerequisite for other challenges (defaults to false if not present)",
-            "default": "false"
           },
           "prizes": {
             "type": "array",
