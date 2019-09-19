@@ -28,7 +28,7 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
     return response(
       200,
       {
-        ...choices[0],
+        ...choices[Math.floor(Math.random() * choices.length)],
         prize: surveys.prize_given,
       },
     );
