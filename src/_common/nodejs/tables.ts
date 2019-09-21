@@ -1,6 +1,6 @@
 import { APIGatewayProxyEvent } from 'aws-lambda';
 import {
-  DBMapCollection, DBMapInfo, DBBeacon, DBChallenge, DBSurveyCollection, DBPrizeTypeCollection, DBUser, DBPrize, DBTelemetry, DBTreasure,
+  DBMapCollection, DBMapInfo, DBBeacon, DBChallenge, DBSurveyCollection, DBPrizeTypeCollection, DBUser, DBPrize, DBTelemetry, DBTreasure, DBMenuCollection,
 } from 'schemas';
 
 import { get_item, put_item } from './table-helpers';
@@ -13,6 +13,7 @@ const {
 } = process.env;
 
 export const AdventureApp = {
+  get_menu: () => get_item<DBMenuCollection>(TABLE_NAME, 'menu', true),
   get_maps: () => get_item<DBMapCollection>(TABLE_NAME, 'maps', true),
   get_map: (name: string) => get_item<DBMapInfo>(TABLE_NAME, `map-${name}`),
   get_beacon: (map: string, beacon: string) => get_item<DBBeacon>(TABLE_NAME, `beacon-${map}-${beacon}`),
@@ -83,7 +84,7 @@ export async function create_prize(
     const valid_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
     let id = "";
-    for(let i = 0; i < length; i += 1)
+    for (let i = 0; i < length; i += 1)
       id += valid_chars.charAt(Math.floor(Math.random() * valid_chars.length));
 
     return id;
@@ -100,9 +101,9 @@ export async function create_prize(
 
   await Prizes.put(prize);
 
-  if(update_user) {
+  if (update_user) {
     const user = await Users.get(user_id);
-    if(!user)
+    if (!user)
       throw new Error(`Expected user ${user} to exist`);
 
     user.prizes.push(prize.id);

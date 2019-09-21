@@ -28,6 +28,16 @@ export interface DBMapCollection {
   }[];
 }
 
+export interface DBMenuCollection {
+  id: "menu";
+  items: MenuItem[];
+}
+
+export interface MenuItem {
+  name: string;
+  text: string;
+}
+
 export interface DBMapInfo {
   id: string;
 

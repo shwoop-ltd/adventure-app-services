@@ -6,6 +6,25 @@ info:
 security:
   - CognitoAuthorizer: []
 paths:
+  /menu:
+    get:
+      summary: "Gets menu information"
+      operationId: get_menu
+      responses:
+        200:
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MenuInfo"
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetMaps.Arn}/invocations"
+        responses: {}
+        httpMethod: POST
+        type: aws_proxy
   /maps:
     get:
       summary: "Gets all available maps"
@@ -518,6 +537,34 @@ components:
           - "arn:aws:cognito-idp:ap-southeast-2:020479359034:userpool/ap-southeast-2_UyvhAfzW8"
         type: "cognito_user_pools"
   schemas:
+  export interface MenuInfo {
+  items: MenuItem[];
+}
+
+export interface MenuItem {
+  name: string;
+  text: string;
+}
+    MenuInfo:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/MenuItem"
+      required: [items]
+      additionalProperties: false
+    MenuItem:
+      type: object
+      properties:
+        name:
+          type: string
+          description: "Display Name"
+        text:
+          type: string
+          description: "Markdown Text"
+      required: [items]
+      additionalProperties: false
     MapSummary:
       type: object
       properties:
