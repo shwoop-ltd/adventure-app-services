@@ -94,26 +94,6 @@ Resources:
       ContentUri: ./build/_common
       CompatibleRuntimes: [nodejs10.x]
       RetentionPolicy: Delete
-  GetMenu:
-    Type: AWS::Serverless::Function
-    Properties:
-      Runtime: nodejs10.x
-      CodeUri: ./build/get-menu
-      Handler: index.handler
-      Layers:
-        - !Ref CommonCode
-      Policies:
-        - DynamoDBCrudPolicy:
-            TableName: !Ref AdventureTable
-      Events:
-        Api:
-          Type: Api
-          Properties:
-            RestApiId: !Ref AdventureApi
-            Path: /menu
-            Method: get
-            Auth:
-              Authorizer: "NONE"
   GetMaps:
     Type: AWS::Serverless::Function
     Properties:
