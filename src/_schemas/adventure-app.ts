@@ -98,6 +98,8 @@ export interface DBPrizeType {
   name: string;
   image_url: string;
 
+  code?: string;
+
   display_name: string;
   instance_name: string;
   description: string;
