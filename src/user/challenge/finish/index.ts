@@ -53,10 +53,10 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
   let response_object;
   if(prize_info.points) {
     user.points += prize_info.points;
-    response_object = create_points_prize_response(prize_info.points, 'treasure');
+    response_object = create_points_prize_response(prize_info.points, 'challenge');
   }
   else {
-    const prize = await create_prize(user_id, prize_info.prize, "treasure");
+    const prize = await create_prize(user_id, prize_info.prize, "challenge");
     user.prizes.push(prize.id);
     response_object = create_prize_response(prize);
   }
