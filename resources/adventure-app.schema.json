@@ -339,6 +339,10 @@
                 "redeem_info": {
                   "type": "string",
                   "description": "Information about how to redeem the item"
+                },
+                "code": {
+                  "type": "string",
+                  "description": "The redeemable code if applicable."
                 }
               },
               "required": [
@@ -365,6 +369,9 @@
           "id": {
             "type": "string",
             "pattern": "^treasure-(.*)-(.*)$"
+          },
+          "location": {
+            "$ref": "#/definitions/location"
           },
           "prizes": {
             "type": "array",
