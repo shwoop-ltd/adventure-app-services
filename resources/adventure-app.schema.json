@@ -26,12 +26,17 @@
                   }
                 }
               },
-              "required": ["name"],
+              "required": [
+                "name"
+              ],
               "additionalProperties": false
             }
           }
         },
-        "required": ["id", "maps"],
+        "required": [
+          "id",
+          "maps"
+        ],
         "additionalProperties": false
       },
       {
@@ -83,7 +88,10 @@
                   "default": "false"
                 }
               },
-              "required": ["id", "location"],
+              "required": [
+                "id",
+                "location"
+              ],
               "additionalProperties": false
             }
           },
@@ -101,12 +109,19 @@
                   "description": "Markdown text describing the event"
                 }
               },
-              "required": ["location", "description"],
+              "required": [
+                "location",
+                "description"
+              ],
               "additionalProperties": false
             }
           }
         },
-        "required": ["id", "challenges", "events"],
+        "required": [
+          "id",
+          "challenges",
+          "events"
+        ],
         "additionalProperties": false
       },
       {
@@ -127,6 +142,9 @@
           "image_url": {
             "type": "string",
             "format": "uri"
+          },
+          "is_prerequisite": {
+            "type": "boolean"
           },
           "radius": {
             "description": "Radius in metres in which the solution can be found",
@@ -150,7 +168,10 @@
                   "description": "If type is points, then the number of points awarded"
                 }
               },
-              "required": ["prize", "available"],
+              "required": [
+                "prize",
+                "available"
+              ],
               "additionalProperties": false
             }
           },
@@ -160,8 +181,24 @@
             "default": 0
           }
         },
-        "required": ["id", "solution", "prizes", "claimed"],
-        "anyOf": [{ "required": ["text"] }, { "required": ["image_url"] }],
+        "required": [
+          "id",
+          "solution",
+          "prizes",
+          "claimed"
+        ],
+        "anyOf": [
+          {
+            "required": [
+              "text"
+            ]
+          },
+          {
+            "required": [
+              "image_url"
+            ]
+          }
+        ],
         "additionalProperties": false
       },
       {
@@ -183,7 +220,10 @@
             ]
           }
         },
-        "required": ["id", "beacon_type"],
+        "required": [
+          "id",
+          "beacon_type"
+        ],
         "additionalProperties": false
       },
       {
@@ -211,7 +251,11 @@
                   "$ref": "#/definitions/location"
                 }
               },
-              "required": ["question", "answers", "location"],
+              "required": [
+                "question",
+                "answers",
+                "location"
+              ],
               "additionalProperties": false
             }
           },
@@ -228,11 +272,18 @@
                 "format": "integer"
               }
             },
-            "required": ["prize", "surveys_to_prize"],
+            "required": [
+              "prize",
+              "surveys_to_prize"
+            ],
             "additionalProperties": false
           }
         },
-        "required": ["id", "surveys", "prize_given"],
+        "required": [
+          "id",
+          "surveys",
+          "prize_given"
+        ],
         "additionalProperties": false
       },
       {
@@ -259,7 +310,10 @@
                 "display_name": {
                   "type": "string",
                   "description": "Name of item intended for users",
-                  "examples": ["Red Bull", "Burger"]
+                  "examples": [
+                    "Red Bull",
+                    "Burger"
+                  ]
                 },
                 "description": {
                   "type": "string",
@@ -268,11 +322,17 @@
                 "instance_name": {
                   "type": "string",
                   "description": "Name of a single instance of the item",
-                  "examples": ["a can of Red Bull", "a burger"]
+                  "examples": [
+                    "a can of Red Bull",
+                    "a burger"
+                  ]
                 },
                 "redeem_type": {
                   "type": "string",
-                  "enum": ["online", "in-store"],
+                  "enum": [
+                    "online",
+                    "in-store"
+                  ],
                   "description": "How the user should redeem this prize. If not present or null, it is assumed the user may not redeem themselves but must intead approach a campaign manager",
                   "default": null
                 },
@@ -293,7 +353,10 @@
             }
           }
         },
-        "required": ["id", "prizes"],
+        "required": [
+          "id",
+          "prizes"
+        ],
         "additionalProperties": false
       },
       {
@@ -322,7 +385,10 @@
                   "default": 1
                 }
               },
-              "required": ["prize", "available"],
+              "required": [
+                "prize",
+                "available"
+              ],
               "additionalProperties": false
             }
           },
@@ -331,7 +397,11 @@
             "description": "Number of prizes already claimed here"
           }
         },
-        "required": ["id", "prizes", "claimed"],
+        "required": [
+          "id",
+          "prizes",
+          "claimed"
+        ],
         "additionalProperties": false
       }
     ]

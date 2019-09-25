@@ -61,6 +61,8 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
     response_object = create_prize_response(prize);
   }
 
+  challenge.claimed += 1;
+
   user.challenges.push(challenge_id);
 
   // Puzzle Check
@@ -75,6 +77,8 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
     user.prerequisite_challenges_completed += 1;
 
   await Users.put(user);
+
+  await AdventureApp.put_challenge(challenge);
 
   // Return the prize
   return response(200, response_object);
