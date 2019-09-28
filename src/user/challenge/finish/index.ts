@@ -45,17 +45,13 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
   // Identify the prize that should be awarded.
   const prize_info = get_next_prize(challenge);
 
-  // If there were no prizes, or we have run out of prizes, user gets nothing.
-  if(!prize_info)
-    return response(200, false);
-
   // Create prize for user, or give user points
   let response_object;
-  if(prize_info.points) {
+  if(prize_info && prize_info.points) {
     user.points += prize_info.points;
     response_object = create_points_prize_response(prize_info.points, 'challenge');
   }
-  else {
+  else if(prize_info) {
     const prize = await create_prize(user_id, prize_info.prize, "challenge");
     user.prizes.push(prize.id);
     response_object = create_prize_response(prize);
@@ -81,5 +77,8 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
   await AdventureApp.put_challenge(challenge);
 
   // Return the prize
-  return response(200, response_object);
+  if(response_object)
+    return response(200, response_object);
+  else
+    return response(200, false);
 }
