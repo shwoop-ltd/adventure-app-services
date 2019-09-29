@@ -1,0 +1,77 @@
+[
+  {
+    "id": "map-aut",
+    "challenges": [
+      {
+        "id": 1,
+        "location": {
+          "latitude": -36.853029,
+          "longitude": 174.765805
+        },
+        "is_prerequisite": true,
+        "close_date": 1569650400
+      },
+      {
+        "id": 2,
+        "location": {
+          "latitude": -36.852604,
+          "longitude": 174.766517
+        },
+        "is_prerequisite": true,
+        "release_date": 1569614400,
+        "close_date": 1569650400,
+        "prerequisites": 1
+      },
+      {
+        "id": 3,
+        "location": {
+          "latitude": -36.853208,
+          "longitude": 174.765691
+        },
+        "is_prerequisite": true,
+        "release_date": 1569614400,
+        "close_date": 1569650400,
+        "prerequisites": 2
+      }
+    ],
+    "events": []
+  },
+  {
+    "id": "challenge-aut-1",
+    "prizes": [
+      {
+        "prize": "redbull-can",
+        "available": 200
+      }
+    ],
+    "claimed": 0,
+    "solution": "2000_0001",
+    "text": "Freeze to the sound of action\nFind the double eight and you've won\nI'm run by students, they're my cast\nLive on air, to have a blast"
+  },
+  {
+    "id": "challenge-aut-2",
+    "prizes": [],
+    "claimed": 0,
+    "solution": "2000_0002",
+    "text": "Here you’ll find student made cuisine\nPast 3PM it’s half price, best believe\nUnlike other cafes, this one is unique\nCabinets of treat await to intrigue"
+  },
+  {
+    "id": "challenge-aut-3",
+    "prizes": [],
+    "claimed": 0,
+    "solution": "2000_0003",
+    "text": "Full of delight, treats and sweets\nSnack pack bites, can’t be beat\nScan your card, it's not hard\nAt any hour, here to tend\nSweet or sour, I’m ready to …"
+  },
+  {
+    "id": "beacon-aut-2000_0001",
+    "beacon_type": "challenge-completer"
+  },
+  {
+    "id": "beacon-aut-2000_0002",
+    "beacon_type": "challenge-completer"
+  },
+  {
+    "id": "beacon-aut-2000_0003",
+    "beacon_type": "challenge-completer"
+  }
+]
