@@ -3,41 +3,41 @@
     "id": "prize-types",
     "prizes": [
       {
-        "display_name": "Red Bull",
+        "display_name": "Challenge 0 - Red Bull",
         "instance_name": "a can of Red Bull",
         "name": "redbull-can",
         "redeem_type": "in-store",
         "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/redbull-can.png",
         "redeem_info": "Visit the Shwoop HQ to collect your prize.",
-        "description": "A perfect 250ml refresher to keep you focused and awake during the study season."
+        "description": "A perfect 250ml refresher to keep you focused and awake during the study season.\nSmash that start button a few times to begin!"
       },
       {
-        "display_name": "Laneway Coffee",
+        "display_name": "Challenge 2 - Laneway Coffee",
         "instance_name": "a cup of Laneway Coffee",
         "name": "laneway-coffee",
         "redeem_type": "in-store",
         "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/laneway-coffee.png",
         "redeem_info": "Visit the store and show this page to the Cashier. If you are the cashier, press the button twice to delete the prize.",
-        "description": "A beautiful cup of Laneway brewed coffee, with stunning aromas to win you over."
+        "description": "A beautiful cup of Laneway brewed coffee, with stunning aromas to win you over.\nSmash that start button a few times to begin!"
       },
       {
-        "display_name": "3 Lime Unlocks",
+        "display_name": "Challenge 1 - 3 Lime Unlocks",
         "instance_name": "3 Lime Unlocks",
         "name": "lime-3unlocks",
         "redeem_type": "online",
         "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/Lime-Logo-3.png",
         "redeem_info": "Head over to the Lime app and enter your promo code inside the wallet.",
-        "description": "Get where you're going faster on a Lime.",
+        "description": "Get where you're going faster on a Lime.\nSmash that start button a few times to begin!",
         "code": "QZPBA4J6"
       },
       {
-        "display_name": "$30 The Market Voucher",
+        "display_name": "Challenge 3 - $30 The Market Voucher",
         "instance_name": "a $30 Voucher to The Market",
         "name": "market-30voucher",
         "redeem_type": "online",
-        "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/Noel-Leeming-Logo.png",
+        "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/The-Market-Logo.png",
         "redeem_info": "Next time you make a purchase at themarket.com enter this code during checkout for $30 off.",
-        "description": "Enjoy $30 off your next purchase at The Market.",
+        "description": "Enjoy $30 off your next purchase at The Market.\nSmash that start button a few times to begin!",
         "code": "TMAUT30U7W6"
       }
     ]
@@ -49,12 +49,12 @@
         "name": "aut",
         "area": [
           {
-            "latitude": -36.8528,
-            "longitude": 174.7656
+            "latitude": -36.851836,
+            "longitude": 174.765297
           },
           {
-            "latitude": -36.8543,
-            "longitude": 174.7677
+            "latitude": -36.854909,
+            "longitude": 174.768687
           }
         ]
       },

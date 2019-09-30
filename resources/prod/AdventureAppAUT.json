@@ -18,8 +18,7 @@
           "longitude": 174.767067
         },
         "is_prerequisite": true,
-        "close_date": 1569841199,
-        "prerequisites": 1
+        "close_date": 1569841199
       },
       {
         "id": 2,
@@ -28,8 +27,7 @@
           "longitude": 174.766468
         },
         "is_prerequisite": true,
-        "close_date": 1569841199,
-        "prerequisites": 2
+        "close_date": 1569841199
       },
       {
         "id": 3,
@@ -38,13 +36,12 @@
           "longitude": 174.765655
         },
         "is_prerequisite": true,
-        "close_date": 1569841199,
-        "prerequisites": 3
+        "close_date": 1569841199
       }
     ],
     "events": [
       {
-        "description": "# Welcome to Shwoop!\n\nThe Shwoop AUT Games week has begun! Keep an eye on the app over the week as more challenges are released with bigger and better prizes. If you are using an iPhone, ensure you are updated to iOS 13 for the best experience. If you've found the solution but your app isn't working, send us a selfie at the location on messenger. Send any questions or selfies [here](https://www.messenger.com/t/shwoopnz).",
+        "description": "# Welcome to Shwoop!\n\nThe Shwoop AUT Games week has begun! \nKeep an eye on the app over the week as more challenges are released with bigger and better prizes. \n\nIf you are using an iPhone, ensure you are updated to iOS 13 for the best experience. \nIf you've found the solution but your app isn't working, send us a selfie at the location on messenger. \n\nSend any questions or selfies [here](https://www.messenger.com/t/shwoopnz).",
         "location": {
           "latitude": -36.853881,
           "longitude": 174.766605
@@ -56,7 +53,7 @@
     "id": "challenge-aut-0",
     "claimed": 0,
     "solution": "1000_0001",
-    "text": "Come to the Shwoop headquarters and say hi to get your free can of Red Bull!",
+    "text": "Come to the Shwoop headquarters and say hi to get your free can of Red Bull!\n\nThe answer is somewhere within a 50m radius of this marker.",
     "prizes": [
       {
         "prize": "redbull-can",
@@ -68,7 +65,7 @@
     "id": "challenge-aut-1",
     "claimed": 0,
     "solution": "2000_0001",
-    "text": "I’m here by student choice, \nI’m here for student voice \nWith advocacy, clubs, and societies\nMaking\nyou happy is a priority\nCome say hi at the front of my reception\nFor inside the Plaza was my conception\nHere to help you hit graduation\nBecause I’m your student...",
+    "text": "I’m here by student choice, \nI’m here for student voice \nWith advocacy, clubs, and societies\nMaking\nyou happy is a priority\nCome say hi at the front of my reception\nFor inside the Plaza was my conception\nHere to help you hit graduation\nBecause I’m your student...\n\nThe answer is somewhere within a 50m radius of this marker.",
     "prizes": [
       {
         "prize": "lime-3unlocks",
@@ -80,7 +77,7 @@
     "id": "challenge-aut-2",
     "claimed": 0,
     "solution": "2000_0002",
-    "text": "Freeze to the sound of action\nFind the double eight and you've won\nI'm run by students, they're my cast\nLive on air, to have a blast\nInto my mic, speak nice and slow\nStatic, the student…",
+    "text": "Freeze to the sound of action\nFind the double eight and you've won\nI'm run by students, they're my cast\nLive on air, to have a blast\nInto my mic, speak nice and slow\nStatic, the student…\n\nThe answer is somewhere within a 50m radius of this marker.",
     "prizes": [
       {
         "prize": "laneway-coffee",
@@ -92,7 +89,7 @@
     "id": "challenge-aut-3",
     "claimed": 0,
     "solution": "2000_0003",
-    "text": "Here you’ll find student made cuisine\nPast 3PM it’s half price, best believe\nUnlike other cafes, this one is unique\nCabinets of treat await to intrigue\nWhile although I don’t sell keto\nThey call me...",
+    "text": "Here you’ll find student made cuisine\nPast 3PM it’s half price, best believe\nUnlike other cafes, this one is unique\nCabinets of treat await to intrigue\nWhile although I don’t sell keto\nThey call me...\n\nThe answer is somewhere within a 50m radius of this marker.",
     "prizes": [
       {
         "prize": "market-30voucher",
