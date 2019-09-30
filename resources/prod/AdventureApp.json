@@ -3,7 +3,7 @@
     "id": "prize-types",
     "prizes": [
       {
-        "display_name": "Challenge 0 - Red Bull",
+        "display_name": "Red Bull",
         "instance_name": "a can of Red Bull",
         "name": "redbull-can",
         "redeem_type": "in-store",
@@ -12,7 +12,7 @@
         "description": "A perfect 250ml refresher to keep you focused and awake during the study season.\nSmash that start button a few times to begin!"
       },
       {
-        "display_name": "Challenge 2 - Laneway Coffee",
+        "display_name": "Laneway Coffee",
         "instance_name": "a cup of Laneway Coffee",
         "name": "laneway-coffee",
         "redeem_type": "in-store",
@@ -21,7 +21,7 @@
         "description": "A beautiful cup of Laneway brewed coffee, with stunning aromas to win you over.\nSmash that start button a few times to begin!"
       },
       {
-        "display_name": "Challenge 1 - 3 Lime Unlocks",
+        "display_name": "3 Lime Unlocks",
         "instance_name": "3 Lime Unlocks",
         "name": "lime-3unlocks",
         "redeem_type": "online",
@@ -31,7 +31,7 @@
         "code": "QZPBA4J6"
       },
       {
-        "display_name": "Challenge 3 - $30 The Market Voucher",
+        "display_name": "$30 The Market Voucher",
         "instance_name": "a $30 Voucher to The Market",
         "name": "market-30voucher",
         "redeem_type": "online",
@@ -39,6 +39,16 @@
         "redeem_info": "Next time you make a purchase at themarket.com enter this code during checkout for $30 off.",
         "description": "Enjoy $30 off your next purchase at The Market.\nSmash that start button a few times to begin!",
         "code": "TMAUT30U7W6"
+      },
+      {
+        "display_name": "$50 The Market Voucher",
+        "instance_name": "a $50 Voucher to The Market",
+        "name": "market-50voucher",
+        "redeem_type": "online",
+        "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/The-Market-Logo.png",
+        "redeem_info": "Next time you make a purchase at themarket.com enter this code during checkout for $50 off.",
+        "description": "Enjoy $50 off your next purchase at The Market.\nSmash that start button a few times to begin!",
+        "code": "TMAUT5065HU"
       }
     ]
   },
