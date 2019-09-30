@@ -7,6 +7,7 @@
     "start": "concurrently --kill-others \"tsc --watch --p lambda\" \"sam local start-api\"",
     "test": "mocha -r ts-node/register **/*.spec.ts --timeout 15000",
     "upload-db": "ts-node ./scripts/upload-database.ts",
+    "remove-prerequisites": "ts-node ./scripts/remove-prerequisites.ts",
     "deploy-dev": "./scripts/deploy.ps1 Dev",
     "deploy-prod": "./scripts/deploy.ps1 Prod"
   },
