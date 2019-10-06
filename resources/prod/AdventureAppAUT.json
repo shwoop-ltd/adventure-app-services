@@ -8,184 +8,100 @@
           "latitude": -36.853423,
           "longitude": 174.766933
         },
-        "is_prerequisite": false,
-        "release_date": 1569481200,
-        "close_date": 1569952800
+        "is_prerequisite": true,
+        "prerequisites": 0,
+        "release_date": 1570388400,
+        "active_date": 1570395600,
+        "close_date": 1570424400
       },
       {
-        "id": 4,
+        "id": 2,
         "location": {
-          "latitude": -36.853926,
-          "longitude": 174.766334
+          "latitude": -36.852569,
+          "longitude": 174.766468
         },
         "is_prerequisite": true,
-        "release_date": 1569481200,
-        "close_date": 1569952800
-      },
-      {
-        "id": 5,
-        "location": {
-          "latitude": -36.85251,
-          "longitude": 174.766487
-        },
-        "is_prerequisite": true,
-        "release_date": 1569481200,
         "prerequisites": 1,
-        "close_date": 1569952800
+        "release_date": 1570388400,
+        "active_date": 0,
+        "close_date": 1570424400
       },
       {
-        "id": 6,
+        "id": 3,
         "location": {
-          "latitude": -36.85335,
-          "longitude": 174.767358
+          "latitude": -36.853336,
+          "longitude": 174.765655
         },
         "is_prerequisite": true,
-        "release_date": 1569481200,
-        "active_date": 1569934800,
-        "prerequisites": 1,
-        "close_date": 1569952800
-      },
-      {
-        "id": 7,
-        "location": {
-          "latitude": -36.853186,
-          "longitude": 174.765988
-        },
-        "is_prerequisite": true,
-        "release_date": 1569481200,
         "prerequisites": 2,
-        "close_date": 1569952800
-      },
-      {
-        "id": 8,
-        "location": {
-          "latitude": -36.853778,
-          "longitude": 174.766715
-        },
-        "is_prerequisite": true,
-        "release_date": 1569481200,
-        "active_date": 1569934800,
-        "prerequisites": 2,
-        "close_date": 1569952800
+        "release_date": 1570388400,
+        "active_date": 1570395600,
+        "close_date": 1570424400
       }
     ],
     "events": [
       {
-        "description": "# Welcome to Shwoop!\n\nThe Shwoop AUT Games week has begun! \nKeep an eye on the app over the week as more challenges are released with bigger and better prizes. \n\nIf you are using an iPhone, ensure you are updated to iOS 13 for the best experience. \nIf you've found the solution but your app isn't working, send us a selfie at the location on messenger. \n\nSend any questions or selfies here. \n\n [https://www.facebook.com/shwoopnz/](https://www.facebook.com/shwoopnz/).",
-        "location": {
-          "latitude": -36.853881,
-          "longitude": 174.766605
-        }
-      },
-      {
-        "description": "# 3x $99 Headphones\n\nAUT Riff Off\n\n12.30pm Hikuwai Plaza \n\n[Headover To The Shwoop Event Page.](https://www.facebook.com/events/638009066606335/)",
-        "location": {
-          "latitude": -36.853483,
-          "longitude": 174.766368
-        }
-      },
-      {
-        "description": "![the market banner](https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/The-Market-Logo.png)\n\n# $500 The Market Gift Card\n\nTake 15 seconds to enter your details and go in the draw to win a $500 shopoing spree from The Market\n\n[Follow This Link To The Market](https://themarket.com/about/aut-shwoop/?utm_source=aut_shwoop&utm_medium=banner&utm_campaign=500_dollar_giveaway&fbclid=IwAR1-_eVh9CqwZqrYgmH0coVAt44cCQQ8Iw3SJ01Bo00kgSwQTDxmNoQZrXs)",
         "location": {
           "latitude": -36.853216,
           "longitude": 174.764893
-        }
+        },
+        "description": "![the market banner](https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/The-Market-Logo.png)\n# $500 The Market Gift Card\n\nTake 15 seconds to enter your details and go in the draw to win a $500 shopoing spree from The Market\n\n[Follow This Link To The Market](https://themarket.com/about/aut-shwoop/?utm_source=aut_shwoop&utm_medium=banner&utm_campaign=500_dollar_giveaway&fbclid=IwAR1-_eVh9CqwZqrYgmH0coVAt44cCQQ8Iw3SJ01Bo00kgSwQTDxmNoQZrXs)"
       },
       {
-        "description": "# Make Me Laugh\n\nAt 12PM you you will find a shwoopian in purple here in Hikuwai Plaza.\nMake them laugh and win a prize!",
         "location": {
-          "latitude": -36.853365,
-          "longitude": 174.766957
-        }
+          "latitude": -36.853533,
+          "longitude": 174.767163
+        },
+        "description": "# Shwoop HQ\n\nCome say hello to the friendly staff at AUTSA to recieve your Red Bull or use your tokens from last week."
       }
     ]
   },
   {
     "id": "challenge-aut-0",
+    "solution": "a7a9_fb8f",
     "claimed": 0,
-    "solution": "1000_0001",
-    "text": "Come to the Shwoop headquarters and say \"Hi!\" to get your free can of Red Bull!\n\nThe answer is somewhere within a 50m radius of this marker.",
     "prizes": [
       {
         "prize": "redbull-can",
-        "available": 5000
-      }
-    ]
-  },
-  {
-    "id": "challenge-aut-4",
-    "claimed": 0,
-    "solution": "2000_0001",
-    "text": "Been here a while, maths makes me smile\nI sit on Paul, many pass nightfall\nThese glass doors are a gateway to STEM\nFind my main entrance and walk right in",
-    "prizes": [
-      {
-        "prize": "laneway-coffee",
-        "available": 500
-      }
-    ]
-  },
-  {
-    "id": "challenge-aut-5",
-    "claimed": 0,
-    "solution": "2000_0002",
-    "text": "A Foyer as grand as the Piano within\nReceptionist and hospitality, all akin\nFour seasons in one day, it's all built-in\nYour gift awaits… go win",
-    "prizes": [
-      {
-        "prize": "lime-3unlocks",
-        "available": 300
-      }
-    ]
-  },
-  {
-    "id": "challenge-aut-6",
-    "claimed": 0,
-    "solution": "2000_0003",
-    "text": "Visit the friendly staff at Laneway Cafe, inside WZ, off Symonds street and tell them the password \"Saint Jerome\" for the answer to this prize",
-    "prizes": [
-      {
-        "prize": "laneway-coffee",
         "available": 200
       }
-    ]
+    ],
+    "text": "Come to the AUTSA Front Reception (Shwoop's HQ) and say \"Hi!\" to get your free can of Red Bull!"
   },
   {
-    "id": "challenge-aut-7",
+    "id": "challenge-aut-2",
+    "solution": "cb2c_e8f9",
     "claimed": 0,
-    "solution": "1000_0002",
-    "text": "Full of delight with treats and sweets\nSnack pack bites, that can’t be beat\nScan your card (it's not too hard)\nPress the buttons and then you'll eat.",
     "prizes": [
       {
-        "prize": "market-50voucher",
+        "prize": "laneway-coffee",
+        "available": 800
+      }
+    ],
+    "text": "Freeze to the sound of action\nFind the double eight and you've won\nI'm run by students, they're my cast\nLive on air, to have a blast\nInto my mic, speak nice and slow\\For the student radio"
+  },
+  {
+    "id": "challenge-aut-3",
+    "solution": "e040_f05d",
+    "claimed": 0,
+    "prizes": [
+      {
+        "prize": "aut-lime-3unlocks",
         "available": 10
       }
-    ]
+    ],
+    "text": "Here you’ll find student made cuisine\nPast 3PM it’s half price, best believe\nUnlike other cafes, this one is unique\nCabinets of treats await to intrigue\nWhile although I don’t sell keto\nThey call me..."
   },
   {
-    "id": "challenge-aut-8",
-    "claimed": 0,
-    "solution": "1000_0003",
-    "text": "At Hikuwai plaza you will find\n a purple lime, one of a kind\nCome up close and read the sign\nThen the answer, you will divine",
-    "prizes": [
-      {
-        "prize": "lime-3unlocks",
-        "available": 50
-      }
-    ]
-  },
-  {
-    "id": "beacon-aut-1000_0001",
+    "id": "beacon-aut-a7a9_fb8f",
     "beacon_type": "challenge-completer"
   },
   {
-    "id": "beacon-aut-2000_0001",
+    "id": "beacon-aut-cb2c_e8f9",
     "beacon_type": "challenge-completer"
   },
   {
-    "id": "beacon-aut-2000_0002",
-    "beacon_type": "challenge-completer"
-  },
-  {
-    "id": "beacon-aut-2000_0003",
+    "id": "beacon-aut-e040_f05d",
     "beacon_type": "challenge-completer"
   }
 ]

@@ -1,15 +1,226 @@
 [
   {
     "id": "map-uoa",
-    "challenges": [],
+    "challenges": [
+      {
+        "id": 10,
+        "location": {
+          "latitude": -36.852746,
+          "longitude": 174.771313
+        },
+        "is_prerequisite": true,
+        "prerequisites": 0,
+        "release_date": 1570388400,
+        "active_date": 1570395600,
+        "close_date": 1570510800
+      },
+      {
+        "id": 11,
+        "location": {
+          "latitude": -36.853018,
+          "longitude": 174.77172
+        },
+        "is_prerequisite": true,
+        "prerequisites": 1,
+        "release_date": 1570388400,
+        "active_date": 1570395600,
+        "close_date": 1570510800
+      },
+      {
+        "id": 12,
+        "location": {
+          "latitude": -36.853076,
+          "longitude": 174.770782
+        },
+        "is_prerequisite": true,
+        "prerequisites": 2,
+        "release_date": 1570388400,
+        "active_date": 1570395600,
+        "close_date": 1570510800
+      },
+      {
+        "id": 13,
+        "location": {
+          "latitude": -36.853114,
+          "longitude": 174.771173
+        },
+        "is_prerequisite": true,
+        "prerequisites": 3,
+        "release_date": 1570388400,
+        "active_date": 1570395600,
+        "close_date": 1570510800
+      },
+      {
+        "id": 14,
+        "location": {
+          "latitude": -36.852574,
+          "longitude": 174.770149
+        },
+        "is_prerequisite": true,
+        "prerequisites": 4,
+        "release_date": 1570388400,
+        "active_date": 1570395600,
+        "close_date": 1570510800
+      },
+      {
+        "id": 15,
+        "location": {
+          "latitude": -36.852846,
+          "longitude": 174.771281
+        },
+        "is_prerequisite": false,
+        "prerequisites": 5,
+        "release_date": 1570388400,
+        "active_date": 1570485600,
+        "close_date": 1570510800
+      },
+      {
+        "id": 16,
+        "location": {
+          "latitude": -36.852611,
+          "longitude": 174.771415
+        },
+        "is_prerequisite": true,
+        "prerequisites": 5,
+        "release_date": 1570388400,
+        "active_date": 1570496400,
+        "close_date": 1570510800
+      }
+    ],
     "events": [
       {
-        "description": "# Welcome to Shwoop!\n\nShwoop is not currently available at the University of Auckland. Get ready for Monday the 7th of October for UoA Games Week! We're excited to bring Shwoop and our brand partner's lovely prizes to the campus, so be on the look out for posters and our people in purple for more information.\n\n\nSign up to our facebook event [here](https://www.facebook.com/events/2319626611701210/).",
         "location": {
-          "latitude": -36.851864,
-          "longitude": 174.770347
-        }
+          "latitude": -36.852767,
+          "longitude": 174.771445
+        },
+        "description": "# Shwoop HQ\n\n Come through to John Wood Plaza and say hi to our team. To redeem prizes, or ask question just look out for our volunteers in Shwoop Merch."
+      },
+      {
+        "location": {
+          "latitude": -36.85263,
+          "longitude": 174.771001
+        },
+        "description": "![the market banner](https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/The-Market-Logo.png)\n# $500 The Market Gift Card\n\nTake 15 seconds to enter your details and go in the draw to win a $500 shopoing spree from The Market\n\n[Follow This Link To The Market](https://themarket.com/about/aut-shwoop/?utm_source=aut_shwoop&utm_medium=banner&utm_campaign=500_dollar_giveaway&fbclid=IwAR1-_eVh9CqwZqrYgmH0coVAt44cCQQ8Iw3SJ01Bo00kgSwQTDxmNoQZrXs)"
+      },
+      {
+        "location": {
+          "latitude": -36.851929,
+          "longitude": 174.769776
+        },
+        "description": "# Coffee Taste Testing Competition\n\n3 pm at Shaky Isles\n\n[Follow This Link For More Information](https://www.facebook.com/events/545636192673260/)"
       }
     ]
+  },
+  {
+    "id": "challenge-uoa-10",
+    "solution": "f05e_72b6",
+    "claimed": 0,
+    "prizes": [
+      {
+        "prize": "shaky-isles-coffee",
+        "available": 1000
+      }
+    ],
+    "text": "To get your free coffee, come to the green grass patch outside the OGGB and say \"Hi!\" to our team at the stall."
+  },
+  {
+    "id": "challenge-uoa-11",
+    "solution": "c9b5_6b1f",
+    "claimed": 0,
+    "prizes": [
+      {
+        "prize": "taco-joint-image",
+        "available": 250
+      }
+    ],
+    "text": "Walk over to the OGGB ping pong table to earn your prize. Make sure bluetooth is on."
+  },
+  {
+    "id": "challenge-uoa-12",
+    "solution": "a8de_08ce",
+    "claimed": 0,
+    "prizes": [
+      {
+        "prize": "uoa-lime-3unlocks-image",
+        "available": 400
+      }
+    ],
+    "text": "Take a photo of the purple Lime around the corner and send it to us on Messenger."
+  },
+  {
+    "id": "challenge-uoa-13",
+    "solution": "8ef1_4fb8",
+    "claimed": 0,
+    "prizes": [
+      {
+        "prize": "nothing",
+        "available": 0
+      }
+    ],
+    "text": "Now I've got a riddle,\n\nHome of innovation\nBusiness creations\nMy colour is orange\nOpen my door hinge\nDistance divided by time\n$1,000 my challenge"
+  },
+  {
+    "id": "challenge-uoa-14",
+    "solution": "c255_36a3",
+    "claimed": 0,
+    "prizes": [
+      {
+        "prize": "ha-poke",
+        "available": 100
+      }
+    ],
+    "text": "Be one of the first 100 people to come to the Unleash Space in the engineering building, feel free to use google maps, and find the staff wearing Shwoop shirts to earn your prize."
+  },
+  {
+    "id": "challenge-uoa-15",
+    "solution": "7216_2e0e",
+    "claimed": 0,
+    "prizes": [
+      {
+        "prize": "jewel-of-bombay",
+        "available": 50
+      }
+    ],
+    "text": "If you’ve completed all the other challenges, you can come over to the Shwoop stall and try make one of our volunteers laugh. If you can, they’ll give you a budgie meal from Jewel of Bombay."
+  },
+  {
+    "id": "challenge-uoa-16",
+    "solution": "4804_27d8",
+    "claimed": 0,
+    "prizes": [
+      {
+        "prize": "sony-headphones",
+        "available": 3
+      }
+    ],
+    "text": "Journey ends\nSteps began\nFind playground\nWe have found\nFinish loop\nTo regroup\nRhymes with"
+  },
+  {
+    "id": "beacon-uoa-f05e_72b6",
+    "beacon_type": "challenge-completer"
+  },
+  {
+    "id": "beacon-uoa-c9b5_6b1f",
+    "beacon_type": "challenge-completer"
+  },
+  {
+    "id": "beacon-uoa-a8de_08ce",
+    "beacon_type": "challenge-completer"
+  },
+  {
+    "id": "beacon-uoa-8ef1_4fb8",
+    "beacon_type": "challenge-completer"
+  },
+  {
+    "id": "beacon-uoa-c255_36a3",
+    "beacon_type": "challenge-completer"
+  },
+  {
+    "id": "beacon-uoa-7216_2e0e",
+    "beacon_type": "challenge-completer"
+  },
+  {
+    "id": "beacon-uoa-4804_27d8",
+    "beacon_type": "challenge-completer"
   }
 ]
