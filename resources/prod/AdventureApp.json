@@ -326,7 +326,7 @@
         "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/Gong-Cha-Logo.png"
       },
       {
-        "name": "sony-headphones",
+        "name": "noel-leaming-sony-headphones",
         "display_name": "Sony Headphones",
         "redeem_type": "in-store",
         "instance_name": "a pair of Sony Headphones",
@@ -335,7 +335,7 @@
         "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/Noel-Leeming-Logo.png"
       },
       {
-        "name": "belkin-power-bank",
+        "name": "noel-leaming-belkin-power-bank",
         "display_name": "Belkin Power Bank From Our Friends At Noel Leaming",
         "redeem_type": "in-store",
         "instance_name": "a $70 Belkin Power Bank",
@@ -349,27 +349,17 @@
         "redeem_type": "in-store",
         "instance_name": "To be able to proceed to the next challenge",
         "description": "Complete this challenge and earn ability to proceed to the next challenge",
-        "redeem_info": "This is not a prize. Press delete twice to remove from your map.",
+        "redeem_info": "Delete this prize, it does not award anything.",
         "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/MAIN+LOGO+shwoop-logo-gradient-massive+shwoop+logo+file.png"
       },
       {
         "name": "taco-joint-image",
-        "display_name": "Nacho Cheese meal",
+        "display_name": "Nachos Cheese meal",
         "redeem_type": "in-store",
         "instance_name": "A Taco Joint Nacho Cheese dish",
-        "description": "Find the location of this image and win a Nacho Cheese meal. There is little better in life than a traditional tex-mex meal. ¿Te gusta la comida mexicana?",
+        "description": "Cheese and nachos. There is little better in life than a traditional tex-mex meal. ¿Te gusta la comida mexicana?",
         "redeem_info": "Visit the store and show this page to the Cashier. If you are the cashier, press the button twice to delete the prize.",
         "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/location-2.png"
-      },
-      {
-        "name": "uoa-lime-3unlocks-image",
-        "display_name": "3 Lime Unlocks",
-        "redeem_type": "online",
-        "instance_name": "3 Lime Unlocks",
-        "code": "Y3YHCFCJ",
-        "description": "Get where you're going faster on a Lime.",
-        "redeem_info": "Head over to the Lime app and enter your promo code inside the wallet.",
-        "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/location-4.png"
       }
     ]
   },

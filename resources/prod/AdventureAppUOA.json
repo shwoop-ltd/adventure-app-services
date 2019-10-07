@@ -10,81 +10,93 @@
         },
         "is_prerequisite": true,
         "prerequisites": 0,
-        "release_date": 1570388400,
-        "active_date": 1570395600,
-        "close_date": 1570510800
+        "release_date": 1570474800,
+        "active_date": 1570478400,
+        "close_date": 1570759200
       },
       {
-        "id": 11,
+        "id": 21,
         "location": {
-          "latitude": -36.853018,
-          "longitude": 174.77172
+          "latitude": -36.852785,
+          "longitude": 174.771998
         },
         "is_prerequisite": true,
         "prerequisites": 1,
-        "release_date": 1570388400,
-        "active_date": 1570395600,
-        "close_date": 1570510800
+        "release_date": 1570474800,
+        "active_date": 1570478400,
+        "close_date": 1570413600
       },
       {
-        "id": 12,
+        "id": 22,
         "location": {
-          "latitude": -36.853076,
-          "longitude": 174.770782
+          "latitude": -36.851865,
+          "longitude": 174.769855
         },
         "is_prerequisite": true,
         "prerequisites": 2,
-        "release_date": 1570388400,
-        "active_date": 1570395600,
-        "close_date": 1570510800
+        "release_date": 1570474800,
+        "active_date": 1570478400,
+        "close_date": 1570413600
       },
       {
-        "id": 13,
+        "id": 23,
         "location": {
-          "latitude": -36.853114,
-          "longitude": 174.771173
+          "latitude": -36.851711,
+          "longitude": 174.770345
         },
         "is_prerequisite": true,
         "prerequisites": 3,
-        "release_date": 1570388400,
-        "active_date": 1570395600,
-        "close_date": 1570510800
+        "release_date": 1570474800,
+        "active_date": 1570478400,
+        "close_date": 1570413600
       },
       {
-        "id": 14,
+        "id": 24,
         "location": {
-          "latitude": -36.852574,
-          "longitude": 174.770149
+          "latitude": -36.852123,
+          "longitude": 174.769586
         },
         "is_prerequisite": true,
         "prerequisites": 4,
-        "release_date": 1570388400,
-        "active_date": 1570395600,
-        "close_date": 1570510800
-      },
-      {
-        "id": 15,
-        "location": {
-          "latitude": -36.852846,
-          "longitude": 174.771281
-        },
-        "is_prerequisite": false,
-        "prerequisites": 5,
-        "release_date": 1570388400,
+        "release_date": 1570474800,
         "active_date": 1570485600,
-        "close_date": 1570510800
+        "close_date": 1570413600
       },
       {
-        "id": 16,
+        "id": 25,
         "location": {
-          "latitude": -36.852611,
-          "longitude": 174.771415
+          "latitude": -36.852879,
+          "longitude": 174.768383
         },
         "is_prerequisite": true,
         "prerequisites": 5,
-        "release_date": 1570388400,
-        "active_date": 1570496400,
-        "close_date": 1570510800
+        "release_date": 1570474800,
+        "active_date": 1570485600,
+        "close_date": 1570413600
+      },
+      {
+        "id": 26,
+        "location": {
+          "latitude": -36.851846,
+          "longitude": 174.770543
+        },
+        "is_prerequisite": true,
+        "prerequisites": 6,
+        "release_date": 1570474800,
+        "active_date": 1570485600,
+        "close_date": 1570413600
+      },
+      {
+        "id": 27,
+        "location": {
+          "latitude": -36.851836,
+          "longitude": 174.768686
+        },
+        "is_prerequisite": true,
+        "prerequisites": 7,
+        "release_date": 1570474800,
+        "active_date": 1570492800,
+        "close_date": 1570413600
       }
     ],
     "events": [
@@ -108,12 +120,26 @@
           "longitude": 174.769776
         },
         "description": "# Coffee Taste Testing Competition\n\n3 pm at Shaky Isles\n\n[Follow This Link For More Information](https://www.facebook.com/events/545636192673260/)"
+      },
+      {
+        "location": {
+          "latitude": -36.851959,
+          "longitude": 174.769917
+        },
+        "description": "![tacojoint](https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/location-2.png)\n# Taco Joint Tuesday Takeover\n\n3 pm at Taco Joint\n\n[Follow This Link For More Information](https://www.facebook.com/events/1259178574255183/)"
+      },
+      {
+        "location": {
+          "latitude": -36.851261,
+          "longitude": 174.771445
+        },
+        "description": "![Ha-poke](https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/ha-poke.png)\n# Ha Poke for a Fortnite\n\n3 pm at Ha-Poke\n\n[Follow This Link For More Information](https://www.facebook.com/events/1419331468216741/)"
       }
     ]
   },
   {
     "id": "challenge-uoa-10",
-    "solution": "f05e_72b6",
+    "solution": "F05E_72B6",
     "claimed": 0,
     "prizes": [
       {
@@ -121,35 +147,35 @@
         "available": 1000
       }
     ],
-    "text": "To get your free coffee, come to the green grass patch outside the OGGB and say \"Hi!\" to our team at the stall."
+    "text": "As per every day (except Thursday) come say hi at our stall."
   },
   {
-    "id": "challenge-uoa-11",
-    "solution": "c9b5_6b1f",
+    "id": "challenge-uoa-21",
+    "solution": "C9B5_6B1F",
     "claimed": 0,
     "prizes": [
       {
-        "prize": "taco-joint-image",
+        "prize": "taco-joint",
         "available": 250
       }
     ],
-    "text": "Walk over to the OGGB ping pong table to earn your prize. Make sure bluetooth is on."
+    "text": "Send us a photo of this place on Messenger. After this challenge, some of the challenges will be riddles and will require Bluetooth to be enabled so you can magically get a notification when at the location"
   },
   {
-    "id": "challenge-uoa-12",
-    "solution": "a8de_08ce",
+    "id": "challenge-uoa-22",
+    "solution": "A8DE_08CE",
     "claimed": 0,
     "prizes": [
       {
-        "prize": "uoa-lime-3unlocks-image",
+        "prize": "uoa-lime-3unlocks",
         "available": 400
       }
     ],
-    "text": "Take a photo of the purple Lime around the corner and send it to us on Messenger."
+    "text": "Watch me shake\nHear me grind.\nNow you wake\nPeace of mind. \nExams are near\nAnswer is clear\nAdventure to isle\nIt’s worthwhile."
   },
   {
-    "id": "challenge-uoa-13",
-    "solution": "8ef1_4fb8",
+    "id": "challenge-uoa-23",
+    "solution": "8EF1_4FB8",
     "claimed": 0,
     "prizes": [
       {
@@ -157,70 +183,86 @@
         "available": 0
       }
     ],
-    "text": "Now I've got a riddle,\n\nHome of innovation\nBusiness creations\nMy colour is orange\nOpen my door hinge\nDistance divided by time\n$1,000 my challenge"
+    "text": "A million stories,\nAll I can tell\nWhen you’re here\nYou’re under a spell\nNo hush muttered\nSound is uncluttered\nYou can lend my books\nOr study in my nooks"
   },
   {
-    "id": "challenge-uoa-14",
-    "solution": "c255_36a3",
+    "id": "challenge-uoa-24",
+    "solution": "C255_36A3",
     "claimed": 0,
     "prizes": [
       {
-        "prize": "ha-poke",
+        "prize": "gong-cha",
         "available": 100
       }
     ],
-    "text": "Be one of the first 100 people to come to the Unleash Space in the engineering building, feel free to use google maps, and find the staff wearing Shwoop shirts to earn your prize."
+    "text": "Here’s a photo, find the area"
   },
   {
-    "id": "challenge-uoa-15",
-    "solution": "7216_2e0e",
+    "id": "challenge-uoa-25",
+    "solution": "7216_2E0E",
     "claimed": 0,
     "prizes": [
       {
-        "prize": "jewel-of-bombay",
-        "available": 50
+        "prize": "nothing",
+        "available": 0
       }
     ],
-    "text": "If you’ve completed all the other challenges, you can come over to the Shwoop stall and try make one of our volunteers laugh. If you can, they’ll give you a budgie meal from Jewel of Bombay."
+    "text": "Send us a photo of this place on Instagram. @shwoopapp"
   },
   {
-    "id": "challenge-uoa-16",
-    "solution": "4804_27d8",
+    "id": "challenge-uoa-26",
+    "solution": "4804_27D8",
     "claimed": 0,
     "prizes": [
       {
-        "prize": "sony-headphones",
+        "prize": "noel-leaming-belkin-power-bank",
+        "available": 5
+      }
+    ],
+    "text": "Photo Clue. Redeem the prize from the Shwoop stall. First 5 people"
+  },
+  {
+    "id": "challenge-uoa-27",
+    "solution": "A7A9_FB8F",
+    "claimed": 0,
+    "prizes": [
+      {
+        "prize": "noel-leaming-sony-headphones",
         "available": 3
       }
     ],
-    "text": "Journey ends\nSteps began\nFind playground\nWe have found\nFinish loop\nTo regroup\nRhymes with"
+    "text": "I’m here by your choice\nI’m here for your voice\nMy party in the park\nIs o'week hallmark\nI’m student creation\nYour association"
   },
   {
-    "id": "beacon-uoa-f05e_72b6",
+    "id": "beacon-uoa-F05E_72B6",
     "beacon_type": "challenge-completer"
   },
   {
-    "id": "beacon-uoa-c9b5_6b1f",
+    "id": "beacon-uoa-C9B5_6B1F",
     "beacon_type": "challenge-completer"
   },
   {
-    "id": "beacon-uoa-a8de_08ce",
+    "id": "beacon-uoa-A8DE_08CE",
     "beacon_type": "challenge-completer"
   },
   {
-    "id": "beacon-uoa-8ef1_4fb8",
+    "id": "beacon-uoa-8EF1_4FB8",
     "beacon_type": "challenge-completer"
   },
   {
-    "id": "beacon-uoa-c255_36a3",
+    "id": "beacon-uoa-C255_36A3",
     "beacon_type": "challenge-completer"
   },
   {
-    "id": "beacon-uoa-7216_2e0e",
+    "id": "beacon-uoa-7216_2E0E",
     "beacon_type": "challenge-completer"
   },
   {
-    "id": "beacon-uoa-4804_27d8",
+    "id": "beacon-uoa-4804_27D8",
+    "beacon_type": "challenge-completer"
+  },
+  {
+    "id": "beacon-uoa-A7A9_FB8F",
     "beacon_type": "challenge-completer"
   }
 ]

@@ -8,35 +8,59 @@
           "latitude": -36.853423,
           "longitude": 174.766933
         },
-        "is_prerequisite": true,
+        "is_prerequisite": false,
         "prerequisites": 0,
-        "release_date": 1570388400,
-        "active_date": 1570395600,
-        "close_date": 1570424400
+        "release_date": 1570474800,
+        "active_date": 1570482000,
+        "close_date": 1570500000
       },
       {
-        "id": 2,
+        "id": 4,
         "location": {
-          "latitude": -36.852569,
-          "longitude": 174.766468
+          "latitude": -36.853926,
+          "longitude": 174.766334
+        },
+        "is_prerequisite": true,
+        "prerequisites": 0,
+        "release_date": 1570474800,
+        "active_date": 1570482000,
+        "close_date": 1570500000
+      },
+      {
+        "id": 5,
+        "location": {
+          "latitude": -36.85335,
+          "longitude": 174.767358
+        },
+        "is_prerequisite": false,
+        "prerequisites": 1,
+        "release_date": 1570474800,
+        "active_date": 1570482000,
+        "close_date": 1570500000
+      },
+      {
+        "id": 6,
+        "location": {
+          "latitude": -36.85251,
+          "longitude": 174.766487
         },
         "is_prerequisite": true,
         "prerequisites": 1,
-        "release_date": 1570388400,
-        "active_date": 0,
-        "close_date": 1570424400
+        "release_date": 1570474800,
+        "active_date": 1570482000,
+        "close_date": 1570500000
       },
       {
-        "id": 3,
+        "id": 7,
         "location": {
-          "latitude": -36.853336,
-          "longitude": 174.765655
+          "latitude": -36.853186,
+          "longitude": 174.765988
         },
         "is_prerequisite": true,
         "prerequisites": 2,
-        "release_date": 1570388400,
-        "active_date": 1570395600,
-        "close_date": 1570424400
+        "release_date": 1570474800,
+        "active_date": 1570496400,
+        "close_date": 1570500000
       }
     ],
     "events": [
@@ -58,7 +82,7 @@
   },
   {
     "id": "challenge-aut-0",
-    "solution": "a7a9_fb8f",
+    "solution": "CB2C_E8F9",
     "claimed": 0,
     "prizes": [
       {
@@ -66,42 +90,74 @@
         "available": 200
       }
     ],
-    "text": "Come to the AUTSA Front Reception (Shwoop's HQ) and say \"Hi!\" to get your free can of Red Bull!"
+    "text": "Come to the AUTSA Front Reception (Shwoop's HQ) and say hi to get your free can of Red Bull if you want! Otherwise, go to the next challenge"
   },
   {
-    "id": "challenge-aut-2",
-    "solution": "cb2c_e8f9",
+    "id": "challenge-aut-4",
+    "solution": "E040_F05D",
     "claimed": 0,
     "prizes": [
       {
         "prize": "laneway-coffee",
-        "available": 800
+        "available": 500
       }
     ],
-    "text": "Freeze to the sound of action\nFind the double eight and you've won\nI'm run by students, they're my cast\nLive on air, to have a blast\nInto my mic, speak nice and slow\\For the student radio"
+    "text": "Been here a while, maths makes me smile\nI sit on Paul, many pass nightfall\nThese glass doors are a gateway to STEM\\Find my main entrance and walk right in"
   },
   {
-    "id": "challenge-aut-3",
-    "solution": "e040_f05d",
+    "id": "challenge-aut-5",
+    "solution": "8442_F94A",
     "claimed": 0,
     "prizes": [
       {
-        "prize": "aut-lime-3unlocks",
+        "prize": "laneway-coffee",
+        "available": 500
+      }
+    ],
+    "text": "Visit the friendly staff at Laneway Cafe on inside WZ off Symonds street and speak the tell them the password \"Saint Jerome\" for the answer to this prize"
+  },
+  {
+    "id": "challenge-aut-6",
+    "solution": "C760_AB08",
+    "claimed": 0,
+    "prizes": [
+      {
+        "prize": "aut-lime-3unlocks1",
+        "available": 800
+      }
+    ],
+    "text": "A Foyer as grand as the Piano within\nReceptionist and hospitality, all akin\nFour seasons in one day, it's all built-in.\nYou gift awaits …. within"
+  },
+  {
+    "id": "challenge-aut-7",
+    "solution": "A95C_1350",
+    "claimed": 0,
+    "prizes": [
+      {
+        "prize": "market-20voucher1",
         "available": 10
       }
     ],
-    "text": "Here you’ll find student made cuisine\nPast 3PM it’s half price, best believe\nUnlike other cafes, this one is unique\nCabinets of treats await to intrigue\nWhile although I don’t sell keto\nThey call me..."
+    "text": "Full of delight with treats and sweets\nSnack pack bites, that can’t be beat\nScan your card (it's not too hard)\nSweet or sour, I’m ready to …"
   },
   {
-    "id": "beacon-aut-a7a9_fb8f",
+    "id": "beacon-aut-CB2C_E8F9",
     "beacon_type": "challenge-completer"
   },
   {
-    "id": "beacon-aut-cb2c_e8f9",
+    "id": "beacon-aut-E040_F05D",
     "beacon_type": "challenge-completer"
   },
   {
-    "id": "beacon-aut-e040_f05d",
+    "id": "beacon-aut-8442_F94A",
+    "beacon_type": "challenge-completer"
+  },
+  {
+    "id": "beacon-aut-C760_AB08",
+    "beacon_type": "challenge-completer"
+  },
+  {
+    "id": "beacon-aut-A95C_1350",
     "beacon_type": "challenge-completer"
   }
 ]
