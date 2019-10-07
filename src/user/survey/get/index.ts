@@ -1,5 +1,7 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
-import { Users, response, AdventureApp } from '/opt/nodejs';
+import {
+  Users, response, AdventureApp, generate_telemetry,
+} from '/opt/nodejs';
 
 export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
   if(!event.pathParameters || !event.pathParameters.user_id)
@@ -19,6 +21,7 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
   if(!surveys)
     return response(502, "Could not find survey");
 
+  await generate_telemetry(event, "get-survey", user.id);
   // Remove surveys that the user has answered
   const choices = surveys.surveys.filter(({ question }) => !answered_questions.includes(question));
 

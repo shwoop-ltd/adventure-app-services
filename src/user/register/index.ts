@@ -1,6 +1,6 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 
-import { Users, response } from '/opt/nodejs';
+import { Users, response, generate_telemetry } from '/opt/nodejs';
 
 export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
   if(!event.pathParameters || !event.pathParameters.user_id)
@@ -40,6 +40,8 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
     prerequisite_challenges_completed: 0,
   };
   await Users.put(user);
+
+  await generate_telemetry(event, "register-user", user_id);
 
   return response(200, user);
 }

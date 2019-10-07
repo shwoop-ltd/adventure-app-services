@@ -1,6 +1,8 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 
-import { AdventureApp, Users, response } from "/opt/nodejs";
+import {
+  AdventureApp, Users, response, generate_telemetry,
+} from "/opt/nodejs";
 
 export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
   if(!event.pathParameters)
@@ -18,6 +20,8 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
   catch(e) {
     return response(400, "challenge_id must be a number");
   }
+
+  await generate_telemetry(event, "start-challenge", user_id);
 
   const challenge = await AdventureApp.get_challenge(map, challenge_id);
   if(!challenge)
