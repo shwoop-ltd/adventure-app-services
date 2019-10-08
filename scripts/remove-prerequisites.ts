@@ -40,7 +40,7 @@ function onScan(err: AWSError, data: ScanOutput) {
         UpdateExpression: "set #p = :x",
         ExpressionAttributeNames: { "#p": "prerequisite_challenges_completed" },
         ExpressionAttributeValues: {
-          ":x": 0,
+          ":x": 1,
         },
       };
       doc_client.update(update_params, (err2, data2) => {
