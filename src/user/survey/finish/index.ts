@@ -55,7 +55,7 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
   const { surveys_to_prize } = surveys.prize_given;
   const surveys_completed = (user.surveys.length % surveys.prize_given.surveys_to_prize);
   if(surveys_completed === 0) {
-    const prize = await create_prize(user.id, surveys.prize_given.prize, "survey");
+    const prize = await create_prize(user.id, surveys.prize_given.prize, "survey", undefined, answered_survey.location);
     user.prizes.push(prize.id);
 
     // Update user info with the previously inserted survey

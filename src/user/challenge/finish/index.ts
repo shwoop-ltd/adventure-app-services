@@ -45,14 +45,22 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
   // Identify the prize that should be awarded.
   const prize_info = get_next_prize(challenge);
 
+  // Puzzle Check
+  const map_info = await AdventureApp.get_map(map);
+  if(!map_info)
+    return response(500, "Map not found");
+  const challenge_info = map_info.challenges.find((map_challenge) => map_challenge.id === challenge_id);
+  if(!challenge_info)
+    return response(400, "Challenge not found");
+
   // Create prize for user, or give user points
   let response_object;
   if(prize_info && prize_info.points) {
     user.points += prize_info.points;
-    response_object = create_points_prize_response(prize_info.points, 'challenge');
+    response_object = create_points_prize_response(prize_info.points, challenge_info.location, 'challenge');
   }
   else if(prize_info) {
-    const prize = await create_prize(user_id, prize_info.prize, "challenge");
+    const prize = await create_prize(user_id, prize_info.prize, "challenge", undefined, challenge_info.location);
     user.prizes.push(prize.id);
     response_object = create_prize_response(prize);
   }
@@ -61,13 +69,6 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
 
   user.challenges.push(challenge_id);
 
-  // Puzzle Check
-  const map_info = await AdventureApp.get_map(map);
-  if(!map_info)
-    return response(500, "Map not found");
-  const challenge_info = map_info.challenges.find((map_challenge) => map_challenge.id === challenge_id);
-  if(!challenge_info)
-    return response(400, "Challenge not found");
 
   if(challenge_info.is_prerequisite)
     user.prerequisite_challenges_completed += 1;

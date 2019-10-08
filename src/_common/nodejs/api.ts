@@ -1,8 +1,10 @@
 import { APIGatewayProxyResult } from "aws-lambda";
-import { DBPrize } from "schemas";
+import { DBPrize, Location } from "schemas";
+
 
 interface PrizeResponse {
   id: string;
+  location: Location;
   type: string;
   received_from: string;
   received: string;
@@ -15,10 +17,11 @@ export function create_prize_response(prize: DBPrize): PrizeResponse {
   const { user_id, ...rest } = prize;
   return rest;
 }
-export function create_points_prize_response(points: number, received_from: 'survey' | 'challenge' | 'treasure'): PrizeResponse {
+export function create_points_prize_response(points: number, location: Location, received_from: 'survey' | 'challenge' | 'treasure'): PrizeResponse {
   return {
     id: 'points',
     type: 'points',
+    location,
     received_from,
     received: (new Date()).toISOString(),
     redeemed: true,

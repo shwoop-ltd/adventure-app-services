@@ -42,10 +42,10 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
   let response_object;
   if(prize_info.points) {
     user.points += prize_info.points;
-    response_object = create_points_prize_response(prize_info.points, 'treasure');
+    response_object = create_points_prize_response(prize_info.points, { longitude: treasure.longitude, latitude: treasure.latitude }, 'treasure');
   }
   else {
-    const prize = await create_prize(user_id, prize_info.prize, "treasure");
+    const prize = await create_prize(user_id, prize_info.prize, "treasure", undefined, { longitude: treasure.longitude, latitude: treasure.latitude });
     user.prizes.push(prize.id);
     response_object = create_prize_response(prize);
   }

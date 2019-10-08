@@ -1,6 +1,6 @@
 import { APIGatewayProxyEvent } from 'aws-lambda';
 import {
-  DBMapCollection, DBMapInfo, DBBeacon, DBChallenge, DBSurveyCollection, DBPrizeTypeCollection, DBUser, DBPrize, DBTelemetry, DBTreasure,
+  DBMapCollection, DBMapInfo, DBBeacon, DBChallenge, DBSurveyCollection, DBPrizeTypeCollection, DBUser, DBPrize, DBTelemetry, DBTreasure, Location,
 } from 'schemas';
 
 import { get_item, put_item } from './table-helpers';
@@ -78,6 +78,7 @@ export async function create_prize(
   type: string,
   received_from: 'survey' | 'challenge' | 'treasure',
   update_user = false,
+  location: Location,
 ) {
   function generate_id(length: number) {
     const valid_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -92,6 +93,7 @@ export async function create_prize(
   const prize: DBPrize = {
     id: generate_id(12),
     user_id,
+    location,
     type,
     received_from,
     received: (new Date()).toISOString(),
