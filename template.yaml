@@ -206,6 +206,8 @@ Resources:
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref PrizesTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref TelemetryTable
       Events:
         Api:
           Type: Api
@@ -250,6 +252,8 @@ Resources:
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref UsersTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref TelemetryTable
       Events:
         Api:
           Type: Api
@@ -294,6 +298,8 @@ Resources:
             TableName: !Ref AdventureTable
         - DynamoDBCrudPolicy:
             TableName: !Ref UsersTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref TelemetryTable
       Events:
         Api:
           Type: Api
@@ -414,6 +420,8 @@ Resources:
             TableName: !Ref AdventureTable
         - DynamoDBCrudPolicy:
             TableName: !Ref UsersTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref TelemetryTable
       Events:
         Api:
           Type: Api
