@@ -3,142 +3,130 @@
     "id": "map-uoa",
     "challenges": [
       {
-        "id": 20,
+        "id": 10,
         "location": {
-          "latitude": -36.852746,
-          "longitude": 174.771313
+          "latitude": -36.852525,
+          "longitude": 174.770166
         },
         "is_prerequisite": true,
         "prerequisites": 0,
-        "release_date": 1570474800,
-        "active_date": 1570478400,
-        "close_date": 1570759200
+        "release_date": 1570647600,
+        "active_date": 1570654800,
+        "close_date": 1570676400
       },
       {
-        "id": 21,
+        "id": 41,
         "location": {
-          "latitude": -36.852785,
-          "longitude": 174.771998
+          "latitude": -36.853214,
+          "longitude": 174.76951
+        },
+        "is_prerequisite": true,
+        "prerequisites": 0,
+        "release_date": 1570647600,
+        "active_date": 1570654800,
+        "close_date": 1570676400
+      },
+      {
+        "id": 42,
+        "location": {
+          "latitude": -36.852448,
+          "longitude": 174.769697
         },
         "is_prerequisite": true,
         "prerequisites": 1,
-        "release_date": 1570474800,
-        "active_date": 1570478400,
-        "close_date": 1570413600
+        "release_date": 1570647600,
+        "active_date": 1570654800,
+        "close_date": 1570676400
       },
       {
-        "id": 22,
+        "id": 43,
         "location": {
-          "latitude": -36.851865,
-          "longitude": 174.769855
+          "latitude": -36.852053,
+          "longitude": 174.769651
         },
         "is_prerequisite": true,
         "prerequisites": 2,
-        "release_date": 1570474800,
-        "active_date": 1570478400,
-        "close_date": 1570413600
+        "release_date": 1570647600,
+        "active_date": 1570662000,
+        "close_date": 1570676400
       },
       {
-        "id": 23,
+        "id": 44,
         "location": {
-          "latitude": -36.851711,
-          "longitude": 174.770345
+          "latitude": -36.850758,
+          "longitude": 174.768991
         },
         "is_prerequisite": true,
         "prerequisites": 3,
-        "release_date": 1570474800,
-        "active_date": 1570478400,
-        "close_date": 1570413600
+        "release_date": 1570647600,
+        "active_date": 1570662000,
+        "close_date": 1570676400
       },
       {
-        "id": 24,
+        "id": 45,
         "location": {
-          "latitude": -36.852123,
-          "longitude": 174.769586
+          "latitude": -36.851795,
+          "longitude": 174.769238
         },
         "is_prerequisite": true,
         "prerequisites": 4,
-        "release_date": 1570474800,
-        "active_date": 1570485600,
-        "close_date": 1570413600
+        "release_date": 1570647600,
+        "active_date": 1570665600,
+        "close_date": 1570676400
       },
       {
-        "id": 25,
+        "id": 46,
         "location": {
-          "latitude": -36.852879,
-          "longitude": 174.768383
+          "latitude": -36.852809,
+          "longitude": 174.769928
         },
         "is_prerequisite": true,
         "prerequisites": 5,
-        "release_date": 1570474800,
-        "active_date": 1570485600,
-        "close_date": 1570413600
-      },
-      {
-        "id": 26,
-        "location": {
-          "latitude": -36.851846,
-          "longitude": 174.770543
-        },
-        "is_prerequisite": true,
-        "prerequisites": 6,
-        "release_date": 1570474800,
-        "active_date": 1570485600,
-        "close_date": 1570413600
-      },
-      {
-        "id": 27,
-        "location": {
-          "latitude": -36.851836,
-          "longitude": 174.768686
-        },
-        "is_prerequisite": true,
-        "prerequisites": 7,
-        "release_date": 1570474800,
-        "active_date": 1570492800,
-        "close_date": 1570413600
+        "release_date": 1570647600,
+        "active_date": 1570669200,
+        "close_date": 1570676400
       }
     ],
     "events": [
       {
         "location": {
-          "latitude": -36.852767,
-          "longitude": 174.771445
+          "latitude": -36.852732,
+          "longitude": 174.770319
         },
-        "description": "# Shwoop HQ\n\n Come through to John Wood Plaza and say hi to our team. To redeem prizes, or ask question just look out for our volunteers in Shwoop Merch."
+        "description": "# Shwoop HQ\n\n Come through to the Unleash Space and say \"Hi!\" to our team. To redeem prizes, or ask question just look out for our volunteers in Shwoop Merch."
       },
       {
         "location": {
-          "latitude": -36.85263,
-          "longitude": 174.771001
+          "latitude": -36.851894,
+          "longitude": 174.77036
         },
-        "description": "![the market banner](https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/The-Market-Logo.png)\n# $500 The Market Gift Card\n\nTake 15 seconds to enter your details and go in the draw to win a $500 shopoing spree from The Market\n\n[Follow This Link To The Market](https://themarket.com/about/aut-shwoop/?utm_source=aut_shwoop&utm_medium=banner&utm_campaign=500_dollar_giveaway&fbclid=IwAR1-_eVh9CqwZqrYgmH0coVAt44cCQQ8Iw3SJ01Bo00kgSwQTDxmNoQZrXs)"
+        "description": "![the market banner](https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/The-Market-Logo.png)\n# $500 The Market Gift Card\n\nTake 15 seconds to enter your details and go in the draw to win a $500 shopping spree from The Market\n\n[Follow This Link To The Market](https://themarket.com/about/aut-shwoop/?utm_source=aut_shwoop&utm_medium=banner&utm_campaign=500_dollar_giveaway&fbclid=IwAR1-_eVh9CqwZqrYgmH0coVAt44cCQQ8Iw3SJ01Bo00kgSwQTDxmNoQZrXs)"
       },
       {
         "location": {
-          "latitude": -36.851929,
-          "longitude": 174.769776
+          "latitude": -36.852331,
+          "longitude": 174.769829
         },
-        "description": "# Coffee Taste Testing Competition\n\n3 pm at Shaky Isles\n\n[Follow This Link For More Information](https://www.facebook.com/events/545636192673260/)"
+        "description": "# Shwoop Facebook\n\n Message us using our Facebook. Also available in the About page in the menu. [Follow This Link For Our Facebook](https://www.facebook.com/shwoopnz)"
       },
       {
         "location": {
-          "latitude": -36.851959,
-          "longitude": 174.769917
+          "latitude": -36.85332,
+          "longitude": 174.768436
         },
-        "description": "![tacojoint](https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/location-2.png)\n# Taco Joint Tuesday Takeover\n\n3 pm at Taco Joint\n\n[Follow This Link For More Information](https://www.facebook.com/events/1259178574255183/)"
+        "description": "# More Shwoop?!\n\nWe’re continuing next week at The Faculty of Science Buildings all week long! That’s RIGHT - YOU GET EVEN MORE FREE STUFF! We also have a super challenge where the winner gets $1,000 to go towards your Uni Fees for a Science Paper including GenEds."
       },
       {
         "location": {
-          "latitude": -36.851261,
-          "longitude": 174.771445
+          "latitude": -36.851345,
+          "longitude": 174.770392
         },
-        "description": "![Ha-poke](https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/ha-poke.png)\n# Ha Poke for a Fortnite\n\n3 pm at Ha-Poke\n\n[Follow This Link For More Information](https://www.facebook.com/events/1419331468216741/)"
+        "description": "# Feedback\n\nHey guys, we’re a tiny little startup and we want to come back next time with a much larger prize pool. It would mean the world if you could please rate us on the store."
       }
     ]
   },
   {
-    "id": "challenge-uoa-20",
+    "id": "challenge-uoa-10",
     "solution": "F05E_72B6",
     "claimed": 0,
     "prizes": [
@@ -147,91 +135,80 @@
         "available": 1000
       }
     ],
-    "text": "As per every day (except Thursday) come say hi at our stall."
+    "text": "We’re situated in the Unleash Space for just today, come here to get your first prize!\n\nMake sure Bluetooth and location is turned on and get close to the Shwoop tile. If your phone isn’t working, try restarting the app and ensure it is up to date."
   },
   {
-    "id": "challenge-uoa-21",
+    "id": "challenge-uoa-41",
     "solution": "C9B5_6B1F",
     "claimed": 0,
     "prizes": [
       {
-        "prize": "taco-joint-image",
-        "available": 250
+        "prize": "uni-sushi",
+        "available": 100
       }
     ],
-    "text": "Send us a photo of this place on Messenger. After this challenge, some of the challenges will be riddles and will require Bluetooth to be enabled so you can magically get a notification when at the location"
+    "text": "Watch me shake\nHear me grind.\nNow you wake\nPeace of mind. \nExams are near\nAnswer is clear\nAdventure to isle\nIt’s worthwhile\nBut not at Kate Edgar\nSomewhere near here...\n\nA prize icon will be displayed instead of this marker when completed. All food and beverages must be redeemed after 1PM. You can redeem food and beverages until the end of exams."
   },
   {
-    "id": "challenge-uoa-22",
+    "id": "challenge-uoa-42",
     "solution": "A8DE_08CE",
     "claimed": 0,
     "prizes": [
       {
-        "prize": "uoa-lime-3unlocks",
-        "available": 400
+        "prize": "uoa-lime-3unlocks3",
+        "available": 350
       }
     ],
-    "text": "Watch me shake\nHear me grind.\nNow you wake\nPeace of mind. \nExams are near\nAnswer is clear\nAdventure to isle\nIt’s worthwhile."
+    "text": "Go around the corner and send us a photo on Messenger of where the Purple Lime is and get in range of our beacon. Remember, please park your Limes in the designated areas such as this one and other purple Lime locations. Unique codes must be redeemed by today.\n\nIf you don’t have Lime, use promo code “Shwoop” to get an extra $5. Tap the pink marker next to this one to get our messenger link."
   },
   {
-    "id": "challenge-uoa-23",
+    "id": "challenge-uoa-43",
     "solution": "8EF1_4FB8",
     "claimed": 0,
     "prizes": [
       {
-        "prize": "nothing",
-        "available": 100000
+        "prize": "market-30voucher3",
+        "available": 40
       }
     ],
-    "text": "A million stories,\nAll I can tell\nWhen you’re here\nYou’re under a spell\nNo hush muttered\nSound is uncluttered\nYou can lend my books\nOr study in my nooks"
+    "text": "First woman in our nation with a degree,\nNow a location you will often see,\nA place to snack, kickback, and cram\nHere at the bottom, ready for exams.\n\nTheMarket voucher must be redeemed by this Saturday night. Please message us on Messenger if it doesn’t work."
   },
   {
-    "id": "challenge-uoa-24",
+    "id": "challenge-uoa-44",
     "solution": "C255_36A3",
     "claimed": 0,
     "prizes": [
       {
-        "prize": "gong-cha-image",
+        "prize": "jewel-of-bombay",
         "available": 100
       }
     ],
-    "text": "Here’s a photo, find the area"
+    "text": "We print your student IDs,\nAnd answer questions for free ,\nIf you’re looking for information ,\nYou’ve come to the right station."
   },
   {
-    "id": "challenge-uoa-25",
+    "id": "challenge-uoa-45",
     "solution": "7216_2E0E",
     "claimed": 0,
     "prizes": [
       {
-        "prize": "nothing",
-        "available": 100000
+        "prize": "fist-bump",
+        "available": 1000
       }
     ],
-    "text": "Send us a photo of this place on Instagram. @shwoopapp"
+    "text": "Go visit the ATM at the Quad to get this. This marker is on the exact coordinates."
   },
   {
-    "id": "challenge-uoa-26",
+    "id": "challenge-uoa-46",
     "solution": "4804_27D8",
     "claimed": 0,
+    "radius": 500,
     "prizes": [
       {
-        "prize": "noel-leaming-belkin-power-bank",
+        "prize": "market-100voucher1",
         "available": 5
       }
     ],
-    "text": "Photo Clue. Redeem the prize from the Shwoop stall. First 5 people"
-  },
-  {
-    "id": "challenge-uoa-27",
-    "solution": "A7A9_FB8F",
-    "claimed": 0,
-    "prizes": [
-      {
-        "prize": "noel-leaming-sony-headphones",
-        "available": 3
-      }
-    ],
-    "text": "I’m here by your choice\nI’m here for your voice\nMy party in the park\nIs o'week hallmark\nI’m student creation\nYour association"
+    "text": "Beds of flowers grow South of the speaker's post,\nVictorias street West of my post,\nIn the centre a fountain great and wide,\nThe Pavillion is where your treasure resides."
   },
   {
     "id": "beacon-uoa-F05E_72B6",
@@ -259,10 +236,6 @@
   },
   {
     "id": "beacon-uoa-4804_27D8",
-    "beacon_type": "challenge-completer"
-  },
-  {
-    "id": "beacon-uoa-A7A9_FB8F",
     "beacon_type": "challenge-completer"
   }
 ]
