@@ -1,7 +1,367 @@
 [
   {
     "id": "prize-types",
-    "prizes": []
+    "prizes": [
+      {
+        "name": "redbull-can",
+        "display_name": "Red Bull",
+        "redeem_type": "in-store",
+        "instance_name": "a can of Red Bull",
+        "description": "A perfect 250ml refresher to keep you focused and awake during the study season.",
+        "redeem_info": "Visit the Shwoop HQ to collect your prize.",
+        "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/redbull-can.png"
+      },
+      {
+        "name": "laneway-coffee",
+        "display_name": "Laneway Coffee",
+        "redeem_type": "in-store",
+        "instance_name": "a cup of Laneway Coffee",
+        "description": "A beautiful cup of Laneway brewed coffee, with stunning aromas to win you over.",
+        "redeem_info": "Visit the store and show this page to the Cashier. If you are the cashier, press the button twice to delete the prize.",
+        "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/laneway-coffee.png"
+      },
+      {
+        "name": "aut-lime-3unlocks",
+        "display_name": "3 Lime Unlocks",
+        "redeem_type": "online",
+        "instance_name": "3 Lime Unlocks",
+        "code": "QZPBA4J6",
+        "description": "Get where you're going faster on a Lime.",
+        "redeem_info": "Head over to the Lime app and enter your promo code inside the wallet.",
+        "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/Lime-Logo-3.png"
+      },
+      {
+        "name": "aut-lime-3unlocks1",
+        "display_name": "3 Lime Unlocks",
+        "redeem_type": "online",
+        "instance_name": "3 Lime Unlocks",
+        "code": "7WRAXKQ2",
+        "description": "Get where you're going faster on a Lime.",
+        "redeem_info": "Head over to the Lime app and enter your promo code inside the wallet.",
+        "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/Lime-Logo-3.png"
+      },
+      {
+        "name": "aut-lime-3unlocks2",
+        "display_name": "3 Lime Unlocks",
+        "redeem_type": "online",
+        "instance_name": "3 Lime Unlocks",
+        "code": "ZBQAJJNU",
+        "description": "Get where you're going faster on a Lime.",
+        "redeem_info": "Head over to the Lime app and enter your promo code inside the wallet.",
+        "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/Lime-Logo-3.png"
+      },
+      {
+        "name": "aut-lime-3unlocks3",
+        "display_name": "3 Lime Unlocks",
+        "redeem_type": "online",
+        "instance_name": "3 Lime Unlocks",
+        "code": "NJCT6AF7",
+        "description": "Get where you're going faster on a Lime.",
+        "redeem_info": "Head over to the Lime app and enter your promo code inside the wallet.",
+        "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/Lime-Logo-3.png"
+      },
+      {
+        "name": "aut-lime-3unlocks4",
+        "display_name": "3 Lime Unlocks",
+        "redeem_type": "online",
+        "instance_name": "3 Lime Unlocks",
+        "code": "5SU6VAKD",
+        "description": "Get where you're going faster on a Lime.",
+        "redeem_info": "Head over to the Lime app and enter your promo code inside the wallet.",
+        "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/Lime-Logo-3.png"
+      },
+      {
+        "name": "uoa-lime-3unlocks",
+        "display_name": "3 Lime Unlocks",
+        "redeem_type": "online",
+        "instance_name": "3 Lime Unlocks",
+        "code": "Y3YHCFCJ",
+        "description": "Get where you're going faster on a Lime.",
+        "redeem_info": "Head over to the Lime app and enter your promo code inside the wallet.",
+        "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/Lime-Logo-3.png"
+      },
+      {
+        "name": "uoa-lime-3unlocks1",
+        "display_name": "3 Lime Unlocks",
+        "redeem_type": "online",
+        "instance_name": "3 Lime Unlocks",
+        "code": "H6EBGLLR",
+        "description": "Get where you're going faster on a Lime.",
+        "redeem_info": "Head over to the Lime app and enter your promo code inside the wallet.",
+        "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/Lime-Logo-3.png"
+      },
+      {
+        "name": "uoa-lime-3unlocks2",
+        "display_name": "3 Lime Unlocks",
+        "redeem_type": "online",
+        "instance_name": "3 Lime Unlocks",
+        "code": "AYNL8CAS",
+        "description": "Get where you're going faster on a Lime.",
+        "redeem_info": "Head over to the Lime app and enter your promo code inside the wallet.",
+        "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/Lime-Logo-3.png"
+      },
+      {
+        "name": "uoa-lime-3unlocks3",
+        "display_name": "3 Lime Unlocks",
+        "redeem_type": "online",
+        "instance_name": "3 Lime Unlocks",
+        "code": "6QFAWFV3",
+        "description": "Get where you're going faster on a Lime.",
+        "redeem_info": "Head over to the Lime app and enter your promo code inside the wallet.",
+        "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/Lime-Logo-3.png"
+      },
+      {
+        "name": "uoa-lime-3unlocks4",
+        "display_name": "3 Lime Unlocks",
+        "redeem_type": "online",
+        "instance_name": "3 Lime Unlocks",
+        "code": "5C3GR5SS",
+        "description": "Get where you're going faster on a Lime.",
+        "redeem_info": "Head over to the Lime app and enter your promo code inside the wallet.",
+        "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/Lime-Logo-3.png"
+      },
+      {
+        "name": "market-20voucher",
+        "display_name": "$20 The Market Voucher",
+        "redeem_type": "online",
+        "instance_name": "a $20 Voucher to The Market",
+        "code": "TMAUT20YFYY7",
+        "description": "Enjoy $20 off your next purchase at The Market.",
+        "redeem_info": "Next time you make a purchase at themarket.com enter this code during checkout for $20 off. Expires 12/10/2019",
+        "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/The-Market-Logo.png"
+      },
+      {
+        "name": "market-20voucher1",
+        "display_name": "$20 The Market Voucher",
+        "redeem_type": "online",
+        "instance_name": "a $20 Voucher to The Market",
+        "code": "TMAUT20JDL4X",
+        "description": "Enjoy $20 off your next purchase at The Market.",
+        "redeem_info": "Next time you make a purchase at themarket.com enter this code during checkout for $20 off. Expires 12/10/2019",
+        "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/The-Market-Logo.png"
+      },
+      {
+        "name": "market-20voucher2",
+        "display_name": "$20 The Market Voucher",
+        "redeem_type": "online",
+        "instance_name": "a $20 Voucher to The Market",
+        "code": "TMAUT20W5EHC",
+        "description": "Enjoy $20 off your next purchase at The Market.",
+        "redeem_info": "Next time you make a purchase at themarket.com enter this code during checkout for $20 off. Expires 12/10/2019",
+        "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/The-Market-Logo.png"
+      },
+      {
+        "name": "market-20voucher3",
+        "display_name": "$20 The Market Voucher",
+        "redeem_type": "online",
+        "instance_name": "a $20 Voucher to The Market",
+        "code": "TMAUT20MRUS2",
+        "description": "Enjoy $20 off your next purchase at The Market.",
+        "redeem_info": "Next time you make a purchase at themarket.com enter this code during checkout for $20 off. Expires 12/10/2019",
+        "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/The-Market-Logo.png"
+      },
+      {
+        "name": "market-20voucher4",
+        "display_name": "$20 The Market Voucher",
+        "redeem_type": "online",
+        "instance_name": "a $20 Voucher to The Market",
+        "code": "TMAUT20N5Z2E",
+        "description": "Enjoy $20 off your next purchase at The Market.",
+        "redeem_info": "Next time you make a purchase at themarket.com enter this code during checkout for $20 off. Expires 12/10/2019",
+        "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/The-Market-Logo.png"
+      },
+      {
+        "name": "market-30voucher",
+        "display_name": "$30 The Market Voucher",
+        "redeem_type": "online",
+        "instance_name": "a $30 Voucher to The Market",
+        "code": "TMAUT30U7W6",
+        "description": "Enjoy $30 off your next purchase at The Market.",
+        "redeem_info": "Next time you make a purchase at themarket.com enter this code during checkout for $30 off. Expires 12/10/2019",
+        "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/The-Market-Logo.png"
+      },
+      {
+        "name": "market-30voucher1",
+        "display_name": "$30 The Market Voucher",
+        "redeem_type": "online",
+        "instance_name": "a $30 Voucher to The Market",
+        "code": "TMAUT30KS6R",
+        "description": "Enjoy $30 off your next purchase at The Market.",
+        "redeem_info": "Next time you make a purchase at themarket.com enter this code during checkout for $30 off. Expires 12/10/2019",
+        "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/The-Market-Logo.png"
+      },
+      {
+        "name": "market-30voucher2",
+        "display_name": "$30 The Market Voucher",
+        "redeem_type": "online",
+        "instance_name": "a $30 Voucher to The Market",
+        "code": "TMAUT307PGZ",
+        "description": "Enjoy $30 off your next purchase at The Market.",
+        "redeem_info": "Next time you make a purchase at themarket.com enter this code during checkout for $30 off. Expires 12/10/2019",
+        "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/The-Market-Logo.png"
+      },
+      {
+        "name": "market-30voucher3",
+        "display_name": "$30 The Market Voucher",
+        "redeem_type": "online",
+        "instance_name": "a $30 Voucher to The Market",
+        "code": "TMAUT30D28R",
+        "description": "Enjoy $30 off your next purchase at The Market.",
+        "redeem_info": "Next time you make a purchase at themarket.com enter this code during checkout for $30 off. Expires 12/10/2019",
+        "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/The-Market-Logo.png"
+      },
+      {
+        "name": "market-30voucher4",
+        "display_name": "$30 The Market Voucher",
+        "redeem_type": "online",
+        "instance_name": "a $30 Voucher to The Market",
+        "code": "TMAUT30BLWS",
+        "description": "Enjoy $30 off your next purchase at The Market.",
+        "redeem_info": "Next time you make a purchase at themarket.com enter this code during checkout for $30 off. Expires 12/10/2019",
+        "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/The-Market-Logo.png"
+      },
+      {
+        "name": "market-50voucher",
+        "display_name": "$50 The Market Voucher",
+        "redeem_type": "online",
+        "instance_name": "a $50 Voucher to The Market",
+        "code": "TMAUT5065HU",
+        "description": "Enjoy $50 off your next purchase at The Market.",
+        "redeem_info": "Next time you make a purchase at themarket.com enter this code during checkout for $50 off. Expires 12/10/2019",
+        "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/The-Market-Logo.png"
+      },
+      {
+        "name": "market-50voucher1",
+        "display_name": "$50 The Market Voucher",
+        "redeem_type": "online",
+        "instance_name": "a $50 Voucher to The Market",
+        "code": "TMAUT50E6C3",
+        "description": "Enjoy $50 off your next purchase at The Market.",
+        "redeem_info": "Next time you make a purchase at themarket.com enter this code during checkout for $50 off. Expires 12/10/2019",
+        "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/The-Market-Logo.png"
+      },
+      {
+        "name": "market-50voucher2",
+        "display_name": "$50 The Market Voucher",
+        "redeem_type": "online",
+        "instance_name": "a $50 Voucher to The Market",
+        "code": "TMAUT50P9HS",
+        "description": "Enjoy $50 off your next purchase at The Market.",
+        "redeem_info": "Next time you make a purchase at themarket.com enter this code during checkout for $50 off. Expires 12/10/2019",
+        "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/The-Market-Logo.png"
+      },
+      {
+        "name": "market-50voucher3",
+        "display_name": "$50 The Market Voucher",
+        "redeem_type": "online",
+        "instance_name": "a $50 Voucher to The Market",
+        "code": "TMAUT50JSTE",
+        "description": "Enjoy $50 off your next purchase at The Market.",
+        "redeem_info": "Next time you make a purchase at themarket.com enter this code during checkout for $50 off. Expires 12/10/2019",
+        "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/The-Market-Logo.png"
+      },
+      {
+        "name": "market-100voucher",
+        "display_name": "$50 The Market Voucher",
+        "redeem_type": "online",
+        "instance_name": "a $50 Voucher to The Market",
+        "code": "TMAUT1T7SS",
+        "description": "Enjoy $50 off your next purchase at The Market.",
+        "redeem_info": "Next time you make a purchase at themarket.com enter this code during checkout for $100 off. Expires 12/10/2019",
+        "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/The-Market-Logo.png"
+      },
+      {
+        "name": "market-100voucher1",
+        "display_name": "$50 The Market Voucher",
+        "redeem_type": "online",
+        "instance_name": "a $50 Voucher to The Market",
+        "code": "TMAUT1GUSJ",
+        "description": "Enjoy $50 off your next purchase at The Market.",
+        "redeem_info": "Next time you make a purchase at themarket.com enter this code during checkout for $100 off. Expires 12/10/2019",
+        "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/The-Market-Logo.png"
+      },
+      {
+        "name": "shaky-isles-coffee",
+        "display_name": "Shaky Isles Coffee",
+        "redeem_type": "in-store",
+        "instance_name": "a Shaky Isles cups of coffee",
+        "description": "A beautiful cup of Shaky Isles brewed coffee, with stunning aromas to win you over.",
+        "redeem_info": "Visit the store and show this page to the Cashier. If you are the cashier, press the button twice to delete the prize.",
+        "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/Shaky-Isles-Logo.png"
+      },
+      {
+        "name": "taco-joint",
+        "display_name": "Nachos Cheese meal",
+        "redeem_type": "in-store",
+        "instance_name": "A Taco Joint Nacho Cheese dish",
+        "description": "Cheese and nachos. There is little better in life than a traditional tex-mex meal. ¿Te gusta la comida mexicana?",
+        "redeem_info": "Visit the store and show this page to the Cashier. If you are the cashier, press the button twice to delete the prize.",
+        "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/MF_TacoJoint_LockUp_MFv.png"
+      },
+      {
+        "name": "ha-poke",
+        "display_name": "Poke Bowl",
+        "redeem_type": "in-store",
+        "instance_name": "A Poke Bowl",
+        "description": "A healthy hawaiian Poke Bowl to fill you up.",
+        "redeem_info": "Visit the store and show this page to the Cashier. If you are the cashier, press the button twice to delete the prize.",
+        "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/ha-poke.png"
+      },
+      {
+        "name": "jewel-of-bombay",
+        "display_name": "Small Budgie meal",
+        "redeem_type": "in-store",
+        "instance_name": "A small Jewel of Bombay budgie meal",
+        "description": "Enjoy a small budgie meal from your friends at the Jewel of Bombay, to keep you healthy and full while you study",
+        "redeem_info": "Visit the store and show this page to the Cashier. If you are the cashier, press the button twice to delete the prize.",
+        "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/jewelofbombay.png"
+      },
+      {
+        "name": "gong-cha",
+        "display_name": "Gongcha Bubble Tea",
+        "redeem_type": "in-store",
+        "instance_name": "A Cup of Bubble Tea",
+        "description": "Treat yourself to a regular bubble tea of any flavours from your friends at Gongcha.",
+        "redeem_info": "Visit the store and show this page to the Cashier. If you are the cashier, press the button twice to delete the prize.",
+        "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/Gong-Cha-Logo.png"
+      },
+      {
+        "name": "noel-leaming-sony-headphones",
+        "display_name": "Sony Headphones",
+        "redeem_type": "in-store",
+        "instance_name": "a pair of Sony Headphones",
+        "description": "Enjoy your new $90 Sony Heaphones from our friends at Noel Leeming. Perfect to boost your commute or for studying",
+        "redeem_info": "Visit the Shwoop stall to recieve your brand new Sony Headphones from Noel Leeming.",
+        "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/Noel-Leeming-Logo.png"
+      },
+      {
+        "name": "noel-leaming-belkin-power-bank",
+        "display_name": "Belkin Power Bank From Our Friends At Noel Leaming",
+        "redeem_type": "in-store",
+        "instance_name": "a $70 Belkin Power Bank",
+        "description": "Noel Leeming has your power needs sorted for your summer festivals with a $70 Belkin power bank. Capable of 5 smart phone charges with 15000 mAh, 2 USB ports.",
+        "redeem_info": "Visit the Shwoop stall to recieve your brand new Sony Headphones from Noel Leeming.",
+        "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/Noel-Leeming-Logo.png"
+      },
+      {
+        "name": "nothing",
+        "display_name": "A Challenge",
+        "redeem_type": "in-store",
+        "instance_name": "To be able to proceed to the next challenge",
+        "description": "Complete this challenge and earn ability to proceed to the next challenge",
+        "redeem_info": "Delete this prize, it does not award anything.",
+        "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/MAIN+LOGO+shwoop-logo-gradient-massive+shwoop+logo+file.png"
+      },
+      {
+        "name": "taco-joint-image",
+        "display_name": "Nachos Cheese meal",
+        "redeem_type": "in-store",
+        "instance_name": "A Taco Joint Nacho Cheese dish",
+        "description": "Cheese and nachos. There is little better in life than a traditional tex-mex meal. ¿Te gusta la comida mexicana?",
+        "redeem_info": "Visit the store and show this page to the Cashier. If you are the cashier, press the button twice to delete the prize.",
+        "image_url": "https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/location-2.png"
+      }
+    ]
   },
   {
     "id": "maps",

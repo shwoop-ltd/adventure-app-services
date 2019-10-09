@@ -3,7 +3,7 @@
     "id": "map-uoa",
     "challenges": [
       {
-        "id": 20,
+        "id": 10,
         "location": {
           "latitude": -36.852746,
           "longitude": 174.771313
@@ -138,7 +138,7 @@
     ]
   },
   {
-    "id": "challenge-uoa-20",
+    "id": "challenge-uoa-10",
     "solution": "F05E_72B6",
     "claimed": 0,
     "prizes": [
@@ -155,7 +155,7 @@
     "claimed": 0,
     "prizes": [
       {
-        "prize": "taco-joint-image",
+        "prize": "taco-joint",
         "available": 250
       }
     ],
@@ -180,7 +180,7 @@
     "prizes": [
       {
         "prize": "nothing",
-        "available": 100000
+        "available": 0
       }
     ],
     "text": "A million stories,\nAll I can tell\nWhen you’re here\nYou’re under a spell\nNo hush muttered\nSound is uncluttered\nYou can lend my books\nOr study in my nooks"
@@ -191,7 +191,7 @@
     "claimed": 0,
     "prizes": [
       {
-        "prize": "gong-cha-image",
+        "prize": "gong-cha",
         "available": 100
       }
     ],
@@ -204,7 +204,7 @@
     "prizes": [
       {
         "prize": "nothing",
-        "available": 100000
+        "available": 0
       }
     ],
     "text": "Send us a photo of this place on Instagram. @shwoopapp"
