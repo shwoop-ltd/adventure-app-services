@@ -8,83 +8,59 @@
           "latitude": -36.852525,
           "longitude": 174.770166
         },
-        "is_prerequisite": true,
+        "is_prerequisite": false,
         "prerequisites": 0,
         "release_date": 1570647600,
         "active_date": 1570654800,
         "close_date": 1570676400
       },
       {
-        "id": 41,
+        "id": 51,
         "location": {
-          "latitude": -36.853214,
-          "longitude": 174.76951
+          "latitude": -36.85322,
+          "longitude": 174.771138
         },
         "is_prerequisite": true,
         "prerequisites": 0,
-        "release_date": 1570647600,
-        "active_date": 1570654800,
-        "close_date": 1570676400
+        "release_date": 1570734000,
+        "active_date": 1570741200,
+        "close_date": 1570762800
       },
       {
-        "id": 42,
+        "id": 52,
         "location": {
-          "latitude": -36.852448,
-          "longitude": 174.769697
+          "latitude": -36.852881,
+          "longitude": 174.771007
         },
         "is_prerequisite": true,
         "prerequisites": 1,
-        "release_date": 1570647600,
-        "active_date": 1570654800,
-        "close_date": 1570676400
+        "release_date": 1570734000,
+        "active_date": 1570741200,
+        "close_date": 1570762800
       },
       {
-        "id": 43,
+        "id": 53,
         "location": {
-          "latitude": -36.852053,
-          "longitude": 174.769651
+          "latitude": -36.85279,
+          "longitude": 174.771942
         },
         "is_prerequisite": true,
         "prerequisites": 2,
-        "release_date": 1570647600,
-        "active_date": 1570662000,
-        "close_date": 1570676400
+        "release_date": 1570734000,
+        "active_date": 1570749000,
+        "close_date": 1570762800
       },
       {
-        "id": 44,
+        "id": 54,
         "location": {
-          "latitude": -36.850758,
-          "longitude": 174.768991
+          "latitude": -36.851768,
+          "longitude": 174.76872
         },
         "is_prerequisite": true,
         "prerequisites": 3,
-        "release_date": 1570647600,
-        "active_date": 1570662000,
-        "close_date": 1570676400
-      },
-      {
-        "id": 45,
-        "location": {
-          "latitude": -36.851795,
-          "longitude": 174.769238
-        },
-        "is_prerequisite": true,
-        "prerequisites": 4,
-        "release_date": 1570647600,
-        "active_date": 1570665600,
-        "close_date": 1570676400
-      },
-      {
-        "id": 46,
-        "location": {
-          "latitude": -36.852809,
-          "longitude": 174.769928
-        },
-        "is_prerequisite": true,
-        "prerequisites": 5,
-        "release_date": 1570647600,
-        "active_date": 1570669200,
-        "close_date": 1570676400
+        "release_date": 1570734000,
+        "active_date": 1570759800,
+        "close_date": 1570762800
       }
     ],
     "events": [
@@ -107,7 +83,7 @@
           "latitude": -36.852331,
           "longitude": 174.769829
         },
-        "description": "# Shwoop Facebook\n\n Message us using our Facebook. Also available in the About page in the menu. [Follow This Link For Our Facebook](https://www.facebook.com/shwoopnz)"
+        "description": "# Shwoop Facebook\n\n Message us using our Facebook. Also available in the About page in the menu. [Follow This Link For Our Facebook](https://www.messenger.com/t/shwoopnz)"
       },
       {
         "location": {
@@ -135,80 +111,59 @@
         "available": 1000
       }
     ],
-    "text": "We’re situated in the Unleash Space for just today, come here to get your first prize!\n\nMake sure Bluetooth and location is turned on and get close to the Shwoop tile. If your phone isn’t working, try restarting the app and ensure it is up to date."
+    "text": "To get your free coffee, come to the green grass patch outside the OGGB and say \"Hi!\" to our team at the stall."
   },
   {
-    "id": "challenge-uoa-41",
+    "id": "challenge-uoa-51",
     "solution": "C9B5_6B1F",
     "claimed": 0,
+    "radius": 30,
     "prizes": [
       {
-        "prize": "uni-sushi",
-        "available": 100
+        "prize": "taco-joint",
+        "available": 150
       }
     ],
-    "text": "Watch me shake\nHear me grind.\nNow you wake\nPeace of mind. \nExams are near\nAnswer is clear\nAdventure to isle\nIt’s worthwhile\nBut not at Kate Edgar\nSomewhere near here...\n\nA prize icon will be displayed instead of this marker when completed. All food and beverages must be redeemed after 1PM. You can redeem food and beverages until the end of exams."
+    "text": "Look upon the Domain\nMy big window pane\nThe bottom of my stairs\nAre above the next\nYou’ll find my atrium\\bSees ASB stadium\n\nAll food and beverage prizes can only be redeemed after 1PM. Can be redeemed until end of exams. This answer is within a 30m radius."
   },
   {
-    "id": "challenge-uoa-42",
-    "solution": "A8DE_08CE",
-    "claimed": 0,
-    "prizes": [
-      {
-        "prize": "uoa-lime-3unlocks3",
-        "available": 350
-      }
-    ],
-    "text": "Go around the corner and send us a photo on Messenger of where the Purple Lime is and get in range of our beacon. Remember, please park your Limes in the designated areas such as this one and other purple Lime locations. Unique codes must be redeemed by today.\n\nIf you don’t have Lime, use promo code “Shwoop” to get an extra $5. Tap the pink marker next to this one to get our messenger link."
-  },
-  {
-    "id": "challenge-uoa-43",
+    "id": "challenge-uoa-52",
     "solution": "8EF1_4FB8",
     "claimed": 0,
+    "radius": 30,
     "prizes": [
       {
-        "prize": "market-30voucher3",
-        "available": 40
-      }
-    ],
-    "text": "First woman in our nation with a degree,\nNow a location you will often see,\nA place to snack, kickback, and cram\nHere at the bottom, ready for exams.\n\nTheMarket voucher must be redeemed by this Saturday night. Please message us on Messenger if it doesn’t work."
-  },
-  {
-    "id": "challenge-uoa-44",
-    "solution": "C255_36A3",
-    "claimed": 0,
-    "prizes": [
-      {
-        "prize": "jewel-of-bombay",
+        "prize": "gong-cha",
         "available": 100
       }
     ],
-    "text": "We print your student IDs,\nAnd answer questions for free ,\nIf you’re looking for information ,\nYou’ve come to the right station."
+    "text": "To start a conjoint\nOr hear the point\nPlan a BCom degree\nAssistance for free\nThe Case is around\nPotter’s campground\n\nA prize icon will be displayed instead of this marker when completed."
   },
   {
-    "id": "challenge-uoa-45",
-    "solution": "7216_2E0E",
+    "id": "challenge-uoa-53",
+    "solution": "C255_36A3",
     "claimed": 0,
+    "radius": 100,
     "prizes": [
       {
-        "prize": "fist-bump",
-        "available": 1000
+        "prize": "noel-leeming-belkin-power-bank",
+        "available": 10
       }
     ],
-    "text": "Go visit the ATM at the Quad to get this. This marker is on the exact coordinates."
+    "text": "Shoot a hoop\nAround my loop\nCan you Shwoop\nIn a group\nTo have a whoop\nFor some soup\n\nNote: Soup not included, only Power Banks"
   },
   {
-    "id": "challenge-uoa-46",
-    "solution": "4804_27D8",
+    "id": "challenge-uoa-54",
+    "solution": "7216_2E0E",
     "claimed": 0,
     "radius": 500,
     "prizes": [
       {
-        "prize": "market-100voucher1",
-        "available": 5
+        "prize": "noel-leeming-sony-headphones",
+        "available": 3
       }
     ],
-    "text": "Beds of flowers grow South of the speaker's post,\nVictorias street West of my post,\nIn the centre a fountain great and wide,\nThe Pavillion is where your treasure resides."
+    "text": "Go up the stairs\nIf you’re seeking beers\nGrab a jug\nFor a chug\nJoin our team\nFor a meme supreme\nRUN"
   },
   {
     "id": "beacon-uoa-F05E_72B6",
@@ -216,10 +171,6 @@
   },
   {
     "id": "beacon-uoa-C9B5_6B1F",
-    "beacon_type": "challenge-completer"
-  },
-  {
-    "id": "beacon-uoa-A8DE_08CE",
     "beacon_type": "challenge-completer"
   },
   {
@@ -232,10 +183,6 @@
   },
   {
     "id": "beacon-uoa-7216_2E0E",
-    "beacon_type": "challenge-completer"
-  },
-  {
-    "id": "beacon-uoa-4804_27D8",
     "beacon_type": "challenge-completer"
   }
 ]
