@@ -8,6 +8,7 @@
     "test": "mocha -r ts-node/register **/*.spec.ts --timeout 15000",
     "upload-db": "ts-node ./scripts/upload-database.ts",
     "remove-prerequisites": "ts-node ./scripts/remove-prerequisites.ts",
+    "update-prizes": "ts-node ./scripts/update-prizes.ts",
     "deploy-dev": "./scripts/deploy.ps1 Dev",
     "deploy-prod": "./scripts/deploy.ps1 Prod"
   },

@@ -5,135 +5,99 @@
       {
         "id": 10,
         "location": {
-          "latitude": -36.852746,
-          "longitude": 174.771313
+          "latitude": -36.852525,
+          "longitude": 174.770166
+        },
+        "is_prerequisite": false,
+        "prerequisites": 0,
+        "release_date": 1570647600,
+        "active_date": 1570654800,
+        "close_date": 1570676400
+      },
+      {
+        "id": 51,
+        "location": {
+          "latitude": -36.85322,
+          "longitude": 174.771138
         },
         "is_prerequisite": true,
         "prerequisites": 0,
-        "release_date": 1570474800,
-        "active_date": 1570478400,
-        "close_date": 1570759200
+        "release_date": 1570734000,
+        "active_date": 1570741200,
+        "close_date": 1570762800
       },
       {
-        "id": 21,
+        "id": 52,
         "location": {
-          "latitude": -36.852785,
-          "longitude": 174.771998
+          "latitude": -36.852881,
+          "longitude": 174.771007
         },
         "is_prerequisite": true,
         "prerequisites": 1,
-        "release_date": 1570474800,
-        "active_date": 1570478400,
-        "close_date": 1570413600
+        "release_date": 1570734000,
+        "active_date": 1570741200,
+        "close_date": 1570762800
       },
       {
-        "id": 22,
+        "id": 53,
         "location": {
-          "latitude": -36.851865,
-          "longitude": 174.769855
+          "latitude": -36.85279,
+          "longitude": 174.771942
         },
         "is_prerequisite": true,
         "prerequisites": 2,
-        "release_date": 1570474800,
-        "active_date": 1570478400,
-        "close_date": 1570413600
+        "release_date": 1570734000,
+        "active_date": 1570749000,
+        "close_date": 1570762800
       },
       {
-        "id": 23,
+        "id": 54,
         "location": {
-          "latitude": -36.851711,
-          "longitude": 174.770345
+          "latitude": -36.851768,
+          "longitude": 174.76872
         },
         "is_prerequisite": true,
         "prerequisites": 3,
-        "release_date": 1570474800,
-        "active_date": 1570478400,
-        "close_date": 1570413600
-      },
-      {
-        "id": 24,
-        "location": {
-          "latitude": -36.852123,
-          "longitude": 174.769586
-        },
-        "is_prerequisite": true,
-        "prerequisites": 4,
-        "release_date": 1570474800,
-        "active_date": 1570485600,
-        "close_date": 1570413600
-      },
-      {
-        "id": 25,
-        "location": {
-          "latitude": -36.852879,
-          "longitude": 174.768383
-        },
-        "is_prerequisite": true,
-        "prerequisites": 5,
-        "release_date": 1570474800,
-        "active_date": 1570485600,
-        "close_date": 1570413600
-      },
-      {
-        "id": 26,
-        "location": {
-          "latitude": -36.851846,
-          "longitude": 174.770543
-        },
-        "is_prerequisite": true,
-        "prerequisites": 6,
-        "release_date": 1570474800,
-        "active_date": 1570485600,
-        "close_date": 1570413600
-      },
-      {
-        "id": 27,
-        "location": {
-          "latitude": -36.851836,
-          "longitude": 174.768686
-        },
-        "is_prerequisite": true,
-        "prerequisites": 7,
-        "release_date": 1570474800,
-        "active_date": 1570492800,
-        "close_date": 1570413600
+        "release_date": 1570734000,
+        "active_date": 1570759800,
+        "close_date": 1570762800
       }
     ],
     "events": [
       {
         "location": {
-          "latitude": -36.852767,
-          "longitude": 174.771445
+          "latitude": -36.852732,
+          "longitude": 174.770319
         },
-        "description": "# Shwoop HQ\n\n Come through to John Wood Plaza and say hi to our team. To redeem prizes, or ask question just look out for our volunteers in Shwoop Merch."
+        "description": "# Shwoop HQ\n\n Come through to the Unleash Space and say \"Hi!\" to our team. To redeem prizes, or ask question just look out for our volunteers in Shwoop Merch."
       },
       {
         "location": {
-          "latitude": -36.85263,
-          "longitude": 174.771001
+          "latitude": -36.851894,
+          "longitude": 174.77036
         },
-        "description": "![the market banner](https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/The-Market-Logo.png)\n# $500 The Market Gift Card\n\nTake 15 seconds to enter your details and go in the draw to win a $500 shopoing spree from The Market\n\n[Follow This Link To The Market](https://themarket.com/about/aut-shwoop/?utm_source=aut_shwoop&utm_medium=banner&utm_campaign=500_dollar_giveaway&fbclid=IwAR1-_eVh9CqwZqrYgmH0coVAt44cCQQ8Iw3SJ01Bo00kgSwQTDxmNoQZrXs)"
+        "description": "![the market banner](https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/The-Market-Logo.png)\n# $500 The Market Gift Card\n\nTake 15 seconds to enter your details and go in the draw to win a $500 shopping spree from The Market\n\n[Follow This Link To The Market](https://themarket.com/about/aut-shwoop/?utm_source=aut_shwoop&utm_medium=banner&utm_campaign=500_dollar_giveaway&fbclid=IwAR1-_eVh9CqwZqrYgmH0coVAt44cCQQ8Iw3SJ01Bo00kgSwQTDxmNoQZrXs)"
       },
       {
         "location": {
-          "latitude": -36.851929,
-          "longitude": 174.769776
+          "latitude": -36.852331,
+          "longitude": 174.769829
         },
-        "description": "# Coffee Taste Testing Competition\n\n3 pm at Shaky Isles\n\n[Follow This Link For More Information](https://www.facebook.com/events/545636192673260/)"
+        "description": "# Shwoop Facebook\n\n Message us using our Facebook. Also available in the About page in the menu. [Follow This Link For Our Facebook](https://www.messenger.com/t/shwoopnz)"
       },
       {
         "location": {
-          "latitude": -36.851959,
-          "longitude": 174.769917
+          "latitude": -36.85332,
+          "longitude": 174.768436
         },
-        "description": "![tacojoint](https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/location-2.png)\n# Taco Joint Tuesday Takeover\n\n3 pm at Taco Joint\n\n[Follow This Link For More Information](https://www.facebook.com/events/1259178574255183/)"
+        "description": "# More Shwoop?!\n\nWe’re continuing next week at The Faculty of Science Buildings all week long! That’s RIGHT - YOU GET EVEN MORE FREE STUFF! We also have a super challenge where the winner gets $1,000 to go towards your Uni Fees for a Science Paper including GenEds."
       },
       {
         "location": {
-          "latitude": -36.851261,
-          "longitude": 174.771445
+          "latitude": -36.851345,
+          "longitude": 174.770392
         },
-        "description": "![Ha-poke](https://uoa-bs-maps.s3-ap-southeast-2.amazonaws.com/ha-poke.png)\n# Ha Poke for a Fortnite\n\n3 pm at Ha-Poke\n\n[Follow This Link For More Information](https://www.facebook.com/events/1419331468216741/)"
+        "description": "# Feedback\n\nHey guys, we’re a tiny little startup and we want to come back next time with a much larger prize pool. It would mean the world if you could please rate us on the store."
       }
     ]
   },
@@ -147,91 +111,59 @@
         "available": 1000
       }
     ],
-    "text": "As per every day (except Thursday) come say hi at our stall."
+    "text": "To get your free coffee, come to the green grass patch outside the OGGB and say \"Hi!\" to our team at the stall."
   },
   {
-    "id": "challenge-uoa-21",
+    "id": "challenge-uoa-51",
     "solution": "C9B5_6B1F",
     "claimed": 0,
+    "radius": 30,
     "prizes": [
       {
         "prize": "taco-joint",
-        "available": 250
+        "available": 150
       }
     ],
-    "text": "Send us a photo of this place on Messenger. After this challenge, some of the challenges will be riddles and will require Bluetooth to be enabled so you can magically get a notification when at the location"
+    "text": "Look upon the Domain\nMy big window pane\nThe bottom of my stairs\nAre above the next\nYou’ll find my atrium\\bSees ASB stadium\n\nAll food and beverage prizes can only be redeemed after 1PM. Can be redeemed until end of exams. This answer is within a 30m radius."
   },
   {
-    "id": "challenge-uoa-22",
-    "solution": "A8DE_08CE",
-    "claimed": 0,
-    "prizes": [
-      {
-        "prize": "uoa-lime-3unlocks",
-        "available": 400
-      }
-    ],
-    "text": "Watch me shake\nHear me grind.\nNow you wake\nPeace of mind. \nExams are near\nAnswer is clear\nAdventure to isle\nIt’s worthwhile."
-  },
-  {
-    "id": "challenge-uoa-23",
+    "id": "challenge-uoa-52",
     "solution": "8EF1_4FB8",
     "claimed": 0,
-    "prizes": [
-      {
-        "prize": "nothing",
-        "available": 0
-      }
-    ],
-    "text": "A million stories,\nAll I can tell\nWhen you’re here\nYou’re under a spell\nNo hush muttered\nSound is uncluttered\nYou can lend my books\nOr study in my nooks"
-  },
-  {
-    "id": "challenge-uoa-24",
-    "solution": "C255_36A3",
-    "claimed": 0,
+    "radius": 30,
     "prizes": [
       {
         "prize": "gong-cha",
         "available": 100
       }
     ],
-    "text": "Here’s a photo, find the area"
+    "text": "To start a conjoint\nOr hear the point\nPlan a BCom degree\nAssistance for free\nThe Case is around\nPotter’s campground\n\nA prize icon will be displayed instead of this marker when completed."
   },
   {
-    "id": "challenge-uoa-25",
+    "id": "challenge-uoa-53",
+    "solution": "C255_36A3",
+    "claimed": 0,
+    "radius": 100,
+    "prizes": [
+      {
+        "prize": "noel-leeming-belkin-power-bank",
+        "available": 10
+      }
+    ],
+    "text": "Shoot a hoop\nAround my loop\nCan you Shwoop\nIn a group\nTo have a whoop\nFor some soup\n\nNote: Soup not included, only Power Banks"
+  },
+  {
+    "id": "challenge-uoa-54",
     "solution": "7216_2E0E",
     "claimed": 0,
+    "radius": 500,
     "prizes": [
       {
-        "prize": "nothing",
-        "available": 0
-      }
-    ],
-    "text": "Send us a photo of this place on Instagram. @shwoopapp"
-  },
-  {
-    "id": "challenge-uoa-26",
-    "solution": "4804_27D8",
-    "claimed": 0,
-    "prizes": [
-      {
-        "prize": "noel-leaming-belkin-power-bank",
-        "available": 5
-      }
-    ],
-    "text": "Photo Clue. Redeem the prize from the Shwoop stall. First 5 people"
-  },
-  {
-    "id": "challenge-uoa-27",
-    "solution": "A7A9_FB8F",
-    "claimed": 0,
-    "prizes": [
-      {
-        "prize": "noel-leaming-sony-headphones",
+        "prize": "noel-leeming-sony-headphones",
         "available": 3
       }
     ],
-    "text": "I’m here by your choice\nI’m here for your voice\nMy party in the park\nIs o'week hallmark\nI’m student creation\nYour association"
+    "text": "Go up the stairs\nIf you’re seeking beers\nGrab a jug\nFor a chug\nJoin our team\nFor a meme supreme\nRUN"
   },
   {
     "id": "beacon-uoa-F05E_72B6",
@@ -239,10 +171,6 @@
   },
   {
     "id": "beacon-uoa-C9B5_6B1F",
-    "beacon_type": "challenge-completer"
-  },
-  {
-    "id": "beacon-uoa-A8DE_08CE",
     "beacon_type": "challenge-completer"
   },
   {
@@ -255,14 +183,6 @@
   },
   {
     "id": "beacon-uoa-7216_2E0E",
-    "beacon_type": "challenge-completer"
-  },
-  {
-    "id": "beacon-uoa-4804_27D8",
-    "beacon_type": "challenge-completer"
-  },
-  {
-    "id": "beacon-uoa-A7A9_FB8F",
     "beacon_type": "challenge-completer"
   }
 ]

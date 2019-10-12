@@ -6,19 +6,11 @@ import * as AWS from 'aws-sdk';
 import { AWSError } from 'aws-sdk';
 import { ScanOutput, ScanInput } from 'aws-sdk/clients/dynamodb';
 
+const table_name = "AdventureAppPrizes-Prod";
 const doc_client = new AWS.DynamoDB.DocumentClient({ region: 'ap-southeast-2' });
 
 const params: ScanInput = {
-  TableName: "AdventureAppUsers-Prod",
-  ProjectionExpression: "id, #p",
-  FilterExpression: "#p > :max",
-  ExpressionAttributeNames: {
-    "#p": "prerequisite_challenges_completed",
-  },
-  // @ts-ignore
-  ExpressionAttributeValues: {
-    ":max": 0,
-  },
+  TableName: table_name,
 };
 
 
@@ -32,18 +24,19 @@ function onScan(err: AWSError, data: ScanOutput) {
       console.log("No items match filter.");
       return;
     }
-    data.Items.forEach((user) => {
-      console.log(user.id);
-      const update_params = {
-        TableName: "AdventureAppUsers-Prod",
-        Key: { id: user.id },
-        UpdateExpression: "set #p = :x",
-        ExpressionAttributeNames: { "#p": "prerequisite_challenges_completed" },
-        ExpressionAttributeValues: {
-          ":x": 0,
+    data.Items.forEach((prize) => {
+      const new_prize = {
+        ...prize,
+        location: {
+          latitude: Math.random() * (-36.852909 - -36.854626) + -36.854626,
+          longitude: Math.random() * (174.769479 - 174.766711) + 174.766711,
         },
       };
-      doc_client.update(update_params, (err2, data2) => {
+      const update_params = {
+        TableName: table_name,
+        Item: new_prize,
+      };
+      doc_client.put(update_params, (err2, data2) => {
         if(err2)
           console.log(err2);
         else
