@@ -31,6 +31,8 @@ const user_telemetry: { [key: string]: number } = {};
 
 const user_challenge_time: { [key: string]: [{ start: number; finish?: number }] } = {};
 
+const user_challenge_complete_time: { [key: string]: number[] };
+
 const survey_data: { [key: string]: [{ answer: string; count: number }] } = {};
 
 const telemetryParams: ScanInput = {
@@ -67,6 +69,55 @@ function surveyData() {
   stream.write(output);
 
   console.log(survey_data);
+}
+
+function outputChallengeCompleteTimesByUser() {
+  telemetry.sort((f, s) => {
+    if(f.date < s.date)
+      return -1;
+    if(f.date > s.date)
+      return 1;
+    return 0;
+  });
+
+  const answersids = answers.map((e) => e.id);
+  const nullarray = new Array(answersids.length).fill(null);
+
+  telemetry.forEach((e) => {
+    if(e.function_name === "finish-challenge") {
+      const body = JSON.parse(e.body);
+      if(body.map === "uoa") {
+        const answer = answers.filter((c) => c.id === body.challenge_id).map((c) => c.solution);
+        if(answer.includes(body.beacon_id)) {
+          if(user_challenge_complete_time[e.user_id])
+            user_challenge_complete_time[e.user_id][answersids.indexOf(e.id)] = e.date;
+
+          else {
+            const newnull = [...nullarray];
+            newnull[answersids.indexOf(e.id)] = e.date;
+            user_challenge_complete_time[e.user_id] = newnull;
+          }
+        }
+      }
+    }
+  });
+
+  let output = "";
+  answersids.forEach((e) => {
+    output += `${e},`;
+  });
+  output += "\n";
+  Object.keys(user_challenge_complete_time).forEach((e) => {
+    user_challenge_complete_time[e].forEach((el) => {
+      if(el)
+        output += `${el},`;
+      else
+        output += ",";
+      output += "\n";
+    });
+  });
+  const stream = fs.createWriteStream("challenge-complete-time.csv", { flags: 'w' });
+  stream.write(output);
 }
 
 function outputChallengeTimes() {
@@ -168,7 +219,7 @@ function displayStatistics() {
   console.log(`${users.length} Users.`);
   console.log(`${telemetry.length} Telemetry Entries.`);
 
-  outputRegisters();
+  outputChallengeCompleteTimesByUser();
 }
 
 function onScan(err: AWSError, data: ScanOutput) {
