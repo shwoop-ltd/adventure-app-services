@@ -6,6 +6,7 @@
   "scripts": {
     "start": "concurrently --kill-others \"tsc --watch --p lambda\" \"sam local start-api\"",
     "test": "mocha -r ts-node/register **/*.spec.ts --timeout 15000",
+    "beta": "ts-node ./scripts/beta.ts",
     "upload-db": "ts-node ./scripts/upload-database.ts",
     "remove-prerequisites": "ts-node ./scripts/remove-prerequisites.ts",
     "update-prizes": "ts-node ./scripts/update-prizes.ts",
