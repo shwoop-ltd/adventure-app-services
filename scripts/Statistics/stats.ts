@@ -10,7 +10,7 @@ import {
 
 const fs = require("fs");
 
-const answers: [{ id: string; solution: string }] = JSON.parse(fs.readFileSync("C:/Users/Russell Bloxwich/Desktop/ShwoopServices/scripts/Statistics/challenge_answers.json"));
+const answers: [{ id: string; solution: string }] = JSON.parse(fs.readFileSync("C:/Users/russe/Documents/GitHub/adventure-app-services/scripts/Statistics/challenge_answers.json"));
 
 const doc_client = new AWS.DynamoDB.DocumentClient({ region: 'ap-southeast-2' });
 
@@ -24,6 +24,11 @@ interface Telemetry {
   user_id: string;
 }
 
+interface ChallengeComplete {
+  challenge_id: number;
+  time: number;
+}
+
 let users: DBUser[] = [];
 let telemetry: Telemetry[] = [];
 
@@ -31,9 +36,8 @@ const user_telemetry: { [key: string]: number } = {};
 
 const user_challenge_time: { [key: string]: [{ start: number; finish?: number }] } = {};
 
-const user_challenge_complete_time: { [key: string]: number[] };
 
-const survey_data: { [key: string]: [{ answer: string; count: number }] } = {};
+const survey_data: { [key: string]: { answer: string; count: number }[] } = {};
 
 const telemetryParams: ScanInput = {
   TableName: "AdventureAppTelemetry-Prod",
@@ -80,8 +84,9 @@ function outputChallengeCompleteTimesByUser() {
     return 0;
   });
 
-  const answersids = answers.map((e) => e.id);
-  const nullarray = new Array(answersids.length).fill(null);
+  const answersids = ["id"].concat(answers.map((e) => `${e.id}`));
+
+  const user_challenge_complete_time: { [key: string]: ChallengeComplete[] } = {};
 
   telemetry.forEach((e) => {
     if(e.function_name === "finish-challenge") {
@@ -90,13 +95,9 @@ function outputChallengeCompleteTimesByUser() {
         const answer = answers.filter((c) => c.id === body.challenge_id).map((c) => c.solution);
         if(answer.includes(body.beacon_id)) {
           if(user_challenge_complete_time[e.user_id])
-            user_challenge_complete_time[e.user_id][answersids.indexOf(e.id)] = e.date;
-
-          else {
-            const newnull = [...nullarray];
-            newnull[answersids.indexOf(e.id)] = e.date;
-            user_challenge_complete_time[e.user_id] = newnull;
-          }
+            user_challenge_complete_time[e.user_id].push({ challenge_id: body.challenge_id, time: e.date });
+          else
+            user_challenge_complete_time[e.user_id] = [{ challenge_id: body.challenge_id, time: e.date }];
         }
       }
     }
@@ -107,14 +108,31 @@ function outputChallengeCompleteTimesByUser() {
     output += `${e},`;
   });
   output += "\n";
+
   Object.keys(user_challenge_complete_time).forEach((e) => {
-    user_challenge_complete_time[e].forEach((el) => {
-      if(el)
-        output += `${el},`;
-      else
-        output += ",";
-      output += "\n";
+    user_challenge_complete_time[e].sort((f, s) => {
+      if(f.challenge_id < s.challenge_id)
+        return -1;
+      if(f.challenge_id > s.challenge_id)
+        return 1;
+      return 0;
     });
+
+    output += `${e},`;
+    answersids.forEach((a) => {
+      console.log(answersids);
+      console.log(user_challenge_complete_time[e].map((c) => c.challenge_id.toString()));
+      if(user_challenge_complete_time[e].map((c) => c.challenge_id.toString()).includes(a)) {
+        output += `${user_challenge_complete_time[e].find((c) => {
+          console.log(`${c.challenge_id.toString()} - ${a}`);
+          return c.challenge_id.toString() === a;
+        })!.time},`;
+        user_challenge_complete_time[e].filter((r) => r.toString() !== a);
+      }
+      else
+        output += ',';
+    });
+    output += "\n";
   });
   const stream = fs.createWriteStream("challenge-complete-time.csv", { flags: 'w' });
   stream.write(output);
