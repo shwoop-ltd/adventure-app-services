@@ -19,7 +19,7 @@ export interface PrizePool {
 // Database types
 
 export interface DBMapCollection {
-  id: "maps";
+  id: 'maps';
   maps: {
     // The name of the map used for further backend requests
     name: string;
@@ -82,7 +82,7 @@ export interface DBTreasure extends Location, PrizePool {
 }
 
 export interface DBSurveyCollection {
-  id: "surveys";
+  id: 'surveys';
   surveys: {
     question: string;
     answers: string[];
@@ -104,10 +104,10 @@ export interface DBPrizeType {
   instance_name: string;
   description: string;
 
-  redeem_type?: "in-store" | "online";
+  redeem_type?: 'in-store' | 'online';
   redeem_message: string;
 }
 export interface DBPrizeTypeCollection {
-  id: "prize-types";
+  id: 'prize-types';
   prizes: DBPrizeType[];
 }

@@ -7,5 +7,5 @@ export async function handler(): Promise<APIGatewayProxyResult> {
   if(maps)
     return response(200, maps.maps);
   else
-    return response(500, "Maps not found!");
+    return response(500, 'Maps not found!');
 }

@@ -3,6 +3,7 @@
  */
 import { promises as fs } from 'fs';
 import * as AWS from 'aws-sdk';
+
 const minimist = require('minimist') as typeof import('minimist');
 
 type Item = { id: string };
@@ -26,19 +27,15 @@ async function run() {
   // Load db from input files
   let items = (
     (await Promise.all(
-      input_files
-      .map(filename => fs.readFile(filename, { encoding: 'utf-8' }))
+      input_files.map((filename) => fs.readFile(filename, { encoding: 'utf-8' })),
     ))
-    .reduce(
-      (prev, cur) => prev.concat(JSON.parse(cur) as Item[]),
-      [] as Item[]
-    )
+      .reduce((prev, cur) => prev.concat(JSON.parse(cur)), [] as Item[])
   );
   console.log(`Found ${items.length} items`);
 
   // Filter items if requested
   if(filter) {
-    items = items.filter(({ id }) => id.match(filter));
+    items = items.filter(({ id }) => filter.exec(id));
     console.log(`Modifying ${items.length} items`);
   }
 
@@ -49,17 +46,24 @@ async function run() {
   const doc_client = new AWS.DynamoDB.DocumentClient({ region: 'ap-southeast-2', endpoint: db });
 
   // DynamoDB imposes a limit of writing at most 25 items at a time
+  const results: Promise<void>[] = [];
   for(let i = 0; (i * 25) < items.length; i += 1) {
     const mini_batch = items.slice(i * 25, (i + 1) * 25);
 
-    const result = await doc_client.batchWrite({
-      RequestItems: {
-        [`AdventureApp-${stage}`]: mini_batch.map(item => ({ PutRequest: { Item: item } })),
-      },
-    }).promise();
-
-    console.log(result);
+    results.push(
+      doc_client.batchWrite({
+        RequestItems: {
+          [`AdventureApp-${stage}`]: mini_batch.map((item) => ({ PutRequest: { Item: item } })),
+        },
+      })
+        .promise()
+        .then((result) => {
+          console.log(result);
+        }),
+    );
   }
+
+  await Promise.all(results);
 }
 
-run().catch(e => console.error(e));
+run().catch((e) => console.error(e));

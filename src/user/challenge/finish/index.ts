@@ -6,41 +6,41 @@ import { get_next_prize } from '/opt/nodejs/helpers';
 
 export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
   if(!event.body)
-    return response(400, "Body not present");
+    return response(400, 'Body not present');
 
   const body = JSON.parse(event.body);
   if(!body.challenge_id || !body.beacon_id || !body.map)
-    return response(400, "Incorrect body.");
+    return response(400, 'Incorrect body.');
 
   if(!event.pathParameters || !event.pathParameters.user_id)
-    return response(400, "No user_id");
+    return response(400, 'No user_id');
 
   // Done first to ensure our telemetry is about a given user.
   const { user_id } = event.pathParameters;
 
   if(!event.requestContext.authorizer || user_id !== event.requestContext.authorizer.claims.sub)
-    return response(401, "Cannot access this user");
+    return response(401, 'Cannot access this user');
 
   const user = await Users.get(user_id);
   if(!user)
-    return response(404, "User does not exist.");
+    return response(404, 'User does not exist.');
 
-  await generate_telemetry(event, "finish-challenge", user.id);
+  await generate_telemetry(event, 'finish-challenge', user.id);
 
   // Core variable assignment
   const { beacon_id, map, challenge_id } = body;
 
   const challenge = await AdventureApp.get_challenge(map, challenge_id);
   if(!challenge)
-    return response(404, "Puzzle not found");
+    return response(404, 'Puzzle not found');
 
   // Check the user hasn't already completed it
   if(user.challenges.includes(challenge_id))
-    return response(403, "Challenge already completed.");
+    return response(403, 'Challenge already completed.');
 
   // Solution Check
   if(challenge.solution !== beacon_id)
-    return response(204, "Wrong solution.");
+    return response(204, 'Wrong solution.');
 
   // Identify the prize that should be awarded.
   const prize_info = get_next_prize(challenge);
@@ -48,10 +48,10 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
   // Puzzle Check
   const map_info = await AdventureApp.get_map(map);
   if(!map_info)
-    return response(500, "Map not found");
+    return response(500, 'Map not found');
   const challenge_info = map_info.challenges.find((map_challenge) => map_challenge.id === challenge_id);
   if(!challenge_info)
-    return response(400, "Challenge not found");
+    return response(400, 'Challenge not found');
 
   // Create prize for user, or give user points
   let response_object;
@@ -60,7 +60,7 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
     response_object = create_points_prize_response(prize_info.points, challenge_info.location, 'challenge');
   }
   else if(prize_info) {
-    const prize = await create_prize(user_id, prize_info.prize, "challenge", undefined, challenge_info.location);
+    const prize = await create_prize(user_id, prize_info.prize, 'challenge', undefined, challenge_info.location);
     user.prizes.push(prize.id);
     response_object = create_prize_response(prize);
   }

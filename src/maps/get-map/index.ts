@@ -3,7 +3,7 @@ import { AdventureApp, response } from '/opt/nodejs';
 
 export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
   if(!event.pathParameters)
-    return response(400, "No path parameters");
+    return response(400, 'No path parameters');
 
   // Get Map
   const { map } = event.pathParameters;

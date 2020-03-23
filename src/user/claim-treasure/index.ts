@@ -7,20 +7,20 @@ import { get_next_prize } from '/opt/nodejs/helpers';
 
 export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
   if(!event.pathParameters || !event.pathParameters.user_id)
-    return response(400, "Missing path parameters.");
+    return response(400, 'Missing path parameters.');
 
   const { user_id, map, beacon } = event.pathParameters;
 
-  generate_telemetry(event, "get-treasure", user_id);
+  generate_telemetry(event, 'get-treasure', user_id);
 
   // Does this user exist?
   const user = await Users.get(user_id);
 
   if(!event.requestContext.authorizer || user_id !== event.requestContext.authorizer.claims.sub)
-    return response(401, "Cannot access this user");
+    return response(401, 'Cannot access this user');
 
   if(!user)
-    return response(401, "User does not exist.");
+    return response(401, 'User does not exist.');
 
   // Is there a treasure with this beacon?
   const treasure = await AdventureApp.get_treasure(map, beacon);
@@ -29,12 +29,12 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
 
   // Is it a new treasure?
   if(user.treasure.includes(treasure.id))
-    return response(403, "Treasure already claimed");
+    return response(403, 'Treasure already claimed');
 
   const prize_info = get_next_prize(treasure);
 
   if(!prize_info)
-    return response(204, `There is no more treasure to claim`);
+    return response(204, 'There is no more treasure to claim');
 
   // Moved to the end so that if there are any fatal errors in the middle, nothing will be half changed
 
@@ -42,10 +42,20 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
   let response_object;
   if(prize_info.points) {
     user.points += prize_info.points;
-    response_object = create_points_prize_response(prize_info.points, { longitude: treasure.longitude, latitude: treasure.latitude }, 'treasure');
+    response_object = create_points_prize_response(
+      prize_info.points,
+      { longitude: treasure.longitude, latitude: treasure.latitude },
+      'treasure',
+    );
   }
   else {
-    const prize = await create_prize(user_id, prize_info.prize, "treasure", undefined, { longitude: treasure.longitude, latitude: treasure.latitude });
+    const prize = await create_prize(
+      user_id,
+      prize_info.prize,
+      'treasure',
+      undefined,
+      { longitude: treasure.longitude, latitude: treasure.latitude },
+    );
     user.prizes.push(prize.id);
     response_object = create_prize_response(prize);
   }

@@ -15,13 +15,13 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
     challenge_id = Number.parseInt(id, 10);
   }
   catch(e) {
-    return response(400, "Challenge id must be a number");
+    return response(400, 'Challenge id must be a number');
   }
 
   const challenge = await AdventureApp.get_challenge(map, challenge_id);
 
   if(!challenge)
-    return response(404, "No puzzle with that ID.");
+    return response(404, 'No puzzle with that ID.');
 
   // Ensure we only pass certain information
   return response(

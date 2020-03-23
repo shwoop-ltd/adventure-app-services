@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "concurrently --kill-others \"tsc --watch --p lambda\" \"sam local start-api\"",
+    "start": "concurrently --kill-others \"tsc --watch --p tsconfig.build.json lambda\" \"sam local start-api\"",
+    "lint": "eslint **/*.ts",
     "test": "mocha -r ts-node/register **/*.spec.ts --timeout 15000",
     "beta": "ts-node ./scripts/beta.ts",
     "upload-db": "ts-node ./scripts/upload-database.ts",
@@ -15,27 +16,28 @@
     "deploy-prod": "./scripts/deploy.ps1 Prod"
   },
   "dependencies": {
-    "@types/node": "^12.0.2",
-    "aws-sdk": "^2.457.0",
-    "typescript": "^3.6.2"
+    "@types/node": "^13.9.3",
+    "aws-sdk": "^2.643.0",
+    "typescript": "^3.8.3"
   },
   "devDependencies": {
-    "@types/aws-lambda": "^8.10.26",
-    "@types/chai": "^4.1.7",
+    "@types/aws-lambda": "^8.10.46",
+    "@types/chai": "^4.2.11",
     "@types/minimist": "^1.2.0",
-    "@types/mocha": "^5.2.7",
-    "@types/node-fetch": "^2.3.5",
-    "@typescript-eslint/eslint-plugin": "^2.0.0",
-    "@typescript-eslint/parser": "^2.0.0",
+    "@types/mocha": "^7.0.2",
+    "@types/node-fetch": "^2.5.5",
+    "@typescript-eslint/eslint-plugin": "^2.24.0",
+    "@typescript-eslint/parser": "^2.24.0",
     "chai": "^4.2.0",
-    "concurrently": "^4.1.0",
-    "eslint": "^6.2.0",
-    "eslint-config-airbnb": "^18.0.1",
-    "eslint-plugin-import": "^2.18.2",
-    "minimist": "^1.2.0",
-    "mocha": "^6.1.4",
+    "concurrently": "^5.1.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-import-resolver-typescript": "^2.0.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-mocha": "^6.3.0",
+    "minimist": "^1.2.5",
+    "mocha": "^7.1.1",
     "node-fetch": "^2.6.0",
-    "ts-node": "^8.2.0",
-    "tslint-config-airbnb": "^5.11.1"
+    "ts-node": "^8.8.1"
   }
 }

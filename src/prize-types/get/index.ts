@@ -7,5 +7,5 @@ export async function handler(): Promise<APIGatewayProxyResult> {
   if(result)
     return response(200, result.prizes);
   else
-    return response(502, "No prize types!");
+    return response(502, 'No prize types!');
 }

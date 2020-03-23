@@ -1,6 +1,16 @@
 import { APIGatewayProxyEvent } from 'aws-lambda';
 import {
-  DBMapCollection, DBMapInfo, DBBeacon, DBChallenge, DBSurveyCollection, DBPrizeTypeCollection, DBUser, DBPrize, DBTelemetry, DBTreasure, Location,
+  DBMapCollection,
+  DBMapInfo,
+  DBBeacon,
+  DBChallenge,
+  DBSurveyCollection,
+  DBPrizeTypeCollection,
+  DBUser,
+  DBPrize,
+  DBTelemetry,
+  DBTreasure,
+  Location,
 } from 'schemas';
 
 import { get_item, put_item } from './table-helpers';
@@ -81,9 +91,9 @@ export async function create_prize(
   location: Location,
 ) {
   function generate_id(length: number) {
-    const valid_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    const valid_chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
-    let id = "";
+    let id = '';
     for(let i = 0; i < length; i += 1)
       id += valid_chars.charAt(Math.floor(Math.random() * valid_chars.length));
 

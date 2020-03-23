@@ -1,4 +1,4 @@
-import { PrizePool, PrizeOption } from "schemas";
+import { PrizePool, PrizeOption } from 'schemas';
 
 export function get_next_prize(prize_pool: PrizePool): PrizeOption | undefined {
   const { prizes, claimed } = prize_pool;
