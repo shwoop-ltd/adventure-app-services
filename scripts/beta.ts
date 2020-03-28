@@ -2,7 +2,6 @@
  * Writes the given json objects into our table
  */
 import * as AWS from 'aws-sdk';
-import { AWSError } from 'aws-sdk';
 import { ScanOutput, ScanInput } from 'aws-sdk/clients/dynamodb';
 
 const doc_client = new AWS.DynamoDB.DocumentClient({ region: 'ap-southeast-2' });
@@ -18,7 +17,7 @@ const params: ScanInput = {
   },
 };
 
-function onScan(err: AWSError, data: ScanOutput) {
+function onScan(err: AWS.AWSError, data: ScanOutput) {
   if(err)
     console.error('Unable to scan the table. Error JSON:', JSON.stringify(err, null, 2));
   else {

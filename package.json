@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "concurrently --kill-others \"tsc --watch --p tsconfig.build.json lambda\" \"sam local start-api\"",
+    "start": "concurrently --kill-others \"tsc --watch --p tsconfig.build.json\" \"sam local start-api\"",
     "lint": "eslint **/*.ts",
     "test": "mocha -r ts-node/register **/*.spec.ts --timeout 15000",
     "beta": "ts-node ./scripts/beta.ts",

@@ -4,8 +4,8 @@ Parameters:
   Stage:
     Type: String
     AllowedValues:
-      - Dev
-      - Prod
+      - Development
+      - Production
     Description: The stage type to upload
 Globals:
   Function:
@@ -19,7 +19,7 @@ Globals:
         ENDPOINT_OVERRIDE: ""
         ADMIN_KEY: "nW0xj7iN7bMAS1L7cyRB32sKDtNi2qmBi2sHed8qOPPAgkPI2qhjnt5VYTDPLt0z"
   Api:
-    OpenApiVersion: '3.0.1'
+    OpenApiVersion: "3.0.1"
 Resources:
   AdventureApi:
     Type: AWS::Serverless::Api
@@ -36,7 +36,7 @@ Resources:
         DefaultAuthorizer: CognitoUser
         Authorizers:
           CognitoUser: # TODO: Not hardcode
-            UserPoolArn: arn:aws:cognito-idp:ap-southeast-2:020479359034:userpool/ap-southeast-2_UyvhAfzW8
+            UserPoolArn: arn:aws:cognito-idp:ap-southeast-2:375397006791:userpool/ap-southeast-2_BXoPotfhN
             Identity:
               Header: Authorization
   AdventureTable:

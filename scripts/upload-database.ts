@@ -17,8 +17,8 @@ const {
   stage,
 } = args;
 
-if(!['Prod', 'Dev'].includes(stage)) {
-  console.log("Input var --stage must be either 'Prod' or 'Dev'");
+if(!['Production', 'Development'].includes(stage) && !db) {
+  console.log("Input var --stage must be either 'Production' or 'Development'");
   process.exit(-1);
 }
 
@@ -44,6 +44,7 @@ async function run() {
     AWS.config.credentials = new AWS.SharedIniFileCredentials({ profile });
 
   const doc_client = new AWS.DynamoDB.DocumentClient({ region: 'ap-southeast-2', endpoint: db });
+  const stage_ext = stage ? `-${stage}` : '';
 
   // DynamoDB imposes a limit of writing at most 25 items at a time
   const results: Promise<void>[] = [];
@@ -53,7 +54,7 @@ async function run() {
     results.push(
       doc_client.batchWrite({
         RequestItems: {
-          [`AdventureApp-${stage}`]: mini_batch.map((item) => ({ PutRequest: { Item: item } })),
+          [`AdventureApp${stage_ext}`]: mini_batch.map((item) => ({ PutRequest: { Item: item } })),
         },
       })
         .promise()

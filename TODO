@@ -1,5 +1,0 @@
-- Make package commands
-  - Package
-  - Upload database info
-- Create tests for local SAM
-- Determine necessary Lambda permissions in SAM

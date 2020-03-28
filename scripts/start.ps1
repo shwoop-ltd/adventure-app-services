@@ -1,5 +1,5 @@
 # Compile code
-tsc
+tsc --p tsconfig.build.json
 
 docker network create lambda-local
 
@@ -10,6 +10,6 @@ aws dynamodb create-table --table-name AdventureAppPrizes --attribute-definition
 aws dynamodb create-table --table-name AdventureAppUsers --attribute-definitions AttributeName=id,AttributeType=S --key-schema AttributeName=id,KeyType=HASH --provisioned-throughput ReadCapacityUnits=2,WriteCapacityUnits=1 --endpoint-url http://localhost:8000
 aws dynamodb create-table --table-name AdventureAppTelemetry --attribute-definitions AttributeName=id,AttributeType=S --key-schema AttributeName=id,KeyType=HASH --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=10 --endpoint-url http://localhost:8000
 
-ts-node ./scripts/upload-database.ts --db http://localhost:8000
+ts-node ./scripts/upload-database.ts ./resources/dev/AdventureApp.json --db http://localhost:8000 --profile shwoop
 
 sam local start-api --profile shwoop --env-vars ./resources/dev/local-env.json --docker-network lambda-local
