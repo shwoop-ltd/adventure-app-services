@@ -27,9 +27,8 @@
   ],
   "eslint.run": "onType",
   "eslint.packageManager": "yarn",
-  "typescript.format.insertSpaceAfterKeywordsInControlFlowStatements": false,
+
   "editor.formatOnSave": true,
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
-  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "eslint.options.configFile": "./.eslintrc.editor.js"
 }

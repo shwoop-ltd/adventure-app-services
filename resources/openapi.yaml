@@ -1,85 +1,85 @@
 openapi: 3.0.1
 info:
   title: Shwoop Adventure App
-  description: "This is the backend for the Shwoop Adventure App"
+  description: 'This is the backend for the Shwoop Adventure App'
   version: 1.0.0
 security:
   - CognitoAuthorizer: []
 paths:
   /maps:
     get:
-      summary: "Gets all available maps"
+      summary: 'Gets all available maps'
       operationId: get_maps
       responses:
         200:
-          description: "successful operation"
+          description: 'successful operation'
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/MapSummary"
+                  $ref: '#/components/schemas/MapSummary'
       x-amazon-apigateway-integration:
         uri:
-          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetMaps.Arn}/invocations"
+          Fn::Sub: 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetMaps.Arn}/invocations'
         responses: {}
         httpMethod: POST
         type: aws_proxy
   /maps/{map}:
     get:
-      summary: "Gets all markers for the given map"
+      summary: 'Gets all markers for the given map'
       operationId: get_map
       parameters:
         - name: map
           in: path
-          description: "Name of map"
+          description: 'Name of map'
           schema:
             type: string
           required: true
       responses:
         200:
-          description: "successful operation"
+          description: 'successful operation'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Map"
+                $ref: '#/components/schemas/Map'
         404:
-          description: "map not found"
+          description: 'map not found'
       x-amazon-apigateway-integration:
         uri:
-          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetMap.Arn}/invocations"
+          Fn::Sub: 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetMap.Arn}/invocations'
         responses: {}
         httpMethod: POST
         type: aws_proxy
   /maps/{map}/beacons/{beacon}:
     get:
-      summary: "Attempts to get information about the given beacon"
+      summary: 'Attempts to get information about the given beacon'
       operationId: get_beacon
       parameters:
         - name: map
           in: path
-          description: "Name of map"
+          description: 'Name of map'
           schema:
             type: string
           required: true
         - name: beacon
           in: path
-          description: "ID of the beacon"
+          description: 'ID of the beacon'
           schema:
             type: string
           required: true
       responses:
         200:
-          description: "successful operation"
+          description: 'successful operation'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Beacon"
+                $ref: '#/components/schemas/Beacon'
         404:
-          description: "map or beacon not found"
+          description: 'map or beacon not found'
       x-amazon-apigateway-integration:
         uri:
-          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetBeacon.Arn}/invocations"
+          Fn::Sub: 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetBeacon.Arn}/invocations'
         responses: {}
         httpMethod: POST
         type: aws_proxy
@@ -96,85 +96,85 @@ paths:
           required: true
         - name: id
           in: path
-          description: "Id of challenge"
+          description: 'Id of challenge'
           schema:
             type: string
           required: true
       responses:
         200:
-          description: "successful operation"
+          description: 'successful operation'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PrizePool"
+                $ref: '#/components/schemas/PrizePool'
         404:
-          description: "map or challenge not found"
+          description: 'map or challenge not found'
           content: {}
       x-amazon-apigateway-integration:
         uri:
-          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetChallengePrizes.Arn}/invocations"
+          Fn::Sub: 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetChallengePrizes.Arn}/invocations'
         responses: {}
         httpMethod: POST
         type: aws_proxy
   /redemption-codes/{code}/:
     post:
-      summary: "Gets a prize object for a redemption code"
+      summary: 'Gets a prize object for a redemption code'
       operationId: get_prize
       parameters:
         - in: path
           name: code
-          description: "The redeemable code"
+          description: 'The redeemable code'
           schema:
             type: string
           required: true
       responses:
         200:
-          description: "successful operation"
+          description: 'successful operation'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Prize"
+                $ref: '#/components/schemas/Prize'
       x-amazon-apigateway-integration:
         uri:
-          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetPrize.Arn}/invocations"
+          Fn::Sub: 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetPrize.Arn}/invocations'
         responses: {}
         httpMethod: POST
         type: aws_proxy
     delete:
-      summary: "Removes a prize from the table"
+      summary: 'Removes a prize from the table'
       operationId: delete_prize
       security:
         - User: []
       parameters:
         - in: path
           name: code
-          description: "The redeemable code"
+          description: 'The redeemable code'
           schema:
             type: string
           required: true
       responses:
         204:
-          description: "successful operation"
+          description: 'successful operation'
       x-amazon-apigateway-integration:
         uri:
-          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DeletePrize.Arn}/invocations"
+          Fn::Sub: 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DeletePrize.Arn}/invocations'
         responses: {}
         httpMethod: POST
         type: aws_proxy
   /prize-types:
     get:
-      summary: "Gets information about types of prizes that can be awarded"
+      summary: 'Gets information about types of prizes that can be awarded'
       operationId: get_prize_types
       responses:
         200:
-          description: "Successful operation"
+          description: 'Successful operation'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PrizeTypes"
+                $ref: '#/components/schemas/PrizeTypes'
       x-amazon-apigateway-integration:
         uri:
-          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetPrizeTypes.Arn}/invocations"
+          Fn::Sub: 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetPrizeTypes.Arn}/invocations'
         responses: {}
         httpMethod: POST
         type: aws_proxy
@@ -187,7 +187,7 @@ paths:
       parameters:
         - in: path
           name: user_id
-          description: "The user ID"
+          description: 'The user ID'
           schema:
             type: string
           required: true
@@ -195,24 +195,24 @@ paths:
         - CognitoAuthorizer: []
       responses:
         200:
-          description: "successful operation"
+          description: 'successful operation'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/User"
+                $ref: '#/components/schemas/User'
       x-amazon-apigateway-integration:
         uri:
-          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetUser.Arn}/invocations"
+          Fn::Sub: 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetUser.Arn}/invocations'
         responses: {}
         httpMethod: POST
         type: aws_proxy
     post:
-      summary: "Creates a new user object associated to a cognito user"
+      summary: 'Creates a new user object associated to a cognito user'
       operationId: register_user
       parameters:
         - in: path
           name: user_id
-          description: "The user ID"
+          description: 'The user ID'
           schema:
             type: string
           required: true
@@ -232,12 +232,12 @@ paths:
         - CognitoAuthorizer: []
       responses:
         201:
-          description: "Successfully created"
+          description: 'Successfully created'
         409:
-          description: "User already exists"
+          description: 'User already exists'
       x-amazon-apigateway-integration:
         uri:
-          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${RegisterUser.Arn}/invocations"
+          Fn::Sub: 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${RegisterUser.Arn}/invocations'
         responses: {}
         httpMethod: POST
         type: aws_proxy
@@ -245,48 +245,48 @@ paths:
     parameters:
       - in: path
         name: user_id
-        description: "The User ID"
+        description: 'The User ID'
         schema:
           type: string
         required: true
     get:
-      summary: "Gets the prizes and points of a given user"
+      summary: 'Gets the prizes and points of a given user'
       operationId: get_user_prizes
       responses:
         200:
-          description: "Account created."
+          description: 'Account created.'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/UserPrizes"
+                $ref: '#/components/schemas/UserPrizes'
       security:
         - CognitoAuthorizer: []
       x-amazon-apigateway-integration:
         uri:
-          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${RegisterUser.Arn}/invocations"
+          Fn::Sub: 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${RegisterUser.Arn}/invocations'
         responses: {}
         httpMethod: POST
         type: aws_proxy
   /users/{user_id}/treasure/{map}/{beacon_id}:
     post:
-      summary: "Gets a prize for a treasure beacon"
+      summary: 'Gets a prize for a treasure beacon'
       operationId: redeem_treasure
       parameters:
         - in: path
           name: user_id
-          description: "The User ID"
+          description: 'The User ID'
           schema:
             type: string
           required: true
         - in: path
           name: map
-          description: "The map in which the treasure is found"
+          description: 'The map in which the treasure is found'
           schema:
             type: string
           required: true
         - in: path
           name: beacon_id
-          description: "The beacon_id of the treasure"
+          description: 'The beacon_id of the treasure'
           schema:
             type: string
           required: true
@@ -294,20 +294,20 @@ paths:
         - CognitoAuthorizer: []
       responses:
         200:
-          description: "successful operation"
+          description: 'successful operation'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Prize"
+                $ref: '#/components/schemas/Prize'
       x-amazon-apigateway-integration:
         uri:
-          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ClaimTreasure.Arn}/invocations"
+          Fn::Sub: 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ClaimTreasure.Arn}/invocations'
         responses: {}
         httpMethod: POST
         type: aws_proxy
   /users/{user_id}/challenge/{map}/{challenge_id}:
     post:
-      summary: "Start a new challenge"
+      summary: 'Start a new challenge'
       operationId: start_challenge
       parameters:
         - name: user_id
@@ -332,39 +332,39 @@ paths:
         - CognitoAuthorizer: []
       responses:
         201:
-          description: "successful operation"
+          description: 'successful operation'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ChallengeContents"
+                $ref: '#/components/schemas/ChallengeContents'
         400:
-          description: "This challenge is not available right now"
+          description: 'This challenge is not available right now'
           content: {}
         402:
-          description: "Have not completed enough prerequisite challenges"
+          description: 'Have not completed enough prerequisite challenges'
           content: {}
         404:
-          description: "Map or beacon not found"
+          description: 'Map or beacon not found'
           content: {}
       x-amazon-apigateway-integration:
         uri:
-          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${StartChallenge.Arn}/invocations"
+          Fn::Sub: 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${StartChallenge.Arn}/invocations'
         responses: {}
         httpMethod: POST
         type: aws_proxy
   /users/{user_id}/challenge:
     post:
-      summary: "Attempt to complete a challenge"
+      summary: 'Attempt to complete a challenge'
       operationId: finish_challenge
       parameters:
         - in: path
           name: user_id
-          description: "The User ID"
+          description: 'The User ID'
           schema:
             type: string
           required: true
       requestBody:
-        description: "Contains the beacon of the guessed solution"
+        description: 'Contains the beacon of the guessed solution'
         content:
           application/json:
             schema:
@@ -382,56 +382,56 @@ paths:
         - CognitoAuthorizer: []
       responses:
         200:
-          description: "Successfully solved puzzle"
+          description: 'Successfully solved puzzle'
           content:
             application/json:
               schema:
                 type: object
                 properties:
                   prize:
-                    $ref: "#/components/schemas/Prize"
+                    $ref: '#/components/schemas/Prize'
         204:
-          description: "Did not solve puzzle"
+          description: 'Did not solve puzzle'
           content: {}
         400:
-          description: "Input body incorrect. Need a valid beacon_id"
+          description: 'Input body incorrect. Need a valid beacon_id'
           content: {}
         403:
-          description: "Challenge already completed"
+          description: 'Challenge already completed'
         404:
-          description: "map not found, or challenge not started"
+          description: 'map not found, or challenge not started'
           content: {}
       x-amazon-apigateway-integration:
         uri:
-          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${FinishChallenge.Arn}/invocations"
+          Fn::Sub: 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${FinishChallenge.Arn}/invocations'
         responses: {}
         httpMethod: POST
         type: aws_proxy
     delete:
-      summary: "Stop a challenge"
+      summary: 'Stop a challenge'
       operationId: stop_challenge
       parameters:
         - in: path
           name: user_id
-          description: "The User ID"
+          description: 'The User ID'
           schema:
             type: string
           required: true
       responses:
         204:
-          description: "successful operation"
+          description: 'successful operation'
         404:
-          description: "map or beacon not found, or challenge not started"
+          description: 'map or beacon not found, or challenge not started'
           content: {}
       x-amazon-apigateway-integration:
         uri:
-          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${StopChallenge.Arn}/invocations"
+          Fn::Sub: 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${StopChallenge.Arn}/invocations'
         responses: {}
         httpMethod: POST
         type: aws_proxy
   /users/{user_id}/surveys/new:
     get:
-      summary: "Gets a survey"
+      summary: 'Gets a survey'
       operationId: get_survey
       parameters:
         - name: user_id
@@ -444,22 +444,22 @@ paths:
         - CognitoAuthorizer: []
       responses:
         200:
-          description: "successful operation"
+          description: 'successful operation'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Survey"
+                $ref: '#/components/schemas/Survey'
         204:
-          description: "No more surveys to complete"
+          description: 'No more surveys to complete'
       x-amazon-apigateway-integration:
         uri:
-          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetSurvey.Arn}/invocations"
+          Fn::Sub: 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetSurvey.Arn}/invocations'
         responses: {}
         httpMethod: POST
         type: aws_proxy
   /users/{user_id}/surveys:
     post:
-      summary: "Finish a survey"
+      summary: 'Finish a survey'
       operationId: finish_survey
       parameters:
         - name: user_id
@@ -472,18 +472,18 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/SurveyResponse"
+              $ref: '#/components/schemas/SurveyResponse'
       security:
         - CognitoAuthorizer: []
       responses:
         201:
-          description: "Prize created"
+          description: 'Prize created'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Prize"
+                $ref: '#/components/schemas/Prize'
         200:
-          description: "No prize created"
+          description: 'No prize created'
           content:
             application/json:
               schema:
@@ -500,7 +500,7 @@ paths:
                 nullable: true
       x-amazon-apigateway-integration:
         uri:
-          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${FinishSurvey.Arn}/invocations"
+          Fn::Sub: 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${FinishSurvey.Arn}/invocations'
         responses: {}
         httpMethod: POST
         type: aws_proxy
@@ -508,15 +508,15 @@ paths:
 components:
   securitySchemes:
     CognitoAuthorizer:
-      type: "apiKey"
-      name: "Authorization"
-      in: "header"
-      x-amazon-apigateway-authtype: "cognito_user_pools"
+      type: 'apiKey'
+      name: 'Authorization'
+      in: 'header'
+      x-amazon-apigateway-authtype: 'cognito_user_pools'
       x-amazon-apigateway-authorizer:
         # TODO: Not put this in here
         providerARNs:
-          - "arn:aws:cognito-idp:ap-southeast-2:020479359034:userpool/ap-southeast-2_UyvhAfzW8"
-        type: "cognito_user_pools"
+          - 'arn:aws:cognito-idp:ap-southeast-2:020479359034:userpool/ap-southeast-2_UyvhAfzW8'
+        type: 'cognito_user_pools'
   schemas:
     MapSummary:
       type: object
@@ -524,7 +524,7 @@ components:
         area:
           type: array
           items:
-            $ref: "#/components/schemas/Coordinate"
+            $ref: '#/components/schemas/Coordinate'
       required: [image_url, area]
       additionalProperties: false
     Map:
@@ -533,14 +533,14 @@ components:
         challenges:
           type: array
           items:
-            $ref: "#/components/schemas/ChallengeInfo"
+            $ref: '#/components/schemas/ChallengeInfo'
         events:
           type: array
           items:
             type: object
             properties:
               location:
-                $ref: "#/components/schemas/Coordinate"
+                $ref: '#/components/schemas/Coordinate'
               description:
                 type: string
                 description: The event info as markdown
@@ -576,12 +576,12 @@ components:
       properties:
         text:
           type: string
-          description: "Text of the puzzle"
+          description: 'Text of the puzzle'
         image_url:
           type: string
-          description: "Url of an image related to the puzzle"
+          description: 'Url of an image related to the puzzle'
         radius:
-          description: "Radius in which the solution can be found"
+          description: 'Radius in which the solution can be found'
           type: number
       additionalProperties: false
     ChallengeInfo:
@@ -591,13 +591,13 @@ components:
           type: integer
           description: Unique id
         location:
-          $ref: "#/components/schemas/Coordinate"
+          $ref: '#/components/schemas/Coordinate'
         prerequisites:
           type: number
-          description: "The number of prerequisite challenges that must be completed first before starting this challenge"
+          description: 'The number of prerequisite challenges that must be completed first before starting this challenge'
         is_prerequisite:
           type: boolean
-          description: "Whether this challenge counts towards the prerequisites"
+          description: 'Whether this challenge counts towards the prerequisites'
         open:
           type: boolean
           default: false
@@ -620,7 +620,7 @@ components:
       type: object
       properties:
         location:
-          $ref: "#/components/schemas/Coordinate"
+          $ref: '#/components/schemas/Coordinate'
         beacon_type:
           type: string
           enum:
@@ -646,19 +646,10 @@ components:
             type: string
           redeem_type:
             type: string
-            enum: ["in-store", "online"]
+            enum: ['in-store', 'online']
           redeem_info:
             type: string
-      required:
-        [
-          name,
-          image_url,
-          display_name,
-          instance_name,
-          description,
-          redeem_type,
-          redeem_info,
-        ]
+      required: [name, image_url, display_name, instance_name, description, redeem_type, redeem_info]
       additionalProperties: false
     Prize:
       type: object
@@ -675,7 +666,7 @@ components:
           type: string
         received_from:
           type: string
-          enum: ["challenge", "treasure"]
+          enum: ['challenge', 'treasure']
         redeemed:
           type: boolean
           default: false
@@ -739,7 +730,7 @@ components:
         surveys:
           type: array
           items:
-            $ref: "#/components/schemas/SurveyResponse"
+            $ref: '#/components/schemas/SurveyResponse'
         prizes:
           type: array
           items:
@@ -753,15 +744,7 @@ components:
         prerequisite_challenges_completed:
           type: number
           description: Nubmer of prerequisite challenges completed
-      required:
-        [
-          id,
-          points,
-          surveys,
-          prizes,
-          treasure,
-          prerequisite_challenges_completed,
-        ]
+      required: [id, points, surveys, prizes, treasure, prerequisite_challenges_completed]
       additionalProperties: false
     Coordinate:
       type: object
