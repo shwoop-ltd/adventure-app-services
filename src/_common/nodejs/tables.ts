@@ -1,4 +1,4 @@
-import { APIGatewayProxyEvent } from 'aws-lambda';
+import { APIGatewayProxyEvent } from 'aws-lambda'
 import {
   DBMapCollection,
   DBMapInfo,
@@ -10,17 +10,12 @@ import {
   DBPrize,
   DBTelemetry,
   DBTreasure,
-  Location,
-} from 'schemas';
+  Location
+} from 'schemas'
 
-import { get_item, put_item } from './table-helpers';
+import { get_item, put_item } from './table-helpers'
 
-const {
-  TABLE_NAME,
-  USERS_TABLE_NAME,
-  PRIZES_TABLE_NAME,
-  TELEMETRY_TABLE_NAME,
-} = process.env;
+const { TABLE_NAME, USERS_TABLE_NAME, PRIZES_TABLE_NAME, TELEMETRY_TABLE_NAME } = process.env
 
 export const AdventureApp = {
   get_maps: () => get_item<DBMapCollection>(TABLE_NAME, 'maps', true),
@@ -31,22 +26,22 @@ export const AdventureApp = {
   get_prize_types: () => get_item<DBPrizeTypeCollection>(TABLE_NAME, 'prize-types', true),
   get_surveys: () => get_item<DBSurveyCollection>(TABLE_NAME, 'surveys', true),
   get_treasure: (map: string, beacon: string) => get_item<DBTreasure>(TABLE_NAME, `treasure-${map}-${beacon}`),
-  put_treasure: (treasure: DBTreasure) => put_item(TABLE_NAME, treasure),
-};
+  put_treasure: (treasure: DBTreasure) => put_item(TABLE_NAME, treasure)
+}
 
 export const Users = {
   get: (user_id: string) => get_item<DBUser>(USERS_TABLE_NAME, user_id),
-  put: (user: DBUser) => put_item(USERS_TABLE_NAME, user),
-};
+  put: (user: DBUser) => put_item(USERS_TABLE_NAME, user)
+}
 
 export const Prizes = {
   get: (prize_id: string) => get_item<DBPrize>(PRIZES_TABLE_NAME, prize_id),
-  put: (prize: DBPrize) => put_item(PRIZES_TABLE_NAME, prize),
-};
+  put: (prize: DBPrize) => put_item(PRIZES_TABLE_NAME, prize)
+}
 
 export const Telemetry = {
-  put: (item: DBTelemetry) => put_item(TELEMETRY_TABLE_NAME, item),
-};
+  put: (item: DBTelemetry) => put_item(TELEMETRY_TABLE_NAME, item)
+}
 
 /**
  * Places information in the Telemetry table about an event.
@@ -56,7 +51,7 @@ export const Telemetry = {
  * @param user_id - The user making the request, if known
  */
 export function generate_telemetry(event: APIGatewayProxyEvent, function_name: string, user_id?: string) {
-  const date = Date.now() / 1000;
+  const date = Date.now() / 1000
 
   const object: DBTelemetry = {
     id: `${date}-${function_name}`,
@@ -67,11 +62,11 @@ export function generate_telemetry(event: APIGatewayProxyEvent, function_name: s
     body: event.body,
     parameters: {
       path: event.pathParameters,
-      query: event.queryStringParameters,
-    },
-  };
+      query: event.queryStringParameters
+    }
+  }
 
-  return Telemetry.put(object);
+  return Telemetry.put(object)
 }
 
 /**
@@ -88,16 +83,15 @@ export async function create_prize(
   type: string,
   received_from: 'survey' | 'challenge' | 'treasure',
   update_user = false,
-  location: Location,
+  location: Location
 ) {
   function generate_id(length: number) {
-    const valid_chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const valid_chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
 
-    let id = '';
-    for(let i = 0; i < length; i += 1)
-      id += valid_chars.charAt(Math.floor(Math.random() * valid_chars.length));
+    let id = ''
+    for (let i = 0; i < length; i += 1) id += valid_chars.charAt(Math.floor(Math.random() * valid_chars.length))
 
-    return id;
+    return id
   }
 
   const prize: DBPrize = {
@@ -106,19 +100,18 @@ export async function create_prize(
     location,
     type,
     received_from,
-    received: (new Date()).toISOString(),
-    redeemed: false,
-  };
-
-  await Prizes.put(prize);
-
-  if(update_user) {
-    const user = await Users.get(user_id);
-    if(!user)
-      throw new Error(`Expected user ${user} to exist`);
-
-    user.prizes.push(prize.id);
-    await Users.put(user);
+    received: new Date().toISOString(),
+    redeemed: false
   }
-  return prize;
+
+  await Prizes.put(prize)
+
+  if (update_user) {
+    const user = await Users.get(user_id)
+    if (!user) throw new Error(`Expected user ${user} to exist`)
+
+    user.prizes.push(prize.id)
+    await Users.put(user)
+  }
+  return prize
 }

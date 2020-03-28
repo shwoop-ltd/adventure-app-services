@@ -218,17 +218,11 @@
         }
       },
       {
-        "answers": [
-          "When studying",
-          "Before a work out",
-          "On a night out",
-          "When driving",
-          "Other"
-        ],
+        "answers": ["When studying", "Before a work out", "On a night out", "When driving", "Other"],
         "question": "When do you like to consume Red Bull the most?",
         "location": {
           "latitude": -36.852,
-          "longitude": 174.770
+          "longitude": 174.77
         }
       },
       {
@@ -240,16 +234,7 @@
         }
       },
       {
-        "answers": [
-          "50x",
-          "25x",
-          "10x",
-          "5x",
-          "3x",
-          "2x",
-          "The same effectiveness",
-          "0.5x"
-        ],
+        "answers": ["50x", "25x", "10x", "5x", "3x", "2x", "The same effectiveness", "0.5x"],
         "question": "Compared to standard advertising, how effective is this in-app brand sponsorship?",
         "location": {
           "latitude": -36.852,
@@ -266,7 +251,7 @@
         ],
         "question": "What do you value most in a cafe experience?",
         "location": {
-          "latitude": -36.850,
+          "latitude": -36.85,
           "longitude": 174.77
         }
       },
@@ -280,7 +265,7 @@
         ],
         "question": "What experience have you enjoyed the most used this app? Answer this question when you've done all riddles.",
         "location": {
-          "latitude": -36.850,
+          "latitude": -36.85,
           "longitude": 174.772
         }
       }
