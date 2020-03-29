@@ -1,23 +1,18 @@
 /**
- * Writes the given json objects into our table
+ * This script forces any prize object pre-migration to have a location, so that it may appear on the map.
  */
 import * as AWS from 'aws-sdk';
+import { AWSError } from 'aws-sdk';
 import { ScanOutput, ScanInput } from 'aws-sdk/clients/dynamodb';
 
+const table_name = 'AdventureAppPrizes-Prod';
 const doc_client = new AWS.DynamoDB.DocumentClient({ region: 'ap-southeast-2' });
 
 const params: ScanInput = {
-  TableName: 'AdventureAppTelemetry-Prod',
-  FilterExpression: '#t > :time',
-  ExpressionAttributeNames: {
-    '#t': 'date',
-  },
-  ExpressionAttributeValues: {
-    ':time': 1571000400,
-  },
+  TableName: table_name,
 };
 
-function onScan(err: AWS.AWSError, data: ScanOutput) {
+function onScan(err: AWSError, data: ScanOutput) {
   if(err)
     console.error('Unable to scan the table. Error JSON:', JSON.stringify(err, null, 2));
   else {
@@ -27,38 +22,24 @@ function onScan(err: AWS.AWSError, data: ScanOutput) {
       console.log('No items match filter.');
       return;
     }
-    let i = 0;
-    [...new Set(data.Items.map((e) => e.user_id))].forEach((user_id) => {
-      console.log(user_id);
-      let update_params = {
-        TableName: 'AdventureAppUsers-Prod',
-        Key: { id: user_id },
-        UpdateExpression: 'set #b = :b',
-        ExpressionAttributeNames: { '#b': 'beta' },
-        ExpressionAttributeValues: {
-          ':b': false,
+    data.Items.forEach((prize) => {
+      const new_prize = {
+        ...prize,
+        location: {
+          latitude: Math.random() * (-36.852909 - -36.854626) + -36.854626,
+          longitude: Math.random() * (174.769479 - 174.766711) + 174.766711,
         },
       };
-
-      if(i % 2 === 0) {
-        update_params = {
-          TableName: 'AdventureAppUsers-Prod',
-          Key: { id: user_id },
-          UpdateExpression: 'set #b = :b',
-          ExpressionAttributeNames: { '#b': 'beta' },
-          ExpressionAttributeValues: {
-            ':b': true,
-          },
-        };
-      }
-
-      doc_client.update(update_params, (err2, data2) => {
+      const update_params = {
+        TableName: table_name,
+        Item: new_prize,
+      };
+      doc_client.put(update_params, (err2, data2) => {
         if(err2)
           console.log(err2);
         else
           console.log(data2);
       });
-      i += 1;
     });
     console.log('All users listed.');
     // continue scanning if we have more movies, because
