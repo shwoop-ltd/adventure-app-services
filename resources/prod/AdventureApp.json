@@ -452,12 +452,7 @@
           "latitude": -36.853017,
           "longitude": 174.764926
         },
-        "answers": [
-          "Riff Off",
-          "Amazing Race",
-          "Game Show",
-          "Food competition"
-        ]
+        "answers": ["Riff Off", "Amazing Race", "Game Show", "Food competition"]
       },
       {
         "question": "How did you hear about us?",
@@ -465,13 +460,7 @@
           "latitude": -36.852628,
           "longitude": 174.764963
         },
-        "answers": [
-          "My friends",
-          "Leaflet/Business card",
-          "Lecture bash",
-          "Social Media",
-          "Morph Suit/Shwoopian"
-        ]
+        "answers": ["My friends", "Leaflet/Business card", "Lecture bash", "Social Media", "Morph Suit/Shwoopian"]
       },
       {
         "question": "How do you shwoop?",
@@ -479,12 +468,7 @@
           "latitude": -36.85419,
           "longitude": 174.765686
         },
-        "answers": [
-          "Solo",
-          "With my friends",
-          "With my classmates",
-          "Mixed"
-        ]
+        "answers": ["Solo", "With my friends", "With my classmates", "Mixed"]
       },
       {
         "question": "What's the most enjoyable part of using Shwoop?",
@@ -492,12 +476,7 @@
           "latitude": -36.852402,
           "longitude": 174.765391
         },
-        "answers": [
-          "Live Events",
-          "Journey",
-          "Challenges",
-          "Prizes"
-        ]
+        "answers": ["Live Events", "Journey", "Challenges", "Prizes"]
       },
       {
         "question": "What made you bring a friend?",
@@ -505,13 +484,7 @@
           "latitude": -36.85221,
           "longitude": 174.765018
         },
-        "answers": [
-          "Live Events",
-          "Riddles",
-          "Challenges",
-          "Prizes",
-          "N/A"
-        ]
+        "answers": ["Live Events", "Riddles", "Challenges", "Prizes", "N/A"]
       },
       {
         "question": "What’s your level of socialisation? All data is anonymized.",
@@ -533,13 +506,7 @@
           "latitude": -36.852784,
           "longitude": 174.77134
         },
-        "answers": [
-          "0",
-          "1",
-          "2",
-          "3",
-          "4+"
-        ]
+        "answers": ["0", "1", "2", "3", "4+"]
       }
     ],
     "prize_given": {

@@ -1,2 +1,2 @@
-export * from './tables';
-export * from './api';
+export * from './tables'
+export * from './api'

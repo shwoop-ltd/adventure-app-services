@@ -30,3 +30,7 @@ Additionally that folder contains some development and production data used in d
 `data-science` contains some old scripts used for collecting information about usage post-campaign.
 All lambda's are stored in the `src` folder, and get built to `build` when being deployed.
 Integration and functional tests are stored in `tests`.
+
+## Tooling and Workflows
+
+See the [front end’s README](https://bitbucket.org/shwoopdevelopment/adventure-app/src/master/README.md#markdown-header-tooling-and-workflows).
