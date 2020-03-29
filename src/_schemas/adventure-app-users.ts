@@ -1,14 +1,14 @@
 export interface DBUser {
-  id: string
+  id: string;
 
-  campaign: string
-  beta: boolean
+  campaign: string;
+  beta: boolean;
 
-  points: number
-  surveys: { question: string; answer: string }[]
-  prizes: string[]
-  treasure: string[]
-  challenges: number[]
+  points: number;
+  surveys: { question: string; answer: string }[];
+  prizes: string[];
+  treasure: string[];
+  challenges: number[];
 
-  prerequisite_challenges_completed: number
+  prerequisite_challenges_completed: number;
 }

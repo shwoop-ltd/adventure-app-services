@@ -1,9 +1,7 @@
 {
   "json.schemas": [
     {
-      "fileMatch": [
-        "**/AdventureApp*.json"
-      ],
+      "fileMatch": ["**/AdventureApp*.json"],
       "url": "./resources/adventure-app.schema.json"
     }
   ],
@@ -21,10 +19,7 @@
   ],
   // formatting using eslint
   "eslint.enable": true,
-  "eslint.validate": [
-    "javascript",
-    "typescript",
-  ],
+  "eslint.validate": ["javascript", "typescript"],
   "eslint.run": "onType",
   "eslint.packageManager": "yarn",
 

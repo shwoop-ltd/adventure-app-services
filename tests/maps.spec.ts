@@ -15,7 +15,7 @@ describe('Maps', () => {
     const body = await response.json();
     expect(Array.isArray(body)).to.equal(true);
 
-    if(body.length === 0) {
+    if (body.length === 0) {
       console.warn('Couldnt test more about /maps, as no maps were given.');
       return;
     }
@@ -29,7 +29,7 @@ describe('Maps', () => {
     expect(map).to.have.property('area');
     expect(Array.isArray(map.area)).to.equal(true);
 
-    if(map.area.length === 0) {
+    if (map.area.length === 0) {
       console.warn('Warning, map length is not ');
       return;
     }
@@ -41,7 +41,7 @@ describe('Maps', () => {
   });
 
   it('Should GET /maps/{id}', async () => {
-    if(!found_map_name) {
+    if (!found_map_name) {
       console.warn('No specific map found to test.');
       return;
     }
@@ -54,30 +54,26 @@ describe('Maps', () => {
     expect(map).to.have.property('challenges');
     expect(Array.isArray(map.challenges)).to.equal(true);
 
-    if(map.challenges.length > 0) {
+    if (map.challenges.length > 0) {
       const challenge = map.challenges[0];
       expect(challenge).to.have.property('id');
       expect(challenge).to.have.property('location');
 
       expect(challenge.location.latitude).to.be.a(typeof 1.0);
       expect(challenge.location.longitude).to.be.a(typeof 1.0);
-    }
-    else
-      console.warn('No challenges on this map to validate');
+    } else console.warn('No challenges on this map to validate');
 
     expect(map).to.have.property('events');
     expect(Array.isArray(map.events)).to.equal(true);
 
-    if(map.events.length > 0) {
+    if (map.events.length > 0) {
       const event = map.events[0];
       expect(event).to.have.property('description');
       expect(event.description).to.be.a(typeof '');
       expect(event).to.have.property('location');
       expect(event.location.latitude).to.be.a(typeof 1.0);
       expect(event.location.longitude).to.be.a(typeof 1.0);
-    }
-    else
-      console.warn('No challenges on this map to validate');
+    } else console.warn('No challenges on this map to validate');
   });
 
   it('Should fail to GET /maps/this_map_doesnt_exist', async () => {
