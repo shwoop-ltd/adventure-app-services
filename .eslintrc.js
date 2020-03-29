@@ -21,8 +21,8 @@ module.exports = {
     sourceType: 'module',
     project: './tsconfig.json',
     ecmaFeatures: {
-      modules: true
-    }
+      modules: true,
+    },
   },
   rules: {
     // These catch obviously unintentional patterns.
@@ -50,6 +50,7 @@ module.exports = {
 
     // This is supposed to check that everything has been properly formatted with Prettier, but I can't seem to make it
     // check TypeScript files. Working on it.
-    'prettier/prettier': 'error'
-  }
-}
+    'prettier/prettier': 'error',
+  },
+  ignorePatterns: ['build/', 'node_modules/'],
+};

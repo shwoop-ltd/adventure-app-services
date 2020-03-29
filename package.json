@@ -4,16 +4,11 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "concurrently --kill-others \"tsc --watch --p tsconfig.build.json\" \"sam local start-api\"",
+    "start": "concurrently --kill-others \"tsc --watch --p tsconfig.build.json\" \"powershell ./scripts/start.ps1\"",
+    "stop": "powershell ./scripts/stop.ps1",
     "lint": "eslint **/*.ts",
-    "test": "mocha -r ts-node/register **/*.spec.ts --timeout 15000",
-    "beta": "ts-node ./scripts/beta.ts",
-    "upload-db": "ts-node ./scripts/upload-database.ts",
-    "remove-prerequisites": "ts-node ./scripts/remove-prerequisites.ts",
-    "stats": "ts-node ./scripts/Statistics/stats.ts",
-    "update-prizes": "ts-node ./scripts/update-prizes.ts",
-    "deploy-dev": "./scripts/deploy.ps1 Dev",
-    "deploy-prod": "./scripts/deploy.ps1 Prod"
+    "integration-test": "mocha -r ts-node/register **/*.spec.ts --timeout 15000",
+    "deploy": "./scripts/deploy.ps1 Development"
   },
   "dependencies": {
     "@types/node": "^13.9.3",
