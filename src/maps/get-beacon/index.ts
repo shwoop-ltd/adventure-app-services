@@ -1,13 +1,12 @@
-import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
-import controller, { ApiResponse } from '/opt/nodejs/controller';
+import controller, { ApiResponse, ApiRequest } from '/opt/nodejs/controller';
 import Persistence from '/opt/nodejs/persistence';
 
-export async function get_beacon(event: APIGatewayProxyEvent, model: Persistence): Promise<ApiResponse> {
-  if (!event.pathParameters) {
+export async function get_beacon(event: ApiRequest, model: Persistence): Promise<ApiResponse> {
+  const { map, beacon } = event.path;
+  if (!map || !beacon) {
     return { code: 400, body: 'No path parameters' };
   }
 
-  const { map, beacon } = event.pathParameters;
   const result = await model.beacon.get(map, beacon);
 
   if (result) {

@@ -1,9 +1,8 @@
-import { APIGatewayProxyEvent } from 'aws-lambda';
 import { get_next_prize, create_points_prize_response } from '/opt/nodejs/helpers';
-import controller, { ApiResponse } from '/opt/nodejs/controller';
+import controller, { ApiResponse, ApiRequest } from '/opt/nodejs/controller';
 import Persistence from '/opt/nodejs/persistence';
 
-export async function finish_challenge(event: APIGatewayProxyEvent, model: Persistence): Promise<ApiResponse> {
+export async function finish_challenge(event: ApiRequest, model: Persistence): Promise<ApiResponse> {
   if (!event.body) {
     return { code: 400, body: 'Body not present' };
   }
@@ -13,14 +12,14 @@ export async function finish_challenge(event: APIGatewayProxyEvent, model: Persi
     return { code: 400, body: 'Incorrect body.' };
   }
 
-  if (!event.pathParameters || !event.pathParameters.user_id) {
+  if (!event.path || !event.path.user_id) {
     return { code: 400, body: 'No user_id' };
   }
 
   // Done first to ensure our telemetry is about a given user.
-  const { user_id } = event.pathParameters;
+  const { user_id } = event.path;
 
-  if (!event.requestContext.authorizer || user_id !== event.requestContext.authorizer.claims.sub) {
+  if (!event.authorizer || user_id !== event.authorizer.claims.sub) {
     return { code: 401, body: 'Cannot access this user' };
   }
 

@@ -1,16 +1,14 @@
-import { APIGatewayProxyEvent } from 'aws-lambda';
-
-import controller, { ApiResponse } from '/opt/nodejs/controller';
+import controller, { ApiResponse, ApiRequest } from '/opt/nodejs/controller';
 import Persistence from '/opt/nodejs/persistence';
 
-export async function get_challenge_prizes(event: APIGatewayProxyEvent, model: Persistence): Promise<ApiResponse> {
+export async function get_challenge_prizes(event: ApiRequest, model: Persistence): Promise<ApiResponse> {
   // TODO: Get info about user
 
-  if (!event.pathParameters) {
+  const { map, id } = event.path;
+
+  if (!map || !id) {
     return { code: 400, body: "Need a 'map', and a correct ID for that type." };
   }
-
-  const { map, id } = event.pathParameters;
 
   let challenge_id;
   try {

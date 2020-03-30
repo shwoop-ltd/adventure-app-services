@@ -1,7 +1,5 @@
-import { APIGatewayProxyEvent } from 'aws-lambda';
-
+import { ApiRequest } from '../controller/types';
 import Driver from './drivers/driver';
-import DynamoDBDriver from './drivers/dynamodb';
 import { BeaconModel } from './models/beacon';
 import ChallengeModel from './models/challenge';
 import { MapModel } from './models/maps';
@@ -12,10 +10,7 @@ import { TreasureModel } from './models/treasure';
 import { UserModel } from './models/users';
 
 export default class Persistence {
-  public constructor(event: APIGatewayProxyEvent) {
-    this.driver = new DynamoDBDriver();
-    this.event = event;
-
+  public constructor(private event: ApiRequest, private driver: Driver) {
     this.beacon = new BeaconModel(this.driver);
     this.challenge = new ChallengeModel(this.driver);
     this.map = new MapModel(this.driver);
@@ -35,7 +30,4 @@ export default class Persistence {
   public telemetry: TelemetryModel;
   public treasure: TreasureModel;
   public user: UserModel;
-
-  private event: APIGatewayProxyEvent;
-  private driver: Driver;
 }

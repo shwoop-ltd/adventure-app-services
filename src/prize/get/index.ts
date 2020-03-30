@@ -1,18 +1,19 @@
-import { APIGatewayProxyEvent } from 'aws-lambda';
 import Persistence from '/opt/nodejs/persistence';
-import controller, { ApiResponse } from '/opt/nodejs/controller';
+import controller, { ApiResponse, ApiRequest } from '/opt/nodejs/controller';
 
-export async function get_prize(event: APIGatewayProxyEvent, model: Persistence): Promise<ApiResponse> {
-  if (!event.pathParameters) {
+export async function get_prize(event: ApiRequest, model: Persistence): Promise<ApiResponse> {
+  const { code: prize_code } = event.path;
+
+  if (!prize_code) {
     return { code: 400, body: 'No path parameters' };
   }
 
-  const result = await model.prize.get(event.pathParameters.code);
+  const result = await model.prize.get(prize_code);
 
   if (result) {
     return { code: 200, body: result };
   } else {
-    return { code: 404, body: `Code ${event.pathParameters.code} was not found` };
+    return { code: 404, body: `Code ${event.path.code} was not found` };
   }
 }
 

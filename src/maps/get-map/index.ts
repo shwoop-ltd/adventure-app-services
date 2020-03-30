@@ -1,14 +1,13 @@
-import { APIGatewayProxyEvent } from 'aws-lambda';
 import Persistence from '/opt/nodejs/persistence';
-import controller, { ApiResponse } from '/opt/nodejs/controller';
+import controller, { ApiResponse, ApiRequest } from '/opt/nodejs/controller';
 
-export async function get_map(event: APIGatewayProxyEvent, model: Persistence): Promise<ApiResponse> {
-  if (!event.pathParameters) {
+export async function get_map(event: ApiRequest, model: Persistence): Promise<ApiResponse> {
+  // Get Map
+  const { map } = event.path;
+  if (!map) {
     return { code: 400, body: 'No path parameters' };
   }
 
-  // Get Map
-  const { map } = event.pathParameters;
   const map_info = await model.map.get(map);
 
   // Map Check

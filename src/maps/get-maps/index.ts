@@ -1,8 +1,7 @@
-import { APIGatewayProxyResult, APIGatewayProxyEvent } from 'aws-lambda';
 import Persistence from '/opt/nodejs/persistence';
-import controller, { ApiResponse } from '/opt/nodejs/controller';
+import controller, { ApiResponse, ApiRequest } from '/opt/nodejs/controller';
 
-export async function get_maps(event: APIGatewayProxyEvent, model: Persistence): Promise<ApiResponse> {
+export async function get_maps(_event: ApiRequest, model: Persistence): Promise<ApiResponse> {
   const maps = await model.map.get_all();
 
   if (maps) {

@@ -4,7 +4,7 @@
 import * as fs from 'fs';
 import * as AWS from 'aws-sdk';
 import { ScanOutput, ScanInput } from 'aws-sdk/clients/dynamodb';
-import { DBUser } from '../../src/_schemas';
+import { User } from '/opt/nodejs/persistence/models/users';
 
 // Russell! >:(
 const answers: [{ id: string; solution: string }] = JSON.parse(
@@ -40,7 +40,7 @@ interface Prize {
   user_id: string;
 }
 
-let users: DBUser[] = [];
+let users: User[] = [];
 let telemetry: Telemetry[] = [];
 let prizes: Prize[] = [];
 

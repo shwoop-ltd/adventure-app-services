@@ -1,22 +1,20 @@
-import { APIGatewayProxyEvent } from 'aws-lambda';
-
 import { get_next_prize, create_points_prize_response } from '/opt/nodejs/helpers';
 import Persistence from '/opt/nodejs/persistence';
-import controller, { ApiResponse } from '/opt/nodejs/controller';
+import controller, { ApiResponse, ApiRequest } from '/opt/nodejs/controller';
 
-export async function claim_treasure(event: APIGatewayProxyEvent, model: Persistence): Promise<ApiResponse> {
-  if (!event.pathParameters || !event.pathParameters.user_id) {
+export async function claim_treasure(event: ApiRequest, model: Persistence): Promise<ApiResponse> {
+  const { user_id, map, beacon } = event.path;
+
+  if (!user_id || !map || !beacon) {
     return { code: 400, body: 'Missing path parameters.' };
   }
-
-  const { user_id, map, beacon } = event.pathParameters;
 
   await model.telemetry.create('get-treasure', user_id);
 
   // Does this user exist?
   const user = await model.user.get(user_id);
 
-  if (!event.requestContext.authorizer || user_id !== event.requestContext.authorizer.claims.sub) {
+  if (!event.authorizer || user_id !== event.authorizer.claims.sub) {
     return { code: 401, body: 'Cannot access this user' };
   }
 

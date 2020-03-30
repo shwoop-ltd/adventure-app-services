@@ -1,18 +1,16 @@
-import { APIGatewayProxyEvent } from 'aws-lambda';
-
 import Persistence from '/opt/nodejs/persistence';
-import controller, { ApiResponse } from '/opt/nodejs/controller';
+import controller, { ApiResponse, ApiRequest } from '/opt/nodejs/controller';
 
-export async function delete_prize(event: APIGatewayProxyEvent, model: Persistence): Promise<ApiResponse> {
-  if (!event.pathParameters) {
-    return { code: 500, body: 'No path parameters. This should never happen!' };
-  }
-  if (!event.headers.Authorization) {
+export async function delete_prize(event: ApiRequest, model: Persistence): Promise<ApiResponse> {
+  const auth = event.headers.Authorization;
+  const prize_code = event.path.code;
+
+  if (!auth) {
     return { code: 401, body: 'Need authentication to delete a prize' };
   }
-
-  const auth = event.headers.Authorization;
-  const prize_code = event.pathParameters.code;
+  if (!prize_code) {
+    return { code: 500, body: 'No path parameters. This should never happen!' };
+  }
 
   // Whether this is an admin's request
   const is_admin = auth === process.env.ADMIN_KEY;

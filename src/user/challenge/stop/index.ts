@@ -1,4 +1,3 @@
-import { APIGatewayProxyResult } from 'aws-lambda';
 import controller, { ApiResponse } from '/opt/nodejs/controller';
 
 export async function stop_challenge(): Promise<ApiResponse> {

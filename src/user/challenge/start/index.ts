@@ -1,22 +1,20 @@
-import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
-
-import controller, { ApiResponse } from '/opt/nodejs/controller';
+import controller, { ApiResponse, ApiRequest } from '/opt/nodejs/controller';
 import Persistence from '/opt/nodejs/persistence';
 
-export async function start_challenge(event: APIGatewayProxyEvent, model: Persistence): Promise<ApiResponse> {
-  if (!event.pathParameters) {
+export async function start_challenge(event: ApiRequest, model: Persistence): Promise<ApiResponse> {
+  const { user_id, map, challenge_id: challenge_id_str } = event.path;
+
+  if (!user_id || !map || !challenge_id_str) {
     return { code: 400, body: 'Need the user and the challenge id' };
   }
 
-  const { user_id, map } = event.pathParameters;
-
-  if (!event.requestContext.authorizer || user_id !== event.requestContext.authorizer.claims.sub) {
+  if (!event.authorizer || user_id !== event.authorizer.claims.sub) {
     return { code: 401, body: 'Cannot access this user' };
   }
 
   let challenge_id: number;
   try {
-    challenge_id = Number.parseInt(event.pathParameters.challenge_id, 10);
+    challenge_id = Number.parseInt(challenge_id_str, 10);
   } catch (e) {
     return { code: 400, body: 'challenge_id must be a number' };
   }

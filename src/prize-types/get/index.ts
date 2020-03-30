@@ -1,8 +1,7 @@
-import { APIGatewayProxyEvent } from 'aws-lambda';
 import Persistence from '/opt/nodejs/persistence';
-import controller, { ApiResponse } from '/opt/nodejs/controller';
+import controller, { ApiResponse, ApiRequest } from '/opt/nodejs/controller';
 
-export async function get_prize_types(event: APIGatewayProxyEvent, model: Persistence): Promise<ApiResponse> {
+export async function get_prize_types(_event: ApiRequest, model: Persistence): Promise<ApiResponse> {
   const result = await model.prize.get_all_types();
 
   if (result) {
