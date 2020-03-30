@@ -7,7 +7,7 @@
     "start": "concurrently --kill-others \"tsc --watch --p tsconfig.build.json\" \"powershell ./scripts/start.ps1\"",
     "stop": "powershell ./scripts/stop.ps1",
     "lint": "eslint **/*.ts",
-    "integration-test": "mocha -r ts-node/register **/*.spec.ts --timeout 15000",
+    "integration-test": "jest tests/",
     "deploy": "./scripts/deploy.ps1 Development"
   },
   "dependencies": {
@@ -17,20 +17,19 @@
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.46",
-    "@types/chai": "^4.2.11",
+    "@types/jest": "^25.1.4",
     "@types/minimist": "^1.2.0",
-    "@types/mocha": "^7.0.2",
     "@types/node-fetch": "^2.5.5",
     "@typescript-eslint/eslint-plugin": "^2.24.0",
     "@typescript-eslint/parser": "^2.24.0",
-    "chai": "^4.2.0",
     "concurrently": "^5.1.0",
     "eslint": "^6.8.0",
     "eslint-plugin-prettier": "^3.1.2",
+    "jest": "^25.2.3",
     "minimist": "^1.2.5",
-    "mocha": "^7.1.1",
     "node-fetch": "^2.6.0",
     "prettier": "^2.0.2",
+    "ts-jest": "^25.2.1",
     "ts-node": "^8.8.1"
   }
 }

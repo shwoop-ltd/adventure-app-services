@@ -24,6 +24,15 @@ module.exports = {
       modules: true,
     },
   },
+  overrides: [
+    {
+      files: ['**/*.(test|spec).ts'],
+      env: {
+        jest: true,
+      },
+      plugins: ['jest'],
+    },
+  ],
   rules: {
     // These catch obviously unintentional patterns.
     'no-cond-assign': 'error',

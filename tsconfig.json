@@ -5,25 +5,13 @@
     "strict": true,
     "baseUrl": "./",
     "paths": {
-      "schemas": [
-        "src/_schemas/index.ts"
-      ],
-      "schemas/*": [
-        "src/_schemas/*"
-      ],
-      "/opt/nodejs": [
-        "src/_common/nodejs/index.ts"
-      ],
-      "/opt/nodejs/*": [
-        "src/_common/nodejs/*"
-      ],
-      "*": [
-        "*"
-      ]
+      "schemas": ["src/_schemas/index.ts"],
+      "schemas/*": ["src/_schemas/*"],
+      "/opt/nodejs": ["src/_common/nodejs/index.ts"],
+      "/opt/nodejs/*": ["src/_common/nodejs/*"],
+      "*": ["*"]
     },
-    "types": [
-      "node"
-    ],
+    "types": ["node", "jest"],
     "esModuleInterop": false,
     "inlineSourceMap": false,
     "noEmit": true
