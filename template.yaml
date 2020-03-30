@@ -1,5 +1,5 @@
-AWSTemplateFormatVersion: "2010-09-09"
-Transform: "AWS::Serverless-2016-10-31"
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
 Parameters:
   Stage:
     Type: String
@@ -16,19 +16,19 @@ Globals:
         PRIZES_TABLE_NAME: !Ref PrizesTable
         USERS_TABLE_NAME: !Ref UsersTable
         TELEMETRY_TABLE_NAME: !Ref TelemetryTable
-        ENDPOINT_OVERRIDE: ""
-        ADMIN_KEY: "nW0xj7iN7bMAS1L7cyRB32sKDtNi2qmBi2sHed8qOPPAgkPI2qhjnt5VYTDPLt0z"
+        ENDPOINT_OVERRIDE: ''
+        ADMIN_KEY: 'nW0xj7iN7bMAS1L7cyRB32sKDtNi2qmBi2sHed8qOPPAgkPI2qhjnt5VYTDPLt0z'
   Api:
-    OpenApiVersion: "3.0.1"
+    OpenApiVersion: '3.0.1'
 Resources:
   AdventureApi:
     Type: AWS::Serverless::Api
     Properties:
       StageName: !Ref Stage
-      Name: !Join ["-", ["AdventureApp", !Ref Stage]]
+      Name: !Join ['-', ['AdventureApp', !Ref Stage]]
       DefinitionBody:
-        "Fn::Transform":
-          Name: "AWS::Include"
+        'Fn::Transform':
+          Name: 'AWS::Include'
           Parameters:
             Location: ./resources/openapi.yaml
       # this is invalidating the Template.yaml according to Sam Validate
@@ -42,7 +42,7 @@ Resources:
   AdventureTable:
     Type: AWS::Serverless::SimpleTable
     Properties:
-      TableName: !Join ["-", ["AdventureApp", !Ref Stage]]
+      TableName: !Join ['-', ['AdventureApp', !Ref Stage]]
       PrimaryKey:
         Name: id
         Type: String
@@ -54,7 +54,7 @@ Resources:
   PrizesTable:
     Type: AWS::Serverless::SimpleTable
     Properties:
-      TableName: !Join ["-", ["AdventureAppPrizes", !Ref Stage]]
+      TableName: !Join ['-', ['AdventureAppPrizes', !Ref Stage]]
       PrimaryKey:
         Name: id
         Type: String
@@ -66,7 +66,7 @@ Resources:
   UsersTable:
     Type: AWS::Serverless::SimpleTable
     Properties:
-      TableName: !Join ["-", ["AdventureAppUsers", !Ref Stage]]
+      TableName: !Join ['-', ['AdventureAppUsers', !Ref Stage]]
       PrimaryKey:
         Name: id
         Type: String
@@ -78,7 +78,7 @@ Resources:
   TelemetryTable:
     Type: AWS::Serverless::SimpleTable
     Properties:
-      TableName: !Join ["-", ["AdventureAppTelemetry", !Ref Stage]]
+      TableName: !Join ['-', ['AdventureAppTelemetry', !Ref Stage]]
       PrimaryKey:
         Name: id
         Type: String
@@ -114,7 +114,7 @@ Resources:
             Path: /maps
             Method: get
             Auth:
-              Authorizer: "NONE"
+              Authorizer: 'NONE'
   GetMap:
     Type: AWS::Serverless::Function
     Properties:

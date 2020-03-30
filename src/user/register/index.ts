@@ -1,24 +1,31 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
+import Persistence from '/opt/nodejs/persistence';
+import controller, { ApiResponse } from '/opt/nodejs/controller';
 
-import { Users, response, generate_telemetry } from '/opt/nodejs';
-
-export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
-  if (!event.pathParameters || !event.pathParameters.user_id) return response(400, 'No user_id');
+export async function register_user(event: APIGatewayProxyEvent, model: Persistence): Promise<ApiResponse> {
+  if (!event.pathParameters || !event.pathParameters.user_id) {
+    return { code: 400, body: 'No user_id' };
+  }
 
   const { user_id } = event.pathParameters;
 
-  if (!event.requestContext.authorizer || user_id !== event.requestContext.authorizer.claims.sub)
-    return response(401, 'Cannot access this user');
+  if (!event.requestContext.authorizer || user_id !== event.requestContext.authorizer.claims.sub) {
+    return { code: 401, body: 'Cannot access this user' };
+  }
 
   let body: { campaign: string; beta?: boolean };
   try {
-    if (!event.body) return response(400, 'Must have a body with campaign and potentially beta information');
+    if (!event.body) {
+      return { code: 400, body: 'Must have a body with campaign and potentially beta information' };
+    }
 
     body = JSON.parse(event.body);
 
-    if (!body || !body.campaign) return response(400, 'Body must contain selected campaign');
+    if (!body || !body.campaign) {
+      return { code: 400, body: 'Body must contain selected campaign' };
+    }
   } catch (e) {
-    return response(400, 'Must have json body');
+    return { code: 400, body: 'Must have json body' };
   }
 
   // Does this user exist?
@@ -35,9 +42,11 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
     challenges: [],
     prerequisite_challenges_completed: 0,
   };
-  await Users.put(user);
+  await model.user.put(user);
 
-  await generate_telemetry(event, 'register-user', user_id);
+  await model.telemetry.create('register-user', user_id);
 
-  return response(200, user);
+  return { code: 200, body: user };
 }
+
+export const handler = controller(register_user);

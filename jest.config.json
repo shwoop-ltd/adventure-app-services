@@ -1,18 +1,6 @@
 {
   "preset": "ts-jest",
-  "moduleFileExtensions": [
-    "ts",
-    "tsx",
-    "js",
-    "jsx",
-    "json",
-    "node"
-  ],
-  "testMatch": [
-    "**/test/**/*.[jt]s",
-    "**/?(*.)+(spec|test).[jt]s"
-  ],
-  "transformIgnorePatterns": [
-    "node_modules"
-  ]
+  "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"],
+  "testMatch": ["**/test/**/*.[jt]s", "**/?(*.)+(spec|test).[jt]s"],
+  "transformIgnorePatterns": ["node_modules"]
 }

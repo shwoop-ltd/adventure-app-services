@@ -1,15 +1,20 @@
-import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
-import { AdventureApp, response } from '/opt/nodejs';
+import { APIGatewayProxyEvent } from 'aws-lambda';
+import Persistence from '/opt/nodejs/persistence';
+import controller, { ApiResponse } from '/opt/nodejs/controller';
 
-export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
-  if (!event.pathParameters) return response(400, 'No path parameters');
+export async function get_map(event: APIGatewayProxyEvent, model: Persistence): Promise<ApiResponse> {
+  if (!event.pathParameters) {
+    return { code: 400, body: 'No path parameters' };
+  }
 
   // Get Map
   const { map } = event.pathParameters;
-  const map_info = await AdventureApp.get_map(map);
+  const map_info = await model.map.get(map);
 
   // Map Check
-  if (!map_info) return { statusCode: 404, body: 'Map not found' };
+  if (!map_info) {
+    return { code: 404, body: 'Map not found' };
+  }
 
   // Filter Map Info to currently open and time to next.
   const time = Date.now() / 1000;
@@ -32,5 +37,7 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
     next_release,
   };
 
-  return { statusCode: 200, body: JSON.stringify(return_data) };
+  return { code: 200, body: JSON.stringify(return_data) };
 }
+
+export const handler = controller(get_map);

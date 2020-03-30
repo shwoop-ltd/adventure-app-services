@@ -1,11 +1,14 @@
-import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
+import { APIGatewayProxyEvent } from 'aws-lambda';
 
-import { AdventureApp, response } from '/opt/nodejs';
+import controller, { ApiResponse } from '/opt/nodejs/controller';
+import Persistence from '/opt/nodejs/persistence';
 
-export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
+export async function get_challenge_prizes(event: APIGatewayProxyEvent, model: Persistence): Promise<ApiResponse> {
   // TODO: Get info about user
 
-  if (!event.pathParameters) return response(400, "Need a 'map', and a correct ID for that type.");
+  if (!event.pathParameters) {
+    return { code: 400, body: "Need a 'map', and a correct ID for that type." };
+  }
 
   const { map, id } = event.pathParameters;
 
@@ -13,16 +16,23 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
   try {
     challenge_id = Number.parseInt(id, 10);
   } catch (e) {
-    return response(400, 'Challenge id must be a number');
+    return { code: 400, body: 'Challenge id must be a number' };
   }
 
-  const challenge = await AdventureApp.get_challenge(map, challenge_id);
+  const challenge = await model.challenge.get(map, challenge_id.toString());
 
-  if (!challenge) return response(404, 'No puzzle with that ID.');
+  if (!challenge) {
+    return { code: 404, body: 'No puzzle with that ID.' };
+  }
 
   // Ensure we only pass certain information
-  return response(200, {
-    claimed: challenge.claimed,
-    prizes: challenge.prizes,
-  });
+  return {
+    code: 200,
+    body: {
+      claimed: challenge.claimed,
+      prizes: challenge.prizes,
+    },
+  };
 }
+
+export const handler = controller(get_challenge_prizes);

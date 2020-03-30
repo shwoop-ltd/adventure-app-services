@@ -1,9 +1,15 @@
-import { APIGatewayProxyResult } from 'aws-lambda';
-import { AdventureApp, response } from '/opt/nodejs';
+import { APIGatewayProxyEvent } from 'aws-lambda';
+import Persistence from '/opt/nodejs/persistence';
+import controller, { ApiResponse } from '/opt/nodejs/controller';
 
-export async function handler(): Promise<APIGatewayProxyResult> {
-  const result = await AdventureApp.get_prize_types();
+export async function get_prize_types(event: APIGatewayProxyEvent, model: Persistence): Promise<ApiResponse> {
+  const result = await model.prize.get_all_types();
 
-  if (result) return response(200, result.prizes);
-  else return response(502, 'No prize types!');
+  if (result) {
+    return { code: 200, body: result.prizes };
+  } else {
+    return { code: 502, body: 'No prize types!' };
+  }
 }
+
+export const handler = controller(get_prize_types);

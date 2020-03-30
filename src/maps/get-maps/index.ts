@@ -1,9 +1,15 @@
-import { APIGatewayProxyResult } from 'aws-lambda';
-import { AdventureApp, response } from '/opt/nodejs';
+import { APIGatewayProxyResult, APIGatewayProxyEvent } from 'aws-lambda';
+import Persistence from '/opt/nodejs/persistence';
+import controller, { ApiResponse } from '/opt/nodejs/controller';
 
-export async function handler(): Promise<APIGatewayProxyResult> {
-  const maps = await AdventureApp.get_maps();
+export async function get_maps(event: APIGatewayProxyEvent, model: Persistence): Promise<ApiResponse> {
+  const maps = await model.map.get_all();
 
-  if (maps) return response(200, maps.maps);
-  else return response(500, 'Maps not found!');
+  if (maps) {
+    return { code: 200, body: maps.maps };
+  } else {
+    return { code: 500, body: 'Maps not found!' };
+  }
 }
+
+export const handler = controller(get_maps);

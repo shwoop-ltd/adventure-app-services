@@ -1,41 +1,45 @@
-import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
+import { APIGatewayProxyEvent } from 'aws-lambda';
 
-import {
-  response,
-  Users,
-  AdventureApp,
-  create_prize,
-  generate_telemetry,
-  create_points_prize_response,
-  create_prize_response,
-} from '/opt/nodejs';
-import { get_next_prize } from '/opt/nodejs/helpers';
+import { get_next_prize, create_points_prize_response } from '/opt/nodejs/helpers';
+import Persistence from '/opt/nodejs/persistence';
+import controller, { ApiResponse } from '/opt/nodejs/controller';
 
-export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
-  if (!event.pathParameters || !event.pathParameters.user_id) return response(400, 'Missing path parameters.');
+export async function claim_treasure(event: APIGatewayProxyEvent, model: Persistence): Promise<ApiResponse> {
+  if (!event.pathParameters || !event.pathParameters.user_id) {
+    return { code: 400, body: 'Missing path parameters.' };
+  }
 
   const { user_id, map, beacon } = event.pathParameters;
 
-  generate_telemetry(event, 'get-treasure', user_id);
+  await model.telemetry.create('get-treasure', user_id);
 
   // Does this user exist?
-  const user = await Users.get(user_id);
+  const user = await model.user.get(user_id);
 
-  if (!event.requestContext.authorizer || user_id !== event.requestContext.authorizer.claims.sub)
-    return response(401, 'Cannot access this user');
+  if (!event.requestContext.authorizer || user_id !== event.requestContext.authorizer.claims.sub) {
+    return { code: 401, body: 'Cannot access this user' };
+  }
 
-  if (!user) return response(401, 'User does not exist.');
+  if (!user) {
+    return { code: 401, body: 'User does not exist.' };
+  }
 
   // Is there a treasure with this beacon?
-  const treasure = await AdventureApp.get_treasure(map, beacon);
-  if (!treasure) return response(404, `There is no treasure with beacon id ${beacon}`);
+  const treasure = await model.treasure.get(map, beacon);
+  if (!treasure) {
+    return { code: 404, body: `There is no treasure with beacon id ${beacon}` };
+  }
 
   // Is it a new treasure?
-  if (user.treasure.includes(treasure.id)) return response(403, 'Treasure already claimed');
+  if (user.treasure.includes(treasure.id)) {
+    return { code: 403, body: 'Treasure already claimed' };
+  }
 
   const prize_info = get_next_prize(treasure);
 
-  if (!prize_info) return response(204, 'There is no more treasure to claim');
+  if (!prize_info) {
+    return { code: 204, body: 'There is no more treasure to claim' };
+  }
 
   // Moved to the end so that if there are any fatal errors in the middle, nothing will be half changed
 
@@ -49,21 +53,23 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
       'treasure'
     );
   } else {
-    const prize = await create_prize(user_id, prize_info.prize, 'treasure', undefined, {
+    const prize = await model.prize.create(user_id, prize_info.prize, 'treasure', undefined, {
       longitude: treasure.longitude,
       latitude: treasure.latitude,
     });
     user.prizes.push(prize.id);
-    response_object = create_prize_response(prize);
+    response_object = prize;
   }
 
   // Params - Add treasure and prize to user
   user.treasure.push(treasure.id);
-  await Users.put(user);
+  await model.user.put(user);
 
   // Store treasure update
   treasure.claimed += 1;
-  await AdventureApp.put_treasure(treasure);
+  await model.treasure.put(treasure);
 
-  return response(201, response_object);
+  return { code: 201, body: response_object };
 }
+
+export const handler = controller(claim_treasure);

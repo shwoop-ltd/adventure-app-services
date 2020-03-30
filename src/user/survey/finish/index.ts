@@ -1,44 +1,54 @@
-import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
-import { generate_telemetry, response, Users, AdventureApp, create_prize } from '/opt/nodejs';
+import { APIGatewayProxyEvent } from 'aws-lambda';
+import Persistence from '/opt/nodejs/persistence';
+import controller, { ApiResponse } from '/opt/nodejs/controller';
 
 interface Body {
   question: string;
   answer: string;
 }
 
-export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
-  if (!event.pathParameters || !event.pathParameters.user_id) return response(400, 'Missing path parameters.');
+export async function finish_survey(event: APIGatewayProxyEvent, model: Persistence): Promise<ApiResponse> {
+  if (!event.pathParameters || !event.pathParameters.user_id) {
+    return { code: 400, body: 'Missing path parameters.' };
+  }
 
-  if (!event.body) return response(400, 'Body not present');
+  if (!event.body) {
+    return { code: 400, body: 'Body not present' };
+  }
 
   const { user_id } = event.pathParameters;
 
   if (!event.requestContext.authorizer || user_id !== event.requestContext.authorizer.claims.sub) {
-    await generate_telemetry(event, 'unusual-access', user_id);
-    return response(401, 'Cannot access this user');
+    await model.telemetry.create('unusual-access', user_id);
+    return { code: 401, body: 'Cannot access this user' };
   }
 
-  await generate_telemetry(event, 'finish-survey', user_id);
+  await model.telemetry.create('finish-survey', user_id);
 
   const body = JSON.parse(event.body) as Body;
 
   // Does this user exist?
-  const user = await Users.get(user_id);
-  if (!user) return response(401, 'User does not exist.');
+  const user = await model.user.get(user_id);
+  if (!user) return { code: 401, body: 'User does not exist.' };
 
   const answered_questions = user.surveys.map(({ question }) => question);
   if (answered_questions.includes(body.question))
-    return response(409, 'Question already completed or no question found.');
+    return { code: 409, body: 'Question already completed or no question found.' };
 
   // TODO: Cache request?
-  const surveys = await AdventureApp.get_surveys();
-  if (!surveys) return response(502, 'Could not find survey');
+  const surveys = await model.surveys.get();
+  if (!surveys) {
+    return { code: 502, body: 'Could not find survey' };
+  }
 
   const answered_survey = surveys.surveys.find(({ question }) => question === body.question);
-  if (!answered_survey) return response(404, 'Survey does not exist');
+  if (!answered_survey) {
+    return { code: 404, body: 'Survey does not exist' };
+  }
 
-  if (!answered_survey.answers.includes(body.answer))
-    return response(400, 'Answer must be from one of the given options in the survey');
+  if (!answered_survey.answers.includes(body.answer)) {
+    return { code: 400, body: 'Answer must be from one of the given options in the survey' };
+  }
 
   user.surveys.push({ question: body.question, answer: body.answer });
 
@@ -48,20 +58,28 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
   const { surveys_to_prize } = surveys.prize_given;
   const surveys_completed = user.surveys.length % surveys.prize_given.surveys_to_prize;
   if (surveys_completed === 0) {
-    const prize = await create_prize(user.id, surveys.prize_given.prize, 'survey', undefined, answered_survey.location);
+    const prize = await model.prize.create(
+      user.id,
+      surveys.prize_given.prize,
+      'survey',
+      undefined,
+      answered_survey.location
+    );
     user.prizes.push(prize.id);
 
     // Update user info with the previously inserted survey
-    await Users.put(user);
+    await model.user.put(user);
     // Return the prize
-    return response(201, prize);
+    return { code: 201, body: prize };
   } else {
     const prize = {
       partial_prize: surveys.prize_given.prize,
       fraction_complete: (surveys_to_prize - surveys_completed) / surveys_to_prize,
     };
 
-    await Users.put(user);
-    return response(200, prize);
+    await model.user.put(user);
+    return { code: 200, body: prize };
   }
 }
+
+export const handler = controller(finish_survey);

@@ -1,9 +1,12 @@
 import { APIGatewayProxyResult } from 'aws-lambda';
+import controller, { ApiResponse } from '/opt/nodejs/controller';
 
-export function handler(): APIGatewayProxyResult {
+export async function stop_challenge(): Promise<ApiResponse> {
   // Nothing needs to be done here atm.
   return {
-    statusCode: 201,
+    code: 201,
     body: '',
   };
 }
+
+export const handler = controller(stop_challenge);

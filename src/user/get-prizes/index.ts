@@ -1,21 +1,29 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 
-import { response, Users, generate_telemetry } from '/opt/nodejs';
+import Persistence from '/opt/nodejs/persistence';
+import controller, { ApiResponse } from '/opt/nodejs/controller';
 
-export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
-  if (!event.pathParameters || !event.pathParameters.user_id) return response(400, 'No user_id');
+export async function get_prizes(event: APIGatewayProxyEvent, model: Persistence): Promise<ApiResponse> {
+  if (!event.pathParameters || !event.pathParameters.user_id) {
+    return { code: 400, body: 'No user_id' };
+  }
 
   const { user_id } = event.pathParameters;
 
-  await generate_telemetry(event, 'get-prizes', user_id);
+  await model.telemetry.create('get-prizes', user_id);
 
-  if (!event.requestContext.authorizer || user_id !== event.requestContext.authorizer.claims.sub)
-    return response(401, 'Cannot access this user');
+  if (!event.requestContext.authorizer || user_id !== event.requestContext.authorizer.claims.sub) {
+    return { code: 401, body: 'Cannot access this user' };
+  }
 
   // Does this user exist?
-  const user = await Users.get(user_id);
+  const user = await model.user.get(user_id);
 
-  if (!user) return response(404, 'User does not exist.');
+  if (!user) {
+    return { code: 404, body: 'User does not exist.' };
+  }
 
-  return response(200, { points: user.points, prizes: user.prizes });
+  return { code: 200, body: { points: user.points, prizes: user.prizes } };
 }
+
+export const handler = controller(get_prizes);

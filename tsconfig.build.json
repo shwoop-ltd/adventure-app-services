@@ -6,29 +6,12 @@
     "baseUrl": "./src",
     "outDir": "./build",
     "paths": {
-      "schemas": [
-        "_schemas/index.ts"
-      ],
-      "schemas/*": [
-        "_schemas/*"
-      ],
-      "/opt/nodejs": [
-        "_common/nodejs/index.ts"
-      ],
-      "/opt/nodejs/*": [
-        "_common/nodejs/*"
-      ]
+      "/opt/nodejs/*": ["_common/nodejs/*"]
     },
-    "types": [
-      "node"
-    ],
+    "types": ["node"],
     "esModuleInterop": false,
     "inlineSourceMap": false
   },
-  "include": [
-    "./src/**/*.ts"
-  ],
-  "exclude": [
-    "./src/**/*.spec.ts"
-  ]
+  "include": ["./src/**/*.ts"],
+  "exclude": ["./src/**/*.spec.ts"]
 }

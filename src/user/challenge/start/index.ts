@@ -1,41 +1,54 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 
-import { AdventureApp, Users, response, generate_telemetry } from '/opt/nodejs';
+import controller, { ApiResponse } from '/opt/nodejs/controller';
+import Persistence from '/opt/nodejs/persistence';
 
-export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
-  if (!event.pathParameters) return response(400, 'Need the user and the challenge id');
+export async function start_challenge(event: APIGatewayProxyEvent, model: Persistence): Promise<ApiResponse> {
+  if (!event.pathParameters) {
+    return { code: 400, body: 'Need the user and the challenge id' };
+  }
 
   const { user_id, map } = event.pathParameters;
 
-  if (!event.requestContext.authorizer || user_id !== event.requestContext.authorizer.claims.sub)
-    return response(401, 'Cannot access this user');
+  if (!event.requestContext.authorizer || user_id !== event.requestContext.authorizer.claims.sub) {
+    return { code: 401, body: 'Cannot access this user' };
+  }
 
   let challenge_id: number;
   try {
     challenge_id = Number.parseInt(event.pathParameters.challenge_id, 10);
   } catch (e) {
-    return response(400, 'challenge_id must be a number');
+    return { code: 400, body: 'challenge_id must be a number' };
   }
 
-  await generate_telemetry(event, 'start-challenge', user_id);
+  await model.telemetry.create('start-challenge', user_id);
 
-  const challenge = await AdventureApp.get_challenge(map, challenge_id);
-  if (!challenge) return response(404, 'No challenge with that ID.');
+  const challenge = await model.challenge.get(map, challenge_id.toString());
+  if (!challenge) {
+    return { code: 404, body: 'No challenge with that ID.' };
+  }
 
-  const map_info = await AdventureApp.get_map(map);
-  if (!map_info) return response(404, `Map ${map} not found`);
+  const map_info = await model.map.get(map);
+  if (!map_info) {
+    return { code: 404, body: `Map ${map} not found` };
+  }
 
   const marker = map_info.challenges.find(({ id }) => id === challenge_id);
-  if (!marker) return response(404, `Marker ${challenge_id} does not exist`);
+  if (!marker) {
+    return { code: 404, body: `Marker ${challenge_id} does not exist` };
+  }
 
   // Prerequisite challenge checking
   if (marker.prerequisites) {
     // Check whether user has prerequisites
-    const user = await Users.get(user_id);
-    if (!user) return response(404, 'User not found');
+    const user = await model.user.get(user_id);
+    if (!user) {
+      return { code: 404, body: 'User not found' };
+    }
 
-    if (user.prerequisite_challenges_completed < marker.prerequisites)
-      return response(402, 'Prerequisite challenges not completed');
+    if (user.prerequisite_challenges_completed < marker.prerequisites) {
+      return { code: 402, body: 'Prerequisite challenges not completed' };
+    }
   }
 
   // Logic time:
@@ -43,12 +56,18 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
   // which is either active_date (if it exists), or else release_date (if that exists)
   // We then check that we are not past the end date (if that exists).
   const time = Date.now() / 1000;
-  if ((marker.active_date || marker.release_date || 0) > time || (marker.end_date || time) < time)
-    return response(400, 'This challenge is not available right now');
+  if ((marker.active_date || marker.release_date || 0) > time || (marker.end_date || time) < time) {
+    return { code: 400, body: 'This challenge is not available right now' };
+  }
 
-  return response(200, {
-    text: challenge.text,
-    image_url: challenge.image_url,
-    radius: challenge.radius,
-  });
+  return {
+    code: 200,
+    body: {
+      text: challenge.text,
+      image_url: challenge.image_url,
+      radius: challenge.radius,
+    },
+  };
 }
+
+export const handler = controller(start_challenge);
