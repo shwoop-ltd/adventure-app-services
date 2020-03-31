@@ -24,6 +24,7 @@
   "eslint.packageManager": "yarn",
 
   "editor.formatOnSave": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "eslint.options.configFile": "./.eslintrc.editor.js"
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
 }
