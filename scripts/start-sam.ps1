@@ -1,5 +1,5 @@
 # Compile code
-tsc --p tsconfig.build.json
+yarn build
 
 docker network create lambda-local
 
