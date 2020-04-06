@@ -6,5 +6,5 @@ export interface Beacon {
 }
 
 export class BeaconModel extends Model {
-  public get = (map: string, id: string) => this.driver.get_item<Beacon>('beacon', `${map}-${id}`);
+  public get = (map: string, id: string) => this.driver.get_item<Beacon>('beacon', `beacon-${map}-${id}`);
 }

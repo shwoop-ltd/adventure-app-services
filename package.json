@@ -9,7 +9,7 @@
     "stop-sam": "powershell ./scripts/stop-sam.ps1",
     "lint": "eslint **/*.ts",
     "integration-test": "jest tests/",
-    "deploy": "./scripts/deploy.ps1 Development"
+    "deploy": "powershell ./scripts/deploy.ps1 Development"
   },
   "dependencies": {
     "@types/node": "^13.9.3",

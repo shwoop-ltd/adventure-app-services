@@ -36,7 +36,7 @@ export async function get_map(event: ApiRequest, model: Persistence): Promise<Ap
     next_release,
   };
 
-  return { code: 200, body: JSON.stringify(return_data) };
+  return { code: 200, body: return_data };
 }
 
 export const handler = controller(get_map);

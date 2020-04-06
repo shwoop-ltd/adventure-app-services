@@ -14,6 +14,6 @@ export interface Challenge extends PrizePool {
 }
 
 export default class ChallengeModel extends Model {
-  public get = (map: string, id: string) => this.driver.get_item<Challenge>('challenge', `${map}-${id}`);
+  public get = (map: string, id: string) => this.driver.get_item<Challenge>('challenge', `challenge-${map}-${id}`);
   public put = (challenge: Challenge) => this.driver.put_item('challenge', challenge);
 }

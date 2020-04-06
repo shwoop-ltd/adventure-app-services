@@ -23,12 +23,7 @@ export default class DynamoDBDriver extends Driver {
   public async get_item<T>(key: Key, id?: string, always_exists = false): Promise<T | undefined> {
     const table_name = this.get_table_for_model(key);
 
-    let table_id = key;
-    if (id) {
-      table_id += `-${id}`;
-    }
-
-    const result = await this.doc_client.get({ TableName: table_name, Key: { id: table_id } }).promise();
+    const result = await this.doc_client.get({ TableName: table_name, Key: { id } }).promise();
     if (always_exists && !result.Item) {
       throw new Error(`Item with key ${key} should always exist, but was not found in ${table_name}`);
     }
@@ -45,11 +40,6 @@ export default class DynamoDBDriver extends Driver {
    */
   public async put_item(key: Key, item: { id: string }): Promise<void> {
     const table_name = this.get_table_for_model(key);
-
-    if (!item.id.startsWith(key)) {
-      item.id = key + item.id ? '-' + item.id : '';
-    }
-
     await this.doc_client.put({ TableName: table_name, Item: item }).promise();
   }
 

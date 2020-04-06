@@ -38,7 +38,7 @@ export class PrizeModel extends Model {
 
   public get = (id: string) => this.driver.get_item<Prize>('prize', id);
   public put = (prize: Prize) => this.driver.put_item('prize', prize);
-  public get_all_types = () => this.driver.get_item<PrizeTypeCollection>('prize-types', '', true);
+  public get_all_types = () => this.driver.get_item<PrizeTypeCollection>('prize-types', 'prize-types', true);
 
   /**
    * @param user_id The user the prize is attached to
