@@ -112,55 +112,55 @@ docker network remove lambda-local
 
 The Shwoop Back End runs on AWS, using four different AWS services:
 
-- **[Lambda][lambda]**, which takes a set of JavaScript functions and executes them for us when we tell it to. By
-  providing an abstraction layer over the servers these functions run on, AWS Lambda can dynamically adjust resource
-  allocation to match demand.
+1.  **[Lambda][lambda]**, which takes a set of JavaScript functions and executes them for us when we tell it to. By
+    providing an abstraction layer over the servers these functions run on, AWS Lambda can dynamically adjust resource
+    allocation to match demand.
 
-  Our Lambda functions are defined in `./template.yaml`, each with the type `AWS::Serverless::Function`. This file is an
-  [AWS Serverless Application Model][aws-sam] (SAM) [Application Defintion template][template]. It defines all of the
-  services we use, how they fit together, and where to find the code to deploy to them. For Lambda functions, the source
-  code can be found in the `./src` directory.
+    Our Lambda functions are defined in `./template.yaml`, each with the type `AWS::Serverless::Function`. This file is an
+    [AWS Serverless Application Model][aws-sam] (SAM) [Application Defintion template][template]. It defines all of the
+    services we use, how they fit together, and where to find the code to deploy to them. For Lambda functions, the source
+    code can be found in the `./src` directory.
 
-  Our functions are written in TypeScript, which Lambda cannot directly execute. Our TypeScript source code is therefore
-  first compiled into JavaScript, into the `./build` directory. You can start this compilation by running `yarn build`.
-  The configuration for this build process is in `./tsconfig.build.json`. The output of this process can then be
-  uploaded to Lambda and run.
+    Our functions are written in TypeScript, which Lambda cannot directly execute. Our TypeScript source code is therefore
+    first compiled into JavaScript, into the `./build` directory. You can start this compilation by running `yarn build`.
+    The configuration for this build process is in `./tsconfig.build.json`. The output of this process can then be
+    uploaded to Lambda and run.
 
-  Each folder in `./src/` gets uploaded separately and runs in isolation. To share code between Lambdas, we use a system
-  called [Layers][layers], configured in `./template.yaml` with the `AWS::Serverless::LayerVersion` type. This makes
-  code in `./src/_common/nodejs/` available from the Lambda at the path `/opt/nodejs`.
+    Each folder in `./src/` gets uploaded separately and runs in isolation. To share code between Lambdas, we use a system
+    called [Layers][layers], configured in `./template.yaml` with the `AWS::Serverless::LayerVersion` type. This makes
+    code in `./src/_common/nodejs/` available from the Lambda at the path `/opt/nodejs`.
 
-  Lambdas by themselves are not outwardly visible. To expose them to the world as an HTTP
-  server, we need…
+    Lambdas by themselves are not outwardly visible. To expose them to the world as an HTTP
+    server, we need…
 
-- **[API Gateway][api-gateway]**, which sticks a public REST API in front of our Lambda functions, giving us a way to
-  call them from the mobile app, or any other HTTP client.
+2.  **[API Gateway][api-gateway]**, which sticks a public REST API in front of our Lambda functions, giving us a way to
+    call them from the mobile app, or any other HTTP client.
 
-Like our Lambda functions, API Gateway is defined an configured in `template.yaml`. In this case, it is the resource
-with the type `AWS::Serverless::Api`. However, the bulk of our API Gateway configuration is acutally in another YAML
-file referenced from that first defition, `./resources/openapi.yaml`. This file uses the
-[OpenAPI specification][openapi] to define all of our API endpoints, their inputs and outputs, and as a place to
-provide some basic documentation. This file is consumed by API Gateway to configure our HTTP server.
+    Like our Lambda functions, API Gateway is defined an configured in `template.yaml`. In this case, it is the resource
+    with the type `AWS::Serverless::Api`. However, the bulk of our API Gateway configuration is acutally in another YAML
+    file referenced from that first defition, `./resources/openapi.yaml`. This file uses the
+    [OpenAPI specification][openapi] to define all of our API endpoints, their inputs and outputs, and as a place to
+    provide some basic documentation. This file is consumed by API Gateway to configure our HTTP server.
 
-- **[DynamoDB][dynamodb]**, a NoSQL database, is where we store most of the Shwoop app’s data. Our DymanoDB tables are defined in
-  `./template.yaml` with the `AWS::Serverless::SimpleTable` type. In addition, TypeScript interfaces for these tables
-  are defined in `./src/_common/nodejs/persistence/models/` and a JSON schema for checking the shape of our testing
-  fixtures is defined in `/resources/adventure-app.schema.json`.
+3.  **[DynamoDB][dynamodb]**, a NoSQL database, is where we store most of the Shwoop app’s data. Our DymanoDB tables are defined in
+    `./template.yaml` with the `AWS::Serverless::SimpleTable` type. In addition, TypeScript interfaces for these tables
+    are defined in `./src/_common/nodejs/persistence/models/` and a JSON schema for checking the shape of our testing
+    fixtures is defined in `/resources/adventure-app.schema.json`.
 
-  The models in `./src/_common/nodejs/persistence/models/` are used in our Lambda functions to query and update the
-  database. By default, however, Lambdas are not allowed to access the database at all. Permission must be granted
-  table-by-table in `./template.yaml`
+    The models in `./src/_common/nodejs/persistence/models/` are used in our Lambda functions to query and update the
+    database. By default, however, Lambdas are not allowed to access the database at all. Permission must be granted
+    table-by-table in `./template.yaml`
 
-- **[Cognito][cognito]** is a user authentication and authorisation system. When the user registers, they register with
-  Cognito, rather than with the Shwoop app itself. Once logged in, the user receives a JSON Web Token (JWT) they can use
-  to prove their identity to the Shwoop back end. JWTs are signed by Cognito, meaning we can cryptographically verify
-  that they are geniune. They contain basic information about the user, such as their account ID. If the Shwoop back end
-  receives a JWT that has been signed by Cognito, we can extract their account ID and trust that we know which user is
-  making the request.
+4.  **[Cognito][cognito]** is a user authentication and authorisation system. When the user registers, they register with
+    Cognito, rather than with the Shwoop app itself. Once logged in, the user receives a JSON Web Token (JWT) they can use
+    to prove their identity to the Shwoop back end. JWTs are signed by Cognito, meaning we can cryptographically verify
+    that they are geniune. They contain basic information about the user, such as their account ID. If the Shwoop back end
+    receives a JWT that has been signed by Cognito, we can extract their account ID and trust that we know which user is
+    making the request.
 
-  In practice, you won’t need to think about authentication much while working on Shwoop. Our OpenAPI config specifies
-  which endpoints require authentication and which don’t. API Gateway then enforces this for us, and passes the user’s
-  information through to the Lambda function if they are authenticated.
+    In practice, you won’t need to think about authentication much while working on Shwoop. Our OpenAPI config specifies
+    which endpoints require authentication and which don’t. API Gateway then enforces this for us, and passes the user’s
+    information through to the Lambda function if they are authenticated.
 
 ![Shwoop Server Architecture Diagram](docs/assets/aws-diagram.svg)
 
