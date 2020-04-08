@@ -223,6 +223,7 @@ To upload a fixture file, run the following. Note that it will only update and a
 
     npx ts-node ./scripts/upload-database.ts \
         --stage Development \
+        --profile shwoop \
         ./resources/dev/AdventureApp.json
 
 ## Tooling and Workflows
