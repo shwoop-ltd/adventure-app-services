@@ -115,7 +115,20 @@ docker rm $(docker ps -aq)
 docker network remove lambda-local
 ```
 
-### Deploying to AWS
+## Architecture
+
+![Shwoop Server Architecture Diagram](docs/assets/aws-diagram.svg)
+
+## Adding an Endpoint
+
+1. openapi.yaml
+2. template.yaml
+3. code
+4. test
+
+## Changing the Domain Model
+
+## Deploying to AWS
 
 To deploy, first setup your aws keys.
 Ask a lead to get your deployment keys,
