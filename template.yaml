@@ -34,6 +34,12 @@ Resources:
     Properties:
       StageName: !Ref Stage
       Name: !Join ['-', ['AdventureApp', !Ref Stage]]
+      Domain:
+        DomainName: api.shwoop.co.nz
+        BasePath: [!Ref Stage]
+        CertificateArn: arn:aws:acm:ap-southeast-2:020479359034:certificate/249d1a3d-0a9b-4c37-9015-d745e4441ac8
+        Route53:
+          HostedZoneId: Z1TATV9FOEAFUC
       DefinitionBody:
         'Fn::Transform':
           Name: 'AWS::Include'
