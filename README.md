@@ -110,11 +110,13 @@ docker network remove lambda-local
 [dynamodb]: https://aws.amazon.com/dynamodb/
 [cognito]: https://aws.amazon.com/cognito/
 
-The Shwoop Back End runs on AWS, using four different AWS services:
+The Shwoop Back End runs on AWS. Here we describe which services we use and how they fit together.
 
-1.  **[Lambda][lambda]**, which takes a set of JavaScript functions and executes them for us when we tell it to. By
-    providing an abstraction layer over the servers these functions run on, AWS Lambda can dynamically adjust resource
-    allocation to match demand.
+### Executing Code
+
+**[Lambda][lambda]**, which takes a set of JavaScript functions and executes them for us when we tell it to. By
+providing an abstraction layer over the servers these functions run on, AWS Lambda can dynamically adjust resource
+allocation to match demand.
 
     Our Lambda functions are defined in `./template.yaml`, each with the type `AWS::Serverless::Function`. This file is an
     [AWS Serverless Application Model][aws-sam] (SAM) [Application Defintion template][template]. It defines all of the
@@ -130,8 +132,7 @@ The Shwoop Back End runs on AWS, using four different AWS services:
     called [Layers][layers], configured in `./template.yaml` with the `AWS::Serverless::LayerVersion` type. This makes
     code in `./src/_common/nodejs/` available from the Lambda at the path `/opt/nodejs`.
 
-    Lambdas by themselves are not outwardly visible. To expose them to the world as an HTTP
-    server, we need…
+    Lambdas by themselves are not outwardly visible. To expose them to the world as an HTTP server, we need…
 
 2.  **[API Gateway][api-gateway]**, which sticks a public REST API in front of our Lambda functions, giving us a way to
     call them from the mobile app, or any other HTTP client.
