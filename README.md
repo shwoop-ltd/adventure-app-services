@@ -107,7 +107,7 @@ docker network remove lambda-local
 [template]: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-specification-template-anatomy.html
 [api-gateway]: https://aws.amazon.com/api-gateway/
 [openapi]: https://swagger.io/specification/
-[dynambodb]: https://aws.amazon.com/dynamodb/
+[dynamodb]: https://aws.amazon.com/dynamodb/
 [cognito]: https://aws.amazon.com/cognito/
 
 The Shwoop Back End runs on AWS, using four different AWS services:
@@ -128,7 +128,7 @@ The Shwoop Back End runs on AWS, using four different AWS services:
 
   Each folder in `./src/` gets uploaded separately and runs in isolation. To share code between Lambdas, we use a system
   called [Layers][layers], configured in `./template.yaml` with the `AWS::Serverless::LayerVersion` type. This makes
-  code in `./src/_common/nodejs/` available from the Lambda at the path `/opt/nodejs
+  code in `./src/_common/nodejs/` available from the Lambda at the path `/opt/nodejs`.
 
   Lambdas by themselves are not outwardly visible. To expose them to the world as an HTTP
   server, we need…
@@ -136,11 +136,11 @@ The Shwoop Back End runs on AWS, using four different AWS services:
 - **[API Gateway][api-gateway]**, which sticks a public REST API in front of our Lambda functions, giving us a way to
   call them from the mobile app, or any other HTTP client.
 
-  Like our Lambda functions, API Gateway is defined an configured in `template.yaml`. In this case, it is the resource
-  with the type `AWS::Serverless::Api`. However, the bulk of our API Gateway configuration is acutally in another YAML
-  file referenced from that first defition, `./resources/openapi.yaml`. This file uses the
-  [OpenAPI specification][openapi] to define all of our API endpoints, their inputs and outputs, and as a place to
-  provide some basic documentation. This file is consumed by API Gateway to configure our HTTP server.
+Like our Lambda functions, API Gateway is defined an configured in `template.yaml`. In this case, it is the resource
+with the type `AWS::Serverless::Api`. However, the bulk of our API Gateway configuration is acutally in another YAML
+file referenced from that first defition, `./resources/openapi.yaml`. This file uses the
+[OpenAPI specification][openapi] to define all of our API endpoints, their inputs and outputs, and as a place to
+provide some basic documentation. This file is consumed by API Gateway to configure our HTTP server.
 
 - **[DynamoDB][dynamodb]**, a NoSQL database, is where we store most of the Shwoop app’s data. Our DymanoDB tables are defined in
   `./template.yaml` with the `AWS::Serverless::SimpleTable` type. In addition, TypeScript interfaces for these tables
