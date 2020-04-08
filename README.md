@@ -175,19 +175,44 @@ information through to the Lambda function if they are authenticated.
 
 ## Deploying to AWS
 
-To deploy, first setup your aws keys.
-Ask a lead to get your deployment keys,
-and set them up in your [aws credentials file](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html),
-e.g. with the name `shwoop`. Then you can run `./scripts/deploy.ps1 Development --profile shwoop`.
+The Shwoop API is deployed in two “stages”: development and production. You’re welcome to deploy to the development
+stage whenever you like, for testing or experiments. You won’t break anything important. Leave production deployments to
+Carl and Tim for now though.
 
-## Repository Structure
+1.  **Add your AWS access key** by running `aws configure --profile shwoop`. You’ll need to ask Tim or Carl to generate
+    a key for you.
 
-Information about some of the database schemas are stored in [the resources folder](./resources/adventure-app.schema.json).
-Additionally that folder contains some development and production data used in development and production.
-`data-science` contains some old scripts used for collecting information about usage post-campaign.
-All lambda's are stored in the `src` folder, and get built to `build` when being deployed.
-Integration and functional tests are stored in `tests`.
+2.  **Build the project** by running `yarn build`. This will compile our TypeScript source code into JavaScript that can
+    be run in Lambdas.
+
+3.  **Package the SAM project.** This produces a `cloudformation.yaml` file and uploads some assets to S3. The
+    `--s3-prefiex` can also be `Production`. Make sure the `--profile` use matches the one you added with
+    `aws configure`.
+
+        sam package \
+            --template-file template.yaml \
+            --s3-bucket adventure-app-cloudformation \
+            --s3-prefix Development \
+            --output-template-file cloudformation.yaml \
+            --profile shwoop
+
+4.  **Deplay the SAM package.** For production deployments, `--stack-name` should be `Production` and
+    `--parameter-overrides` should be set to `Stage=Production`.
+
+        sam deploy \
+            --template-file ./cloudformation.yaml \
+            --stack-name AdventureAppDevelopment \
+            --parameter-overrides Stage=Development \
+            --capabilities CAPABILITY_IAM \
+            --profile shwoop
+
+This process exists as a Powershell script for Windows machines, but I recommend running one command at a time to begin
+with.
+
+    powershell scripts/deploy.ps1 Development --profile shwoop
 
 ## Tooling and Workflows
 
-See the [front end’s README](https://bitbucket.org/shwoopdevelopment/adventure-app/src/master/README.md#markdown-header-tooling-and-workflows).
+[front-end-tooling]: https://bitbucket.org/shwoopdevelopment/adventure-app/src/master/README.md#markdown-header-tooling-and-workflows
+
+See the [front end’s README][front-end-tooling] for instructions on setting up your editor and how to make a change.
