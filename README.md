@@ -211,6 +211,20 @@ with.
 
     powershell scripts/deploy.ps1 Development --profile shwoop
 
+### Uploading database fixtures
+
+Sometimes, you’ll need to populate the database with some actual data. In development, you might want to set up a
+certain specific scenario, but even in production you might want to update things like maps and challenges and awards.
+
+The `./resources/` directory includes some JSON fixtures for you to use, and a schema to validate that they have the
+correct shape.
+
+To upload a fixture file, run the following. Note that it will only update and adds records. It won’t delete anything.
+
+    npx ts-node ./scripts/upload-database.ts \
+        --stage Development \
+        ./resources/dev/AdventureApp.json
+
 ## Tooling and Workflows
 
 [front-end-tooling]: https://bitbucket.org/shwoopdevelopment/adventure-app/src/master/README.md#markdown-header-tooling-and-workflows
