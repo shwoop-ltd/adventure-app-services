@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import * as jwt from 'jsonwebtoken';
 import { ApiFunction, ApiRequest } from './types';
 import Persistence from '../persistence';
 import MemoryDriver from '../persistence/drivers/memory';
@@ -9,7 +10,9 @@ export default (handler_function: ApiFunction) => async (req: Request, res: Resp
     query: req.query,
     body: typeof req.body === 'string' ? req.body : JSON.stringify(req.body),
     headers: req.headers as never,
-    authorizer: null, // TODO
+    authorizer: req.headers.authorization
+      ? (jwt.decode(req.headers.authorization) as { claims: { sub?: string } })
+      : undefined,
   };
 
   const model = new Persistence(input_event, new MemoryDriver());
