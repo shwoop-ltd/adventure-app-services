@@ -19,6 +19,10 @@ export default (handler_function: ApiFunction) => async (req: Request, res: Resp
       authorizer = token as { claims: { sub?: string } };
     }
   }
+  if (req.body && Object.keys(req.body).length != 0) {
+    console.log('Body found:');
+    console.log(req.body);
+  }
 
   const input_event: ApiRequest = {
     path: req.params,

@@ -11,6 +11,8 @@ type Wrapper = (req: express.Request, res: express.Response) => Promise<void>;
 
 async function run() {
   const app = express();
+  const bodyParser = require('body-parser');
+  app.use(bodyParser.json());
 
   const template_schema = yaml.Schema.create([
     new yaml.Type('!Ref', { kind: 'scalar' }),
