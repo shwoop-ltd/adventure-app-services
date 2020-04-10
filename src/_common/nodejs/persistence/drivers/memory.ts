@@ -13,8 +13,6 @@ export default class MemoryDriver extends Driver {
           {} as { [key: string]: { id: string } }
         );
         fs.writeFileSync(this.temp_storage_path, JSON.stringify(seed, null, 1), 'utf-8');
-        console.log(seed);
-        console.log(JSON.parse(fs.readFileSync(this.temp_storage_path, 'utf-8')));
         console.log(
           `Created temporary database file ${this.temp_storage_path} from seed ${process.env.IN_MEMORY_SEED_PATH}`
         );
