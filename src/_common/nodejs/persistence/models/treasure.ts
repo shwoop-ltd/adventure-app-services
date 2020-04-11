@@ -6,6 +6,6 @@ export interface Treasure extends Coordinates, PrizePool {
 }
 
 export class TreasureModel extends Model {
-  public get = (map: string, beacon: string) => this.driver.get_item<Treasure>('treasure', `treasure-${map}-${beacon}`);
+  public get = (map: string, beacon: string) => this.driver.get_item<Treasure>('treasure', `${map}-${beacon}`);
   public put = (treasure: Treasure) => this.driver.put_item('treasure', treasure);
 }
