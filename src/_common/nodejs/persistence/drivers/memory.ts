@@ -1,4 +1,4 @@
-import Driver from './driver';
+import Driver, { StoreRecord } from './driver';
 import Key from '../keys';
 import * as fs from 'fs';
 
@@ -31,7 +31,7 @@ export default class MemoryDriver extends Driver {
       throw ReferenceError(`DB Item ${db_key} doesn't exist`);
     }
 
-    return this.store[db_key] as T | undefined;
+    return (this.store[db_key] as unknown) as T | undefined;
   }
   public async put_item(key: Key, item: { id: string }): Promise<void> {
     const db_key = key + (item.id ? '-' + item.id : '');
@@ -39,6 +39,23 @@ export default class MemoryDriver extends Driver {
     fs.writeFileSync(this.temp_storage_path, JSON.stringify(this.store, null, 1), 'utf-8');
   }
 
-  private store: { [key: string]: unknown } = {};
+  public async scan_table<T extends StoreRecord>(
+    key: Key,
+    use_filter: boolean,
+    attributes?: string[] | undefined
+  ): Promise<T[]> {
+    const isT = (r: StoreRecord & { __key: string }): r is T & { __key: string } => r.__key.startsWith(key);
+    return Object.entries(this.store)
+      .map(([id, r]) => ({ ...r, __key: id }))
+      .filter(isT)
+      .map((record) => (attributes ? this.filterKeys(record, attributes) : record));
+  }
+
+  private filterKeys = <T extends { [key: string]: unknown }>(record: T, attrs: string[]): T =>
+    attrs // The assertion here is sort of cheating, but I can't figure out how to do this without it
+      ? attrs.reduce((prev, cur) => ({ ...prev, [cur]: record[cur] }), {} as T)
+      : record;
+
+  private store: { [id: string]: StoreRecord } = {};
   private temp_storage_path = './resources/temporary/TempStorage.temp';
 }

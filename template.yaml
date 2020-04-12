@@ -242,6 +242,28 @@ Resources:
             Method: delete
             Auth:
               Authorizer: None
+  GetUsers:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: nodejs10.x
+      CodeUri: ./build/user/get-all
+      Handler: index.handler
+      Layers:
+        - !Ref CommonCode
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref UsersTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref TelemetryTable
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            RestApiId: !Ref AdventureApi
+            Path: /users
+            Method: get
+            Auth:
+              Authorizer: None
   GetUser:
     Type: AWS::Serverless::Function
     Properties:

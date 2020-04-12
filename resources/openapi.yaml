@@ -180,6 +180,32 @@ paths:
         type: aws_proxy
 
   # Users
+  /users:
+    get:
+      summary: 'Gets all users and their data'
+      operationId: get_users
+      parameters:
+        - in: query
+          name: attributes
+          description: 'User attributes to return, returns all if not specified'
+          schema:
+            type: string
+          required: false
+      responses:
+        200:
+          description: 'Successful operation'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetUsers.Arn}/invocations'
+        responses: {}
+        httpMethod: POST
+        type: aws_proxy
   /users/{user_id}/:
     get:
       summary: "Gets the user's game info"
