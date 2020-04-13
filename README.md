@@ -1,37 +1,119 @@
 # Shwoop Adventure App Backend
 
-The shwoop backend is comprised of two different components:
+The Shwoop Back End runs on AWS, using four different AWS services:
 
-- The database, stored entirely in DynamoDB across a few different tables
-- The Api, defined by an [OpenApi schema](./resources/openapi.yaml), and deployed on AWS Api Gateway, routed to AWS Lambda functions
+- **Lambda**, which takes a set of JavaScript functions and executes them for us when we tell it to. By providing an
+  abstraction layer over the servers these functions run on, AWS Lambda can dynamically adjust resource allocation to
+  match demand. You can find these functions in `./src/`.
 
-The deployment of these resources is defined by an AWS SAM template, in `template.yaml`.
+- **API Gateway**, which sticks a public REST API in front of our Lambda functions, giving us a way to call them from
+  the mobile app. You can find the configuration for API Gateway in `./resources/openapi.yaml`.
 
-There are two different deployments: **Development** and **Production**, their purposes you can guess.
+- **DynamoDB**, a NoSQL database. We make calls to DynamoDB from most of our Lambda functions.
 
-## Gettings started
+- **Cognito**, a user authentication and authorisation system.
 
-Get set up with `yarn`, which is now the only necessary dependency (apart from git of course). Also consider installing
-[AWS SAM](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html) on your computer,
-permissions can be retrieved from a lead developer (you don't need to set up your own account).
+It is possible to run the entire setup locally. Follow the Getting Started guide for instructions.
 
-If you want to be able to test locally with SAM (not a necessity), also install docker, but otherwise do not worry about this.
+## Getting Started
 
-### Running locally with SAM
+There are two ways to get started with local development of the Shwoop back end.
 
-You can then run locally with `./scripts/start-sam.ps1`.
-Scripts for non-windows OSes aren't present but should be similar if not identical to existing ones.
-Once you exit, remember to run `./scripts/stop.ps1` to cleanup all resources.
-The local instance contains all endpoints and all databases, with data in the main database populated from `./resouces/dev`.
-Other tables will be present but empty.
+One is to use AWS SAM to run a faithful replication of the system as it would behave when deployed to AWS. This would be
+ideal, expect getting AWS SAM up and running is difficult. On Windows Home Edition, it doesn’t seem to be possible at
+all.
 
-### Running locally with Express
+Luckily, there’s an alternative. This project also includes in-JavaScript replicas of API Gateway and DymanoDB. These
+are very rough estimations of the real things. They don’t implement any features we are not using. They are even missing
+a few we do use. Most notably, endpoints requiring authentication don’t current work. It is however much easier to get
+started with. It should good enough for most development work you’ll want to do.
 
-If you can't get SAM to run, you can use Express instead via `yarn start-express`.
-Please note that express will not be as good at emulating the production backend as SAM is,
-but can still suffice in some circumstances.
-Like with SAM, the main database is populated and all endpoints are present, but this server will run much faster.
-HOWEVER, endpoints requiring authentication will currently be unsuccessful due to mocking auth limitations.
+### Easy Mode (Express Server, Fake Database)
+
+1.  **Check you have Node.js and Yarn installed.** Instructions for this can be found in the Front End Getting Started
+    guide.
+
+2.  **Install JavaScript dependencies** by running `yarn` from the project root.
+
+3.  **Start the server** by running `yarn start-express` from the project root. You should see an output similar to the
+    following. The API will be accessible at `http://localhost:3000`.
+
+        Creating endpoint GetMaps            at get    /maps                                           -> .//maps/get-maps/index:handler
+        Creating endpoint GetMap             at get    /maps/:map                                      -> .//maps/get-map/index:handler
+        Creating endpoint GetBeacon          at get    /maps/:map/beacon/:beacon                       -> .//maps/get-beacon/index:handler
+        Creating endpoint GetChallengePrizes at get    /maps/:map/challenges/:id/prizes                -> .//maps/get-challenge-prizes/index:handler
+        Creating endpoint GetPrizeTypes      at get    /prize-types                                    -> .//prize-types/get/index:handler
+        Creating endpoint GetPrize           at post   /redemption-codes/:code/                        -> .//prize/get/index:handler
+        Creating endpoint DeletePrize        at delete /redemption-codes/:code/                        -> .//prize/delete/index:handler
+        Creating endpoint GetUser            at get    /users/:user_id/                                -> .//user/get/index:handler
+        Creating endpoint RegisterUser       at post   /users/:user_id/                                -> .//user/register/index:handler
+        Creating endpoint StartChallenge     at post   /users/:user_id/challenge/:map/:challenge_id    -> .//user/challenge/start/index:handler
+        Creating endpoint StopChallenge      at delete /users/:user_id/challenge                       -> .//user/challenge/stop/index:handler
+        Creating endpoint FinishChallenge    at post   /users/:user_id/challenge                       -> .//user/challenge/finish/index:handler
+        Creating endpoint ClaimTreasure      at post   /users/:user_id/treasure/:map/:beacon_id        -> .//user/claim-treasure/index:handler
+        Creating endpoint GetUserPrizes      at get    /users/:user_id/prizes                          -> .//user/get-prizes/index:handler
+        Creating endpoint GetSurvey          at get    /users/:user_id/surveys/new                     -> .//user/survey/get/index:handler
+        Creating endpoint FinishSurvey       at post   /users/:user_id/surveys                         -> .//user/survey/finish/index:handler
+        Now listening on port 3000
+
+### Hard Mode (AWS SAM)
+
+1.  **Check you have Node.js and Yarn installed.** Instructions for this can be found in the Front End Getting Started
+    guide.
+
+2.  **Install JavaScript dependencies** by running `yarn` from the project root.
+
+3.  **Install Docker.** On a Mac, if you have Homebrew installed, run `brew cask install docker`. Otherwise, follow
+    [Docker’s instructions](https://www.docker.com/get-started).
+
+4.  **Install the AWS CLI.** On a Mac, `brew install awscli`. On Windows, `choco install awscli`.
+
+    You will also need to add some AWS credentials, even if you’re just running locally. Ask Carl for an access key,
+    then run `aws configure --profile shwoop` to enter and save it. Our region is `ap-southeast-2` and you can leave the
+    output format blank.
+
+5.  **Install AWS SAM CLI.** On a Mac, `brew install aws-sam-cli`. On Windows, download and run the MSI file linked to
+    from [Amazon’s installation instructions](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install-windows.html#serverless-sam-cli-install-windows-sam-cli).
+
+You should now have everything you need installed. A Powershell script to boot it all up can be found in
+`scripts/start.ps1`, though of course this will only work on Windows. Here’s what the script does:
+
+1.  **Build the project** with `yarn build`, generating JavaScript code from our TypeScript code. If successful,
+    JavaScript assets will be written to the `./build/` folder.
+
+2.  **Start a Docker network** called `lambda-local` with `docker network create lambda-local`. We need a Docker network
+    to allow our the Docker containers we’re about to start to talk to each other.
+
+3.  **Run the DynamoDB Docker container.** Amazon provides a pre-built Docker container, ready for us to run. This
+    command will take a little while to run the first time as it downloads. It should be faster after that though.
+
+            docker run --detach -p 8000:8000 --network lambda-local --name dynamodb amazon/dynamodb-local -jar DynamoDBLocal.jar -inMemory -sharedDb
+
+4.  **Create our DynamoDB database tables.**
+
+            aws dynamodb create-table --table-name AdventureApp --attribute-definitions AttributeName=id,AttributeType=S --key-schema AttributeName=id,KeyType=HASH --provisioned-throughput ReadCapacityUnits=2,WriteCapacityUnits=1 --endpoint-url http://localhost:8000
+            aws dynamodb create-table --table-name AdventureAppPrizes --attribute-definitions AttributeName=id,AttributeType=S --key-schema AttributeName=id,KeyType=HASH --provisioned-throughput ReadCapacityUnits=2,WriteCapacityUnits=1 --endpoint-url http://localhost:8000
+            aws dynamodb create-table --table-name AdventureAppUsers --attribute-definitions AttributeName=id,AttributeType=S --key-schema AttributeName=id,KeyType=HASH --provisioned-throughput ReadCapacityUnits=2,WriteCapacityUnits=1 --endpoint-url http://localhost:8000
+            aws dynamodb create-table --table-name AdventureAppTelemetry --attribute-definitions AttributeName=id,AttributeType=S --key-schema AttributeName=id,KeyType=HASH --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=10 --endpoint-url http://localhost:8000
+
+5.  **Load a set of database fixtures.** The profile you use must match you profile name you used when you set up AWS
+    CLI.
+
+            ts-node ./scripts/upload-database.ts ./resources/dev/AdventureApp.json --db http://localhost:8000 --profile shwoop
+
+6.  **Start the API** using SAM.
+
+            sam local start-api --profile shwoop --env-vars ./resources/dev/local-env.json --docker-network lambda-local
+
+If everything worked, you should now have a more accurate simluation of the API as it would behave in production.
+
+**Once you are finished you must run the following to clean up.** On Windows, you can run `./scripts/stop-sam.ps1`.
+
+```
+docker kill dynamodb
+docker rm $(docker ps -aq)
+docker network remove lambda-local
+```
 
 ### Deploying to AWS
 
