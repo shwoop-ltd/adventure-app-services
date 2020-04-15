@@ -62,6 +62,8 @@ export async function finish_challenge(event: ApiRequest, model: Persistence): P
     response_object = prize;
   }
 
+  user.points += challenge.points;
+
   challenge.claimed += 1;
 
   user.challenges.push(challenge_id);

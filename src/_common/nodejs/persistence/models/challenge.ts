@@ -11,6 +11,7 @@ export interface Challenge extends PrizePool {
 
   // Beacon id to use
   solution: string;
+  points: number;
 }
 
 export default class ChallengeModel extends Model {
