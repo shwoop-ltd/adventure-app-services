@@ -1,20 +1,5 @@
 # Shwoop Adventure App Backend
 
-The Shwoop Back End runs on AWS, using four different AWS services:
-
-- **Lambda**, which takes a set of JavaScript functions and executes them for us when we tell it to. By providing an
-  abstraction layer over the servers these functions run on, AWS Lambda can dynamically adjust resource allocation to
-  match demand. You can find these functions in `./src/`.
-
-- **API Gateway**, which sticks a public REST API in front of our Lambda functions, giving us a way to call them from
-  the mobile app. You can find the configuration for API Gateway in `./resources/openapi.yaml`.
-
-- **DynamoDB**, a NoSQL database. We make calls to DynamoDB from most of our Lambda functions.
-
-- **Cognito**, a user authentication and authorisation system.
-
-It is possible to run the entire setup locally. Follow the Getting Started guide for instructions.
-
 ## Getting Started
 
 There are two ways to get started with local development of the Shwoop back end.
@@ -87,23 +72,23 @@ You should now have everything you need installed. A Powershell script to boot i
 3.  **Run the DynamoDB Docker container.** Amazon provides a pre-built Docker container, ready for us to run. This
     command will take a little while to run the first time as it downloads. It should be faster after that though.
 
-            docker run --detach -p 8000:8000 --network lambda-local --name dynamodb amazon/dynamodb-local -jar DynamoDBLocal.jar -inMemory -sharedDb
+        docker run --detach -p 8000:8000 --network lambda-local --name dynamodb amazon/dynamodb-local -jar DynamoDBLocal.jar -inMemory -sharedDb
 
 4.  **Create our DynamoDB database tables.**
 
-            aws dynamodb create-table --table-name AdventureApp --attribute-definitions AttributeName=id,AttributeType=S --key-schema AttributeName=id,KeyType=HASH --provisioned-throughput ReadCapacityUnits=2,WriteCapacityUnits=1 --endpoint-url http://localhost:8000
-            aws dynamodb create-table --table-name AdventureAppPrizes --attribute-definitions AttributeName=id,AttributeType=S --key-schema AttributeName=id,KeyType=HASH --provisioned-throughput ReadCapacityUnits=2,WriteCapacityUnits=1 --endpoint-url http://localhost:8000
-            aws dynamodb create-table --table-name AdventureAppUsers --attribute-definitions AttributeName=id,AttributeType=S --key-schema AttributeName=id,KeyType=HASH --provisioned-throughput ReadCapacityUnits=2,WriteCapacityUnits=1 --endpoint-url http://localhost:8000
-            aws dynamodb create-table --table-name AdventureAppTelemetry --attribute-definitions AttributeName=id,AttributeType=S --key-schema AttributeName=id,KeyType=HASH --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=10 --endpoint-url http://localhost:8000
+        aws dynamodb create-table --table-name AdventureApp --attribute-definitions AttributeName=id,AttributeType=S --key-schema AttributeName=id,KeyType=HASH --provisioned-throughput ReadCapacityUnits=2,WriteCapacityUnits=1 --endpoint-url http://localhost:8000
+        aws dynamodb create-table --table-name AdventureAppPrizes --attribute-definitions AttributeName=id,AttributeType=S --key-schema AttributeName=id,KeyType=HASH --provisioned-throughput ReadCapacityUnits=2,WriteCapacityUnits=1 --endpoint-url http://localhost:8000
+        aws dynamodb create-table --table-name AdventureAppUsers --attribute-definitions AttributeName=id,AttributeType=S --key-schema AttributeName=id,KeyType=HASH --provisioned-throughput ReadCapacityUnits=2,WriteCapacityUnits=1 --endpoint-url http://localhost:8000
+        aws dynamodb create-table --table-name AdventureAppTelemetry --attribute-definitions AttributeName=id,AttributeType=S --key-schema AttributeName=id,KeyType=HASH --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=10 --endpoint-url http://localhost:8000
 
 5.  **Load a set of database fixtures.** The profile you use must match you profile name you used when you set up AWS
     CLI.
 
-            ts-node ./scripts/upload-database.ts ./resources/dev/AdventureApp.json --db http://localhost:8000 --profile shwoop
+        ts-node ./scripts/upload-database.ts ./resources/dev/AdventureApp.json --db http://localhost:8000 --profile shwoop
 
 6.  **Start the API** using SAM.
 
-            sam local start-api --profile shwoop --env-vars ./resources/dev/local-env.json --docker-network lambda-local
+        sam local start-api --profile shwoop --env-vars ./resources/dev/local-env.json --docker-network lambda-local
 
 If everything worked, you should now have a more accurate simluation of the API as it would behave in production.
 
@@ -115,21 +100,134 @@ docker rm $(docker ps -aq)
 docker network remove lambda-local
 ```
 
-### Deploying to AWS
+## Architecture
 
-To deploy, first setup your aws keys.
-Ask a lead to get your deployment keys,
-and set them up in your [aws credentials file](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html),
-e.g. with the name `shwoop`. Then you can run `./scripts/deploy.ps1 Development --profile shwoop`.
+[lambda]: https://aws.amazon.com/lambda/
+[aws-sam]: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html
+[template]: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-specification-template-anatomy.html
+[api-gateway]: https://aws.amazon.com/api-gateway/
+[openapi]: https://swagger.io/specification/
+[dynamodb]: https://aws.amazon.com/dynamodb/
+[cognito]: https://aws.amazon.com/cognito/
+[sam-cli-setup]: #markdown-header-hard-mode-aws-sam
+[express-setup]: #markdown-header-easy-mode-express-server-fake-database
 
-## Repository Structure
+The Shwoop Back End runs on AWS. Here we describe which services we use and how they fit together.
 
-Information about some of the database schemas are stored in [the resources folder](./resources/adventure-app.schema.json).
-Additionally that folder contains some development and production data used in development and production.
-`data-science` contains some old scripts used for collecting information about usage post-campaign.
-All lambda's are stored in the `src` folder, and get built to `build` when being deployed.
-Integration and functional tests are stored in `tests`.
+![Shwoop Server Architecture Diagram](docs/assets/aws-diagram.svg)
+
+### Executing Code
+
+**[Lambda][lambda]**, which takes a set of JavaScript functions and executes them for us when we tell it to. By
+providing an abstraction layer over the servers these functions run on, AWS Lambda can dynamically adjust resource
+allocation to match demand.
+
+Our Lambda functions are defined in `./template.yaml`, each with the type `AWS::Serverless::Function`. This file is an
+[AWS Serverless Application Model][aws-sam] (SAM) [Application Defintion template][template]. It defines all of the
+services we use, how they fit together, and where to find the code to deploy to them. For Lambda functions, the source
+code can be found in the `./src` directory.
+
+Our functions are written in TypeScript, which Lambda cannot directly execute. Our TypeScript source code is therefore
+first compiled into JavaScript, into the `./build` directory. You can start this compilation by running `yarn build`.
+The configuration for this build process is in `./tsconfig.build.json`. The output of this process can then be uploaded
+to Lambda and run.
+
+Each folder in `./src/` gets uploaded separately and runs in isolation. To share code between Lambdas, we use a system
+called [Layers][layers], configured in `./template.yaml` with the `AWS::Serverless::LayerVersion` type. This makes code
+in `./src/_common/nodejs/` available from the Lambda at the path `/opt/nodejs`.
+
+Lambdas by themselves are not outwardly visible. To expose them to the world as an HTTP server, we need…
+
+### Handling HTTP Requests
+
+**[API Gateway][api-gateway]**, which sticks a public REST API in front of our Lambda functions, giving us a way to call
+them from the mobile app, or any other HTTP client.
+
+Like our Lambda functions, API Gateway is defined an configured in `template.yaml`. In this case, it is the resource
+with the type `AWS::Serverless::Api`. However, the bulk of our API Gateway configuration is acutally in another YAML
+file referenced from that first defition, `./resources/openapi.yaml`. This file uses the
+[OpenAPI specification][openapi] to define all of our API endpoints, their inputs and outputs, and as a place to provide
+some basic documentation. This file is consumed by API Gateway to configure our HTTP server.
+
+### Reading and Writing Data
+
+**[DynamoDB][dynamodb]**, a NoSQL database, is where we store most of the Shwoop app’s data. Our DymanoDB tables are
+defined in `./template.yaml` with the `AWS::Serverless::SimpleTable` type. In addition, TypeScript interfaces for these
+tables are defined in `./src/_common/nodejs/persistence/models/` and a JSON schema for checking the shape of our testing
+fixtures is defined in `/resources/adventure-app.schema.json`.
+
+The models in `./src/_common/nodejs/persistence/models/` are used in our Lambda functions to query and update the
+database. By default, however, Lambdas are not allowed to access the database at all. Permission must be granted
+table-by-table in `./template.yaml`
+
+### Authenticating Users
+
+**[Cognito][cognito]** is a user authentication and authorisation system. When the user registers, they register with
+Cognito, rather than with the Shwoop app itself. Once logged in, the user receives a JSON Web Token (JWT) they can use
+to prove their identity to the Shwoop back end. JWTs are signed by Cognito, meaning we can cryptographically verify that
+they are geniune. They contain basic information about the user, such as their account ID. If the Shwoop back end
+receives a JWT that has been signed by Cognito, we can extract their account ID and trust that we know which user is
+making the request.
+
+In practice, you won’t need to think about authentication much while working on Shwoop. Our OpenAPI config specifies
+which endpoints require authentication and which don’t. API Gateway then enforces this for us, and passes the user’s
+information through to the Lambda function if they are authenticated.
+
+## Deploying to AWS
+
+The Shwoop API is deployed in two “stages”: development and production. You’re welcome to deploy to the development
+stage whenever you like, for testing or experiments. You won’t break anything important. Leave production deployments to
+Carl and Tim for now though.
+
+1.  **Add your AWS access key** by running `aws configure --profile shwoop`. You’ll need to ask Tim or Carl to generate
+    a key for you.
+
+2.  **Build the project** by running `yarn build`. This will compile our TypeScript source code into JavaScript that can
+    be run in Lambdas.
+
+3.  **Package the SAM project.** This produces a `cloudformation.yaml` file and uploads some assets to S3. The
+    `--s3-prefiex` can also be `Production`. Make sure the `--profile` use matches the one you added with
+    `aws configure`.
+
+        sam package \
+            --template-file template.yaml \
+            --s3-bucket adventure-app-cloudformation \
+            --s3-prefix Development \
+            --output-template-file cloudformation.yaml \
+            --profile shwoop
+
+4.  **Deplay the SAM package.** For production deployments, `--stack-name` should be `Production` and
+    `--parameter-overrides` should be set to `Stage=Production`.
+
+        sam deploy \
+            --template-file ./cloudformation.yaml \
+            --stack-name AdventureAppDevelopment \
+            --parameter-overrides Stage=Development \
+            --capabilities CAPABILITY_IAM \
+            --profile shwoop
+
+This process exists as a Powershell script for Windows machines, but I recommend running one command at a time to begin
+with.
+
+    powershell scripts/deploy.ps1 Development --profile shwoop
+
+### Uploading database fixtures
+
+Sometimes, you’ll need to populate the database with some actual data. In development, you might want to set up a
+certain specific scenario, but even in production you might want to update things like maps and challenges and awards.
+
+The `./resources/` directory includes some JSON fixtures for you to use, and a schema to validate that they have the
+correct shape.
+
+To upload a fixture file, run the following. Note that it will only update and adds records. It won’t delete anything.
+
+    npx ts-node ./scripts/upload-database.ts \
+        --stage Development \
+        --profile shwoop \
+        ./resources/dev/AdventureApp.json
 
 ## Tooling and Workflows
 
-See the [front end’s README](https://bitbucket.org/shwoopdevelopment/adventure-app/src/master/README.md#markdown-header-tooling-and-workflows).
+[front-end-tooling]: https://bitbucket.org/shwoopdevelopment/adventure-app/src/master/README.md#markdown-header-tooling-and-workflows
+
+See the [front end’s README][front-end-tooling] for instructions on setting up your editor and how to make a change.
