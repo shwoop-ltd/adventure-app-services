@@ -121,6 +121,10 @@
             "description": "The id of the beacon that is the solution to this puzzle",
             "type": "string"
           },
+          "points": {
+            "description": "Number of points awarded for completing the challenge",
+            "type": "number"
+          },
           "text": {
             "type": "string"
           },
@@ -163,7 +167,7 @@
             "default": 0
           }
         },
-        "required": ["id", "solution", "prizes", "claimed"],
+        "required": ["id", "solution", "prizes", "claimed", "points"],
         "anyOf": [
           {
             "required": ["text"]
