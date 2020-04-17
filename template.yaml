@@ -1,5 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: 'AWS::Serverless-2016-10-31'
+
 Parameters:
   Stage:
     Type: String
@@ -7,6 +8,7 @@ Parameters:
       - Development
       - Production
     Description: The stage type to upload
+
 Globals:
   Function:
     Timeout: 10
@@ -21,12 +23,23 @@ Globals:
         ADMIN_KEY: 'nW0xj7iN7bMAS1L7cyRB32sKDtNi2qmBi2sHed8qOPPAgkPI2qhjnt5VYTDPLt0z'
   Api:
     OpenApiVersion: '3.0.1'
+
 Resources:
+  #######################
+  ##### API Gateway #####
+  #######################
+
   AdventureApi:
     Type: AWS::Serverless::Api
     Properties:
       StageName: !Ref Stage
       Name: !Join ['-', ['AdventureApp', !Ref Stage]]
+      Domain:
+        DomainName: api.shwoop.co.nz
+        BasePath: [!Ref Stage]
+        CertificateArn: arn:aws:acm:ap-southeast-2:020479359034:certificate/249d1a3d-0a9b-4c37-9015-d745e4441ac8
+        Route53:
+          HostedZoneId: Z1TATV9FOEAFUC
       DefinitionBody:
         'Fn::Transform':
           Name: 'AWS::Include'
@@ -40,6 +53,11 @@ Resources:
             UserPoolArn: arn:aws:cognito-idp:ap-southeast-2:020479359034:userpool/ap-southeast-2_UyvhAfzW8
             Identity:
               Header: Authorization
+
+  ####################
+  ##### DynamoDB #####
+  ####################
+
   AdventureTable:
     Type: AWS::Serverless::SimpleTable
     Properties:
@@ -52,6 +70,7 @@ Resources:
         ReadCapacityUnits: 5
       Tags:
         AppType: Serverless
+
   PrizesTable:
     Type: AWS::Serverless::SimpleTable
     Properties:
@@ -64,6 +83,7 @@ Resources:
         ReadCapacityUnits: 5
       Tags:
         AppType: Serverless
+
   UsersTable:
     Type: AWS::Serverless::SimpleTable
     Properties:
@@ -76,6 +96,7 @@ Resources:
         ReadCapacityUnits: 5
       Tags:
         AppType: Serverless
+
   TelemetryTable:
     Type: AWS::Serverless::SimpleTable
     Properties:
@@ -88,6 +109,11 @@ Resources:
         ReadCapacityUnits: 1
       Tags:
         AppType: Serverless
+
+  ##################
+  ##### Layers #####
+  ##################
+
   CommonCode:
     Type: AWS::Serverless::LayerVersion
     Properties:
@@ -96,6 +122,11 @@ Resources:
       ContentUri: ./build/_common
       CompatibleRuntimes: [nodejs10.x]
       RetentionPolicy: Delete
+
+  ############################
+  ##### Lambda Functions #####
+  ############################
+
   GetMaps:
     Type: AWS::Serverless::Function
     Properties:
@@ -116,6 +147,7 @@ Resources:
             Method: get
             Auth:
               Authorizer: 'NONE'
+
   GetMap:
     Type: AWS::Serverless::Function
     Properties:
@@ -136,6 +168,7 @@ Resources:
             Method: get
             Auth:
               Authorizer: None
+
   GetBeacon:
     Type: AWS::Serverless::Function
     Properties:
@@ -156,6 +189,7 @@ Resources:
             Method: get
             Auth:
               Authorizer: None
+
   GetChallengePrizes:
     Type: AWS::Serverless::Function
     Properties:
@@ -176,6 +210,7 @@ Resources:
             Method: get
             Auth:
               Authorizer: None
+
   GetPrizeTypes:
     Type: AWS::Serverless::Function
     Properties:
@@ -196,6 +231,7 @@ Resources:
             Method: get
             Auth:
               Authorizer: None
+
   GetPrize:
     Type: AWS::Serverless::Function
     Properties:
@@ -218,6 +254,7 @@ Resources:
             Method: post
             Auth:
               Authorizer: None
+
   DeletePrize:
     Type: AWS::Serverless::Function
     Properties:
@@ -242,6 +279,7 @@ Resources:
             Method: delete
             Auth:
               Authorizer: None
+
   GetUsers:
     Type: AWS::Serverless::Function
     Properties:
@@ -264,6 +302,7 @@ Resources:
             Method: get
             Auth:
               Authorizer: None
+
   GetUser:
     Type: AWS::Serverless::Function
     Properties:
@@ -286,6 +325,7 @@ Resources:
             Method: get
             Auth:
               Authorizer: CognitoUser
+
   RegisterUser:
     Type: AWS::Serverless::Function
     Properties:
@@ -308,6 +348,7 @@ Resources:
             Method: post
             Auth:
               Authorizer: CognitoUser
+
   StartChallenge:
     Type: AWS::Serverless::Function
     Properties:
@@ -332,6 +373,7 @@ Resources:
             Method: post
             Auth:
               Authorizer: CognitoUser
+
   StopChallenge:
     Type: AWS::Serverless::Function
     Properties:
@@ -358,6 +400,7 @@ Resources:
             Method: delete
             Auth:
               Authorizer: CognitoUser
+
   FinishChallenge:
     Type: AWS::Serverless::Function
     Properties:
@@ -384,6 +427,7 @@ Resources:
             Method: post
             Auth:
               Authorizer: CognitoUser
+
   ClaimTreasure:
     Type: AWS::Serverless::Function
     Properties:
@@ -410,6 +454,7 @@ Resources:
             Method: post
             Auth:
               Authorizer: CognitoUser
+
   GetUserPrizes:
     Type: AWS::Serverless::Function
     Properties:
@@ -430,6 +475,7 @@ Resources:
             Method: get
             Auth:
               Authorizer: CognitoUser
+
   GetSurvey:
     Type: AWS::Serverless::Function
     Properties:
@@ -454,6 +500,7 @@ Resources:
             Method: get
             Auth:
               Authorizer: CognitoUser
+
   FinishSurvey:
     Type: AWS::Serverless::Function
     Properties:
