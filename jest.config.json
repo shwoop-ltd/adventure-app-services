@@ -2,5 +2,8 @@
   "preset": "ts-jest",
   "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"],
   "testMatch": ["**/test/**/*.[jt]s", "**/?(*.)+(spec|test).[jt]s"],
-  "transformIgnorePatterns": ["node_modules"]
+  "transformIgnorePatterns": ["node_modules"],
+  "moduleNameMapper": {
+    "/opt/nodejs/(.*)": "<rootDir>/src/_common/nodejs/$1"
+  }
 }
