@@ -15,10 +15,12 @@ interface User {
 
 export const users = [
   {
+    id: '3f7b3226-8417-4e8b-9879-3a64fcb475bd',
     username: 'TestUser1@shwoop.co.nz',
     password: 'crematorium',
   },
   {
+    id: '6747ce61-ca1e-49ab-91b1-ad73adc4ee84',
     username: 'TestUser2@shwoop.co.nz',
     password: 'crematorium',
   },
