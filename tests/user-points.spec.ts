@@ -12,13 +12,22 @@ describe('GET /users', () => {
     user_2_token = await get_jwt_token(users[1]);
   });
 
-  it("can access user's points", async () => {
-    const response = await fetch(`${base}/users?attributes[]=points`, {
+  it('Can register a user', async () => {
+    const response = await fetch(`${base}/users/${users[0].username}`, {
       method: 'post',
       headers: {
         Authorization: user_1_token,
       },
     });
+
+    expect(response.status).toEqual(200);
+    const body = await response.json();
+    expect(Array.isArray(body)).toBeTruthy();
+    expect(body).toHaveProperty('id');
+  });
+
+  it("Can access user's points", async () => {
+    const response = await fetch(`${base}/users?attributes[]=points`);
 
     expect(response.status).toEqual(200);
     const body = await response.json();
