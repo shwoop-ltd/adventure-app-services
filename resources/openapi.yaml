@@ -200,6 +200,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/User'
+        401:
+          description: 'Cannot access requested attribute'
       x-amazon-apigateway-integration:
         uri:
           Fn::Sub: 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetUsers.Arn}/invocations'
