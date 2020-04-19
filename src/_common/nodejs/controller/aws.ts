@@ -1,4 +1,9 @@
-import { APIGatewayProxyEvent, APIGatewayProxyResult, APIGatewayProxyCognitoAuthorizer } from 'aws-lambda';
+import {
+  APIGatewayProxyEvent,
+  APIGatewayProxyResult,
+  APIGatewayProxyCognitoAuthorizer,
+  APIGatewayProxyWithCognitoAuthorizerEvent,
+} from 'aws-lambda';
 import Persistence from '../persistence';
 import { ApiFunction, ApiRequest } from './types';
 import DynamoDBDriver from '../persistence/drivers/dynamodb';
@@ -24,13 +29,21 @@ function craft_response(code: number, body: string | object | boolean): APIGatew
   }
 }
 
-export default (handler_function: ApiFunction) => async (event: APIGatewayProxyEvent) => {
+export default (handler_function: ApiFunction) => async (event: APIGatewayProxyWithCognitoAuthorizerEvent) => {
+  const query = Object.entries(event.multiValueQueryStringParameters || []).reduce((prev, [key, value]) => {
+    if (key.endsWith('[]')) {
+      key = key.replace('[]', '');
+    }
+
+    return { ...prev, key: value.length === 1 ? value[0] : value };
+  }, {} as { [key: string]: string | string[] | undefined });
+
   const event_input: ApiRequest = {
     path: event.pathParameters || {},
-    query: event.queryStringParameters || {},
+    query: query,
     headers: event.headers,
     body: event.body,
-    authorizer: event.requestContext.authorizer as APIGatewayProxyCognitoAuthorizer,
+    authorizer: event.requestContext.authorizer,
   };
 
   const model = new Persistence(event_input, new DynamoDBDriver());
