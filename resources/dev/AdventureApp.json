@@ -120,6 +120,7 @@
   {
     "claimed": 0,
     "id": "challenge-uoa-1",
+    "points": 150,
     "prizes": [
       {
         "available": 200,
@@ -133,6 +134,7 @@
   {
     "claimed": 0,
     "id": "challenge-uoa-2",
+    "points": 150,
     "prizes": [
       {
         "available": 200,
@@ -146,6 +148,7 @@
   {
     "claimed": 0,
     "id": "challenge-uoa-3",
+    "points": 150,
     "prizes": [
       {
         "available": 200,
@@ -159,6 +162,7 @@
   {
     "claimed": 0,
     "id": "challenge-uoa-4",
+    "points": 150,
     "prizes": [
       {
         "available": 200,
@@ -171,6 +175,7 @@
   {
     "claimed": 0,
     "id": "challenge-uoa-5",
+    "points": 150,
     "prizes": [
       {
         "available": 200,
@@ -183,6 +188,7 @@
   {
     "claimed": 0,
     "id": "challenge-uoa-6",
+    "points": 150,
     "prizes": [
       {
         "available": 200,
