@@ -3,7 +3,7 @@ import fetch from 'node-fetch';
 
 const base = process.env.API_URL ?? 'http://127.0.0.1:3000';
 
-describe('GET /users', () => {
+describe('/users', () => {
   let user_1_token: string = '';
   let user_2_token: string = '';
 
@@ -13,17 +13,26 @@ describe('GET /users', () => {
   });
 
   it('Can register a user', async () => {
-    const response = await fetch(`${base}/users/${users[0].username}`, {
+    const response = await fetch(`${base}/users/${users[0].id}`, {
       method: 'post',
       headers: {
-        Authorization: user_1_token,
+        Authorization: 'Bearer ' + user_1_token,
+        'Content-Type': 'application/json',
       },
+      body: JSON.stringify({
+        campaign: 'uoa',
+        beta: false,
+      }),
     });
 
     expect(response.status).toEqual(200);
     const body = await response.json();
-    expect(Array.isArray(body)).toBeTruthy();
+    expect(typeof body).toEqual(typeof {});
     expect(body).toHaveProperty('id');
+    expect(body).toHaveProperty('campaign');
+    expect(body).toHaveProperty('beta');
+    expect(body.campaign).toEqual('uoa');
+    expect(body.beta).toEqual(false);
   });
 
   it("Can access user's points", async () => {

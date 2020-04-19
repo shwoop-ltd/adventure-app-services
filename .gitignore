@@ -1,5 +1,8 @@
 node_modules/
 
+# Should only be used for individual testing sessions and should not be shared.
+resources/temporary/TempStorage.temp
+
 # Specific stuff for scripts.
 build
 cloudformation.yaml

@@ -27,18 +27,16 @@ export const users = [
 ];
 
 Amplify.configure({
-  Auth: {
-    identityPoolId: 'ap-southeast-2:047ec1b5-ba51-418a-8bae-c611d6d0b6d6',
+  identityPoolId: 'ap-southeast-2:047ec1b5-ba51-418a-8bae-c611d6d0b6d6',
 
-    // REQUIRED - Amazon Cognito Region
-    region: 'ap-southeast-2',
+  // REQUIRED - Amazon Cognito Region
+  region: 'ap-southeast-2',
 
-    // OPTIONAL - Amazon Cognito User Pool ID
-    userPoolId: 'ap-southeast-2_UyvhAfzW8',
+  // OPTIONAL - Amazon Cognito User Pool ID
+  userPoolId: 'ap-southeast-2_UyvhAfzW8',
 
-    // OPTIONAL - Amazon Cognito Web Client ID (26-char alphanumeric string)
-    userPoolWebClientId: '2ndspb2tklk4tna7uecb6moooh',
-  },
+  // OPTIONAL - Amazon Cognito Web Client ID (26-char alphanumeric string)
+  userPoolWebClientId: '2ndspb2tklk4tna7uecb6moooh',
 });
 
 export async function get_jwt_token(user: User) {
