@@ -5,19 +5,18 @@ export async function get_users(event: ApiRequest, model: Persistence): Promise<
   await model.telemetry.create('get-users');
 
   const attributesWhiteList = ['id', 'campaign', 'points', 'prizes', 'challenges', 'prerequisite_challenges_completed'];
-  let users;
+  let attributes = attributesWhiteList;
 
-  if (event.query && event.query.attributes) {
-    let attributes = Array.isArray(event.query.attributes) ? event.query.attributes : [event.query.attributes];
+  if (event.query?.attributes) {
+    const user_attrs = Array.isArray(event.query.attributes) ? event.query.attributes : [event.query.attributes];
 
-    // refuses access to 'beta', 'surveys', 'treasure'
-    if (attributes.some((v) => attributesWhiteList.indexOf(v) == -1)) {
+    if (!user_attrs.every((attr) => attributesWhiteList.includes(attr))) {
       return { code: 401, body: 'Cannot access requested attribute' };
     }
-    users = await model.user.get_all(attributes);
-  } else {
-    users = await model.user.get_all(attributesWhiteList);
+    attributes = user_attrs;
   }
+
+  const users = await model.user.get_all(attributes);
 
   return { code: 200, body: users };
 }
