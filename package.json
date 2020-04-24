@@ -10,6 +10,7 @@
     "build": "tsc --p tsconfig.build.json",
     "lint": "eslint **/*.ts",
     "integration-test": "jest tests/",
+    "test": "jest src/",
     "deploy": "powershell ./scripts/deploy.ps1 Development"
   },
   "dependencies": {
