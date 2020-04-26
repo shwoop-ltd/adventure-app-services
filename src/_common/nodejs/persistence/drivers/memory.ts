@@ -26,7 +26,7 @@ export default class MemoryDriver extends Driver {
   public get_item<T>(key: Key, id?: string | undefined): Promise<T | undefined>;
   public get_item<T>(key: Key, id: string, always_exists: true): Promise<T>;
   public async get_item<T>(key: Key, id?: string, always_exists?: boolean): Promise<T | undefined> {
-    const db_key = key + (id ? '-' + id : '');
+    const db_key = id?.startsWith(key) ? id : key + (id ? '-' + id : '');
     if (always_exists && !(db_key in this.store)) {
       throw ReferenceError(`DB Item ${db_key} doesn't exist`);
     }
