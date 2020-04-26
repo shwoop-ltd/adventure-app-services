@@ -54,7 +54,9 @@ async function run() {
       );
       // do some magic to allow for a variable method. The as 'put' makes typescript think it's a valid method.
       app.route(express_endpoint)[method.toLowerCase() as 'put']((req, res) => {
-        console.log(`${name} called with path parameters ${JSON.stringify(req.params)}`);
+        console.log(`${name} called with:`);
+        console.log(`Path parameters: ${JSON.stringify(req.params)}`);
+        console.log(`Query parameters: ${JSON.stringify(req.query)}`);
         return handler(req, res);
       });
     });

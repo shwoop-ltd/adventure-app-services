@@ -44,6 +44,31 @@ export default class DynamoDBDriver extends Driver {
   }
 
   /**
+   * Get an array of items in the table
+   * @param key The model to get
+   * @param use_filter Specify if the model id should contain the key, useful when a table is shared by more than one model
+   * @param attributes The attributes of the model to return. If not present, returns all attributes
+   */
+  public async scan_table<T>(key: Key, use_filter: boolean, attributes?: string[]): Promise<T[]> {
+    const table_name = this.get_table_for_model(key);
+    let result;
+    if (use_filter) {
+      result = await this.doc_client
+        .scan({
+          TableName: table_name,
+          FilterExpression: `begins_with(id, ${key})`,
+          ProjectionExpression: attributes ? attributes.join(',') : undefined,
+        })
+        .promise();
+    } else {
+      result = await this.doc_client
+        .scan({ TableName: table_name, ProjectionExpression: attributes ? attributes.join(',') : undefined })
+        .promise();
+    }
+    return result.Items as T[];
+  }
+
+  /**
    * Gets the correct table for the given model
    *
    * @param key name of the model

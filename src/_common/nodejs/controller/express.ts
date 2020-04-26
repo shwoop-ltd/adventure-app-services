@@ -13,10 +13,10 @@ export default (handler_function: ApiFunction) => async (req: Request, res: Resp
     console.log('Authorization token found:');
     console.log(token);
 
-    if (!token || typeof token !== 'object' || !('claims' in token)) {
-      console.log('token is not valid, must resemble { ... "claims": { "sub": ... }, ... }');
+    if (!token || typeof token !== 'object' || !('sub' in token)) {
+      console.log('token is not valid, must contain sub');
     } else {
-      authorizer = token as { claims: { sub?: string } };
+      authorizer = { claims: token } as { claims: { sub?: string } };
     }
   }
   if (req.body && Object.keys(req.body).length != 0) {
@@ -34,5 +34,11 @@ export default (handler_function: ApiFunction) => async (req: Request, res: Resp
 
   const model = new Persistence(input_event, new MemoryDriver());
   const response = await handler_function(input_event, model);
+
+  console.log(`Response: ${response.code}`);
+  console.log('Body:');
+  console.log(response.body);
+  console.log();
+
   res.status(response.code).send(response.body);
 };

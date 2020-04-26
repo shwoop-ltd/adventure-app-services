@@ -11,7 +11,7 @@ export interface Telemetry {
   headers: { [name: string]: string };
   parameters: {
     path: { [name: string]: string | undefined };
-    query: { [name: string]: string | undefined };
+    query: { [name: string]: string | string[] | undefined };
   };
   body: string | null;
 }
