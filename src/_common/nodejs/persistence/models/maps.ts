@@ -43,6 +43,6 @@ export interface Map {
 }
 
 export class MapModel extends Model {
-  public get_all = () => this.driver.get_item<MapCollection>('maps', '', true);
-  public get = (id: string) => this.driver.get_item<Map>('map', id);
+  public get_all = () => this.driver.get_item<MapCollection>('maps', 'maps', true);
+  public get = (id: string) => this.driver.get_item<Map>('map', `map-${id}`);
 }
