@@ -86,30 +86,6 @@
     ]
   },
   {
-    "id": "beacon-uoa-0000_0001",
-    "beacon_type": "challenge-completer"
-  },
-  {
-    "id": "beacon-uoa-0000_0002",
-    "beacon_type": "challenge-completer"
-  },
-  {
-    "id": "beacon-uoa-0000_0003",
-    "beacon_type": "challenge-completer"
-  },
-  {
-    "id": "beacon-uoa-0000_0004",
-    "beacon_type": "challenge-completer"
-  },
-  {
-    "id": "beacon-uoa-0000_0005",
-    "beacon_type": "challenge-completer"
-  },
-  {
-    "id": "beacon-uoa-0000_0006",
-    "beacon_type": "challenge-completer"
-  },
-  {
     "id": "beacon-uoa-0000_0007",
     "beacon_type": "treasure"
   },
@@ -127,7 +103,10 @@
         "prize": "redbull-can"
       }
     ],
-    "solution": "0000_0001",
+    "solution": {
+      "latitude": 12,
+      "longitude": 21
+    },
     "text": "0000_0001",
     "radius": 100
   },
@@ -141,7 +120,10 @@
         "prize": "redbull-can"
       }
     ],
-    "solution": "0000_0002",
+    "solution": {
+      "latitude": 12,
+      "longitude": 21
+    },
     "text": "0000_0002",
     "radius": 50
   },
@@ -155,7 +137,10 @@
         "prize": "redbull-can"
       }
     ],
-    "solution": "0000_0003",
+    "solution": {
+      "latitude": 12,
+      "longitude": 21
+    },
     "text": "0000_0003",
     "radius": 1000
   },
@@ -169,7 +154,10 @@
         "prize": "redbull-can"
       }
     ],
-    "solution": "0000_0004",
+    "solution": {
+      "latitude": 12,
+      "longitude": 21
+    },
     "text": "0000_0004"
   },
   {
@@ -182,7 +170,10 @@
         "prize": "redbull-can"
       }
     ],
-    "solution": "0000_0005",
+    "solution": {
+      "latitude": 12,
+      "longitude": 21
+    },
     "text": "0000_0005"
   },
   {
@@ -195,7 +186,10 @@
         "prize": "redbull-can"
       }
     ],
-    "solution": "0000_0006",
+    "solution": {
+      "latitude": 12,
+      "longitude": 21
+    },
     "text": "0000_0006"
   },
   {

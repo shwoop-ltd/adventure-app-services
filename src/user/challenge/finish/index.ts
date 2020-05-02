@@ -1,4 +1,4 @@
-import { get_next_prize, create_points_prize_response } from '/opt/nodejs/helpers';
+import { get_next_prize, create_points_prize_response, get_distance } from '/opt/nodejs/helpers';
 import controller, { ApiResponse, ApiRequest } from '/opt/nodejs/controller';
 import Persistence from '/opt/nodejs/persistence';
 
@@ -8,12 +8,16 @@ export async function finish_challenge(event: ApiRequest, model: Persistence): P
   }
 
   const body = JSON.parse(event.body);
-  if (!body.challenge_id || !body.beacon_id || !body.map) {
+  if (!body.challenge_id || !body.location || !body.map) {
     return { code: 400, body: 'Incorrect body.' };
   }
 
   if (!event.path || !event.path.user_id) {
     return { code: 400, body: 'No user_id' };
+  }
+
+  if (!body.location.latitude || !body.location.longitude) {
+    return { code: 400, body: 'Invalid location format' };
   }
 
   // Done first to ensure our telemetry is about a given user.
@@ -31,7 +35,7 @@ export async function finish_challenge(event: ApiRequest, model: Persistence): P
   await model.telemetry.create('finish-challenge', user.id);
 
   // Core variable assignment
-  const { beacon_id, map, challenge_id } = body;
+  const { location, map, challenge_id } = body;
 
   const challenge = await model.challenge.get(map, challenge_id);
   if (!challenge) return { code: 404, body: 'Puzzle not found' };
@@ -39,8 +43,8 @@ export async function finish_challenge(event: ApiRequest, model: Persistence): P
   // Check the user hasn't already completed it
   if (user.challenges.includes(challenge_id)) return { code: 403, body: 'Challenge already completed.' };
 
-  // Solution Check
-  if (challenge.solution !== beacon_id) return { code: 204, body: 'Wrong solution.' };
+  // Solution Check, 50 meter radius
+  if (get_distance(challenge.solution, location) > 50) return { code: 204, body: 'Wrong solution.' };
 
   // Identify the prize that should be awarded.
   const prize_info = get_next_prize(challenge);

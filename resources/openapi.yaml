@@ -372,7 +372,7 @@ paths:
           description: 'Have not completed enough prerequisite challenges'
           content: {}
         404:
-          description: 'Map or beacon not found'
+          description: 'Map or location not found'
           content: {}
       x-amazon-apigateway-integration:
         uri:
@@ -392,19 +392,19 @@ paths:
             type: string
           required: true
       requestBody:
-        description: 'Contains the beacon of the guessed solution'
+        description: 'Contains the location of the guessed solution'
         content:
           application/json:
             schema:
               type: object
               properties:
-                beacon_id:
-                  type: string
+                location:
+                  $ref: '#/components/schemas/Coordinate'
                 map:
                   type: string
                 challenge_id:
                   type: number
-              required: [beacon_id, map, challenge_id]
+              required: [location, map, challenge_id]
               additionalProperties: false
       security:
         - CognitoAuthorizer: []
@@ -422,7 +422,7 @@ paths:
           description: 'Did not solve puzzle'
           content: {}
         400:
-          description: 'Input body incorrect. Need a valid beacon_id'
+          description: 'Input body incorrect. Need a valid location'
           content: {}
         403:
           description: 'Challenge already completed'
@@ -449,7 +449,7 @@ paths:
         204:
           description: 'successful operation'
         404:
-          description: 'map or beacon not found, or challenge not started'
+          description: 'map or location not found, or challenge not started'
           content: {}
       x-amazon-apigateway-integration:
         uri:
