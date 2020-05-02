@@ -611,6 +611,9 @@ components:
         radius:
           description: 'Radius in which the solution can be found'
           type: number
+        final_location:
+          description: 'final location the user must reach to complete the challenge'
+          $ref: '#/components/schemas/Coordinate'
       additionalProperties: false
     ChallengeInfo:
       type: object
