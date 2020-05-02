@@ -118,8 +118,8 @@
             "pattern": "^challenge-(.*)-(.*)$"
           },
           "solution": {
-            "description": "The id of the beacon that is the solution to this puzzle",
-            "type": "string"
+            "description": "Location the player needs to reach to complete the challenge",
+            "$ref": "#/definitions/location"
           },
           "points": {
             "description": "Number of points awarded for completing the challenge",

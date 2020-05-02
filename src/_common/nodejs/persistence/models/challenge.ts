@@ -1,5 +1,5 @@
 import Model from './model';
-import { PrizePool } from './types';
+import { PrizePool, Location } from './types';
 
 export interface Challenge extends PrizePool {
   id: string /* challenge-{map}-{id} */;
@@ -9,8 +9,8 @@ export interface Challenge extends PrizePool {
   image_url?: string;
   radius?: number;
 
-  // Beacon id to use
-  solution: string;
+  // Location the player needs to reach to complete the challenge
+  solution: Location;
   points: number;
 }
 
