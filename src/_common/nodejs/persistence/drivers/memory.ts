@@ -23,10 +23,9 @@ export default class MemoryDriver extends Driver {
     }
   }
 
-  public get_item<T>(key: Key, id?: string | undefined): Promise<T | undefined>;
-  public get_item<T>(key: Key, id: string, always_exists: true): Promise<T>;
-  public async get_item<T>(key: Key, id?: string, always_exists?: boolean): Promise<T | undefined> {
-    const db_key = key + (id ? '-' + id : '');
+  public get_item<T>(key: Key, id: string, always_exists: true): Promise<T | undefined>;
+  public async get_item<T>(key: Key, id: string, always_exists?: boolean): Promise<T | undefined> {
+    const db_key = id?.startsWith(key) ? id : key + (id ? '-' + id : '');
     if (always_exists && !(db_key in this.store)) {
       throw ReferenceError(`DB Item ${db_key} doesn't exist`);
     }
@@ -34,7 +33,7 @@ export default class MemoryDriver extends Driver {
     return (this.store[db_key] as unknown) as T | undefined;
   }
   public async put_item(key: Key, item: { id: string }): Promise<void> {
-    const db_key = key + (item.id ? '-' + item.id : '');
+    const db_key = item.id.startsWith(key) ? item.id : key + (item.id ? '-' + item.id : '');
     this.store[db_key] = item;
     fs.writeFileSync(this.temp_storage_path, JSON.stringify(this.store, null, 1), 'utf-8');
   }

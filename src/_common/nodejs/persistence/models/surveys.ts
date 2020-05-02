@@ -15,5 +15,5 @@ export interface SurveyCollection {
 }
 
 export class SurveyModel extends Model {
-  public get = () => this.driver.get_item<SurveyCollection>('surveys');
+  public get = () => this.driver.get_item<SurveyCollection>('surveys', 'surveys');
 }
