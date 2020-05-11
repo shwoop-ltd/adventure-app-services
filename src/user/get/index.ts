@@ -1,6 +1,5 @@
 import Persistence from '/opt/nodejs/persistence';
 import controller, { ApiResponse, ApiRequest } from '/opt/nodejs/controller';
-import Model from '/opt/nodejs/persistence/models/model';
 
 export async function get_user(event: ApiRequest, model: Persistence): Promise<ApiResponse> {
   if (!event.path || !event.path.user_id) {
