@@ -64,6 +64,7 @@ export async function start_challenge(event: ApiRequest, model: Persistence): Pr
       text: challenge.text,
       image_url: challenge.image_url,
       radius: challenge.radius,
+      final_location: challenge.solution,
     },
   };
 }
