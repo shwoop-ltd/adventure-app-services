@@ -21,25 +21,19 @@ export async function get_user(event: ApiRequest, model: Persistence): Promise<A
     return { code: 404, body: 'User does not exist' };
   }
 
-  const response = await model.user.get_all(['id', 'points']);
+  // To get the user's rank, we need to load all users' points, sort them, then find the index of the requested user.
+  // This will get really slow as the number of users grows, but it's the only easy way we could find for the MVP.
+  // Post-MVP, we should either look into techniques like [this one][1] to avoid the performance issue, or [switch away
+  // from DynamoDB][2].
+  //
+  // [1]: https://www.dynamodbguide.com/leaderboard-write-sharding/
+  // [2]: https://shwoop.atlassian.net/browse/DEV-134
+  const rank =
+    (await model.user.get_all(['id', 'points']))
+      .sort((a, b) => a.points - b.points)
+      .findIndex((user) => user_id === user.id) + 1;
 
-  response.sort((a, b) => (a.points > b.points ? 1 : -1));
-
-  const check_id = (user: any) => {
-    return user_id === user.id;
-  };
-
-  const user_rank: number = response.findIndex(check_id) + 1;
-
-  const user_with_rank = {
-    ...user,
-    rank: user_rank,
-  };
-
-  console.log(response);
-  console.log(user_with_rank.rank);
-
-  return { code: 200, body: user_with_rank };
+  return { code: 200, body: { ...user, rank } };
 }
 
 export const handler = controller(get_user);
