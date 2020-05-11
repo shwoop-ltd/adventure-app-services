@@ -34,7 +34,7 @@ describe(suiteName(__dirname, __filename), () => {
 
       const { body } = (await get_user(event, db)) as any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
-      expect(body.rank).toBe(1);
+      expect(body.lifetimeRank).toBe(1);
     });
 
     it('returns 2 if the user is the middle user of 3', async () => {
@@ -47,7 +47,7 @@ describe(suiteName(__dirname, __filename), () => {
 
       const { body } = (await get_user(event, db)) as any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
-      expect(body.rank).toBe(2);
+      expect(body.lifetimeRank).toBe(2);
     });
   });
 });

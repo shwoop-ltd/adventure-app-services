@@ -27,12 +27,12 @@ export async function get_user(event: ApiRequest, model: Persistence): Promise<A
   //
   // [1]: https://www.dynamodbguide.com/leaderboard-write-sharding/
   // [2]: https://shwoop.atlassian.net/browse/DEV-134
-  const rank =
+  const lifetimeRank =
     (await model.user.get_all(['id', 'points']))
       .sort((a, b) => a.points - b.points)
       .findIndex((user) => user_id === user.id) + 1;
 
-  return { code: 200, body: { ...user, rank } };
+  return { code: 200, body: { ...user, lifetimeRank } };
 }
 
 export const handler = controller(get_user);
