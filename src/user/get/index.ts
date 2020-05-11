@@ -1,5 +1,6 @@
 import Persistence from '/opt/nodejs/persistence';
 import controller, { ApiResponse, ApiRequest } from '/opt/nodejs/controller';
+import Model from '/opt/nodejs/persistence/models/model';
 
 export async function get_user(event: ApiRequest, model: Persistence): Promise<ApiResponse> {
   if (!event.path || !event.path.user_id) {
@@ -20,7 +21,25 @@ export async function get_user(event: ApiRequest, model: Persistence): Promise<A
     return { code: 404, body: 'User does not exist' };
   }
 
-  return { code: 200, body: user };
+  const response = await model.user.get_all(['id', 'points']);
+
+  response.sort((a, b) => (a.points > b.points ? 1 : -1));
+
+  const check_id = (user: any) => {
+    return user_id === user.id;
+  };
+
+  const user_rank: number = response.findIndex(check_id) + 1;
+
+  const user_with_rank = {
+    ...user,
+    rank: user_rank,
+  };
+
+  console.log(response);
+  console.log(user_with_rank.rank);
+
+  return { code: 200, body: user_with_rank };
 }
 
 export const handler = controller(get_user);
