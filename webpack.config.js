@@ -46,6 +46,7 @@ module.exports = {
   output: {
     filename: '[name]/index.js',
     path: path.join(__dirname, 'build'),
+    libraryTarget: 'commonjs',
   },
   mode: 'production',
 };
