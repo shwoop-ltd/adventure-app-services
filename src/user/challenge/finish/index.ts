@@ -8,16 +8,12 @@ export async function finish_challenge(event: ApiRequest, model: Persistence): P
   }
 
   const body = JSON.parse(event.body);
-  if (!body.challenge_id || !body.location || !body.map) {
+  if (!body.challengeId || !body.map) {
     return { code: 400, body: 'Incorrect body.' };
   }
 
   if (!event.path || !event.path.user_id) {
     return { code: 400, body: 'No user_id' };
-  }
-
-  if (!body.location.latitude || !body.location.longitude) {
-    return { code: 400, body: 'Invalid location format' };
   }
 
   // Done first to ensure our telemetry is about a given user.
@@ -35,16 +31,13 @@ export async function finish_challenge(event: ApiRequest, model: Persistence): P
   await model.telemetry.create('finish-challenge', user.id);
 
   // Core variable assignment
-  const { location, map, challenge_id } = body;
+  const { map, challengeId } = body;
 
-  const challenge = await model.challenge.get(map, challenge_id);
+  const challenge = await model.challenge.get(map, challengeId);
   if (!challenge) return { code: 404, body: 'Puzzle not found' };
 
   // Check the user hasn't already completed it
-  if (user.challenges.includes(challenge_id)) return { code: 403, body: 'Challenge already completed.' };
-
-  // Solution Check, 50 meter radius
-  if (get_distance(challenge.solution, location) > 50) return { code: 204, body: 'Wrong solution.' };
+  if (user.challenges.includes(challengeId)) return { code: 403, body: 'Challenge already completed.' };
 
   // Identify the prize that should be awarded.
   const prize_info = get_next_prize(challenge);
@@ -52,7 +45,7 @@ export async function finish_challenge(event: ApiRequest, model: Persistence): P
   // Puzzle Check
   const map_info = await model.map.get(map);
   if (!map_info) return { code: 500, body: 'Map not found' };
-  const challenge_info = map_info.challenges.find((map_challenge) => map_challenge.id === challenge_id);
+  const challenge_info = map_info.challenges.find((map_challenge) => map_challenge.id === challengeId);
   if (!challenge_info) return { code: 400, body: 'Challenge not found' };
 
   // Create prize for user, or give user points
@@ -70,7 +63,7 @@ export async function finish_challenge(event: ApiRequest, model: Persistence): P
 
   challenge.claimed += 1;
 
-  user.challenges.push(challenge_id);
+  user.challenges.push(challengeId);
 
   if (challenge_info.is_prerequisite) user.prerequisite_challenges_completed += 1;
 
