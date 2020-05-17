@@ -127,10 +127,10 @@ Resources:
   ##### S3 #####
   ##############
 
-  ChallengeCompletionImages:
-    Type: AWS::S3::Bucket
-    Properties:
-      BucketName: challenge-completion-images
+  # ChallengeCompletionImages:
+  #   Type: AWS::S3::Bucket
+  #   Properties:
+  #     BucketName: challenge-completion-images
 
   ############################
   ##### Lambda Functions #####
