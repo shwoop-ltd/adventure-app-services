@@ -4,7 +4,7 @@
 import * as fs from 'fs';
 import * as AWS from 'aws-sdk';
 import { ScanOutput, ScanInput } from 'aws-sdk/clients/dynamodb';
-import { User } from '/opt/nodejs/persistence/models/users';
+import { User } from '../../src/core/models/users';
 
 // Russell! >:(
 const answers: [{ id: string; solution: string }] = JSON.parse(

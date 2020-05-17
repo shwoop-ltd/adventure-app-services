@@ -7,7 +7,7 @@
     "start-express": "cross-env IN_MEMORY_SEED_PATH='./resources/dev/AdventureApp.json' LOCAL_EXPRESS='TRUE' yarn ts-node -P ./tsconfig.json -r tsconfig-paths/register ./src/express-server.ts",
     "start-sam": "concurrently --kill-others \"tsc --watch --p tsconfig.build.json\" \"powershell ./scripts/start-sam.ps1\"",
     "stop-sam": "powershell ./scripts/stop-sam.ps1",
-    "build": "tsc --p tsconfig.build.json",
+    "build": "webpack",
     "lint": "eslint **/*.ts",
     "integration-test": "jest tests/",
     "test": "jest src/",
@@ -43,7 +43,10 @@
     "prettier": "^2.0.2",
     "testdouble": "^3.13.1",
     "ts-jest": "^25.2.1",
+    "ts-loader": "^7.0.4",
     "ts-node": "^8.8.1",
-    "tsconfig-paths": "^3.9.0"
+    "tsconfig-paths": "^3.9.0",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
   }
 }
