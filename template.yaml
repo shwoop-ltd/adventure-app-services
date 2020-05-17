@@ -110,19 +110,6 @@ Resources:
       Tags:
         AppType: Serverless
 
-  ##################
-  ##### Layers #####
-  ##################
-
-  CommonCode:
-    Type: AWS::Serverless::LayerVersion
-    Properties:
-      LayerName: AdventureAppCommon
-      Description: Common adventure app code
-      ContentUri: ./build/_common
-      CompatibleRuntimes: [nodejs10.x]
-      RetentionPolicy: Delete
-
   ##############
   ##### S3 #####
   ##############
@@ -142,8 +129,6 @@ Resources:
       Runtime: nodejs10.x
       CodeUri: ./build/maps/get-maps
       Handler: index.handler
-      Layers:
-        - !Ref CommonCode
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref AdventureTable
@@ -163,8 +148,6 @@ Resources:
       Runtime: nodejs10.x
       CodeUri: ./build/maps/get-map
       Handler: index.handler
-      Layers:
-        - !Ref CommonCode
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref AdventureTable
@@ -184,8 +167,6 @@ Resources:
       Runtime: nodejs10.x
       CodeUri: ./build/maps/get-beacon
       Handler: index.handler
-      Layers:
-        - !Ref CommonCode
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref AdventureTable
@@ -205,8 +186,6 @@ Resources:
       Runtime: nodejs10.x
       CodeUri: ./build/maps/get-challenge-prizes
       Handler: index.handler
-      Layers:
-        - !Ref CommonCode
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref AdventureTable
@@ -224,10 +203,8 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Runtime: nodejs10.x
-      CodeUri: ./build/prize-types/get
+      CodeUri: ./build/prize-types/get-prize-types
       Handler: index.handler
-      Layers:
-        - !Ref CommonCode
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref AdventureTable
@@ -245,10 +222,8 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Runtime: nodejs10.x
-      CodeUri: ./build/prize/get
+      CodeUri: ./build/prize/get-prize
       Handler: index.handler
-      Layers:
-        - !Ref CommonCode
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref PrizesTable
@@ -268,10 +243,8 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Runtime: nodejs10.x
-      CodeUri: ./build/prize/delete
+      CodeUri: ./build/prize/delete-prize
       Handler: index.handler
-      Layers:
-        - !Ref CommonCode
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref AdventureTable
@@ -293,10 +266,8 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Runtime: nodejs10.x
-      CodeUri: ./build/user/get-all
+      CodeUri: ./build/user/get-users
       Handler: index.handler
-      Layers:
-        - !Ref CommonCode
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref UsersTable
@@ -316,10 +287,8 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Runtime: nodejs10.x
-      CodeUri: ./build/user/get
+      CodeUri: ./build/user/get-user
       Handler: index.handler
-      Layers:
-        - !Ref CommonCode
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref UsersTable
@@ -341,8 +310,6 @@ Resources:
       Runtime: nodejs10.x
       CodeUri: ./build/user/register
       Handler: index.handler
-      Layers:
-        - !Ref CommonCode
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref UsersTable
@@ -362,10 +329,8 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Runtime: nodejs10.x
-      CodeUri: ./build/user/challenge/start
+      CodeUri: ./build/user/challenge/start-challenge
       Handler: index.handler
-      Layers:
-        - !Ref CommonCode
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref AdventureTable
@@ -387,10 +352,8 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Runtime: nodejs10.x
-      CodeUri: ./build/user/challenge/stop
+      CodeUri: ./build/user/challenge/stop-challenge
       Handler: index.handler
-      Layers:
-        - !Ref CommonCode
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref AdventureTable
@@ -414,10 +377,8 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Runtime: nodejs10.x
-      CodeUri: ./build/user/challenge/finish
+      CodeUri: ./build/user/challenge/finish-challenge
       Handler: index.handler
-      Layers:
-        - !Ref CommonCode
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref AdventureTable
@@ -443,8 +404,6 @@ Resources:
       Runtime: nodejs10.x
       CodeUri: ./build/user/claim-treasure
       Handler: index.handler
-      Layers:
-        - !Ref CommonCode
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref AdventureTable
@@ -470,8 +429,6 @@ Resources:
       Runtime: nodejs10.x
       CodeUri: ./build/user/get-prizes
       Handler: index.handler
-      Layers:
-        - !Ref CommonCode
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref UsersTable
@@ -489,10 +446,8 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Runtime: nodejs10.x
-      CodeUri: ./build/user/survey/get
+      CodeUri: ./build/user/survey/get-survey
       Handler: index.handler
-      Layers:
-        - !Ref CommonCode
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref AdventureTable
@@ -514,10 +469,8 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Runtime: nodejs10.x
-      CodeUri: ./build/user/survey/finish
+      CodeUri: ./build/user/survey/finish-survey
       Handler: index.handler
-      Layers:
-        - !Ref CommonCode
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref AdventureTable
