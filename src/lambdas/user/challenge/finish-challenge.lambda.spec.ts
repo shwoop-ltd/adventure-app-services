@@ -1,6 +1,6 @@
-import Persistence from '../../../persistence';
+import { Persistence } from '../../../core/persistence';
 import { finish_challenge } from './finish-challenge.lambda';
-import { ApiRequest } from '../../../controller';
+import { ApiRequest } from '../../-helpers/request-handler';
 
 describe('finish_challenge functions correctly', () => {
   beforeAll(() => {});

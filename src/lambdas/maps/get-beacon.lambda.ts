@@ -1,5 +1,5 @@
-import controller, { ApiResponse, ApiRequest } from '../../controller';
-import Persistence from '../../persistence';
+import controller, { ApiResponse, ApiRequest } from '../-helpers/request-handler';
+import { Persistence } from '../../core/persistence';
 
 export async function get_beacon(event: ApiRequest, model: Persistence): Promise<ApiResponse> {
   const { map, beacon } = event.path;

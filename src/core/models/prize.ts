@@ -1,4 +1,4 @@
-import Driver from '../drivers/driver';
+import { Driver } from '../persistence';
 import Model from './model';
 import { UserModel } from './users';
 import { Location } from './types';

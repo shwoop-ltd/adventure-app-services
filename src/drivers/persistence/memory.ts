@@ -1,5 +1,4 @@
-import Driver, { StoreRecord } from './driver';
-import Key from '../keys';
+import { Driver, Key, StoreRecord } from '../../core/persistence';
 import * as fs from 'fs';
 
 export default class MemoryDriver extends Driver {

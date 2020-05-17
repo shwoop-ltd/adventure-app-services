@@ -1,7 +1,6 @@
-import { APIGatewayProxyEvent } from 'aws-lambda';
 import Model from './model';
-import Driver from '../drivers/driver';
-import { ApiRequest } from '../../controller';
+import { Driver } from '../persistence';
+import { ApiRequest } from '../../lambdas/-helpers/request-handler';
 
 export interface Telemetry {
   id: string;

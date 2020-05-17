@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
 import { ApiFunction, ApiRequest } from './types';
-import Persistence from '../persistence';
-import MemoryDriver from '../persistence/drivers/memory';
+import { Persistence } from '../../../core/persistence';
+import MemoryDriver from '../../../drivers/persistence/memory';
 
 export default (handler_function: ApiFunction) => async (req: Request, res: Response): Promise<void> => {
   let authorizer = undefined;

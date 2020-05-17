@@ -1,6 +1,6 @@
 import { get_next_prize, create_points_prize_response } from '../../utils/helpers';
-import Persistence from '../../persistence';
-import controller, { ApiResponse, ApiRequest } from '../../controller';
+import { Persistence } from '../../core/persistence';
+import controller, { ApiResponse, ApiRequest } from '../-helpers/request-handler';
 
 export async function claim_treasure(event: ApiRequest, model: Persistence): Promise<ApiResponse> {
   const { user_id, map, beacon } = event.path;

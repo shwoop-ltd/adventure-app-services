@@ -1,12 +1,7 @@
-import {
-  APIGatewayProxyEvent,
-  APIGatewayProxyResult,
-  APIGatewayProxyCognitoAuthorizer,
-  APIGatewayProxyWithCognitoAuthorizerEvent,
-} from 'aws-lambda';
-import Persistence from '../persistence';
+import { APIGatewayProxyResult, APIGatewayProxyWithCognitoAuthorizerEvent } from 'aws-lambda';
+import { Persistence } from '../../../core/persistence';
 import { ApiFunction, ApiRequest } from './types';
-import DynamoDBDriver from '../persistence/drivers/dynamodb';
+import DynamoDBDriver from '../../../drivers/persistence/dynamodb';
 
 /**
  * Makes it easier to create a response

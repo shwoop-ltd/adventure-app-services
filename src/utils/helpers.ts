@@ -1,4 +1,4 @@
-import { PrizePool, PrizeOption, Coordinates, Location } from '../persistence/models/types';
+import { PrizePool, PrizeOption, Coordinates, Location } from '../core/models/types';
 
 export function get_next_prize(prize_pool: PrizePool): PrizeOption | undefined {
   const { prizes, claimed } = prize_pool;

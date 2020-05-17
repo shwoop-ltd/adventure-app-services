@@ -1,5 +1,4 @@
-import { APIGatewayProxyEvent } from 'aws-lambda';
-import Persistence from '../persistence';
+import { Persistence } from '../../../core/persistence';
 
 export interface ApiResponse {
   code: number;

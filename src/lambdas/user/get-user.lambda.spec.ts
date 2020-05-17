@@ -3,8 +3,8 @@ import * as td from 'testdouble';
 import { suiteName } from '../../utils/suite-name';
 
 import { get_user } from './get-user.lambda';
-import Persistence from '../../persistence';
-import { User } from '../../persistence/models/users';
+import { Persistence } from '../../core/persistence';
+import { User } from '../../core/models/users';
 
 const userId = '1';
 

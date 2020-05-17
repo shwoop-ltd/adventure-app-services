@@ -1,5 +1,5 @@
-import Persistence from '../../persistence';
-import controller, { ApiResponse, ApiRequest } from '../../controller';
+import { Persistence } from '../../core/persistence';
+import controller, { ApiResponse, ApiRequest } from '../-helpers/request-handler';
 
 export async function get_prize_types(_event: ApiRequest, model: Persistence): Promise<ApiResponse> {
   const result = await model.prize.get_all_types();

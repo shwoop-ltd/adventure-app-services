@@ -1,6 +1,6 @@
 import { get_next_prize, create_points_prize_response, get_distance } from '../../../utils/helpers';
-import controller, { ApiResponse, ApiRequest } from '../../../controller';
-import Persistence from '../../../persistence';
+import controller, { ApiResponse, ApiRequest } from '../../-helpers/request-handler';
+import { Persistence } from '../../../core/persistence';
 
 export async function finish_challenge(event: ApiRequest, model: Persistence): Promise<ApiResponse> {
   if (!event.body) {

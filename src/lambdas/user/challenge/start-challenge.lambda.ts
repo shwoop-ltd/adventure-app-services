@@ -1,5 +1,5 @@
-import controller, { ApiResponse, ApiRequest } from '../../../controller';
-import Persistence from '../../../persistence';
+import controller, { ApiResponse, ApiRequest } from '../../-helpers/request-handler';
+import { Persistence } from '../../../core/persistence';
 
 export async function start_challenge(event: ApiRequest, model: Persistence): Promise<ApiResponse> {
   const { user_id, map, challenge_id: challenge_id_str } = event.path;

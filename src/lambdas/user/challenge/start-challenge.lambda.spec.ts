@@ -3,9 +3,9 @@ import * as td from 'testdouble';
 import { suiteName } from '../../../utils/suite-name';
 
 import { start_challenge } from './start-challenge.lambda';
-import Persistence from '../../../persistence';
-import { Map } from '../../../persistence/models/maps';
-import { User } from '../../../persistence/models/users';
+import { Persistence } from '../../../core/persistence';
+import { Map } from '../../../core/models/maps';
+import { User } from '../../../core/models/users';
 
 const userId = '1';
 const mapId = '2';

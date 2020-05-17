@@ -1,5 +1,5 @@
-import Persistence from '../../../persistence';
-import controller, { ApiResponse, ApiRequest } from '../../../controller';
+import { Persistence } from '../../../core/persistence';
+import controller, { ApiResponse, ApiRequest } from '../../-helpers/request-handler';
 
 export async function get_survey(event: ApiRequest, model: Persistence): Promise<ApiResponse> {
   if (!event.path || !event.path.user_id) {

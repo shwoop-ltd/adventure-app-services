@@ -1,6 +1,5 @@
 import { DynamoDB } from 'aws-sdk';
-import Key from '../keys';
-import Driver from './driver';
+import { Driver, Key } from '../../core/persistence';
 
 export default class DynamoDBDriver extends Driver {
   public constructor() {

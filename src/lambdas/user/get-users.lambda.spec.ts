@@ -1,6 +1,6 @@
-import Persistence from '../../persistence';
+import { Persistence } from '../../core/persistence';
 import { get_users } from './get-users.lambda';
-import { ApiRequest } from '../../controller';
+import { ApiRequest } from '../-helpers/request-handler';
 
 describe('get_all', () => {
   const users = [
