@@ -3,7 +3,7 @@
 import * as express from 'express';
 import * as fs from 'fs';
 import * as yaml from 'js-yaml';
-import { ApiRequest, ApiResponse } from './_common/nodejs/controller';
+import { ApiRequest, ApiResponse } from './controller';
 
 // Determine the paths to the files based on the template.yaml alone.
 
